@@ -77,6 +77,37 @@
             { value: "comissão", text: "Dúvidas de Comissão", priority: "Média", route: "Fila Contas - Produtores", bypass: false },
             { value: "ingresso-config", text: "Ingressos / Lotes", priority: "Média", route: "Fila Vendas - Operações", bypass: false },
             { value: "configuracao-evento", text: "Configuração do Evento", priority: "Alta", route: "Fila Vendas - Operações", bypass: false }
+        ],
+        cancelamento: [
+            { value: "solicitar-cancelamento", text: "Solicitar Cancelamento de Compra", priority: "Alta", route: "Fila Vendas - Estornos", bypass: true },
+            { value: "prazo-cancelamento", text: "Dúvidas sobre Prazo de Cancelamento", priority: "Baixa", route: "Fila Operações - SAC", bypass: false },
+            { value: "cancelamento-parcial", text: "Cancelamento Parcial de Pedido", priority: "Média", route: "Fila Vendas - Estornos", bypass: false }
+        ],
+        estorno: [
+            { value: "estorno-nao-recebido", text: "Estorno não recebido na conta", priority: "Alta", route: "Fila Financeiro - Estorno", bypass: true },
+            { value: "estorno-pix", text: "Estorno de PIX", priority: "Alta", route: "Fila Financeiro - Estorno", bypass: true },
+            { value: "estorno-cartao", text: "Estorno de Cartão", priority: "Alta", route: "Fila Financeiro - Estorno", bypass: true },
+            { value: "comprovante-estorno", text: "Solicitar comprovante de estorno", priority: "Média", route: "Fila Financeiro - Estorno", bypass: false }
+        ],
+        pix: [
+            { value: "pix-copia-cola", text: "Dificuldade com PIX Copia e Cola", priority: "Alta", route: "Fila Financeiro - PIX", bypass: false },
+            { value: "pix-nao-aprovado", text: "PIX pago mas pedido não aprovado", priority: "Urgente", route: "Fila Financeiro - PIX", bypass: true },
+            { value: "comprovante-pix", text: "Envio de comprovante PIX", priority: "Média", route: "Fila Financeiro - PIX", bypass: false }
+        ],
+        cartao: [
+            { value: "recusa-anti-fraude", text: "Cartão recusado pelo Anti-Fraude", priority: "Alta", route: "Fila Financeiro - Risco", bypass: true },
+            { value: "cartao-erro-3ds", text: "Erro de autenticação 3D Secure", priority: "Alta", route: "Fila Financeiro - Gateway", bypass: false },
+            { value: "dupla-cobranca", text: "Cobrança em duplicidade na fatura", priority: "Urgente", route: "Fila Financeiro - Conciliação", bypass: true }
+        ],
+        troca: [
+            { value: "troca-cadeira", text: "Troca de assento marcado", priority: "Média", route: "Fila Vendas - Operações", bypass: false },
+            { value: "troca-data", text: "Troca de data do show/sessão", priority: "Média", route: "Fila Vendas - Operações", bypass: false },
+            { value: "troca-ingresso", text: "Troca de setor/tipo de ingresso", priority: "Alta", route: "Fila Vendas - Operações", bypass: false }
+        ],
+        suporte: [
+            { value: "erro-login", text: "Erro de login / Esqueci minha senha", priority: "Média", route: "Fila Operações - SAC", bypass: false },
+            { value: "pdf-corrompido", text: "PDF do ingresso corrompido / não abre", priority: "Alta", route: "Fila Vendas - Reenvio", bypass: true },
+            { value: "site-instabilidade", text: "Instabilidade no fluxo de compra", priority: "Alta", route: "Fila Tecnologia - N3", bypass: true }
         ]
     };
 
