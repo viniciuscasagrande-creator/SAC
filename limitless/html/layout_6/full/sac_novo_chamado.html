@@ -168,8 +168,9 @@
 							<div class="card card-body border-start border-start-width-3 border-start-warning shadow-sm sac-kpi-card">
 								<div class="d-flex align-items-center">
 									<div class="flex-1">
-										<div class="text-muted text-uppercase fs-10 fw-bold">Chamados Abertos</div>
+										<div class="text-muted text-uppercase fs-10 fw-bold">Fila de Chamados</div>
 										<h3 class="fw-bold mb-0 mt-1">128</h3>
+										<span class="text-success fs-11 fw-semibold"><i class="ph-arrow-down me-1"></i>-8% vs última hora</span>
 									</div>
 									<div class="bg-warning bg-opacity-10 text-warning rounded-pill p-3"><i class="ph-folder-open fs-3"></i></div>
 								</div>
@@ -183,46 +184,49 @@
 									<div class="flex-1">
 										<div class="text-muted text-uppercase fs-10 fw-bold">Em Atendimento</div>
 										<h3 class="fw-bold mb-0 mt-1">42</h3>
+										<span class="text-muted fs-11">Operadores Ativos: 18</span>
 									</div>
 									<div class="bg-info bg-opacity-10 text-info rounded-pill p-3"><i class="ph-user-focus fs-3"></i></div>
 								</div>
 							</div>
 						</div>
 
-						<!-- Aguardando Cliente -->
+						<!-- Fraudes Bloqueadas (Adyen SHIELD) -->
 						<div class="col-lg-3 col-sm-6">
-							<div class="card card-body border-start border-start-width-3 border-start-secondary shadow-sm sac-kpi-card">
+							<div class="card card-body border-start border-start-width-3 border-start-danger shadow-sm sac-kpi-card">
 								<div class="d-flex align-items-center">
 									<div class="flex-1">
-										<div class="text-muted text-uppercase fs-10 fw-bold">Aguardando Cliente</div>
-										<h3 class="fw-bold mb-0 mt-1">16</h3>
+										<div class="text-muted text-uppercase fs-10 fw-bold">Transações Suspeitas</div>
+										<h3 class="fw-bold mb-0 mt-1 text-danger">7</h3>
+										<span class="text-danger fs-11 fw-semibold"><i class="ph-shield-warning me-1"></i>Adyen Shield Ativo</span>
 									</div>
-									<div class="bg-secondary bg-opacity-10 text-secondary rounded-pill p-3"><i class="ph-hourglass fs-3"></i></div>
+									<div class="bg-danger bg-opacity-10 text-danger rounded-pill p-3"><i class="ph-shield-slash fs-3"></i></div>
 								</div>
 							</div>
 						</div>
 
-						<!-- Resolvidos Hoje -->
+						<!-- Resolvidos por IA (Deflexão) -->
 						<div class="col-lg-3 col-sm-6">
 							<div class="card card-body border-start border-start-width-3 border-start-success shadow-sm sac-kpi-card">
 								<div class="d-flex align-items-center">
 									<div class="flex-1">
-										<div class="text-muted text-uppercase fs-10 fw-bold">Resolvidos Hoje</div>
-										<h3 class="fw-bold mb-0 mt-1">84</h3>
+										<div class="text-muted text-uppercase fs-10 fw-bold">Deflexão por IA</div>
+										<h3 class="fw-bold mb-0 mt-1 text-success">84.2%</h3>
+										<span class="text-success fs-11 fw-semibold"><i class="ph-trend-up me-1"></i>+12% autoatendimento</span>
 									</div>
-									<div class="bg-success bg-opacity-10 text-success rounded-pill p-3"><i class="ph-check-square fs-3"></i></div>
+									<div class="bg-success bg-opacity-10 text-success rounded-pill p-3"><i class="ph-robot fs-3"></i></div>
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<!-- Analytics Row -->
-					<div class="row g-4">
+					<div class="row g-4 mb-4">
 						<!-- SLA Performance -->
 						<div class="col-lg-4">
-							<div class="card shadow-sm h-100">
-								<div class="card-header bg-white py-3">
-									<h6 class="m-0 fw-bold text-primary"><i class="ph-clock-counter-clockwise me-1"></i> Performance do SLA Geral</h6>
+							<div class="card shadow-sm h-100 border-0">
+								<div class="card-header bg-white py-3 border-bottom-0">
+									<h6 class="m-0 fw-bold text-dark"><i class="ph-clock-counter-clockwise me-1 text-primary"></i> Performance do SLA Geral</h6>
 								</div>
 								<div class="card-body text-center d-flex flex-column justify-content-between">
 									<div class="my-3">
@@ -248,13 +252,13 @@
 
 						<!-- Customer Satisfaction (CSAT) -->
 						<div class="col-lg-4">
-							<div class="card shadow-sm h-100">
-								<div class="card-header bg-white py-3">
-									<h6 class="m-0 fw-bold text-primary"><i class="ph-smiley me-1"></i> Satisfação do Cliente (CSAT)</h6>
+							<div class="card shadow-sm h-100 border-0">
+								<div class="card-header bg-white py-3 border-bottom-0">
+									<h6 class="m-0 fw-bold text-dark"><i class="ph-smiley me-1 text-primary"></i> Satisfação do Cliente (CSAT)</h6>
 								</div>
 								<div class="card-body d-flex flex-column justify-content-center">
 									<div class="text-center mb-3">
-										<h1 class="display-4 fw-bold text-gold mb-0">4,9 <span class="fs-4">★</span></h1>
+										<h1 class="display-4 fw-bold text-warning mb-0" style="color: #f59e0b;">4,9 <span class="fs-4">★</span></h1>
 										<span class="text-muted fs-xs">Média baseada em 1.402 avaliações</span>
 									</div>
 									<div class="d-flex justify-content-between fs-xs fw-semibold text-muted mb-1">
@@ -262,14 +266,14 @@
 										<span>92%</span>
 									</div>
 									<div class="progress mb-2" style="height: 5px;">
-										<div class="progress-bar bg-gold" style="width: 92%"></div>
+										<div class="progress-bar bg-warning" style="width: 92%; background-color: #f59e0b !important;"></div>
 									</div>
 									<div class="d-flex justify-content-between fs-xs fw-semibold text-muted mb-1">
 										<span>Bom</span>
 										<span>6%</span>
 									</div>
 									<div class="progress mb-2" style="height: 5px;">
-										<div class="progress-bar bg-primary" style="width: 6%"></div>
+										<div class="progress-bar bg-info" style="width: 6%"></div>
 									</div>
 									<div class="d-flex justify-content-between fs-xs fw-semibold text-muted mb-1">
 										<span>Ruim</span>
@@ -282,47 +286,104 @@
 							</div>
 						</div>
 
-						<!-- Volume by Channels -->
+						<!-- Autoatendimento e Receita Preservada (AI Autopilot Deflection) -->
 						<div class="col-lg-4">
-							<div class="card shadow-sm h-100">
-								<div class="card-header bg-white py-3">
-									<h6 class="m-0 fw-bold text-primary"><i class="ph-chat-circle me-1"></i> Chamados por Canal</h6>
+							<div class="card shadow-sm h-100 border-0">
+								<div class="card-header bg-white py-3 border-bottom-0">
+									<h6 class="m-0 fw-bold text-dark"><i class="ph-arrows-split me-1 text-primary"></i> Eficiência e Economia ERP</h6>
+								</div>
+								<div class="card-body d-flex flex-column justify-content-between">
+									<div class="text-center my-2">
+										<h2 class="fw-bold text-primary mb-1">R$ 18.430,00</h2>
+										<span class="text-muted fs-xs">Receita Preservada (Prevenção de Chargebacks)</span>
+									</div>
+									
+									<div class="border-top pt-3">
+										<div class="d-flex justify-content-between align-items-center mb-2">
+											<span class="fs-xs text-muted">Auto-Estornos Efetuados:</span>
+											<span class="badge bg-success bg-opacity-10 text-success fw-bold">42 Pedidos</span>
+										</div>
+										<div class="d-flex justify-content-between align-items-center mb-2">
+											<span class="fs-xs text-muted">Acessos Manuais Liberados:</span>
+											<span class="badge bg-info bg-opacity-10 text-info fw-bold">115 Catracas</span>
+										</div>
+										<div class="d-flex justify-content-between align-items-center">
+											<span class="fs-xs text-muted">Desvios de Fila N1 via IA:</span>
+											<span class="badge bg-purple bg-opacity-10 text-purple fw-bold">642 Chamados</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Ticketing Live Command Panel (Row 3) -->
+					<div class="row g-4">
+						<!-- Support Queue by Active Onsales / Events -->
+						<div class="col-lg-6">
+							<div class="card shadow-sm border-0 h-100">
+								<div class="card-header bg-white py-3 border-bottom-0 d-flex justify-content-between align-items-center">
+									<h6 class="m-0 fw-bold text-dark"><i class="ph-ticket me-1 text-primary"></i> Fila de Suporte por Evento Ativo</h6>
+									<span class="badge bg-danger animate-pulse">Onsale Ativo</span>
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table table-hover align-middle mb-0" style="font-size:0.8rem;">
+											<thead class="table-light">
+												<tr>
+													<th>Evento</th>
+													<th>Fila Atendimento</th>
+													<th>Status</th>
+													<th>SLA Real</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="fw-bold">Show Marisa Monte - Teatro Positivo</td>
+													<td><span class="badge bg-danger text-white">54 Chamados</span></td>
+													<td><span class="text-danger fw-semibold"><i class="ph-circle-fill me-1 fs-xs animate-ping"></i> Fila Crítica</span></td>
+													<td class="fw-bold text-success">98.2%</td>
+												</tr>
+												<tr>
+													<td class="fw-bold">Samba 90 Graus - Live Curitiba</td>
+													<td><span class="badge bg-warning text-dark">12 Chamados</span></td>
+													<td><span class="text-warning fw-semibold">Estável</span></td>
+													<td class="fw-bold text-success">99.1%</td>
+												</tr>
+												<tr>
+													<td class="fw-bold">L7nnon e Xamã - Live Curitiba</td>
+													<td><span class="badge bg-secondary text-light">8 Chamados</span></td>
+													<td><span class="text-success fw-semibold">Estável</span></td>
+													<td class="fw-bold text-success">97.5%</td>
+												</tr>
+												<tr>
+													<td class="fw-bold">Kieram Ectori - A Essência do Desafio</td>
+													<td><span class="badge bg-light text-muted">0 Chamados</span></td>
+													<td><span class="text-muted">Sem Fila</span></td>
+													<td class="text-muted">--</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Live Actions Activity Stream -->
+						<div class="col-lg-6">
+							<div class="card shadow-sm border-0 h-100">
+								<div class="card-header bg-white py-3 border-bottom-0 d-flex justify-content-between align-items-center">
+									<h6 class="m-0 fw-bold text-dark"><i class="ph-activity me-1 text-primary"></i> Stream de Atividades do ERP (Live)</h6>
+									<span class="badge bg-success bg-opacity-10 text-success fw-bold"><i class="ph-dot-outline animate-ping me-1"></i>Tempo Real</span>
 								</div>
 								<div class="card-body">
-									<!-- WhatsApp -->
-									<div class="d-flex justify-content-between align-items-center mb-2">
-										<div class="d-flex align-items-center"><i class="ph-whatsapp-logo text-success me-2 fs-5"></i> <span class="fw-semibold text-dark">WhatsApp</span></div>
-										<span class="badge bg-success-100 text-success">53%</span>
-									</div>
-									<div class="progress mb-3" style="height: 4px;">
-										<div class="progress-bar bg-success" style="width: 53%"></div>
-									</div>
-
-									<!-- Chat Online -->
-									<div class="d-flex justify-content-between align-items-center mb-2">
-										<div class="d-flex align-items-center"><i class="ph-chats text-info me-2 fs-5"></i> <span class="fw-semibold text-dark">Chat Online</span></div>
-										<span class="badge bg-info bg-opacity-10 text-info">23%</span>
-									</div>
-									<div class="progress mb-3" style="height: 4px;">
-										<div class="progress-bar bg-info" style="width: 23%"></div>
-									</div>
-
-									<!-- Telefone -->
-									<div class="d-flex justify-content-between align-items-center mb-2">
-										<div class="d-flex align-items-center"><i class="ph-phone text-primary me-2 fs-5"></i> <span class="fw-semibold text-dark">Telefone</span></div>
-										<span class="badge bg-primary bg-opacity-10 text-primary">14%</span>
-									</div>
-									<div class="progress mb-3" style="height: 4px;">
-										<div class="progress-bar bg-primary" style="width: 14%"></div>
-									</div>
-
-									<!-- E-mail -->
-									<div class="d-flex justify-content-between align-items-center mb-2">
-										<div class="d-flex align-items-center"><i class="ph-envelope-simple text-secondary me-2 fs-5"></i> <span class="fw-semibold text-dark">E-mail</span></div>
-										<span class="badge bg-light text-muted border">10%</span>
-									</div>
-									<div class="progress" style="height: 4px;">
-										<div class="progress-bar bg-secondary" style="width: 10%"></div>
+									<div class="bg-dark text-light p-3 rounded font-monospace fs-xs overflow-auto animate-all" style="max-height: 200px; line-height: 1.6; border: 1px solid #2d3748; background-color: #1a202c !important;">
+										<div class="text-success mb-1">[16:40:12] [Adyen Gateway] PIX Aprovado e ingresso enviado (Pedido #DK-390122)</div>
+										<div class="text-info mb-1">[16:41:05] [Controle Acesso] 🔓 Liberação manual de acesso efetuada pelo SAC no portão 4</div>
+										<div class="text-danger mb-1">[16:42:33] [Adyen Shield] 🔴 Transação Recusada por Suspeita de Fraude (Cartão Crédito - Pedido #DK-390130)</div>
+										<div class="text-warning mb-1">[16:43:18] [Auto-Estorno] 🔄 Cancelamento e reembolso automático processado via IA do SAC (Pedido #DK-284910)</div>
+										<div class="text-success mb-1">[16:44:02] [WhatsApp Bot] 🤖 IA sugere roteiro de teste para o Protocolo SAC-2026-000155</div>
+										<div class="text-muted">[16:45:00] [Sistema] Sincronização Firebase Firestore concluída com sucesso.</div>
 									</div>
 								</div>
 							</div>
