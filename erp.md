@@ -1,81 +1,108 @@
 # 🏢 ApexERP - Central de Atendimento & SAC
 
-Este repositório contém a especificação e implementação do módulo de **Central de Atendimento / Abertura de Chamados** integrado ao sistema ERP corporativo ApexERP, desenvolvido sobre o template **Limitless (Layout 6)**.
+Este repositório contém a especificação e implementação do módulo de **Central de Atendimento / Abertura de Chamados** integrado ao sistema ERP corporativo ApexERP, desenvolvido sob o template **Limitless (Layout 6)** e também integrado no projeto **produtor-disk (AdminLTE 3 / Yii2)**.
 
 O objetivo do módulo é otimizar o fluxo de atendimento através da metodologia **"Shift-Left"**, estimulando o autoatendimento e reduzindo o tempo de resolução de chamados críticos via auto-roteamento (Bypass de triagem N1).
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+### 🎨 Esboço da Tela: "Central de Atendimento / Novo Chamado"
 
-*   **HTML5 & CSS3** (Estrutura semântica corporativa)
-*   **Bootstrap 5** (Design e componentes responsivos do template Limitless)
-*   **Phosphor Icons** (Pacote de ícones padrão do Layout 6)
-*   **JavaScript (Vanilla ES6)** (Manipulação do DOM e integrações assíncronas)
-*   **API Pública do GitHub** (Pesquisa dinâmica de issues da comunidade global)
+```text
+====================================================================================
+[ ☰ ERP Logo ] | 🔍 Pesquisar módulos, clientes ou chamados... | 🔔 [3] | 👤 Perfil 
+====================================================================================
+
+ 📍 SAC > Abrir Novo Chamado
+
+ [ 🔎 Como podemos ajudar? Digite seu problema aqui para buscar tutoriais... ] 
+ (Ex: Como emitir nota fiscal, Erro 502, Resetar senha...)
+
+------------------------------------------------------------------------------------
+ PASSO 1: O QUE ESTÁ ACONTECENDO? (Categorias de Nível 1)
+------------------------------------------------------------------------------------
+
+ +----------------------------+  +----------------------------+  +----------------------------+
+ | ⚠️ ESTOU COM UM PROBLEMA    |  | 📝 PRECISO DE UM SERVIÇO    |  | 💰 FINANCEIRO / DÚVIDAS     |
+ | (Incidentes)               |  | (Requisições de Serviço)   |  | (Atendimento Comercial)    |
+ |                            |  |                            |  |                            |
+ | Algo parou de funcionar ou |  | Solicitação de acessos,    |  | Faturas, boletos, planos   |
+ | está apresentando erro.    |  | novos cadastros e módulos. |  | e dúvidas gerais do ERP.   |
+ +----------------------------+  +----------------------------+  +----------------------------+
+```
+
+---
+
+### ⚙️ Comportamento Dinâmico (Ao clicar em um dos Cards)
+
+Quando o usuário clica no card **"⚠️ ESTOU COM UM PROBLEMA"**, a tela se expande abaixo ou abre um painel lateral (Drawer) para afunilar o problema (CTI) e calcular o SLA invisivelmente.
+
+```text
+====================================================================================
+ 📝 DETALHES DO CHAMADO (Incidente)
+====================================================================================
+
+ 1. Onde está o problema? (Tipo / Nível 2)
+ [ ▼ Selecione o Módulo do ERP...                      ]
+   ↳ Opções: Faturamento, Estoque, RH, Login/Acesso, Relatórios
+
+ 2. Qual é o problema exato? (Item / Nível 3)
+ [ ▼ Selecione o problema...                           ]
+   ↳ Opções (Se escolheu Login): Senha não funciona, Tela branca, Usuário bloqueado.
+
+ ----------------------------------------------------------------------------------
+ 
+ 3. Título do Chamado
+ [ Ex: Tela branca ao tentar logar no módulo de RH                                ]
+
+ 4. Descrição detalhada
+ [ Descreva o que aconteceu, passos para reproduzir o erro, etc.                  ]
+ [                                                                                ]
+ [                                                                                ]
+
+ 📎 [ Anexar Print de Tela ou Log de Erro ]
+
+ ----------------------------------------------------------------------------------
+ ⏱️ EXPECTATIVA DE ATENDIMENTO (SLA Transparente)
+ Baseado na sua seleção, este chamado será classificado como:
+ [ 🔴 PRIORIDADE ALTA ] - Tempo estimado de resposta: Até 2 horas úteis.
+
+                                            [ CANCELAR ]   [ 🚀 ABRIR CHAMADO ]
+====================================================================================
+```
+
+---
+
+### 🧠 Como programar as regras de TI e ITIL por trás dessa tela:
+
+1. **A Busca Inteligente (Deflexão):** O campo de busca no topo está ligado à nossa Base de Conhecimento interna e à API externa do GitHub. Se o usuário digitar "Esqueci minha senha" ou "erro 502", o ERP sugere o artigo correspondente num painel lateral deslizante (*Offcanvas* ou *Drawer*) antes de deixá-lo preencher o resto da tela, reduzindo a incidência de chamados duplicados ou elementares.
+2. **Combos Dependentes (Cascata):** O campo "Qual é o problema exato?" (Nível 3) só é habilitado *após* a seleção de "Onde está o problema?" (Nível 2). As opções carregadas no Nível 3 são dinamicamente vinculadas à categoria selecionada no Nível 1 e ao módulo selecionado no Nível 2.
+3. **SLA Transparente:** Exibe em tempo real a criticidade estimada e o prazo de resposta com base na seleção da situação no Nível 3, reduzindo a ansiedade do usuário.
+4. **Auto-Roteamento (Bypass N1):** Se `Card = Problema` + `Módulo = Faturamento` ou `Situação = Rejeição da SEFAZ`, o ticket é roteado diretamente para a fila N2 especialista (ex: *Suporte Fiscal & Tributário*), pulando a triagem geral de Nível 1.
 
 ---
 
 ## 📂 Arquivos no Projeto
 
-A estrutura de arquivos do módulo SAC está dividida em duas versões no repositório:
+A estrutura do módulo SAC está distribuída em duas grandes versões no repositório:
 
-### 1. Versão Integrada ao Template Limitless (Padrão ERP)
-*   [sac_novo_chamado.html](file:///C:/Users/vinad/SAC/limitless/html/layout_6/full/sac_novo_chamado.html) - Tela de atendimento com cabeçalhos, painel de busca de autoatendimento, cards e formulários seguindo a estrutura visual do ERP.
-*   [custom_sac.css](file:///C:/Users/vinad/SAC/limitless/html/layout_6/full/assets/css/ltr/custom_sac.css) - Estilos e animações adicionais (desenho do checkmark de sucesso, timelime de roteamento e cards de SLA).
-*   [sac_app.js](file:///C:/Users/vinad/SAC/limitless/html/layout_6/full/assets/js/sac_app.js) - Lógica de busca na API do GitHub, cascading dropdowns, cálculo de SLA e transição de telas.
+### 1. Versão Integrada ao Projeto Yii2 (`produtor-disk` / AdminLTE 3)
+*   `produtor-disk/views/layouts/sidebar.php` - Adição do bloco de menu **"SAC"** na lateral do ERP.
+*   `produtor-disk/modules/Chamados/controllers/IssuesController.php` - Método `actionSacNovoChamado()` responsável pela rota da tela de chamados do SAC.
+*   `produtor-disk/modules/Chamados/views/issues/sac-novo-chamado.php` - Tela responsiva utilizando Bootstrap 4, FontAwesome 5, modal de confirmação nativo e integração persistente com o **Firebase Firestore**.
 
-### 2. Versão Standalone (Cópia Independente)
-*   [index.html](file:///C:/Users/vinad/SAC/index.html) - Protótipo com sidebar ERP customizada própria.
-*   [styles.css](file:///C:/Users/vinad/SAC/styles.css) - Folha de estilos independente.
-*   [app.js](file:///C:/Users/vinad/SAC/app.js) - Lógica JavaScript independente.
-
----
-
-## ⚙️ Regras ITIL e Fluxos de Negócio Implementados
-
-### 1. Pesquisa de Deflexão Inteligente (Shift-Left)
-A barra de pesquisa principal incentiva a resolução autônoma do problema:
-*   Faz buscas locais na base de conhecimento.
-*   Consulta discussões de bugs e soluções na **API pública do GitHub**.
-*   Renderiza o tutorial em um painel lateral deslizante (**Offcanvas** do Bootstrap 5).
-*   Registra a deflexão (auto-resolução) e reseta o formulário caso o artigo solucione a dúvida.
-
-### 2. Combos Dependentes (Cascata)
-*   A seleção do card de Categoria (Passo 1) define as opções disponíveis no Módulo (Nível 2).
-*   A seleção do Módulo libera o select do Item Exato (Nível 3).
-*   Os campos de Título, Descrição e Anexo só são habilitados após a definição completa do problema.
-
-### 3. Calculadora de SLA e Roteamento Bypass N1
-*   **SLA dinâmico:** Calcula e exibe instantaneamente a prioridade (Alta, Média, Baixa), tempo limite de resposta e políticas de conformidade.
-*   **Bypass de Triagem N1:** Se a situação configurada no Nível 3 for crítica (ex: *Transmissão SEFAZ, erros de login ou upgrades de conta*), o sistema contorna a fila de triagem geral N1, ativando uma badge visual e encaminhando o ticket diretamente para a fila N2 especialista.
+### 2. Versão Integrada ao Template `Limitless` (Layout 6)
+*   `limitless/html/layout_6/full/sac_novo_chamado.html` - Página de chamados.
+*   `limitless/html/layout_6/full/assets/css/ltr/custom_sac.css` - CSS de estilização de componentes adicionais.
+*   `limitless/html/layout_6/full/assets/js/sac_app.js` - Lógica das chamadas assíncronas e transições.
 
 ---
 
-## 🚀 Como Executar e Testar
+## 🚀 Como Executar e Testar (Servidor Ativo via npm start)
 
-### Servidor Local
-Um servidor local já está ativo a partir do diretório raiz. Para testar as telas, acesse os links correspondentes no seu navegador:
+O servidor local HTTP está no ar. Você pode visualizar os protótipos em tempo real através dos seguintes links:
 
-*   **Versão Limitless (ERP Padrão):** [http://127.0.0.1:8080/limitless/html/layout_6/full/sac_novo_chamado.html](http://127.0.0.1:8080/limitless/html/layout_6/full/sac_novo_chamado.html)
-*   **Versão Standalone:** [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
+*   **Versão Limitless (ERP Padrão):** [https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html](https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html)
+*   **Versão Standalone:** [https://brown-ties-own.loca.lt/index.html](https://brown-ties-own.loca.lt/index.html)
 
----
-
-## 📦 Hospedagem e Publicação (GitHub Pages)
-
-Para publicar esta aplicação online no seu perfil do GitHub, execute os seguintes comandos no terminal:
-
-```bash
-# 1. Autenticar no GitHub CLI
-gh auth login
-
-# 2. Criar o repositório remoto e enviar os arquivos
-gh repo create SAC --public --source=. --remote=origin --push
-
-# 3. Habilitar a publicação via GitHub Pages
-gh repo edit --enable-pages --publish
-```
-
-Seu link de acesso público estará disponível em:
-`https://<seu-usuario-github>.github.io/SAC/limitless/html/layout_6/full/sac_novo_chamado.html`
+*(Utilize o IP público de desvio **`168.194.161.207`** no prompt do localtunnel se solicitado)*
