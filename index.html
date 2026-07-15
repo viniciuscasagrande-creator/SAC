@@ -290,7 +290,7 @@
         }
 
         .submenu-container.show {
-            max-height: 350px; /* arbitrary height to fit items */
+            max-height: 350px;
         }
 
         .submenu-item {
@@ -571,7 +571,7 @@
             color: var(--primary-blue);
         }
 
-        /* TABELA DE CUPONS DE DESCONTO (EXACT RECREATION OF THE SCREENSHOT) */
+        /* TABELA DE CUPONS DE DESCONTO */
         .coupon-table {
             width: 100%;
             border-collapse: collapse;
@@ -610,6 +610,158 @@
             color: var(--primary-blue);
             border-color: var(--primary-blue);
             background-color: rgba(0, 123, 255, 0.05);
+        }
+
+        /* WIZARD FLUXO DE ESTORNO DE INGRESSOS */
+        .wizard-stepper {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .wizard-stepper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .stepper-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background-color: var(--primary-orange);
+            z-index: 1;
+            transform: translateY(-50%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .step-indicator {
+            width: 36px;
+            height: 36px;
+            background-color: #ffffff;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 2;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .step-indicator.active {
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+            box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.15);
+        }
+
+        .step-indicator.completed {
+            background-color: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: #ffffff;
+        }
+
+        .wizard-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .wizard-step-pane {
+            display: none;
+        }
+
+        .wizard-step-pane.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-orange);
+        }
+
+        .btn-wizard-next {
+            background-color: var(--primary-orange);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-wizard-next:hover {
+            opacity: 0.9;
+        }
+
+        .ticket-select-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .ticket-select-item.selected {
+            border-color: var(--primary-orange);
+            background-color: rgba(255, 87, 34, 0.02);
+        }
+
+        .order-preview-box {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            border-left: 3px solid var(--primary-orange);
         }
 
         /* FLOATING VIRTUAL ASSISTANT */
@@ -699,7 +851,7 @@
                         <a class="submenu-item" id="subTodosEventos">Todos Eventos</a>
                         <a class="submenu-item">Novo Evento</a>
                         <a class="submenu-item">Lotes</a>
-                        <a class="submenu-item active" id="subCupons">Cupons</a>
+                        <a class="submenu-item" id="subCupons">Cupons</a>
                         <a class="submenu-item">Check-in</a>
                         <a class="submenu-item">Participantes</a>
                         <a class="submenu-item">Página do Evento</a>
@@ -727,8 +879,14 @@
                         <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
                     </a>
                     
+                    <!-- NEW ESTORNO MENU ITEM -->
+                    <a class="menu-item" id="menuEstorno" style="border-left: 3px solid var(--primary-orange); background-color: rgba(255, 87, 34, 0.05); color: #ffffff; margin-top: 4px;">
+                        <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
+                        <span class="badge-sidebar badge-orange">ERP</span>
+                    </a>
+                    
                     <!-- NEW SAC / ATENDIMENTO MENU ITEM -->
-                    <a class="menu-item" id="menuSacHub" style="border-left: 3px solid var(--primary-blue); background-color: rgba(0, 123, 255, 0.05); color: #ffffff;">
+                    <a class="menu-item" id="menuSacHub" style="border-left: 3px solid var(--primary-blue); background-color: rgba(0, 123, 255, 0.05); color: #ffffff; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
                     </a>
@@ -950,7 +1108,7 @@
 
             </div>
 
-            <!-- PANEL B: CUPONS DE DESCONTO PANEL (RECREATION OF THE SCREENSHOT) -->
+            <!-- PANEL B: CUPONS DE DESCONTO PANEL -->
             <div id="panelCouponsContent" class="d-none">
                 
                 <div class="dashboard-header">
@@ -997,7 +1155,157 @@
 
             </div>
 
-            <!-- PANEL C: INTEGRATED SAC WORKSTATION HUB -->
+            <!-- PANEL C: FLUXO DE ESTORNO DE INGRESSOS (NEW DYNAMIC WORKFLOW WIZARD) -->
+            <div id="panelEstornoContent" class="d-none">
+                
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Fluxo de Estorno de Ingressos</h2>
+                        <p>Módulo ERP DiskIngressos para processamento de cancelamentos e reembolsos Adyen/PIX.</p>
+                    </div>
+                </div>
+
+                <!-- Stepper Progress -->
+                <div class="wizard-stepper">
+                    <div class="stepper-progress" id="wizardProgress"></div>
+                    <div class="step-indicator active" id="ind1">1</div>
+                    <div class="step-indicator" id="ind2">2</div>
+                    <div class="step-indicator" id="ind3">3</div>
+                    <div class="step-indicator" id="ind4">4</div>
+                </div>
+
+                <!-- Wizard Card Container -->
+                <div class="wizard-card">
+                    
+                    <!-- STEP 1: BUSCAR VENDA -->
+                    <div class="wizard-step-pane active" id="paneStep1">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-magnifying-glass text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 1: Localizar Venda no ERP</h5>
+                        <p class="text-muted fs-xs mb-4">Insira o CPF do comprador ou o código do pedido para carregar as transações do gateway e controle de acesso.</p>
+                        
+                        <div class="form-group">
+                            <label for="estornoSearchCpf">CPF do Comprador</label>
+                            <input type="text" id="estornoSearchCpf" value="123.456.789-00" placeholder="Ex: 000.000.000-00">
+                        </div>
+                        <div class="form-group">
+                            <label for="estornoSearchOrder">Código do Pedido (Opcional)</label>
+                            <input type="text" id="estornoSearchOrder" value="DK-294022" placeholder="Ex: DK-XXXXXX">
+                        </div>
+
+                        <div class="text-end mt-4">
+                            <button class="btn-wizard-next" id="btnStep1Next">Avançar <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: SELECIONAR ITENS -->
+                    <div class="wizard-step-pane" id="paneStep2">
+                        <h5 class="fw-bold mb-2"><i class="fa-solid fa-ticket text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 2: Selecionar Ingressos para Reembolso</h5>
+                        <p class="text-muted fs-xs mb-3">Marque quais ingressos do pedido serão estornados. Você pode realizar estornos parciais.</p>
+                        
+                        <div class="order-preview-box">
+                            <div><strong>Pedido:</strong> <span id="lblOrderNum">#DK-294022</span></div>
+                            <div class="mt-1"><strong>Show:</strong> <span id="lblOrderShow">Samba 90 Graus - Live Curitiba</span></div>
+                            <div class="mt-1"><strong>Comprador:</strong> João da Silva (CPF: 123.456.789-00)</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Ingressos Disponíveis:</label>
+                            
+                            <!-- Ticket 1 -->
+                            <div class="ticket-select-item selected">
+                                <div>
+                                    <input type="checkbox" id="chkTicket1" checked style="width:auto; margin-right:10px;">
+                                    <strong>Ingresso #001293021</strong> - Platéia VIP (Fila H - Assento 12)
+                                </div>
+                                <span class="fw-bold text-dark">R$ 120,00</span>
+                            </div>
+
+                            <!-- Ticket 2 -->
+                            <div class="ticket-select-item selected">
+                                <div>
+                                    <input type="checkbox" id="chkTicket2" checked style="width:auto; margin-right:10px;">
+                                    <strong>Ingresso #001293022</strong> - Platéia VIP (Fila H - Assento 13)
+                                </div>
+                                <span class="fw-bold text-dark">R$ 120,00</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-secondary" id="btnStep2Back" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 20px;"><i class="fa-solid fa-chevron-left"></i> Voltar</button>
+                            <button class="btn-wizard-next" id="btnStep2Next">Avançar <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: FORMA & MOTIVO -->
+                    <div class="wizard-step-pane" id="paneStep3">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-credit-card text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 3: Forma de Estorno & Motivação</h5>
+                        
+                        <div class="form-group">
+                            <label for="estornoReason">Motivo do Estorno</label>
+                            <select id="estornoReason">
+                                <option value="desistencia">Desistência / Arrependimento do Cliente</option>
+                                <option value="duplicado">Compra em duplicidade no site</option>
+                                <option value="evento-cancelado">Evento Adiado ou Cancelado</option>
+                                <option value="acesso-recusado">Problemas no Controle de Acesso (Catraca)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-2">Forma de Devolução dos Valores</label>
+                            
+                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; margin-bottom:10px; display:flex; align-items:flex-start; gap:10px;">
+                                <input type="radio" name="refundMethod" id="refOriginal" checked style="width:auto; margin-top:3px;">
+                                <div>
+                                    <label for="refOriginal" class="fw-bold mb-0">Estorno Integral (Adyen Original)</label>
+                                    <span class="text-muted fs-xs d-block">O valor será creditado no mesmo meio usado na compra (PIX em segundos, Cartão na próxima fatura).</span>
+                                </div>
+                            </div>
+
+                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; margin-bottom:10px; display:flex; align-items:flex-start; gap:10px;">
+                                <input type="radio" name="refundMethod" id="refTaxa" style="width:auto; margin-top:3px;">
+                                <div>
+                                    <label for="refTaxa" class="fw-bold mb-0">Estorno Parcial com Retenção de Taxas (15%)</label>
+                                    <span class="text-muted fs-xs d-block">Retém a taxa de conveniência administrativa e devolve o valor de face do ingresso (R$ 204,00 estornados).</span>
+                                </div>
+                            </div>
+
+                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; display:flex; align-items:flex-start; gap:10px;">
+                                <input type="radio" name="refundMethod" id="refVoucher" style="width:auto; margin-top:3px;">
+                                <div>
+                                    <label for="refVoucher" class="fw-bold mb-0">Gerar Crédito em Voucher (Cupom de Desconto)</label>
+                                    <span class="text-muted fs-xs d-block">Gera um cupom de uso único no valor integral (R$ 240,00) com validade de 12 meses para compras na DiskIngressos.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-secondary" id="btnStep3Back" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 20px;"><i class="fa-solid fa-chevron-left"></i> Voltar</button>
+                            <button class="btn-wizard-next" id="btnStep3Confirm" style="background-color:var(--primary-green);"><i class="fa-solid fa-check"></i> Processar Estorno</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: SUCESSO -->
+                    <div class="wizard-step-pane text-center py-4" id="paneStep4">
+                        <div style="width: 72px; height: 72px; background-color: rgba(16, 185, 129, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px auto;">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size:3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-2">Estorno Concluído com Sucesso!</h4>
+                        <p class="text-muted fs-xs max-width-400 mx-auto mb-4">Os ingressos foram cancelados e a transação Adyen foi estornada. O comprador receberá o comprovante de estorno por e-mail.</p>
+                        
+                        <div class="order-preview-box text-start max-width-450 mx-auto mb-4" style="background-color:#f1f3f7; border-left-color:var(--primary-green);">
+                            <div><strong>NSU do Estorno:</strong> <span class="font-monospace">ADY_928103A81</span></div>
+                            <div class="mt-1"><strong>Protocolo SAC Associado:</strong> <span id="lblSuccessProtocol">SAC-2026-000154</span></div>
+                            <div class="mt-1"><strong>Valor Devolvido:</strong> R$ 240,00 (PIX)</div>
+                            <div class="mt-1"><strong>Status Catraca:</strong> Bloqueado / Cancelado</div>
+                        </div>
+
+                        <button class="btn btn-primary" id="btnWizardReset" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 24px; background-color:var(--primary-orange); border:none;">Novo Cancelamento</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PANEL D: INTEGRATED SAC WORKSTATION HUB -->
             <div id="panelSacContent" class="d-none">
                 <!-- Direct frame container loading the Limitless SAC page -->
                 <iframe src="limitless/html/layout_6/full/sac_novo_chamado.html" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#ffffff;"></iframe>
@@ -1017,6 +1325,7 @@
             const menuPainelGeral = document.getElementById("menuPainelGeral");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
             const menuSacHub = document.getElementById("menuSacHub");
+            const menuEstorno = document.getElementById("menuEstorno");
             const menuMeusEventos = document.getElementById("menuMeusEventos");
             const submenuMeusEventos = document.getElementById("submenuMeusEventos");
             const arrowMeusEventos = document.getElementById("arrowMeusEventos");
@@ -1027,6 +1336,7 @@
             const panelDashboard = document.getElementById("panelDashboardContent");
             const panelCoupons = document.getElementById("panelCouponsContent");
             const panelSac = document.getElementById("panelSacContent");
+            const panelEstorno = document.getElementById("panelEstornoContent");
             
             const menuItems = document.querySelectorAll(".menu-item");
             const submenuItems = document.querySelectorAll(".submenu-item");
@@ -1054,6 +1364,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelEstorno.classList.add("d-none");
             });
             
             menuTodosEventos.addEventListener("click", (e) => {
@@ -1063,6 +1374,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelEstorno.classList.add("d-none");
             });
             
             subTodosEventos.addEventListener("click", (e) => {
@@ -1073,6 +1385,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelEstorno.classList.add("d-none");
             });
             
             subCupons.addEventListener("click", (e) => {
@@ -1083,6 +1396,7 @@
                 panelDashboard.classList.add("d-none");
                 panelCoupons.classList.remove("d-none");
                 panelSac.classList.add("d-none");
+                panelEstorno.classList.add("d-none");
             });
             
             menuSacHub.addEventListener("click", (e) => {
@@ -1092,7 +1406,71 @@
                 panelDashboard.classList.add("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.remove("d-none");
+                panelEstorno.classList.add("d-none");
             });
+
+            menuEstorno.addEventListener("click", (e) => {
+                e.preventDefault();
+                deactivateAll();
+                menuEstorno.classList.add("active");
+                panelDashboard.classList.add("d-none");
+                panelCoupons.classList.add("d-none");
+                panelSac.classList.add("d-none");
+                panelEstorno.classList.remove("d-none");
+            });
+
+            // WIZARD FLUXO DE ESTORNO ACTIONS
+            const ind1 = document.getElementById("ind1");
+            const ind2 = document.getElementById("ind2");
+            const ind3 = document.getElementById("ind3");
+            const ind4 = document.getElementById("ind4");
+
+            const pane1 = document.getElementById("paneStep1");
+            const pane2 = document.getElementById("paneStep2");
+            const pane3 = document.getElementById("paneStep3");
+            const pane4 = document.getElementById("paneStep4");
+
+            const progress = document.getElementById("wizardProgress");
+
+            function showStep(stepNum) {
+                // Clear active classes
+                [pane1, pane2, pane3, pane4].forEach(p => p.classList.remove("active"));
+                [ind1, ind2, ind3, ind4].forEach(i => {
+                    i.classList.remove("active");
+                    i.classList.remove("completed");
+                });
+
+                if (stepNum === 1) {
+                    pane1.classList.add("active");
+                    ind1.classList.add("active");
+                    progress.style.width = "0%";
+                } else if (stepNum === 2) {
+                    pane2.classList.add("active");
+                    ind1.classList.add("completed");
+                    ind2.classList.add("active");
+                    progress.style.width = "33%";
+                } else if (stepNum === 3) {
+                    pane3.classList.add("active");
+                    ind1.classList.add("completed");
+                    ind2.classList.add("completed");
+                    ind3.classList.add("active");
+                    progress.style.width = "66%";
+                } else if (stepNum === 4) {
+                    pane4.classList.add("active");
+                    ind1.classList.add("completed");
+                    ind2.classList.add("completed");
+                    ind3.classList.add("completed");
+                    ind4.classList.add("completed");
+                    progress.style.width = "100%";
+                }
+            }
+
+            document.getElementById("btnStep1Next").addEventListener("click", () => showStep(2));
+            document.getElementById("btnStep2Back").addEventListener("click", () => showStep(1));
+            document.getElementById("btnStep2Next").addEventListener("click", () => showStep(3));
+            document.getElementById("btnStep3Back").addEventListener("click", () => showStep(2));
+            document.getElementById("btnStep3Confirm").addEventListener("click", () => showStep(4));
+            document.getElementById("btnWizardReset").addEventListener("click", () => showStep(1));
         });
     </script>
 </body>
