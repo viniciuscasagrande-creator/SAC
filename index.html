@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexERP - Central de Atendimento</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="erp-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span>Apex<span>ERP</span></span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">Módulos ERP</div>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Vendas & Faturamento</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <span>Estoque & Compras</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Financeiro</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Recursos Humanos</span>
+                </a>
+                
+                <div class="nav-section">Suporte & SAC</div>
+                <a href="#" class="nav-item active">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Central de Ajuda</span>
+                    <span class="badge badge-pulse">SAC</span>
+                </a>
+                <div class="submenu">
+                    <a href="#" class="submenu-item active">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Abrir Novo Chamado</span>
+                    </a>
+                    <a href="#" class="submenu-item" id="navMyTickets">
+                        <i class="fa-solid fa-ticket"></i>
+                        <span>Meus Chamados</span>
+                        <span class="badge" id="ticketCountBadge">3</span>
+                    </a>
+                    <a href="#" class="submenu-item">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Base de Conhecimento</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-avatar-wrapper">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar do Usuário" class="user-avatar">
+                    <span class="status-indicator online"></span>
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Vinícius Andrade</span>
+                    <span class="user-role">Administrador ERP</span>
+                </div>
+                <button class="logout-btn" title="Sair do ERP">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="top-left">
+                    <div class="search-global">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" placeholder="Pesquisar módulos, clientes ou chamados..." class="search-input">
+                        <span class="search-shortcut">Ctrl + K</span>
+                    </div>
+                </div>
+                <div class="top-right">
+                    <button class="nav-icon-btn" title="Histórico do SAC">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </button>
+                    <div class="notification-dropdown-wrapper">
+                        <button class="nav-icon-btn" id="notifBtn" title="Notificações">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge">3</span>
+                        </button>
+                    </div>
+                    <div class="profile-dropdown-wrapper">
+                        <button class="profile-btn">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar do Usuário">
+                            <span>Admin</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Container -->
+            <div class="page-container" id="openTicketPage">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs">
+                    <a href="#">SAC</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span class="active">Abrir Novo Chamado</span>
+                </nav>
+
+                <!-- Page Header with Deflection Search -->
+                <section class="page-header-section">
+                    <div class="header-text">
+                        <h1>Como podemos ajudar?</h1>
+                        <p>Evite filas digitando seu problema para buscar tutoriais rápidos em nossa Base de Conhecimento.</p>
+                    </div>
+                    
+                    <div class="deflection-search-container">
+                        <div class="search-field-wrapper">
+                            <i class="fa-solid fa-circle-question search-decor-icon"></i>
+                            <input type="text" id="deflectionSearch" placeholder="Digite seu problema aqui... (Ex: Como emitir nota fiscal, Erro 502, Resetar senha...)" autocomplete="off">
+                            <button class="clear-search-btn" id="clearSearchBtn"><i class="fa-solid fa-xmark"></i></button>
+                            <i class="fa-solid fa-spinner fa-spin search-loader" id="searchLoader"></i>
+                        </div>
+                        
+                        <!-- Suggestions Dropdown -->
+                        <div class="deflection-suggestions" id="deflectionSuggestions">
+                            <div class="suggestions-header">
+                                <span><i class="fa-solid fa-book-open"></i> Tutoriais Recomendados (Auto-Resolução)</span>
+                                <span class="badge green">Resolva em 1 minuto</span>
+                            </div>
+                            <div class="suggestions-list" id="suggestionsList">
+                                <!-- Dynamically populated -->
+                            </div>
+                            <div class="suggestions-footer">
+                                <span>Não encontrou? Prossiga preenchendo o chamado abaixo.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 1: Category Selection Cards -->
+                <section class="step-section active" id="step1Section">
+                    <div class="step-title-wrapper">
+                        <div class="step-badge">PASSO 1</div>
+                        <h2>O que está acontecendo? <span class="subtext">Selecione uma categoria de atendimento</span></h2>
+                    </div>
+
+                    <div class="category-cards-grid">
+                        <!-- Card 1: Incidentes -->
+                        <div class="category-card" data-category="problema" id="cardProblema">
+                            <div class="card-icon error-theme">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Estou com um problema</h3>
+                                <span class="card-tag error-tag">Incidentes</span>
+                                <p>Algo parou de funcionar, está apresentando erro ou comportamento inesperado no ERP.</p>
+                            </div>
+                            <div class="card-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Serviços -->
+                        <div class="category-card" data-category="servico" id="cardServico">
+                            <div class="card-icon service-theme">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Preciso de um serviço</h3>
+                                <span class="card-tag service-tag">Requisições de Serviço</span>
+                                <p>Solicitação de acessos, novos cadastros, parametrização ou novos módulos.</p>
+                            </div>
+                            <div class="card-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Financeiro / Comercial -->
+                        <div class="category-card" data-category="financeiro" id="cardFinanceiro">
+                            <div class="card-icon finance-theme">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Financeiro / Dúvidas</h3>
+                                <span class="card-tag finance-tag">Atendimento Comercial</span>
+                                <p>Faturas, boletos, planos, reajustes e dúvidas gerais sobre o uso e contratação do ERP.</p>
+                            </div>
+                            <div class="card-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: Dynamic Form & SLA Preview Section (Initially Collapsed) -->
+                <section class="step-section collapsed" id="step2Section">
+                    <div class="step-title-wrapper">
+                        <div class="step-badge" id="step2Badge">PASSO 2</div>
+                        <h2 id="step2Title">Detalhes do Chamado <span class="subtext" id="step2Subtitle">Preencha as informações detalhadamente</span></h2>
+                    </div>
+
+                    <div class="form-layout-grid">
+                        <!-- Left Column: The Form -->
+                        <div class="form-card">
+                            <form id="ticketForm">
+                                <!-- Field 1: Level 2 Dropdown (Module/Area) -->
+                                <div class="form-group">
+                                    <label for="selectLevel2" class="form-label">
+                                        1. Onde está o problema? (Módulo ERP) <span class="required">*</span>
+                                    </label>
+                                    <div class="select-wrapper">
+                                        <i class="fa-solid fa-cubes select-icon"></i>
+                                        <select id="selectLevel2" class="form-control" required disabled>
+                                            <option value="" disabled selected>Selecione a categoria no Passo 1 primeiro...</option>
+                                        </select>
+                                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Field 2: Level 3 Dropdown (Sub-issue/Item) -->
+                                <div class="form-group">
+                                    <label for="selectLevel3" class="form-label">
+                                        2. Qual é a situação exata? (Item) <span class="required">*</span>
+                                    </label>
+                                    <div class="select-wrapper">
+                                        <i class="fa-solid fa-tags select-icon"></i>
+                                        <select id="selectLevel3" class="form-control" required disabled>
+                                            <option value="" disabled selected>Selecione o módulo ERP primeiro...</option>
+                                        </select>
+                                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                                    </div>
+                                    <span class="form-hint" id="level3Hint">Selecione o módulo acima para ver as opções.</span>
+                                </div>
+
+                                <div class="form-divider"></div>
+
+                                <!-- Field 3: Title -->
+                                <div class="form-group">
+                                    <label for="ticketTitle" class="form-label">
+                                        3. Título do Chamado <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="ticketTitle" class="form-control text-input" placeholder="Ex: Erro ao tentar emitir nota fiscal de serviço no módulo fiscal" required disabled>
+                                    <span class="form-hint">Seja claro e objetivo para acelerar a triagem.</span>
+                                </div>
+
+                                <!-- Field 4: Description -->
+                                <div class="form-group">
+                                    <label for="ticketDescription" class="form-label">
+                                        4. Descrição detalhada <span class="required">*</span>
+                                    </label>
+                                    <div class="description-textarea-wrapper">
+                                        <textarea id="ticketDescription" class="form-control textarea" rows="6" placeholder="Descreva aqui o passo a passo para reproduzir o problema, mensagens de erro que aparecem, ou detalhes do serviço que você precisa..." required disabled></textarea>
+                                        <!-- Template helper chips -->
+                                        <div class="textarea-helpers" id="textareaHelpers">
+                                            <span class="helper-chip" data-template="incidente"><i class="fa-solid fa-wand-magic-sparkles"></i> Usar Roteiro de Teste</span>
+                                            <span class="helper-chip" data-template="limpar"><i class="fa-solid fa-eraser"></i> Limpar</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Field 5: File Attachment Dropzone -->
+                                <div class="form-group">
+                                    <label class="form-label">5. Anexos (Print de Tela ou Log de Erro)</label>
+                                    <div class="file-dropzone" id="fileDropzone">
+                                        <input type="file" id="fileInput" class="file-input" multiple accept="image/*,.pdf,.txt,.log">
+                                        <div class="dropzone-content">
+                                            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                                            <p class="dropzone-text">Arraste arquivos aqui ou <span>clique para buscar</span></p>
+                                            <p class="dropzone-subtext">Imagens, logs de erro ou PDFs de até 10MB por arquivo.</p>
+                                        </div>
+                                    </div>
+                                    <!-- Attached Files List -->
+                                    <div class="attached-files-list" id="attachedFilesList">
+                                        <!-- Dynamically generated -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Column: SLA & Routing Intelligence Dashboard -->
+                        <div class="form-sidebar-panel">
+                            <div class="sticky-panel" id="stickyPanel">
+                                <div class="panel-header">
+                                    <h3><i class="fa-solid fa-brain"></i> Inteligência ApexService</h3>
+                                    <span class="badge blue">Tempo Real</span>
+                                </div>
+
+                                <!-- SLA Transparent Card -->
+                                <div class="sla-card" id="slaCard">
+                                    <div class="sla-card-header">
+                                        <span class="sla-card-title">Expectativa de Atendimento (SLA)</span>
+                                    </div>
+                                    <div class="sla-status-indicator" id="slaStatusIndicator">
+                                        <div class="priority-badge" id="slaPriorityBadge">
+                                            <span class="priority-dot"></span>
+                                            <span class="priority-text">AGUARDANDO SELEÇÃO</span>
+                                        </div>
+                                        <div class="sla-time" id="slaTime">--</div>
+                                    </div>
+                                    <div class="sla-card-body">
+                                        <p id="slaExplanation">Selecione a categoria, o módulo e o problema para calcular o SLA e o tempo estimado de atendimento.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Routing Card -->
+                                <div class="routing-card" id="routingCard">
+                                    <h4 class="routing-title"><i class="fa-solid fa-route"></i> Auto-Roteamento Inteligente</h4>
+                                    <div class="routing-flow">
+                                        <div class="flow-step current">
+                                            <div class="flow-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                                            <div class="flow-details">
+                                                <h5>Usuário (Você)</h5>
+                                                <p>Abertura do chamado</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flow-arrow-down" id="routingArrow">
+                                            <div class="flow-arrow-line"></div>
+                                            <div class="flow-arrow-bypass" id="bypassBadge">Bypass N1 <i class="fa-solid fa-bolt"></i></div>
+                                        </div>
+
+                                        <div class="flow-step" id="routingTargetStep">
+                                            <div class="flow-icon target-icon" id="routingTargetIcon"><i class="fa-solid fa-headset"></i></div>
+                                            <div class="flow-details">
+                                                <h5 id="routingQueueName">Fila de Triagem (N1)</h5>
+                                                <p id="routingQueueDescription">Aguardando definição para rotear</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Deflection Deflector Alert -->
+                                <div class="deflection-alert-card" id="deflectionAlertCard">
+                                    <div class="alert-icon">
+                                        <i class="fa-solid fa-lightbulb"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <h5>Deflexão Recomendada</h5>
+                                        <p id="deflectionAlertText">Identificamos artigos relevantes na Base de Conhecimento para o problema selecionado.</p>
+                                        <button class="alert-action-btn" id="deflectionAlertBtn">Ver Tutorial Sugerido</button>
+                                    </div>
+                                </div>
+
+                                <!-- Sticky Footer Actions inside Sidebar for desktop / flow sticky -->
+                                <div class="panel-actions-wrapper">
+                                    <button class="btn btn-secondary" id="btnCancel" type="button">Cancelar</button>
+                                    <button class="btn btn-primary" id="btnSubmit" type="submit" form="ticketForm" disabled>
+                                        <i class="fa-solid fa-rocket"></i> <span>Abrir Chamado</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Page Container: My Tickets (Backoffice simulation/list) -->
+            <div class="page-container hidden" id="myTicketsPage">
+                <nav class="breadcrumbs">
+                    <a href="#">SAC</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span class="active">Meus Chamados</span>
+                </nav>
+
+                <section class="tickets-dashboard-header">
+                    <div class="header-text">
+                        <h1>Histórico de Chamados</h1>
+                        <p>Acompanhe o andamento dos seus chamados, SLAs e histórico de interações.</p>
+                    </div>
+                    <button class="btn btn-primary" id="btnBackToNewTicket">
+                        <i class="fa-solid fa-plus"></i> Novo Chamado
+                    </button>
+                </section>
+
+                <!-- Ticket filters -->
+                <div class="tickets-filter-bar">
+                    <div class="filter-group">
+                        <button class="filter-tab active" data-filter="todos">Todos (3)</button>
+                        <button class="filter-tab" data-filter="abertos">Abertos</button>
+                        <button class="filter-tab" data-filter="resolvidos">Resolvidos</button>
+                    </div>
+                    <div class="search-tickets">
+                        <input type="text" placeholder="Filtrar chamados por ID ou Título...">
+                    </div>
+                </div>
+
+                <!-- Ticket Table / List -->
+                <div class="tickets-list-container">
+                    <table class="tickets-table">
+                        <thead>
+                            <tr>
+                                <th>Protocolo / Categoria</th>
+                                <th>Título</th>
+                                <th>Módulo ERP</th>
+                                <th>Roteamento</th>
+                                <th>Prioridade (SLA)</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketsTableBody">
+                            <!-- Pre-populated tickets representing ERP state -->
+                            <tr class="ticket-row">
+                                <td>
+                                    <div class="ticket-id-cat">
+                                        <span class="ticket-id">#APX-2026-1049</span>
+                                        <span class="ticket-category-tag error-tag">Incidente</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ticket-title-wrapper-table">
+                                        <strong>Erro 502 ao abrir o DRE</strong>
+                                        <span class="ticket-time">Aberto há 1 hora por Vinícius</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="module-pill">Relatórios</span>
+                                </td>
+                                <td>
+                                    <span class="route-pill">Suporte Relatórios/BI</span>
+                                </td>
+                                <td>
+                                    <span class="table-priority-badge low"><span class="dot"></span> Baixa (24h)</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill status-open">Em Triagem</span>
+                                </td>
+                                <td>
+                                    <button class="btn-table-action" title="Visualizar Detalhes"><i class="fa-solid fa-eye"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr class="ticket-row">
+                                <td>
+                                    <div class="ticket-id-cat">
+                                        <span class="ticket-id">#APX-2026-1042</span>
+                                        <span class="ticket-category-tag service-tag">Requisição</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ticket-title-wrapper-table">
+                                        <strong>Liberar acesso admin no módulo Faturamento</strong>
+                                        <span class="ticket-time">Aberto ontem por Vinícius</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="module-pill">Acessos</span>
+                                </td>
+                                <td>
+                                    <span class="route-pill">Admin Contas</span>
+                                </td>
+                                <td>
+                                    <span class="table-priority-badge medium"><span class="dot"></span> Média (8h)</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill status-progress">Em Atendimento</span>
+                                </td>
+                                <td>
+                                    <button class="btn-table-action" title="Visualizar Detalhes"><i class="fa-solid fa-eye"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr class="ticket-row">
+                                <td>
+                                    <div class="ticket-id-cat">
+                                        <span class="ticket-id">#APX-2026-0994</span>
+                                        <span class="ticket-category-tag finance-tag">Financeiro</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ticket-title-wrapper-table">
+                                        <strong>Como funciona a cobrança por licenças adicionais?</strong>
+                                        <span class="ticket-time">Resolvido em 12/07/2026</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="module-pill">Dúvidas Gerais</span>
+                                </td>
+                                <td>
+                                    <span class="route-pill">Financeiro Comercial</span>
+                                </td>
+                                <td>
+                                    <span class="table-priority-badge low"><span class="dot"></span> Baixa (24h)</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill status-resolved">Resolvido</span>
+                                </td>
+                                <td>
+                                    <button class="btn-table-action" title="Visualizar Detalhes"><i class="fa-solid fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Article Detail Slide Panel / Modal (For deflection article display) -->
+    <div class="article-modal-backdrop" id="articleModalBackdrop">
+        <div class="article-modal-container">
+            <div class="article-modal-header">
+                <div class="article-badge"><i class="fa-solid fa-book-open"></i> Base de Conhecimento</div>
+                <button class="article-close-btn" id="articleCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="article-modal-body" id="articleModalBody">
+                <!-- Dynamically loaded content -->
+            </div>
+            <div class="article-modal-footer">
+                <div class="deflection-feedback-container">
+                    <p>Este artigo ajudou a resolver seu problema?</p>
+                    <div class="feedback-buttons">
+                        <button class="btn-feedback yes" id="feedbackYesBtn">
+                            <i class="fa-regular fa-thumbs-up"></i> Sim, resolveu! (Fechar Chamado)
+                        </button>
+                        <button class="btn-feedback no" id="feedbackNoBtn">
+                            <i class="fa-regular fa-thumbs-down"></i> Não resolveu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deflection Confirmation Success Popover -->
+    <div class="deflection-success-toast" id="deflectionSuccessToast">
+        <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4>Resolvido via Autoatendimento!</h4>
+            <p>Excelente! Menos um chamado na fila. A base de conhecimento te poupou tempo.</p>
+        </div>
+    </div>
+
+    <!-- Ticket Submitted Success Modal -->
+    <div class="modal-backdrop" id="successModalBackdrop">
+        <div class="success-modal">
+            <div class="success-icon-animation">
+                <div class="checkmark-circle">
+                    <div class="checkmark-draw"></div>
+                </div>
+            </div>
+            <h2>Chamado Aberto com Sucesso!</h2>
+            <p class="success-subtitle">Sua solicitação foi registrada no ERP e auto-roteada para a equipe especialista.</p>
+            
+            <div class="success-details-card">
+                <div class="detail-row">
+                    <span class="detail-label">Protocolo:</span>
+                    <span class="detail-value highlight" id="successTicketId">#APX-2026-1050</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fila de Destino:</span>
+                    <span class="detail-value" id="successQueueName">Suporte Fiscal / Faturamento</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Nível de SLA:</span>
+                    <span class="detail-value" id="successSlaBadge">🔴 PRIORIDADE ALTA</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Tempo Resposta:</span>
+                    <span class="detail-value" id="successSlaTime">Até 2 horas úteis</span>
+                </div>
+            </div>
+            
+            <div class="success-tips-box">
+                <i class="fa-solid fa-bell-concierge"></i>
+                <p>Você receberá notificações por e-mail e na barra de alertas do ERP quando um analista responder.</p>
+            </div>
+            
+            <div class="success-actions">
+                <button class="btn btn-secondary" id="btnNewTicketAgain">Criar Outro Chamado</button>
+                <button class="btn btn-primary" id="btnGoToTickets">Ir para Meus Chamados</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
