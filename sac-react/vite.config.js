@@ -5,6 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: true // Permite conexões vindas do Cloudflare Tunnel/Localtunnel
+    allowedHosts: [
+      'coaching-banner-vocational-imaging.trycloudflare.com',
+      'pdtnovosacestorno.loca.lt',
+      '.trycloudflare.com',
+      '.loca.lt',
+      'localhost',
+      '127.0.0.1'
+    ]
   }
 })
