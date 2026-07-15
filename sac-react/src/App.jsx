@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { db, auth } from './firebase'; // Firebase integration import
+import { db } from './firebase'; // Firebase integration import
 import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 function App() {
@@ -22,33 +22,190 @@ function App() {
     { id: 'rowApp3', order: '#154302', client: 'Pedro Santos', show: 'Samba 90 Graus', value: 'R$ 240,00', tier: 'Supervisor' },
   ]);
 
-  // Firestore Sync & Logs State
+  // Firebase Status & Ticket Lists
   const [firebaseStatus, setFirebaseStatus] = useState('Off-line (Mock)');
-  const [ticketsList, setTicketsList] = useState([]);
+  const [ticketsList, setTicketsList] = useState([
+    { id: 't1', title: 'PIX pago mas ingresso não emitido', category: 'PIX', sla: '1h', priority: 'Crítica', queue: 'Fila Operações PIX', bypass: true, timestamp: new Date(Date.now() - 3600000) },
+    { id: 't2', title: 'Solicitação de estorno parcial', category: 'Estorno', sla: '2h', priority: 'Alta', queue: 'Fila Financeiro - Estorno', bypass: true, timestamp: new Date(Date.now() - 7200000) },
+  ]);
+
+  // SAC Native Workspace States
+  const [sacTab, setSacTab] = useState('dashboard'); // 'dashboard' | 'form' | 'history'
+  const [sacSearch, setSacSearch] = useState('');
+  const [deflectedArticles, setDeflectedArticles] = useState([]);
+  
+  // CTI Cascading Form States
+  const [ctiCategory, setCtiCategory] = useState('');
+  const [ctiSubcategory, setCtiSubcategory] = useState('');
+  const [ctiModule, setCtiModule] = useState('Ingressos');
+  const [ticketTitle, setTicketTitle] = useState('');
+  const [ticketDescription, setTicketDescription] = useState('');
+  
+  // CTI Calculated Values
+  const [calculatedSla, setCalculatedSla] = useState('24h');
+  const [calculatedPriority, setCalculatedPriority] = useState('Baixa');
+  const [calculatedQueue, setCalculatedQueue] = useState('Triagem Geral');
+  const [calculatedBypass, setCalculatedBypass] = useState(false);
+
+  // ERP Real-time logs simulation
+  const [erpLogs, setErpLogs] = useState([
+    "[17:15:32] [Adyen Shield] Risco de fraude calculado: 0.12% (Seguro)",
+    "[17:16:04] [Adyen PIX] Pagamento aprovado para o show Samba 90 Graus",
+    "[17:17:11] [Catraca API] Sincronização de ingressos ativa para Teatro Positivo",
+    "[17:18:22] [IA Auto-Atendimento] Ticket #1938 resolvido por deflexão automatizada"
+  ]);
+
+  // Subcategories mapping
+  const subcategoriesMap = {
+    'Estorno': [
+      'Estorno de PIX',
+      'Estorno de Cartão',
+      'Estorno não recebido na conta',
+      'Solicitar comprovante de estorno'
+    ],
+    'Cancelamento': [
+      'Cancelamento de Pedido',
+      'Cancelamento por arrependimento',
+      'Erro na solicitação'
+    ],
+    'PIX': [
+      'PIX pago mas não aprovado',
+      'PIX expirou',
+      'Erro no QR Code'
+    ],
+    'Cartão de Crédito': [
+      'Erro na autorização',
+      'Cobrança duplicada',
+      'Cartão recusado'
+    ],
+    'Troca': [
+      'Troca de titularidade',
+      'Troca de setor',
+      'Troca de data do show'
+    ],
+    'Suporte Técnico': [
+      'Erro no aplicativo',
+      'Não consigo acessar minha conta',
+      'Instabilidade no site'
+    ]
+  };
 
   useEffect(() => {
     // Attempt connecting to Firestore
     if (db) {
-      getDocs(query(collection(db, "tickets"), orderBy("timestamp", "desc"), limit(5)))
+      getDocs(query(collection(db, "tickets"), orderBy("timestamp", "desc"), limit(10)))
         .then((snapshot) => {
           setFirebaseStatus('Conectado 🔥');
           const docs = [];
-          snapshot.forEach((doc) => docs.push({ id: doc.id, ...doc.data() }));
-          setTicketsList(docs);
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            docs.push({ 
+              id: doc.id, 
+              ...data,
+              timestamp: data.timestamp?.toDate() || new Date()
+            });
+          });
+          if (docs.length > 0) {
+            setTicketsList(docs);
+          }
         })
         .catch((err) => {
           console.warn("Firestore connection unavailable, using local mock storage.", err);
           setFirebaseStatus('Offline (Mock Local)');
         });
     }
-  }, [activePanel]);
+  }, [activePanel, sacTab]);
 
-  // Handler to approve/deny pending approvals
+  // Dynamically calculate CTI routing & SLAs
+  useEffect(() => {
+    if (!ctiCategory) {
+      setCalculatedSla('24h');
+      setCalculatedPriority('Baixa');
+      setCalculatedQueue('Triagem Geral');
+      setCalculatedBypass(false);
+      return;
+    }
+
+    if (ctiCategory === 'PIX' && ctiSubcategory === 'PIX pago mas não aprovado') {
+      setCalculatedSla('1h');
+      setCalculatedPriority('Crítica');
+      setCalculatedQueue('Fila Operações PIX');
+      setCalculatedBypass(true);
+    } else if (ctiCategory === 'Estorno') {
+      setCalculatedSla('2h');
+      setCalculatedPriority('Alta');
+      setCalculatedQueue('Fila Financeiro - Estorno');
+      setCalculatedBypass(true);
+    } else if (ctiCategory === 'Suporte Técnico' && ctiSubcategory === 'Não consigo acessar minha conta') {
+      setCalculatedSla('4h');
+      setCalculatedPriority('Média');
+      setCalculatedQueue('Suporte N1');
+      setCalculatedBypass(false);
+    } else {
+      setCalculatedSla('12h');
+      setCalculatedPriority('Média');
+      setCalculatedQueue('Fila de Suporte Operações');
+      setCalculatedBypass(false);
+    }
+  }, [ctiCategory, ctiSubcategory]);
+
+  // Deflection Search Simulator
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSacSearch(val);
+    if (val.length > 3) {
+      // Simulate deflection suggestions
+      setDeflectedArticles([
+        { id: 1, title: 'Como solicitar estorno de PIX no portal?', desc: 'Acesse Meus Ingressos, selecione o pedido e clique em Cancelar.' },
+        { id: 2, title: 'Estornos de Cartão de Crédito e Prazos', desc: 'Estornos de cartão dependem do fechamento da fatura (até 2 faturas úteis).' }
+      ]);
+    } else {
+      setDeflectedArticles([]);
+    }
+  };
+
+  // Submit Ticket to Firebase/Mock
+  const handleCreateTicket = async (e) => {
+    e.preventDefault();
+    if (!ticketTitle || !ctiCategory) return;
+
+    const newTicket = {
+      title: ticketTitle,
+      category: ctiCategory,
+      subcategory: ctiSubcategory,
+      module: ctiModule,
+      description: ticketDescription,
+      sla: calculatedSla,
+      priority: calculatedPriority,
+      queue: calculatedQueue,
+      bypass: calculatedBypass,
+      timestamp: new Date()
+    };
+
+    if (db && firebaseStatus.includes('Conectado')) {
+      try {
+        await addDoc(collection(db, "tickets"), newTicket);
+        console.log("Ticket gravado no Firebase!");
+      } catch (err) {
+        console.error("Erro ao gravar no Firebase:", err);
+      }
+    }
+
+    // Add to local state list immediately
+    setTicketsList(prev => [newTicket, ...prev]);
+
+    // Reset Form & Switch Tab
+    setTicketTitle('');
+    setTicketDescription('');
+    setCtiCategory('');
+    setCtiSubcategory('');
+    setSacTab('history');
+  };
+
   const handleApprovalAction = (id) => {
     setPendingApprovals(prev => prev.filter(item => item.id !== id));
   };
 
-  // Run Gateway Refund Simulation Steps
   const runGatewaySimulation = () => {
     setGatewayProcessing(true);
     setGatewayStep(1);
@@ -60,20 +217,7 @@ function App() {
         } else {
           clearInterval(interval);
           setGatewayProcessing(false);
-          // Complete and advance to Step 4 (Conclusão)
           setWizardStep(4);
-          
-          // Proactively log this refund to Firestore if available
-          if (db && firebaseStatus.includes('Conectado')) {
-            addDoc(collection(db, "tickets"), {
-              type: "Estorno",
-              order: "154258",
-              client: "João da Silva",
-              value: 580.00,
-              nsu: "ADY_854785214",
-              timestamp: new Date()
-            }).catch(e => console.error(e));
-          }
           return 5;
         }
       });
@@ -105,7 +249,7 @@ function App() {
             </div>
             <div className="profile-email">vinicius.casagrande@diskingressos.com.br</div>
           </div>
-          <span style={{ fontSize: '0.7rem', opacity: 0.8 }} className="badge bg-secondary">{firebaseStatus}</span>
+          <span style={{ fontSize: '0.7rem', padding: '4px 8px', borderRadius: '12px' }} className="badge bg-success">{firebaseStatus}</span>
         </div>
       </header>
 
@@ -172,7 +316,7 @@ function App() {
               </a>
               
               {/* SAC / ATENDIMENTO MENU ITEM */}
-              <a className={`menu-item ${activePanel === 'sac' ? 'active' : ''}`} onClick={() => { setActivePanel('sac'); }} style={{ borderLeft: '3px solid var(--primary-blue)', backgroundColor: 'rgba(0, 123, 255, 0.05)', color: '#ffffff', marginTop: '4px' }}>
+              <a className={`menu-item ${activePanel === 'sac' ? 'active' : ''}`} onClick={() => { setActivePanel('sac'); setSacTab('dashboard'); }} style={{ borderLeft: '3px solid var(--primary-blue)', backgroundColor: 'rgba(0, 123, 255, 0.05)', color: '#ffffff', marginTop: '4px' }}>
                 <div className="menu-item-left"><i className="fa-solid fa-headset" style={{ color: 'var(--primary-blue)' }}></i> Atendimento / SAC</div>
                 <span className="badge-sidebar badge-blue">Novo</span>
               </a>
@@ -333,7 +477,6 @@ function App() {
               {/* SUBVIEW 1: EXECUTIVE ANALYTICS DASHBOARD */}
               {estornoSubView === 'dashboard' && (
                 <div>
-                  {/* KPI Advanced Grid */}
                   <div className="row g-3 mb-4" style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
                     <div style={{ flex: 1, background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', color: '#ffffff', padding: '20px', borderRadius: '8px' }}>
                       <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700 }}>Estornos Executados</div>
@@ -357,7 +500,6 @@ function App() {
                     </div>
                   </div>
 
-                  {/* Pending approvals & fraud analysis */}
                   <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
                     <div className="events-panel" style={{ flex: 7 }}>
                       <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
@@ -632,10 +774,265 @@ function App() {
             </div>
           )}
 
-          {/* PANEL D: INTEGRATED SAC WORKSTATION HUB */}
+          {/* PANEL D: NATIVE REACT SAC WORKSPACE */}
           {activePanel === 'sac' && (
-            <div style={{ height: '100%' }}>
-              <iframe src="limitless/html/layout_6/full/sac_novo_chamado.html" style={{ width: '100%', height: 'calc(100vh - 120px)', border: 'none', borderRadius: '8px', backgroundColor: '#ffffff' }}></iframe>
+            <div>
+              <div className="dashboard-header">
+                <div className="dashboard-title-box">
+                  <h2>Central de Atendimento ao Cliente (SAC)</h2>
+                  <p>Módulo integrado para triagem CTI, deflexão automática por IA e histórico no Firebase.</p>
+                </div>
+                <div className="header-buttons">
+                  <button className={`btn-header-action ${sacTab === 'dashboard' ? 'primary' : ''}`} onClick={() => setSacTab('dashboard')}>
+                    <i className="fa-solid fa-chart-line"></i> Dashboard
+                  </button>
+                  <button className={`btn-header-action ${sacTab === 'form' ? 'primary' : ''}`} onClick={() => setSacTab('form')}>
+                    <i className="fa-solid fa-plus"></i> Novo Chamado
+                  </button>
+                  <button className={`btn-header-action ${sacTab === 'history' ? 'primary' : ''}`} onClick={() => setSacTab('history')}>
+                    <i className="fa-solid fa-list"></i> Histórico ({ticketsList.length})
+                  </button>
+                </div>
+              </div>
+
+              {/* SAC TAB 1: DASHBOARD */}
+              {sacTab === 'dashboard' && (
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  {/* Left show list & deflection */}
+                  <div style={{ flex: 7 }}>
+                    <div className="events-panel" style={{ marginBottom: '20px' }}>
+                      <h6 className="fw-bold text-dark border-bottom pb-2 mb-3"><i className="fa-solid fa-ticket-simple text-orange me-2"></i> Fila de Chamados Ativa por Shows</h6>
+                      <div style={{ fontSize: '0.8rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #eee' }}>
+                          <span><strong>Samba 90 Graus (Live Curitiba)</strong></span>
+                          <span className="badge bg-danger" style={{ color: '#white', padding: '2px 6px', borderRadius: '4px' }}>54 chamados na fila</span>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #eee' }}>
+                          <span><strong>Experiência Música e Natureza</strong></span>
+                          <span className="badge bg-warning text-dark" style={{ padding: '2px 6px', borderRadius: '4px' }}>12 chamados na fila</span>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
+                          <span><strong>L7nnon e Xamã</strong></span>
+                          <span className="badge bg-success" style={{ color: '#white', padding: '2px 6px', borderRadius: '4px' }}>3 chamados</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="events-panel" style={{ backgroundColor: '#21252d', color: '#10b981', fontFamily: 'monospace', padding: '20px' }}>
+                      <h6 className="fw-bold text-white border-bottom border-secondary pb-2 mb-3"><i className="fa-solid fa-terminal me-2"></i> Console de Atividades do ERP (Logs em Tempo Real)</h6>
+                      <div style={{ fontSize: '0.75rem', height: '150px', overflowY: 'auto', textAlign: 'left', lineHeight: 1.6 }}>
+                        {erpLogs.map((log, index) => (
+                          <div key={index}>{log}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: AI Deflection metrics */}
+                  <div className="events-panel" style={{ flex: 5, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <h6 className="fw-bold text-dark border-bottom pb-2 mb-3"><i className="fa-solid fa-robot text-primary me-2"></i> Eficiência do Autoatendimento (IA)</h6>
+                      <div style={{ textAlign: 'center', margin: '30px 0' }}>
+                        <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--primary-blue)' }}>72%</h1>
+                        <span className="text-muted" style={{ fontSize: '0.75rem' }}>De chamados resolvidos via Deflexão e Tutoriais (Sem N1)</span>
+                      </div>
+                    </div>
+                    <div style={{ borderTop: '1px solid #eee', paddingTop: '15px', fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'left' }}>
+                      ✔ <strong>Receita Preservada:</strong> Evitou chargeback em R$ 12.430,00.<br/>
+                      ✔ <strong>Tempo de Resolução:</strong> Reduzido de 24h para 4 minutos.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* SAC TAB 2: NOVO CHAMADO FORM (CTI TRIAGEM) */}
+              {sacTab === 'form' && (
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  {/* Left form */}
+                  <div className="events-panel" style={{ flex: 7 }}>
+                    <h6 className="fw-bold text-dark border-bottom pb-2 mb-3"><i className="fa-solid fa-headset text-orange me-2"></i> Abertura de Novo Chamado do Cliente</h6>
+                    
+                    {/* Search Knowledge Base input (Deflection trigger) */}
+                    <div className="form-group">
+                      <label>🔍 Como podemos ajudar? (Digite seu problema para sugestão automática)</label>
+                      <input 
+                        type="text" 
+                        value={sacSearch} 
+                        onChange={handleSearchChange} 
+                        placeholder="Ex: Como pedir estorno, Erro no PIX..." 
+                      />
+                    </div>
+
+                    {/* Deflection list rendering */}
+                    {deflectedArticles.length > 0 && (
+                      <div style={{ backgroundColor: 'rgba(0,123,255,0.05)', border: '1px solid var(--primary-blue)', padding: '12px', borderRadius: '6px', marginBottom: '20px', textAlign: 'left' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-blue)', marginBottom: '8px' }}>
+                          <i className="fa-solid fa-lightbulb me-1"></i> Sugestões da Base de Conhecimento encontradas:
+                        </div>
+                        {deflectedArticles.map(art => (
+                          <div key={art.id} style={{ marginBottom: '8px', fontSize: '0.7rem' }}>
+                            <strong>{art.title}</strong>
+                            <p className="text-muted" style={{ margin: 0 }}>{art.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <form onSubmit={handleCreateTicket}>
+                      <div className="form-group">
+                        <label>Título do Chamado</label>
+                        <input 
+                          type="text" 
+                          value={ticketTitle} 
+                          onChange={(e) => setTicketTitle(e.target.value)} 
+                          placeholder="Ex: Solicitação de estorno de PIX paraRoupa Nova"
+                          required 
+                        />
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '15px' }}>
+                        <div className="form-group" style={{ flex: 1 }}>
+                          <label>Categoria (Triagem CTI - Nível 1)</label>
+                          <select value={ctiCategory} onChange={(e) => { setCtiCategory(e.target.value); setCtiSubcategory(''); }} required>
+                            <option value="">Selecione...</option>
+                            <option value="Estorno">Estorno</option>
+                            <option value="Cancelamento">Cancelamento</option>
+                            <option value="PIX">PIX</option>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Troca">Troca</option>
+                            <option value="Suporte Técnico">Suporte Técnico</option>
+                          </select>
+                        </div>
+
+                        {ctiCategory && (
+                          <div className="form-group" style={{ flex: 1 }}>
+                            <label>Subcategoria (Nível 3)</label>
+                            <select value={ctiSubcategory} onChange={(e) => setCtiSubcategory(e.target.value)} required>
+                              <option value="">Selecione...</option>
+                              {subcategoriesMap[ctiCategory]?.map((sub, idx) => (
+                                <option key={idx} value={sub}>{sub}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '15px' }}>
+                        <div className="form-group" style={{ flex: 1 }}>
+                          <label>Módulo ERP Responsável (Nível 2)</label>
+                          <select value={ctiModule} onChange={(e) => setCtiModule(e.target.value)}>
+                            <option value="Ingressos">Ingressos</option>
+                            <option value="Financeiro">Financeiro</option>
+                            <option value="Faturamento">Faturamento</option>
+                            <option value="Controle de Acesso">Controle de Acesso</option>
+                            <option value="Produtor">Produtor</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <label>Descrição Detalhada do Problema</label>
+                        <textarea 
+                          rows="3" 
+                          value={ticketDescription} 
+                          onChange={(e) => setTicketDescription(e.target.value)} 
+                          placeholder="Informe detalhes do erro, passos para reproduzir ou justificativas do cliente..."
+                        ></textarea>
+                      </div>
+
+                      <div style={{ textAlign: 'right' }}>
+                        <button type="submit" className="btn-wizard-next" style={{ backgroundColor: 'var(--primary-blue)' }}>
+                          <i className="fa-solid fa-paper-plane"></i> Criar Chamado no Firestore
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  {/* Right routing metrics */}
+                  <div style={{ flex: 5 }}>
+                    <div style={{ border: '1px solid var(--border-color)', borderRadius: '6px', padding: '16px', backgroundColor: '#ffffff', height: '100%' }}>
+                      <h6 className="fw-bold border-bottom pb-2 mb-3">Roteamento e SLA Calculado</h6>
+                      
+                      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        <span className="text-muted font-weight-bold fs-xs">Prioridade Calculada:</span>
+                        <span className={`fw-bold ${calculatedPriority === 'Crítica' || calculatedPriority === 'Alta' ? 'text-danger' : 'text-dark'}`}>{calculatedPriority}</span>
+                      </div>
+                      
+                      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        <span className="text-muted font-weight-bold fs-xs">Prazo Estimado (SLA):</span>
+                        <span className="fw-bold text-dark">{calculatedSla}</span>
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                        <span className="text-muted font-weight-bold fs-xs">Fila de Roteamento:</span>
+                        <span className="fw-bold text-dark">{calculatedQueue}</span>
+                      </div>
+
+                      {calculatedBypass && (
+                        <div className="alert alert-danger" style={{ backgroundColor: 'rgba(255,87,34,0.08)', color: 'var(--primary-orange)', padding: '10px', fontSize: '0.7rem', borderRadius: '4px', borderLeft: '3px solid var(--primary-orange)', marginTop: '15px' }}>
+                          <i className="fa-solid fa-bolt me-1"></i> <strong>Bypass N1 Ativo ⚡:</strong> Este chamado pulará a triagem inicial e irá direto para a fila especialista do Financeiro!
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* SAC TAB 3: TICKET HISTORY (LIST FROM FIRESTORE) */}
+              {sacTab === 'history' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-list-ul me-2"></i> Chamados Cadastrados no Banco de Dados</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Título do Chamado</th>
+                        <th>Categoria / Sub</th>
+                        <th>Prazo (SLA)</th>
+                        <th>Prioridade</th>
+                        <th>Fila Destino</th>
+                        <th>Status Rota</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ticketsList.map((ticket, index) => (
+                        <tr key={ticket.id || index}>
+                          <td>
+                            <strong>{ticket.title}</strong><br/>
+                            <span className="text-muted" style={{ fontSize: '0.65rem' }}>Criado em: {ticket.timestamp?.toLocaleString() || 'Agora'}</span>
+                          </td>
+                          <td>
+                            <span className="badge bg-light text-dark border" style={{ padding: '2px 4px', fontSize: '0.65rem' }}>{ticket.category}</span>
+                            {ticket.subcategory && <span className="text-muted d-block" style={{ fontSize: '0.65rem' }}>{ticket.subcategory}</span>}
+                          </td>
+                          <td className="fw-bold">{ticket.sla}</td>
+                          <td>
+                            <span style={{ 
+                              color: ticket.priority === 'Crítica' || ticket.priority === 'Alta' ? 'var(--primary-orange)' : 'var(--text-dark)',
+                              fontWeight: 700 
+                            }}>{ticket.priority}</span>
+                          </td>
+                          <td>{ticket.queue}</td>
+                          <td>
+                            {ticket.bypass ? (
+                              <span className="text-danger fw-bold" style={{ fontSize: '0.7rem' }}><i className="fa-solid fa-bolt"></i> Bypass N1</span>
+                            ) : (
+                              <span className="text-muted" style={{ fontSize: '0.7rem' }}>Fila Comum</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                      {ticketsList.length === 0 && (
+                        <tr>
+                          <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>Nenhum chamado cadastrado ainda.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
 
