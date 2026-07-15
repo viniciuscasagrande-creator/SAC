@@ -1,6 +1,6 @@
 # 🏢 ApexERP - Central de Atendimento & SAC
 
-Este repositório contém a especificação e implementação do módulo de **Central de Atendimento / Abertura de Chamados** integrado ao sistema ERP corporativo ApexERP, desenvolvido sob o template **Limitless (Layout 6)** e também integrado no projeto **produtor-disk (AdminLTE 3 / Yii2)**.
+Este repositório contém a especificação e implementação do módulo de **Central de Atendimento / Abertura de Chamados (SAC)** integrado ao sistema ERP corporativo da DiskIngressos, desenvolvido sob o template **Limitless (Layout 6)** e também integrado no projeto **produtor-disk (AdminLTE 3 / Yii2)**.
 
 O objetivo do módulo é otimizar o fluxo de atendimento através da metodologia **"Shift-Left"**, estimulando o autoatendimento e reduzindo o tempo de resolução de chamados críticos via auto-roteamento (Bypass de triagem N1).
 
@@ -87,14 +87,17 @@ Quando o usuário clica no card **"⚠️ ESTOU COM UM PROBLEMA"**, a tela se ex
 A estrutura do módulo SAC está distribuída em duas grandes versões no repositório:
 
 ### 1. Versão Integrada ao Projeto Yii2 (`produtor-disk` / AdminLTE 3)
-*   `produtor-disk/views/layouts/sidebar.php` - Adição do bloco de menu **"SAC"** na lateral do ERP.
+*   `produtor-disk/views/layouts/sidebar.php` - Adição do bloco de menu **"SAC"** na barra de navegação lateral do ERP.
 *   `produtor-disk/modules/Chamados/controllers/IssuesController.php` - Método `actionSacNovoChamado()` responsável pela rota da tela de chamados do SAC.
 *   `produtor-disk/modules/Chamados/views/issues/sac-novo-chamado.php` - Tela responsiva utilizando Bootstrap 4, FontAwesome 5, modal de confirmação nativo e integração persistente com o **Firebase Firestore**.
 
 ### 2. Versão Integrada ao Template `Limitless` (Layout 6)
-*   `limitless/html/layout_6/full/sac_novo_chamado.html` - Página de chamados.
-*   `limitless/html/layout_6/full/assets/css/ltr/custom_sac.css` - CSS de estilização de componentes adicionais.
-*   `limitless/html/layout_6/full/assets/js/sac_app.js` - Lógica das chamadas assíncronas e transições.
+*   `limitless/html/layout_6/full/sac_novo_chamado.html` - Página de chamados completa no template.
+*   `limitless/html/layout_6/full/assets/css/ltr/custom_sac.css` - CSS de estilização de componentes adicionais (SLA, estrelas e timeline).
+*   `limitless/html/layout_6/full/assets/js/sac_app.js` - Lógica das chamadas assíncronas, transições de abas, formulários operacionais integrados de finanças/eventos/catracas e sincronia Firebase.
+
+### 3. Diretório de Referência de Documentos (OneDrive)
+*   `C:\Users\vinad\OneDrive\Documentos\pdt\produtor-disk\views\layouts\sidebar.php` - Atualização realizada para sincronizar o **Menu SAC** na barra lateral de referência corporativa.
 
 ---
 
@@ -102,7 +105,7 @@ A estrutura do módulo SAC está distribuída em duas grandes versões no reposi
 
 O servidor local HTTP está no ar. Você pode visualizar os protótipos em tempo real através dos seguintes links:
 
-*   **Versão Limitless (ERP Padrão):** [https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html](https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html)
-*   **Versão Standalone:** [https://brown-ties-own.loca.lt/index.html](https://brown-ties-own.loca.lt/index.html)
+*   **Versão Limitless (Redirecionamento Padrão):** [https://brown-ties-own.loca.lt/index.html](https://brown-ties-own.loca.lt/index.html)
+*   **Acesso Direto ao Painel Limitless:** [https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html](https://brown-ties-own.loca.lt/limitless/html/layout_6/full/sac_novo_chamado.html)
 
 *(Utilize o IP público de desvio **`168.194.161.207`** no prompt do localtunnel se solicitado)*
