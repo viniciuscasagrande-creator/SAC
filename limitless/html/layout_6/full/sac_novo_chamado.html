@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr" class="layout-static">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>ApexERP - Central de Atendimento & SAC</title>
+
+	<!-- Global stylesheets -->
+	<link href="../../../assets/fonts/inter/inter.css" rel="stylesheet" type="text/css">
+	<link href="../../../assets/icons/phosphor/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/ltr/all.min.css" id="stylesheet" rel="stylesheet" type="text/css">
+	<!-- Custom Stylesheet for SAC overrides -->
+	<link href="assets/css/ltr/custom_sac.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="../../../assets/demo/demo_configurator.js"></script>
+	<script src="../../../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/app.js"></script>
+	<!-- /core JS files -->
+
+	<!-- SAC core JS logic -->
+	<script src="assets/js/sac_app.js"></script>
+</head>
+
+<body>
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-xl navbar-static shadow">
+		<div class="container-fluid">
+			<div class="navbar-brand flex-1">
+				<a href="index.html" class="d-inline-flex align-items-center">
+					<img src="../../../assets/images/logo_icon.svg" alt="ApexERP">
+					<img src="../../../assets/images/logo_text_dark.svg" class="d-none d-sm-inline-block h-16px invert-dark ms-3" alt="ApexERP Text">
+				</a>
+			</div>
+
+			<div class="d-flex w-100 w-xl-auto overflow-auto overflow-xl-visible scrollbar-hidden border-top border-top-xl-0 order-1 order-xl-0 pt-2 pt-xl-0 mt-2 mt-xl-0">
+				<ul class="nav gap-1 justify-content-center flex-nowrap flex-xl-wrap mx-auto">
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded">
+							<i class="ph-house me-2"></i>
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded">
+							<i class="ph-receipt me-2"></i>
+							Faturamento
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded">
+							<i class="ph-package me-2"></i>
+							Estoque
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded">
+							<i class="ph-wallet me-2"></i>
+							Financeiro
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded">
+							<i class="ph-users me-2"></i>
+							RH
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link rounded active" id="navHelpCenter">
+							<i class="ph-headset me-2"></i>
+							Central de Ajuda (SAC)
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<ul class="nav gap-1 flex-xl-1 justify-content-end order-0 order-xl-1">
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link navbar-nav-link-icon rounded">
+						<i class="ph-bell"></i>
+						<span class="badge bg-danger text-white position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">3</span>
+					</a>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a href="#" class="navbar-nav-link align-items-center rounded p-1" data-bs-toggle="dropdown">
+						<div class="status-indicator-container">
+							<img src="../../../assets/images/demo/users/face11.jpg" class="w-32px h-32px rounded" alt="User Profile">
+							<span class="status-indicator bg-success"></span>
+						</div>
+						<span class="d-none d-md-inline-block mx-md-2 fw-semibold">Vinícius</span>
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-end">
+						<a href="#" class="dropdown-item"><i class="ph-user me-2"></i> Meu Perfil</a>
+						<a href="#" class="dropdown-item"><i class="ph-gear me-2"></i> Configurações</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item text-danger"><i class="ph-sign-out me-2"></i> Sair</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page content -->
+	<div class="page-content">
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Inner content -->
+			<div class="content-inner">
+
+				<!-- Page header -->
+				<div class="page-header border-bottom">
+					<div class="page-header-content container-fluid d-lg-flex align-items-center justify-content-between py-3">
+						<div class="d-flex flex-column">
+							<h4 class="page-title mb-0 fw-bold">
+								Central de Ajuda <span class="fw-normal text-muted">/ Abertura de Chamado</span>
+							</h4>
+							<div class="text-muted fs-xs mt-1">
+								<a href="#" class="text-muted text-decoration-none">SAC</a> 
+								<i class="ph-caret-right mx-1 fs-10"></i> 
+								<span class="text-dark fw-semibold">Abrir Novo Chamado</span>
+							</div>
+						</div>
+
+						<div class="d-flex gap-2 mt-3 mt-lg-0">
+							<button type="button" class="btn btn-outline-primary rounded-pill btn-labeled btn-labeled-start" id="navMyTickets">
+								<span class="btn-labeled-icon bg-primary text-white rounded-pill"><i class="ph-ticket"></i></span>
+								Meus Chamados <span class="badge bg-danger ms-1" id="ticketCountBadge">3</span>
+							</button>
+							<button type="button" class="btn btn-primary rounded-pill btn-labeled btn-labeled-start active" id="navNewTicket">
+								<span class="btn-labeled-icon bg-primary text-white rounded-pill"><i class="ph-plus"></i></span>
+								Novo Chamado
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+				<!-- Content area: OPEN NEW TICKET -->
+				<div class="content container-fluid py-4" id="openTicketPage">
+
+					<!-- Deflection Smart Search Header Panel -->
+					<div class="card border-0 text-white shadow-sm mb-4" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+						<div class="card-body p-4 position-relative overflow-hidden">
+							<div class="row align-items-center">
+								<div class="col-lg-8">
+									<h3 class="fw-bold mb-1"><i class="ph-chat-circle-dots me-2 text-primary"></i> Como podemos ajudar?</h3>
+									<p class="text-muted mb-4 fs-sm">Evite filas digitando seu problema para pesquisar guias rápidos de auto-resolução na nossa Base de Conhecimento e fóruns GitHub.</p>
+									
+									<!-- Smart Search Input Group -->
+									<div class="position-relative">
+										<div class="input-group input-group-lg shadow-sm rounded">
+											<span class="input-group-text bg-white border-end-0 text-primary"><i class="ph-question fs-3"></i></span>
+											<input type="text" id="deflectionSearch" class="form-control border-start-0 fs-6 py-3" placeholder="Digite seu problema... (Ex: emitir nota, erro 502, resetar senha)" autocomplete="off">
+											<button class="btn btn-light border border-start-0 text-muted d-none" type="button" id="clearSearchBtn"><i class="ph-x fs-5"></i></button>
+											<span class="input-group-text bg-white border-start-0 d-none" id="searchLoader"><i class="ph-spinner spinner text-primary"></i></span>
+										</div>
+										
+										<!-- Suggestions Dropdown (Floating Card) -->
+										<div class="suggestions-dropdown card" id="deflectionSuggestions">
+											<div class="suggestions-header bg-light px-3 py-2 fs-xs fw-bold text-uppercase text-muted border-bottom d-flex justify-content-between align-items-center">
+												<span><i class="ph-book-open me-1"></i> Artigos recomendados</span>
+												<span class="badge bg-success-100 text-success">Resolva em 1 minuto</span>
+											</div>
+											<div class="suggestions-list" id="suggestionsList">
+												<!-- Filled dynamically -->
+											</div>
+											<div class="bg-light p-2 text-center text-muted border-top fs-10">
+												Não encontrou o que precisava? Preencha os campos do chamado abaixo.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 d-none d-lg-block text-center position-relative">
+									<i class="ph-headset text-primary opacity-10 position-absolute" style="font-size: 10rem; right: 10px; top: -50px;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Passo 1: Category Selection Cards -->
+					<div class="card mb-4" id="step1Section">
+						<div class="card-header bg-white py-3 border-bottom d-flex align-items-center">
+							<span class="badge bg-primary-100 text-primary fw-bold me-2 px-2 py-1 fs-xs">PASSO 1</span>
+							<h5 class="card-title mb-0 fw-bold">O que está acontecendo? <span class="fw-normal text-muted fs-xs ms-2">Selecione uma categoria de atendimento</span></h5>
+						</div>
+						
+						<div class="card-body">
+							<div class="row g-3">
+								<!-- Card 1: Incidentes -->
+								<div class="col-xl-4">
+									<div class="card card-hover border-start border-start-width-3 border-start-danger shadow-sm h-100 category-card" data-category="problema" id="cardProblema">
+										<div class="card-body d-flex gap-3">
+											<div class="bg-danger bg-opacity-10 text-danger rounded p-3 align-self-start fs-2"><i class="ph-warning"></i></div>
+											<div>
+												<h6 class="fw-bold mb-1">Estou com um problema</h6>
+												<span class="badge bg-danger bg-opacity-10 text-danger text-uppercase fs-10 mb-2">Incidente</span>
+												<p class="text-muted fs-xs mb-0">Algo parou de funcionar, está quebrado ou apresentando erros nas rotinas do ERP.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Card 2: Serviços -->
+								<div class="col-xl-4">
+									<div class="card card-hover border-start border-start-width-3 border-start-info shadow-sm h-100 category-card" data-category="servico" id="cardServico">
+										<div class="card-body d-flex gap-3">
+											<div class="bg-info bg-opacity-10 text-info rounded p-3 align-self-start fs-2"><i class="ph-pencil-line"></i></div>
+											<div>
+												<h6 class="fw-bold mb-1">Preciso de um serviço</h6>
+												<span class="badge bg-info bg-opacity-10 text-info text-uppercase fs-10 mb-2">Requisição de Serviço</span>
+												<p class="text-muted fs-xs mb-0">Solicitação de novos acessos de usuários, novos cadastros, ou ativação de módulos.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Card 3: Financeiro / Comercial -->
+								<div class="col-xl-4">
+									<div class="card card-hover border-start border-start-width-3 border-start-success shadow-sm h-100 category-card" data-category="financeiro" id="cardFinanceiro">
+										<div class="card-body d-flex gap-3">
+											<div class="bg-success bg-opacity-10 text-success rounded p-3 align-self-start fs-2"><i class="ph-money"></i></div>
+											<div>
+												<h6 class="fw-bold mb-1">Financeiro / Dúvidas</h6>
+												<span class="badge bg-success bg-opacity-10 text-success text-uppercase fs-10 mb-2">Atendimento Comercial</span>
+												<p class="text-muted fs-xs mb-0">Segunda via de boletos, detalhamento de faturas, upgrade de planos e licenças do ERP.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Passo 2: Details & SLA sidebar (collapsible) -->
+					<div class="card step-section collapsed mb-4" id="step2Section">
+						<div class="card-header bg-white py-3 border-bottom d-flex align-items-center">
+							<span class="badge bg-secondary-100 text-dark fw-bold me-2 px-2 py-1 fs-xs" id="step2Badge">PASSO 2</span>
+							<h5 class="card-title mb-0 fw-bold" id="step2Title">Detalhes do Chamado</h5>
+							<span class="text-muted fs-xs ms-2 d-none d-md-inline" id="step2Subtitle">Preencha as informações detalhadamente</span>
+						</div>
+						
+						<div class="card-body">
+							<div class="row g-4">
+								
+								<!-- Form inputs Column -->
+								<div class="col-lg-8 border-end border-end-lg-0 pe-lg-4">
+									<form id="ticketForm" class="needs-validation" novalidate>
+										
+										<!-- Dropdown 1: Level 2 -->
+										<div class="mb-3">
+											<label class="form-label fw-semibold" for="selectLevel2">1. Onde está o problema? (Módulo) <span class="text-danger">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="ph-cubes"></i></span>
+												<select id="selectLevel2" class="form-select" required disabled>
+													<option value="" disabled selected>Selecione a categoria no Passo 1 primeiro...</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- Dropdown 2: Level 3 -->
+										<div class="mb-3">
+											<label class="form-label fw-semibold" for="selectLevel3">2. Qual é a situação exata? (Item) <span class="text-danger">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="ph-tag"></i></span>
+												<select id="selectLevel3" class="form-select" required disabled>
+													<option value="" disabled selected>Selecione o módulo ERP primeiro...</option>
+												</select>
+											</div>
+											<div class="form-text text-muted fs-xs" id="level3Hint">Selecione o módulo acima para ver as opções.</div>
+										</div>
+
+										<hr class="my-4">
+
+										<!-- Ticket Title -->
+										<div class="mb-3">
+											<label class="form-label fw-semibold" for="ticketTitle">3. Título do Chamado <span class="text-danger">*</span></label>
+											<input type="text" id="ticketTitle" class="form-control" placeholder="Descreva brevemente o problema. Ex: Nota fiscal de serviço rejeitada no faturamento" required disabled>
+											<div class="form-text text-muted fs-xs">Insira um resumo curto e explicativo.</div>
+										</div>
+
+										<!-- Ticket Description -->
+										<div class="mb-3">
+											<label class="form-label fw-semibold" for="ticketDescription">4. Descrição detalhada <span class="text-danger">*</span></label>
+											<div class="position-relative">
+												<textarea id="ticketDescription" class="form-control" rows="6" placeholder="Descreva o problema passo a passo, fornecendo mensagens de erro ou informações necessárias para podermos te atender mais rápido..." required disabled></textarea>
+												
+												<!-- Action Template chips -->
+												<div class="d-flex gap-2 mt-2" id="textareaHelpers" style="opacity: 0.4; pointer-events: none;">
+													<span class="badge bg-light text-primary border border-primary-200 cursor-pointer helper-chip p-2 rounded" data-template="incidente">
+														<i class="ph-magic-wand me-1"></i> Usar Roteiro de Teste
+													</span>
+													<span class="badge bg-light text-muted border cursor-pointer helper-chip p-2 rounded" data-template="limpar">
+														<i class="ph-trash"></i> Limpar
+													</span>
+												</div>
+											</div>
+										</div>
+
+										<!-- Dropzone attachments -->
+										<div class="mb-3">
+											<label class="form-label fw-semibold">5. Anexos (Print de Tela ou logs de erro)</label>
+											<div class="upload-dropzone card card-body text-center py-4 border-2" id="fileDropzone">
+												<input type="file" id="fileInput" class="position-absolute top-0 start-0 opacity-0 w-100 h-100 cursor-pointer" multiple accept="image/*,.pdf,.txt,.log">
+												<div class="py-2">
+													<i class="ph-cloud-arrow-up text-muted fs-1 mb-2"></i>
+													<div class="fw-bold">Arraste seus arquivos aqui ou <span class="text-primary">clique para buscar</span></div>
+													<div class="text-muted fs-xs mt-1">Imagens, logs ou PDFs de até 10MB por arquivo.</div>
+												</div>
+											</div>
+											<div class="attached-files-list mt-3" id="attachedFilesList">
+												<!-- Filled dynamically -->
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<!-- SLA & Routing Column -->
+								<div class="col-lg-4">
+									<div class="sticky-sidebar-panel d-flex flex-column gap-3">
+										
+										<div class="d-flex align-items-center justify-content-between mb-1">
+											<div class="fs-xs fw-bold text-uppercase text-muted"><i class="ph-brain me-1 text-primary"></i> Inteligência ApexService</div>
+											<span class="badge bg-primary bg-opacity-10 text-primary">Tempo Real</span>
+										</div>
+
+										<!-- Dynamic SLA Card -->
+										<div class="card sla-card shadow-sm" id="slaCard">
+											<div class="card-body p-3">
+												<div class="fs-xs fw-bold text-muted text-uppercase mb-2">Expectativa de Resposta (SLA)</div>
+												<div class="d-flex align-items-center gap-2 mb-2">
+													<span class="badge bg-light text-muted border" id="slaPriorityBadge">
+														<span class="priority-dot"></span>
+														<span id="slaPriorityText">AGUARDANDO SELEÇÃO</span>
+													</span>
+												</div>
+												<h3 class="fw-bold text-dark mb-2" id="slaTime">--</h3>
+												<p class="text-muted fs-xs mb-0" id="slaExplanation">Selecione a categoria, o módulo e o problema para calcular o SLA e o tempo estimado de atendimento.</p>
+											</div>
+										</div>
+
+										<!-- Auto-Routing Graphic -->
+										<div class="card shadow-sm" id="routingCard">
+											<div class="card-body p-3">
+												<div class="fs-xs fw-bold text-muted text-uppercase mb-3"><i class="ph-git-fork me-1"></i> Auto-Roteamento Inteligente</div>
+												
+												<div class="routing-flow">
+													<!-- Source Step -->
+													<div class="flow-step current">
+														<div class="flow-icon"><i class="ph-desktop"></i></div>
+														<div>
+															<div class="fw-bold fs-xs text-dark">Usuário (Você)</div>
+															<div class="fs-10 text-muted">Abertura do chamado no portal</div>
+														</div>
+													</div>
+													
+													<!-- Connector Arrow with Bypass indicator -->
+													<div class="flow-arrow-down" id="routingArrow">
+														<div class="flow-arrow-line"></div>
+														<div class="flow-arrow-bypass" id="bypassBadge">
+															Bypass N1 <i class="ph-bolt ms-1"></i>
+														</div>
+													</div>
+
+													<!-- Target Step -->
+													<div class="flow-step" id="routingTargetStep">
+														<div class="flow-icon target-icon" id="routingTargetIcon"><i class="ph-headset"></i></div>
+														<div>
+															<div class="fw-bold fs-xs text-dark" id="routingQueueName">Fila de Triagem (N1)</div>
+															<div class="fs-10 text-muted" id="routingQueueDescription">Aguardando definição para rotear</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Sidebar Deflection Alert Card -->
+										<div class="card border-primary bg-primary bg-opacity-5 deflection-sidebar-alert" id="deflectionAlertCard">
+											<div class="card-body p-3 d-flex gap-3">
+												<div class="text-primary fs-3 align-self-start"><i class="ph-lightbulb"></i></div>
+												<div class="flex-1">
+													<h6 class="fw-bold text-dark mb-1">Tutorial Sugerido</h6>
+													<p class="fs-xs text-muted mb-2" id="deflectionAlertText">Identificamos um artigo relevante para este problema na base.</p>
+													<button type="button" class="btn btn-xs btn-primary py-1 px-2 fs-10" id="deflectionAlertBtn">Ver Tutorial</button>
+												</div>
+											</div>
+										</div>
+
+										<!-- Actions buttons (Form trigger) -->
+										<div class="d-flex gap-2 mt-2">
+											<button type="button" class="btn btn-light flex-1 py-2 fw-semibold" id="btnCancel">Cancelar</button>
+											<button type="submit" class="btn btn-primary flex-1 py-2 fw-semibold" id="btnSubmit" form="ticketForm" disabled>
+												<i class="ph-paper-plane-tilt me-2"></i> Abrir Chamado
+											</button>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /content area: OPEN NEW TICKET -->
+
+
+				<!-- Content area: HISTORICAL TICKETS GRID (Simulated list) -->
+				<div class="content container-fluid py-4 d-none" id="myTicketsPage">
+					
+					<div class="card mb-4 border-0 bg-white p-3 shadow-sm d-flex flex-sm-row justify-content-between align-items-sm-center gap-3">
+						<div>
+							<h5 class="fw-bold mb-0">Histórico de Chamados</h5>
+							<p class="text-muted fs-xs mb-0">Acompanhe a fila, prazos de SLA e o status das suas solicitações abertas.</p>
+						</div>
+						<button type="button" class="btn btn-primary rounded-pill btn-labeled btn-labeled-start" id="btnBackToNewTicket">
+							<span class="btn-labeled-icon bg-primary text-white rounded-pill"><i class="ph-plus"></i></span>
+							Novo Chamado
+						</button>
+					</div>
+
+					<!-- Table grid card -->
+					<div class="card shadow-sm">
+						<div class="table-responsive">
+							<table class="table table-hover align-middle mb-0">
+								<thead class="table-light fs-xs text-uppercase text-muted">
+									<tr>
+										<th class="py-3">Protocolo / Tipo</th>
+										<th class="py-3">Título do Chamado</th>
+										<th class="py-3">Módulo</th>
+										<th class="py-3">Roteamento</th>
+										<th class="py-3">SLA / Prazo</th>
+										<th class="py-3">Status</th>
+										<th class="py-3 text-center">Ações</th>
+									</tr>
+								</thead>
+								<tbody id="ticketsTableBody" class="fs-sm">
+									<!-- Pre-populated tickets representing ERP state -->
+									<tr>
+										<td>
+											<div class="fw-bold">#APX-2026-1049</div>
+											<span class="badge bg-danger-100 text-danger border border-danger-200 fs-10 mt-1">Incidente</span>
+										</td>
+										<td>
+											<div class="fw-bold">Erro 502 ao carregar DRE anual</div>
+											<span class="fs-xs text-muted">Aberto há 1 hora por Vinícius</span>
+										</td>
+										<td>
+											<span class="badge bg-light text-dark border">Relatórios</span>
+										</td>
+										<td>
+											<span class="badge bg-primary-100 text-primary border">Suporte Relatórios & BI</span>
+										</td>
+										<td>
+											<span class="badge bg-success">Baixa (24h)</span>
+										</td>
+										<td>
+											<span class="badge bg-warning-100 text-warning border border-warning-200">Em Triagem</span>
+										</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-icon btn-sm btn-light border"><i class="ph-eye"></i></button>
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											<div class="fw-bold">#APX-2026-1042</div>
+											<span class="badge bg-info-100 text-info border border-info-200 fs-10 mt-1">Requisição</span>
+										</td>
+										<td>
+											<div class="fw-bold">Liberar acesso admin no módulo Faturamento</div>
+											<span class="fs-xs text-muted">Aberto ontem por Vinícius</span>
+										</td>
+										<td>
+											<span class="badge bg-light text-dark border">Acessos</span>
+										</td>
+										<td>
+											<span class="badge bg-primary-100 text-primary border">Admin Contas</span>
+										</td>
+										<td>
+											<span class="badge bg-warning text-dark">Média (8h)</span>
+										</td>
+										<td>
+											<span class="badge bg-primary-100 text-primary border border-primary-200">Em Atendimento</span>
+										</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-icon btn-sm btn-light border"><i class="ph-eye"></i></button>
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											<div class="fw-bold">#APX-2026-0994</div>
+											<span class="badge bg-success-100 text-success border border-success-200 fs-10 mt-1">Comercial</span>
+										</td>
+										<td>
+											<div class="fw-bold">Como funciona a cobrança por licenças adicionais?</div>
+											<span class="fs-xs text-muted">Resolvido em 12/07/2026</span>
+										</td>
+										<td>
+											<span class="badge bg-light text-dark border">Dúvidas Gerais</span>
+										</td>
+										<td>
+											<span class="badge bg-primary-100 text-primary border">Financeiro Comercial</span>
+										</td>
+										<td>
+											<span class="badge bg-success">Baixa (24h)</span>
+										</td>
+										<td>
+											<span class="badge bg-success-100 text-success border border-success-200">Resolvido</span>
+										</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-icon btn-sm btn-light border"><i class="ph-eye"></i></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				<!-- /content area: HISTORICAL TICKETS GRID -->
+
+			</div>
+			<!-- /inner content -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+
+	<!-- ARTICLE DRAWER (Bootstrap 5 Offcanvas Panel) -->
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="articleOffcanvas" aria-labelledby="articleOffcanvasLabel" style="width: 100%; max-width: 600px;">
+		<div class="offcanvas-header bg-light border-bottom py-3">
+			<span class="badge bg-primary-100 text-primary border border-primary-200"><i class="ph-book-open me-1"></i> BASE DE CONHECIMENTO</span>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body p-4" id="articleOffcanvasBody">
+			<!-- Populated dynamically -->
+		</div>
+		<!-- Offcanvas feedback footer (Deflection check) -->
+		<div class="offcanvas-footer bg-light p-3 border-top text-center">
+			<p class="fw-bold text-dark fs-sm mb-2">Este artigo ajudou a resolver seu problema?</p>
+			<div class="d-flex justify-content-center gap-2">
+				<button type="button" class="btn btn-success btn-sm" id="feedbackYesBtn">
+					<i class="ph-thumbs-up me-1"></i> Sim, resolveu! (Fechar Chamado)
+				</button>
+				<button type="button" class="btn btn-outline-secondary btn-sm" id="feedbackNoBtn">
+					<i class="ph-thumbs-down me-1"></i> Não resolveu
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- /article drawer -->
+
+
+	<!-- SUCCESS RESOLUTION TOAST NOTIFICATION -->
+	<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+		<div id="deflectionSuccessToast" class="toast align-items-center text-bg-dark border-0 d-none" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex border-start border-start-width-3 border-start-success">
+				<div class="toast-body p-3">
+					<div class="d-flex align-items-start gap-2">
+						<i class="ph-check-circle text-success fs-3 mt-1"></i>
+						<div>
+							<h6 class="fw-bold mb-0 text-white">Resolvido via Autoatendimento!</h6>
+							<p class="fs-xs text-muted mb-0 mt-1">Que excelente notícia! Menos um chamado na fila e mais tempo livre para você.</p>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="btn-close btn-close-white m-2 m-auto-y" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- TICKET SUBMITTED SUCCESS MODAL -->
+	<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+		<div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+			<div class="modal-content p-4">
+				<div class="modal-body text-center p-0">
+					<!-- Checkmark Drawing Icon -->
+					<div class="success-icon-animation">
+						<div class="checkmark-circle">
+							<div class="checkmark-draw"></div>
+						</div>
+					</div>
+					
+					<h4 class="fw-bold text-dark mb-1">Chamado Aberto com Sucesso!</h4>
+					<p class="text-muted fs-xs mb-4">Sua solicitação foi registrada no ERP e auto-roteada para a equipe especialista.</p>
+					
+					<!-- Recap Details Card -->
+					<div class="card bg-light border-0 p-3 text-start mb-4">
+						<div class="d-flex justify-content-between mb-2">
+							<span class="text-muted fs-xs fw-semibold">Protocolo:</span>
+							<span class="fw-bold text-primary" id="successTicketId">#APX-2026-1050</span>
+						</div>
+						<div class="d-flex justify-content-between mb-2">
+							<span class="text-muted fs-xs fw-semibold">Fila de Roteamento:</span>
+							<span class="fw-bold text-dark" id="successQueueName">Suporte Fiscal & Tributário</span>
+						</div>
+						<div class="d-flex justify-content-between mb-2">
+							<span class="text-muted fs-xs fw-semibold">SLA de Atendimento:</span>
+							<span class="fw-bold text-danger" id="successSlaBadge">🔴 PRIORIDADE ALTA</span>
+						</div>
+						<div class="d-flex justify-content-between">
+							<span class="text-muted fs-xs fw-semibold">Tempo Limite:</span>
+							<span class="fw-bold text-dark" id="successSlaTime">Até 2 horas úteis</span>
+						</div>
+					</div>
+					
+					<div class="alert alert-primary bg-primary-100 bg-opacity-10 border-0 p-3 text-start mb-4 d-flex gap-2">
+						<i class="ph-bell-ringing text-primary fs-3 mt-1"></i>
+						<div class="fs-xs text-dark-100">Você receberá e-mails e alertas na barra de notificações do ERP à medida que nosso analista interagir com o chamado.</div>
+					</div>
+					
+					<!-- Modal actions -->
+					<div class="d-flex gap-2">
+						<button type="button" class="btn btn-light flex-1 py-2 fw-semibold" id="btnNewTicketAgain">Novo Chamado</button>
+						<button type="button" class="btn btn-primary flex-1 py-2 fw-semibold" id="btnGoToTickets">Ir para Histórico</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /success modal -->
+
+</body>
+</html>

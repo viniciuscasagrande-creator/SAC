@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Limitless ERP - Custom SAC Interface Stylesheet
+   ========================================================================== */
+
+/* Cards Hover & Selections */
+.card-hover {
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-hover.selected-card {
+    border-color: var(--bs-primary) !important;
+    background-color: rgba(var(--bs-primary-rgb), 0.04) !important;
+    box-shadow: 0 0 15px rgba(var(--bs-primary-rgb), 0.15) !important;
+}
+
+.card-hover.selected-card::after {
+    content: '\e9a7'; /* Phosphor check-circle icon or check */
+    font-family: 'phosphor';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: var(--bs-primary);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Page Section Collapse States */
+.step-section {
+    transition: all 0.35s ease;
+}
+
+.step-section.collapsed {
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: var(--bs-gray-100);
+    border-style: dashed !important;
+}
+
+/* Deflection Search Recommendations dropdown */
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    display: none;
+    box-shadow: var(--bs-box-shadow-lg);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 4px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.suggestions-dropdown.active {
+    display: block;
+}
+
+.suggestion-item {
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: var(--bs-light);
+}
+
+/* Routing Visualization Component */
+.routing-flow {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--bs-gray-200);
+    border: 1px solid var(--bs-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: var(--bs-secondary);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.flow-step.current .flow-icon {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+    box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.15);
+}
+
+.flow-step.routed .flow-icon.target-icon {
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+    border-color: var(--bs-success);
+    color: var(--bs-success);
+    box-shadow: 0 0 10px rgba(var(--bs-success-rgb), 0.2);
+}
+
+.flow-arrow-down {
+    height: 40px;
+    position: relative;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.flow-arrow-line {
+    width: 2px;
+    height: 100%;
+    background-color: var(--bs-border-color);
+    position: absolute;
+    left: -1px;
+}
+
+.routing-flow.routed .flow-arrow-line {
+    background: linear-gradient(to bottom, var(--bs-primary), var(--bs-success));
+}
+
+.flow-arrow-bypass {
+    margin-left: 20px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: var(--bs-success);
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+    border: 1px solid rgba(var(--bs-success-rgb), 0.2);
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    display: none;
+    align-items: center;
+    gap: 4px;
+    animation: bounceRight 1.5s infinite;
+}
+
+@keyframes bounceRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+}
+
+/* Success Checkmark Circle Animation */
+.success-icon-animation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.checkmark-circle {
+    width: 72px;
+    height: 72px;
+    position: relative;
+    border-radius: 50%;
+    border: 4px solid var(--bs-success);
+    background-color: rgba(var(--bs-success-rgb), 0.05);
+    animation: rotateCircle 0.6s ease-in-out;
+}
+
+.checkmark-draw {
+    position: absolute;
+    width: 32px;
+    height: 16px;
+    border-left: 4px solid var(--bs-success);
+    border-bottom: 4px solid var(--bs-success);
+    transform: rotate(-45deg);
+    top: 22px;
+    left: 17px;
+    transform-origin: left top;
+    animation: drawCheck 0.3s ease-in-out 0.3s both;
+}
+
+@keyframes rotateCircle {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes drawCheck {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    50% {
+        width: 0;
+        height: 16px;
+    }
+    100% {
+        width: 32px;
+        height: 16px;
+    }
+}
+
+/* Textarea Helper Chips */
+.helper-chip {
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.helper-chip:hover {
+    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+    color: var(--bs-primary) !important;
+    border-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+}
+
+/* Upload dropzone files */
+.upload-dropzone {
+    border: 2px dashed var(--bs-border-color);
+    background-color: var(--bs-gray-100);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.upload-dropzone:hover {
+    border-color: var(--bs-primary);
+    background-color: rgba(var(--bs-primary-rgb), 0.03);
+}
+
+.upload-dropzone.dragover {
+    border-color: var(--bs-success);
+    background-color: rgba(var(--bs-success-rgb), 0.03);
+}
+
+.file-progress-bar {
+    height: 4px;
+    width: 100%;
+    background-color: var(--bs-gray-200);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.file-progress-fill {
+    height: 100%;
+    background-color: var(--bs-success);
+    width: 0;
+    transition: width 0.4s ease;
+}
+
+/* Deflection alert */
+.deflection-sidebar-alert {
+    display: none;
+    animation: slideInDown 0.3s ease;
+}
+
+.deflection-sidebar-alert.active {
+    display: block;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sticky sidebar panel for desktop */
+@media (min-width: 992px) {
+    .sticky-sidebar-panel {
+        position: sticky;
+        top: 20px;
+    }
+}
