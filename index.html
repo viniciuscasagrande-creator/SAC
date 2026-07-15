@@ -680,7 +680,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 24px;
-            max-width: 700px;
+            max-width: 1000px; /* Wider to support columns */
             margin-left: auto;
             margin-right: auto;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
@@ -695,18 +695,20 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 700;
             margin-bottom: 6px;
             color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 10px 14px;
             border-radius: 6px;
@@ -716,7 +718,7 @@
             transition: border-color 0.2s;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--primary-orange);
         }
 
@@ -762,6 +764,81 @@
             margin-bottom: 20px;
             font-size: 0.8rem;
             border-left: 3px solid var(--primary-orange);
+        }
+
+        /* DATA TABLE WRAPPERS */
+        .info-table {
+            width: 100%;
+            font-size: 0.8rem;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .info-table td, .info-table th {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .badge-status-pago {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--primary-green);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        /* VALIDATIONS STYLES */
+        .validation-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .val-ok {
+            color: var(--primary-green);
+        }
+
+        .val-fail {
+            color: var(--primary-orange);
+        }
+
+        /* GATEWAY STEPS PROGRESS */
+        .gateway-flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 0.8rem;
+        }
+
+        .g-step {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background-color: #f1f3f7;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .g-step.active {
+            background-color: var(--primary-orange);
+            color: #ffffff;
+        }
+
+        .g-step.done {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-green);
         }
 
         /* FLOATING VIRTUAL ASSISTANT */
@@ -879,13 +956,13 @@
                         <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
                     </a>
                     
-                    <!-- NEW ESTORNO MENU ITEM -->
+                    <!-- ESTORNO MENU ITEM -->
                     <a class="menu-item" id="menuEstorno" style="border-left: 3px solid var(--primary-orange); background-color: rgba(255, 87, 34, 0.05); color: #ffffff; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
                         <span class="badge-sidebar badge-orange">ERP</span>
                     </a>
                     
-                    <!-- NEW SAC / ATENDIMENTO MENU ITEM -->
+                    <!-- SAC / ATENDIMENTO MENU ITEM -->
                     <a class="menu-item" id="menuSacHub" style="border-left: 3px solid var(--primary-blue); background-color: rgba(0, 123, 255, 0.05); color: #ffffff; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
@@ -1155,13 +1232,50 @@
 
             </div>
 
-            <!-- PANEL C: FLUXO DE ESTORNO DE INGRESSOS (NEW DYNAMIC WORKFLOW WIZARD) -->
+            <!-- PANEL C: FLUXO DE ESTORNO DE INGRESSOS (COMPREHENSIVE SPECIFICATION UPGRADE) -->
             <div id="panelEstornoContent" class="d-none">
                 
                 <div class="dashboard-header">
                     <div class="dashboard-title-box">
-                        <h2>Fluxo de Estorno de Ingressos</h2>
-                        <p>Módulo ERP DiskIngressos para processamento de cancelamentos e reembolsos Adyen/PIX.</p>
+                        <h2>Módulo de Estorno de Ingressos</h2>
+                        <p>Controle financeiro de devoluções, integrações e cancelamentos de ingressos da DiskIngressos.</p>
+                    </div>
+                </div>
+
+                <!-- 1. DASHBOARD GERENCIAL DE ESTORNOS -->
+                <div class="events-panel mb-4" style="background-color: var(--bg-header); border:none; color:#ffffff;">
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary">
+                        <h6 class="m-0 fw-bold"><i class="fa-solid fa-chart-line text-orange me-2" style="color:var(--primary-orange);"></i> Indicadores Operacionais de Estorno (Hoje)</h6>
+                        <span class="badge bg-danger animate-pulse">Monitoramento Ativo</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-2 col-6 border-end border-secondary">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Estornos Hoje</div>
+                            <h3 class="fw-bold mb-0 text-white mt-1">38</h3>
+                        </div>
+                        <div class="col-md-2 col-6 border-end border-secondary">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Valor Estornado</div>
+                            <h3 class="fw-bold mb-0 text-white mt-1">R$ 18.420</h3>
+                        </div>
+                        <div class="col-md-2 col-6 border-end border-secondary">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Tempo Médio</div>
+                            <h3 class="fw-bold mb-0 text-white mt-1">03 min</h3>
+                        </div>
+                        <div class="col-md-2 col-6 border-end border-secondary">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Pendentes</div>
+                            <h3 class="fw-bold mb-0 text-warning mt-1">5</h3>
+                        </div>
+                        <div class="col-md-2 col-6 border-end border-secondary">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Aprovados / Negados</div>
+                            <h4 class="fw-bold mb-0 text-white mt-1">32 <span class="fs-xs text-muted">/</span> <span class="text-danger">6</span></h4>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <div class="text-muted fs-10 fw-bold text-uppercase">Meios</div>
+                            <div class="fs-xs mt-1" style="line-height:1.2;">
+                                <span>PIX: <strong>14</strong></span> | <span>Cartão: <strong>20</strong></span><br>
+                                <span>Dinheiro: <strong>2</strong></span> | <span>Voucher: <strong>2</strong></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1179,53 +1293,100 @@
                     
                     <!-- STEP 1: BUSCAR VENDA -->
                     <div class="wizard-step-pane active" id="paneStep1">
-                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-magnifying-glass text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 1: Localizar Venda no ERP</h5>
-                        <p class="text-muted fs-xs mb-4">Insira o CPF do comprador ou o código do pedido para carregar as transações do gateway e controle de acesso.</p>
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-magnifying-glass text-orange me-2" style="color:var(--primary-orange);"></i> Passo 1: Localizar Venda no ERP</h5>
+                        <p class="text-muted fs-xs mb-4">Insira o código do pedido ou o CPF do comprador para carregar a transação e as validações automáticas de compliance.</p>
                         
-                        <div class="form-group">
-                            <label for="estornoSearchCpf">CPF do Comprador</label>
-                            <input type="text" id="estornoSearchCpf" value="123.456.789-00" placeholder="Ex: 000.000.000-00">
-                        </div>
-                        <div class="form-group">
-                            <label for="estornoSearchOrder">Código do Pedido (Opcional)</label>
-                            <input type="text" id="estornoSearchOrder" value="DK-294022" placeholder="Ex: DK-XXXXXX">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="estornoSearchOrder">Código do Pedido</label>
+                                    <input type="text" id="estornoSearchOrder" value="154258" placeholder="Ex: 154258">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="estornoSearchCpf">CPF do Comprador</label>
+                                    <input type="text" id="estornoSearchCpf" value="000.000.000-00" placeholder="Ex: 000.000.000-00">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-end mt-4">
-                            <button class="btn-wizard-next" id="btnStep1Next">Avançar <i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="btn-wizard-next" id="btnStep1Next">Consultar Venda <i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
 
-                    <!-- STEP 2: SELECIONAR ITENS -->
+                    <!-- STEP 2: DADOS DA VENDA E VALIDAÇÕES AUTOMÁTICAS -->
                     <div class="wizard-step-pane" id="paneStep2">
-                        <h5 class="fw-bold mb-2"><i class="fa-solid fa-ticket text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 2: Selecionar Ingressos para Reembolso</h5>
-                        <p class="text-muted fs-xs mb-3">Marque quais ingressos do pedido serão estornados. Você pode realizar estornos parciais.</p>
-                        
-                        <div class="order-preview-box">
-                            <div><strong>Pedido:</strong> <span id="lblOrderNum">#DK-294022</span></div>
-                            <div class="mt-1"><strong>Show:</strong> <span id="lblOrderShow">Samba 90 Graus - Live Curitiba</span></div>
-                            <div class="mt-1"><strong>Comprador:</strong> João da Silva (CPF: 123.456.789-00)</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="mb-2">Ingressos Disponíveis:</label>
-                            
-                            <!-- Ticket 1 -->
-                            <div class="ticket-select-item selected">
-                                <div>
-                                    <input type="checkbox" id="chkTicket1" checked style="width:auto; margin-right:10px;">
-                                    <strong>Ingresso #001293021</strong> - Platéia VIP (Fila H - Assento 12)
+                        <div class="row g-4">
+                            <!-- Left Column: Order details & Finance -->
+                            <div class="col-md-7">
+                                <!-- Cabeçalho do Estorno -->
+                                <div style="background-color: var(--bg-header); color:#ffffff; padding:15px; border-radius:6px; margin-bottom:15px;">
+                                    <div class="fs-10 text-muted text-uppercase fw-bold">Cabeçalho de Estorno</div>
+                                    <h4 class="fw-bold mt-1 mb-0" style="letter-spacing: 0.5px;">ESTORNO DE INGRESSOS</h4>
+                                    <div class="row g-2 mt-2 pt-2 border-top border-secondary fs-xs">
+                                        <div class="col-3">Pedido: <strong>#1548</strong></div>
+                                        <div class="col-5">Cliente: <strong>João da Silva</strong></div>
+                                        <div class="col-4">Valor: <strong>R$ 580,00</strong></div>
+                                        <div class="col-7">Evento: <strong>Show Roupa Nova</strong></div>
+                                        <div class="col-5">Status: <span class="badge-status-pago">PAGO</span></div>
+                                    </div>
                                 </div>
-                                <span class="fw-bold text-dark">R$ 120,00</span>
+
+                                <h6 class="fw-bold mb-2 text-dark">Dados da Venda</h6>
+                                <table class="info-table">
+                                    <tbody>
+                                        <tr><th>Pedido</th><td>154258</td><th>Data Compra</th><td>10/07/2026</td></tr>
+                                        <tr><th>Evento</th><td colspan="3">Show Roupa Nova (Data: 20/07/2026)</td></tr>
+                                        <tr><th>Local</th><td>Teatro Positivo</td><th>PDV</th><td>Shopping Mueller</td></tr>
+                                        <tr><th>Operador</th><td>Carlos Oliveira</td><th>Cliente</th><td>João da Silva (CPF: 000.000.000-00)</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <h6 class="fw-bold mb-2 text-dark">Situação Financeira</h6>
+                                <table class="info-table" style="background-color: #fcfcfc;">
+                                    <tbody>
+                                        <tr><th>Pagamento</th><td><span class="badge-status-pago">Aprovado</span></td><th>Gateway / Adq</th><td>Stone / Cielo</td></tr>
+                                        <tr><th>NSU / TID</th><td>854785214 / 789654123</td><th>Autorização</th><td>456987</td></tr>
+                                        <tr><th>Parcelas</th><td>3x</td><th>Valor Pago</th><td>R$ 580,00</td></tr>
+                                        <tr><th>Taxa Gateway</th><td>2,49%</td><th>Valor Líquido</th><td class="fw-bold text-success">R$ 565,56</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <!-- Ticket 2 -->
-                            <div class="ticket-select-item selected">
-                                <div>
-                                    <input type="checkbox" id="chkTicket2" checked style="width:auto; margin-right:10px;">
-                                    <strong>Ingresso #001293022</strong> - Platéia VIP (Fila H - Assento 13)
+                            <!-- Right Column: Rules validations -->
+                            <div class="col-md-5">
+                                <div style="border: 1px solid var(--border-color); border-radius:6px; padding:16px; background-color:#ffffff; height:100%;">
+                                    <h6 class="fw-bold mb-3 text-dark border-bottom pb-2"><i class="fa-solid fa-circle-check text-success me-2"></i>Validações Automáticas</h6>
+                                    
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Pedido localizado</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Pagamento confirmado</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Evento ativo</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Ingresso não utilizado</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> QR Code não validado</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Dentro do prazo</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Política permite estorno</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Sem chargeback</div>
+                                    <div class="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Sem bloqueios</div>
+
+                                    <!-- Interactive Error Simulator Toggle -->
+                                    <div class="mt-3 pt-3 border-top text-center">
+                                        <button class="btn btn-xs btn-outline-danger" id="btnSimulateError" style="font-size:0.7rem; border-radius:4px; padding:4px 8px;">
+                                            <i class="fa-solid fa-bug"></i> Simular Falha de Regras
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Simulated Errors list (hidden by default) -->
+                                    <div id="simulatedErrorsList" class="d-none mt-2 pt-2 border-top">
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Ingresso já utilizado</div>
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Evento encerrado</div>
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Prazo expirado</div>
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Estorno já realizado</div>
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Venda bloqueada</div>
+                                        <div class="validation-item val-fail"><i class="fa-solid fa-times-circle"></i> Pedido cancelado</div>
+                                    </div>
                                 </div>
-                                <span class="fw-bold text-dark">R$ 120,00</span>
                             </div>
                         </div>
 
@@ -1235,70 +1396,156 @@
                         </div>
                     </div>
 
-                    <!-- STEP 3: FORMA & MOTIVO -->
+                    <!-- STEP 3: TIPO DE ESTORNO, MOTIVO E ALÇADAS -->
                     <div class="wizard-step-pane" id="paneStep3">
-                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-credit-card text-orange mr-2" style="color:var(--primary-orange);"></i> Passo 3: Forma de Estorno & Motivação</h5>
-                        
-                        <div class="form-group">
-                            <label for="estornoReason">Motivo do Estorno</label>
-                            <select id="estornoReason">
-                                <option value="desistencia">Desistência / Arrependimento do Cliente</option>
-                                <option value="duplicado">Compra em duplicidade no site</option>
-                                <option value="evento-cancelado">Evento Adiado ou Cancelado</option>
-                                <option value="acesso-recusado">Problemas no Controle de Acesso (Catraca)</option>
-                            </select>
+                        <div class="row g-4">
+                            <!-- Left Col: Refund configurations -->
+                            <div class="col-md-7">
+                                <h6 class="fw-bold mb-3 text-dark">Configuração do Estorno</h6>
+                                
+                                <div class="form-group">
+                                    <label>Tipo de Estorno</label>
+                                    <div class="d-flex flex-wrap gap-3 mt-2">
+                                        <label class="fs-xs fw-semibold"><input type="radio" name="estornoTipo" value="total" checked style="width:auto; margin-right:4px;"> Total</label>
+                                        <label class="fs-xs fw-semibold"><input type="radio" name="estornoTipo" value="parcial" style="width:auto; margin-right:4px;"> Parcial</label>
+                                        <label class="fs-xs fw-semibold"><input type="radio" name="estornoTipo" value="credito" style="width:auto; margin-right:4px;"> Crédito Cliente</label>
+                                        <label class="fs-xs fw-semibold"><input type="radio" name="estornoTipo" value="voucher" style="width:auto; margin-right:4px;"> Voucher</label>
+                                        <label class="fs-xs fw-semibold"><input type="radio" name="estornoTipo" value="financeiro" style="width:auto; margin-right:4px;"> Crédito Financeiro</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="estornoMotivoSelect">Motivo do Estorno</label>
+                                    <select id="estornoMotivoSelect">
+                                        <option value="desistencia">Cliente desistiu</option>
+                                        <option value="cancelado">Evento cancelado</option>
+                                        <option value="adiado">Evento adiado</option>
+                                        <option value="compra-duplicada">Compra duplicada</option>
+                                        <option value="pgto-duplicado">Pagamento duplicado</option>
+                                        <option value="tecnico">Problema técnico</option>
+                                        <option value="operacional">Erro operacional</option>
+                                        <option value="cortesia">Cortesia</option>
+                                        <option value="judicial">Decisão judicial</option>
+                                        <option value="outros">Outros</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Forma de Reembolso Original</label>
+                                    <div class="border p-3 rounded" style="background-color:#fcfcfc;">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold fs-xs">Gateway Original: Stone (Cartão de Crédito)</span>
+                                            <span class="badge bg-primary">3 parcelas</span>
+                                        </div>
+                                        <span class="text-muted fs-xs d-block">O valor de R$ 580,00 será devolvido à fatura do cartão Cielo do comprador.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Col: Approvals & Audit -->
+                            <div class="col-md-5">
+                                <div style="border: 1px solid var(--border-color); border-radius:6px; padding:16px; background-color:#ffffff; height:100%;">
+                                    <h6 class="fw-bold mb-2 text-dark border-bottom pb-2">Alçadas de Aprovação ERP</h6>
+                                    <table class="info-table" style="font-size:0.75rem; margin-bottom:15px;">
+                                        <thead>
+                                            <tr><th>Valor</th><th>Aprovação</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Até R$ 500</td><td>Supervisor</td></tr>
+                                            <tr class="table-primary" style="font-weight:700;"><td>Até R$ 5.000</td><td>Gerente Financeiro (Requerido)</td></tr>
+                                            <tr><td>Acima de R$ 5.000</td><td>Diretor Financeiro</td></tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                    <div class="alert alert-info py-2 px-3 border-0 rounded fs-xs mb-3">
+                                        <i class="fa-solid fa-circle-info text-info me-1"></i> <strong>Aprovação Necessária:</strong> Valor de R$ 580,00 exige alçada do <strong>Gerente Financeiro</strong>.
+                                    </div>
+
+                                    <h6 class="fw-bold mb-2 text-dark">Workflow de Aprovação Interna</h6>
+                                    <div class="fs-xs text-muted" style="line-height:1.4;">
+                                        ✔ SAC registra solicitação<br>
+                                        ✔ Supervisor pré-aprova exceção<br>
+                                        ⌛ Aguardando liberação do Gerente Financeiro
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="mb-2">Forma de Devolução dos Valores</label>
-                            
-                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; margin-bottom:10px; display:flex; align-items:flex-start; gap:10px;">
-                                <input type="radio" name="refundMethod" id="refOriginal" checked style="width:auto; margin-top:3px;">
-                                <div>
-                                    <label for="refOriginal" class="fw-bold mb-0">Estorno Integral (Adyen Original)</label>
-                                    <span class="text-muted fs-xs d-block">O valor será creditado no mesmo meio usado na compra (PIX em segundos, Cartão na próxima fatura).</span>
-                                </div>
-                            </div>
-
-                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; margin-bottom:10px; display:flex; align-items:flex-start; gap:10px;">
-                                <input type="radio" name="refundMethod" id="refTaxa" style="width:auto; margin-top:3px;">
-                                <div>
-                                    <label for="refTaxa" class="fw-bold mb-0">Estorno Parcial com Retenção de Taxas (15%)</label>
-                                    <span class="text-muted fs-xs d-block">Retém a taxa de conveniência administrativa e devolve o valor de face do ingresso (R$ 204,00 estornados).</span>
-                                </div>
-                            </div>
-
-                            <div style="border: 1px solid var(--border-color); border-radius:6px; padding:14px; display:flex; align-items:flex-start; gap:10px;">
-                                <input type="radio" name="refundMethod" id="refVoucher" style="width:auto; margin-top:3px;">
-                                <div>
-                                    <label for="refVoucher" class="fw-bold mb-0">Gerar Crédito em Voucher (Cupom de Desconto)</label>
-                                    <span class="text-muted fs-xs d-block">Gera um cupom de uso único no valor integral (R$ 240,00) com validade de 12 meses para compras na DiskIngressos.</span>
-                                </div>
+                        <!-- LIVE GATEWAY PROCESSING STEPS STREAM (Hidden until confirm is clicked) -->
+                        <div id="gatewayLoadingContainer" class="d-none mt-3 pt-3 border-top text-center">
+                            <h6 class="fw-bold text-dark mb-2"><i class="fa-solid fa-spinner fa-spin text-orange"></i> Comunicando com Gateway Stone / Cielo...</h6>
+                            <div class="gateway-flow-steps">
+                                <div class="g-step active" id="gStep1">Solicitação</div>
+                                <div class="g-step" id="gStep2">Gateway</div>
+                                <div class="g-step" id="gStep3">Autorização</div>
+                                <div class="g-step" id="gStep4">Estorno</div>
+                                <div class="g-step" id="gStep5">Confirmação</div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
                             <button class="btn btn-outline-secondary" id="btnStep3Back" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 20px;"><i class="fa-solid fa-chevron-left"></i> Voltar</button>
-                            <button class="btn-wizard-next" id="btnStep3Confirm" style="background-color:var(--primary-green);"><i class="fa-solid fa-check"></i> Processar Estorno</button>
+                            <button class="btn-wizard-next" id="btnStep3Confirm" style="background-color:var(--primary-green);"><i class="fa-solid fa-check"></i> Executar & Integrar Estorno</button>
                         </div>
                     </div>
 
-                    <!-- STEP 4: SUCESSO -->
-                    <div class="wizard-step-pane text-center py-4" id="paneStep4">
-                        <div style="width: 72px; height: 72px; background-color: rgba(16, 185, 129, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px auto;">
-                            <i class="fa-solid fa-circle-check text-success" style="font-size:3rem;"></i>
-                        </div>
-                        <h4 class="fw-bold text-dark mb-2">Estorno Concluído com Sucesso!</h4>
-                        <p class="text-muted fs-xs max-width-400 mx-auto mb-4">Os ingressos foram cancelados e a transação Adyen foi estornada. O comprador receberá o comprovante de estorno por e-mail.</p>
-                        
-                        <div class="order-preview-box text-start max-width-450 mx-auto mb-4" style="background-color:#f1f3f7; border-left-color:var(--primary-green);">
-                            <div><strong>NSU do Estorno:</strong> <span class="font-monospace">ADY_928103A81</span></div>
-                            <div class="mt-1"><strong>Protocolo SAC Associado:</strong> <span id="lblSuccessProtocol">SAC-2026-000154</span></div>
-                            <div class="mt-1"><strong>Valor Devolvido:</strong> R$ 240,00 (PIX)</div>
-                            <div class="mt-1"><strong>Status Catraca:</strong> Bloqueado / Cancelado</div>
+                    <!-- STEP 4: AUDITORIA, INTEGRAÇÕES E COMUNICAÇÃO -->
+                    <div class="wizard-step-pane" id="paneStep4">
+                        <div class="text-center mb-4 pb-3 border-bottom">
+                            <div style="width: 56px; height: 56px; background-color: rgba(16, 185, 129, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 12px auto;">
+                                <i class="fa-solid fa-circle-check text-success" style="font-size:2.5rem;"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-1">Estorno Finalizado com Sucesso!</h4>
+                            <p class="text-muted fs-xs">As catracas do Teatro Positivo foram atualizadas e o ingresso foi invalidado.</p>
                         </div>
 
-                        <button class="btn btn-primary" id="btnWizardReset" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 24px; background-color:var(--primary-orange); border:none;">Novo Cancelamento</button>
+                        <div class="row g-4">
+                            <!-- Left Col: SMS/Email preview & Integrations list -->
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-2 text-dark"><i class="fa-solid fa-envelope-open-text text-primary me-2"></i>Comunicação Automática Enviada</h6>
+                                <div style="background-color: #fcfcfc; border: 1px solid var(--border-color); border-radius:6px; padding:12px; font-size:0.75rem; line-height:1.4;">
+                                    <strong>Template WhatsApp / E-mail / SMS:</strong><br>
+                                    <span class="text-muted d-block mt-2">
+                                        "Seu estorno foi realizado com sucesso.<br>
+                                        Pedido: <strong>154258</strong><br>
+                                        Valor: <strong>R$ 580,00</strong><br>
+                                        Forma: <strong>Cartão Crédito</strong><br>
+                                        Prazo estimado: <strong>5 dias úteis.</strong>"
+                                    </span>
+                                </div>
+
+                                <h6 class="fw-bold mb-2 text-dark mt-4"><i class="fa-solid fa-arrows-spin text-primary me-2"></i>Integrações Executadas no ERP</h6>
+                                <div class="row g-2 fs-xs text-muted">
+                                    <div class="col-6">✔ <strong>Financeiro:</strong> Fluxo de Caixa / Relatório de Receita</div>
+                                    <div class="col-6">✔ <strong>Controle Acesso:</strong> QRCode / Pulseira Bloqueada</div>
+                                    <div class="col-6">✔ <strong>Eventos:</strong> Assento Liberado no Teatro Positivo</div>
+                                    <div class="col-6">✔ <strong>Estoque:</strong> Capacidade / Lote Disponível (+2)</div>
+                                    <div class="col-12">✔ <strong>SAC:</strong> Histórico de chamados registrado automaticamente</div>
+                                </div>
+                            </div>
+
+                            <!-- Right Col: Audit Table -->
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-2 text-dark"><i class="fa-solid fa-list-check text-primary me-2"></i>Auditoria (Rastreabilidade Completa)</h6>
+                                <table class="info-table" style="font-size:0.7rem; margin-bottom:0;">
+                                    <thead class="table-light">
+                                        <tr><th>Hora</th><th>Usuário</th><th>Ação</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>10:32</td><td>Atendente SAC (Vinicius)</td><td>Solicitou Estorno</td></tr>
+                                        <tr><td>10:34</td><td>Supervisor Atendimento</td><td>Aprovou Exceção</td></tr>
+                                        <tr><td>10:35</td><td>Financeiro ERP</td><td>Executou comando de devolução</td></tr>
+                                        <tr><td>10:36</td><td>Gateway Stone</td><td>Confirmou Estorno no Cartão</td></tr>
+                                        <tr><td>10:37</td><td>Sistema Catraca</td><td>Cancelou QRCode / Ingressos</td></tr>
+                                        <tr><td>10:38</td><td>Sistema Notificador</td><td>Enviou E-mail / WhatsApp</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4 pt-3 border-top">
+                            <button class="btn btn-primary" id="btnWizardReset" style="border-radius:6px; font-size:0.85rem; font-weight:600; padding:10px 24px; background-color:var(--primary-orange); border:none;">Novo Cancelamento / Estorno</button>
+                        </div>
                     </div>
 
                 </div>
@@ -1404,6 +1651,7 @@
                 deactivateAll();
                 menuSacHub.classList.add("active");
                 panelDashboard.classList.add("d-none");
+                panelCoupons.bgOpacity = 1;
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.remove("d-none");
                 panelEstorno.classList.add("d-none");
@@ -1433,7 +1681,6 @@
             const progress = document.getElementById("wizardProgress");
 
             function showStep(stepNum) {
-                // Clear active classes
                 [pane1, pane2, pane3, pane4].forEach(p => p.classList.remove("active"));
                 [ind1, ind2, ind3, ind4].forEach(i => {
                     i.classList.remove("active");
@@ -1469,7 +1716,69 @@
             document.getElementById("btnStep2Back").addEventListener("click", () => showStep(1));
             document.getElementById("btnStep2Next").addEventListener("click", () => showStep(3));
             document.getElementById("btnStep3Back").addEventListener("click", () => showStep(2));
-            document.getElementById("btnStep3Confirm").addEventListener("click", () => showStep(4));
+            
+            // Simulation of error rules toggle
+            const btnSimulateError = document.getElementById("btnSimulateError");
+            const simulatedErrorsList = document.getElementById("simulatedErrorsList");
+            let errorSimulationActive = false;
+
+            btnSimulateError.addEventListener("click", () => {
+                errorSimulationActive = !errorSimulationActive;
+                if (errorSimulationActive) {
+                    simulatedErrorsList.classList.remove("d-none");
+                    btnSimulateError.innerHTML = '<i class="fa-solid fa-circle-check"></i> Remover Falhas';
+                    btnSimulateError.classList.replace("btn-outline-danger", "btn-outline-success");
+                } else {
+                    simulatedErrorsList.classList.add("d-none");
+                    btnSimulateError.innerHTML = '<i class="fa-solid fa-bug"></i> Simular Falha de Regras';
+                    btnSimulateError.classList.replace("btn-outline-success", "btn-outline-danger");
+                }
+            });
+
+            // Confirm estorno loop with loading simulation
+            const btnStep3Confirm = document.getElementById("btnStep3Confirm");
+            const gatewayLoadingContainer = document.getElementById("gatewayLoadingContainer");
+
+            btnStep3Confirm.addEventListener("click", () => {
+                btnStep3Confirm.disabled = true;
+                gatewayLoadingContainer.classList.remove("d-none");
+                
+                const gStep1 = document.getElementById("gStep1");
+                const gStep2 = document.getElementById("gStep2");
+                const gStep3 = document.getElementById("gStep3");
+                const gStep4 = document.getElementById("gStep4");
+                const gStep5 = document.getElementById("gStep5");
+
+                setTimeout(() => {
+                    gStep1.classList.replace("active", "done");
+                    gStep2.classList.add("active");
+                    
+                    setTimeout(() => {
+                        gStep2.classList.replace("active", "done");
+                        gStep3.classList.add("active");
+                        
+                        setTimeout(() => {
+                            gStep3.classList.replace("active", "done");
+                            gStep4.classList.add("active");
+                            
+                            setTimeout(() => {
+                                gStep4.classList.replace("active", "done");
+                                gStep5.classList.add("active");
+                                
+                                setTimeout(() => {
+                                    gStep5.classList.replace("active", "done");
+                                    
+                                    // Reset buttons and move to success step
+                                    btnStep3Confirm.disabled = false;
+                                    gatewayLoadingContainer.classList.add("d-none");
+                                    showStep(4);
+                                }, 800);
+                            }, 800);
+                        }, 800);
+                    }, 800);
+                }, 800);
+            });
+
             document.getElementById("btnWizardReset").addEventListener("click", () => showStep(1));
         });
     </script>
