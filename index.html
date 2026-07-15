@@ -15,7 +15,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-    <!-- Visual Styles to EXACTLY recreate the DiskIngressos Painel de Controle screenshot -->
+    <!-- Visual Styles to EXACTLY recreate the DiskIngressos Painel de Controle & Cupons screenshots -->
     <style>
         :root {
             --bg-header: #21252d;
@@ -196,6 +196,7 @@
             justify-content: space-between;
             padding: 20px 0;
             flex-shrink: 0;
+            overflow-y: auto;
         }
 
         .sidebar-menu {
@@ -277,8 +278,44 @@
             color: #007bff;
         }
 
+        /* COLLAPSIBLE ACCORDION SUBMENUS */
+        .submenu-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            gap: 2px;
+        }
+
+        .submenu-container.show {
+            max-height: 350px; /* arbitrary height to fit items */
+        }
+
+        .submenu-item {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: #718096;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .submenu-item:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .submenu-item.active {
+            color: #ffffff;
+            font-weight: 600;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
         .sidebar-footer {
-            padding: 0 15px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -319,7 +356,7 @@
             padding: 24px;
         }
 
-        /* DASHBOARD CONTENT */
+        /* COMMON SECTION HEADER */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -373,7 +410,7 @@
             background-color: #0056b3;
         }
 
-        /* EVENT CARD LIST CONTAINER */
+        /* GENERAL PANEL CONTAINER */
         .events-panel {
             background-color: #ffffff;
             border: 1px solid var(--border-color);
@@ -534,6 +571,47 @@
             color: var(--primary-blue);
         }
 
+        /* TABELA DE CUPONS DE DESCONTO (EXACT RECREATION OF THE SCREENSHOT) */
+        .coupon-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .coupon-table th {
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .coupon-table td {
+            padding: 12px 15px;
+            color: var(--text-dark);
+            border-bottom: 1px solid #eef1f5;
+        }
+
+        .coupon-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .btn-edit-coupon {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s;
+        }
+
+        .btn-edit-coupon:hover {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
         /* FLOATING VIRTUAL ASSISTANT */
         .assistant-float-btn {
             position: fixed;
@@ -560,24 +638,11 @@
             transform: translateY(-2px);
         }
 
-        /* SAC Hub Integration (Hidden by default, overlays main area when active) */
-        .sac-integration-container {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .sac-integration-container.active {
-            display: flex;
-        }
-
+        /* Layout visibility */
         .d-none {
             display: none !important;
         }
     </style>
-    
-    <!-- Link to SAC Hub specific stylesheet and fonts overrides -->
-    <link href="produtor-disk/web/css/sac_embed.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -620,10 +685,26 @@
                     <a class="menu-item active" id="menuPainelGeral">
                         <div class="menu-item-left"><i class="fa-solid fa-gauge-high"></i> Painel Geral</div>
                     </a>
-                    <a class="menu-item">
+                    
+                    <!-- ACCORDION: MEUS EVENTOS -->
+                    <a class="menu-item" id="menuMeusEventos">
                         <div class="menu-item-left"><i class="fa-regular fa-calendar"></i> Meus Eventos</div>
-                        <span class="badge-sidebar badge-orange">2</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar badge-orange">2</span>
+                            <i class="fa-solid fa-angle-down" id="arrowMeusEventos" style="font-size:0.7rem; margin-right:0; transition: transform 0.2s;"></i>
+                        </div>
                     </a>
+                    <!-- SUBMENU CONTAINER -->
+                    <div class="submenu-container" id="submenuMeusEventos">
+                        <a class="submenu-item" id="subTodosEventos">Todos Eventos</a>
+                        <a class="submenu-item">Novo Evento</a>
+                        <a class="submenu-item">Lotes</a>
+                        <a class="submenu-item active" id="subCupons">Cupons</a>
+                        <a class="submenu-item">Check-in</a>
+                        <a class="submenu-item">Participantes</a>
+                        <a class="submenu-item">Página do Evento</a>
+                    </div>
+
                     <a class="menu-item">
                         <div class="menu-item-left"><i class="fa-solid fa-ticket"></i> Consulta de Ingressos</div>
                     </a>
@@ -663,7 +744,7 @@
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
             
-            <!-- PANEL A: DASHBOARD PAINEL DE CONTROLE (RECREATION OF THE SCREENSHOT) -->
+            <!-- PANEL A: DASHBOARD PAINEL DE CONTROLE (EVENT CARDS) -->
             <div id="panelDashboardContent">
                 
                 <div class="dashboard-header">
@@ -869,7 +950,54 @@
 
             </div>
 
-            <!-- PANEL B: INTEGRATED SAC WORKSTATION HUB (embedded via iframe or direct container) -->
+            <!-- PANEL B: CUPONS DE DESCONTO PANEL (RECREATION OF THE SCREENSHOT) -->
+            <div id="panelCouponsContent" class="d-none">
+                
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Painel de Controle</h2>
+                        <p>Bem-vindo de volta! Visualize as métricas operacionais consolidadas.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary"><i class="fa-solid fa-database"></i> Dados</button>
+                        <button class="btn-header-action"><i class="fa-regular fa-file-pdf"></i> PDF</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <div class="events-panel-header" style="border-bottom:none; margin-bottom:0;">
+                        <h5>Cupons de Desconto</h5>
+                    </div>
+
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Desconto</th>
+                                <th>Uso Limite</th>
+                                <th>Utilizados</th>
+                                <th>Validade</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 700;">DESCONTO10</td>
+                                <td>10%</td>
+                                <td>100</td>
+                                <td>42</td>
+                                <td>30/07/2026</td>
+                                <td>
+                                    <button class="btn-edit-coupon"><i class="fa-regular fa-edit"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- PANEL C: INTEGRATED SAC WORKSTATION HUB -->
             <div id="panelSacContent" class="d-none">
                 <!-- Direct frame container loading the Limitless SAC page -->
                 <iframe src="limitless/html/layout_6/full/sac_novo_chamado.html" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#ffffff;"></iframe>
@@ -889,21 +1017,42 @@
             const menuPainelGeral = document.getElementById("menuPainelGeral");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
             const menuSacHub = document.getElementById("menuSacHub");
+            const menuMeusEventos = document.getElementById("menuMeusEventos");
+            const submenuMeusEventos = document.getElementById("submenuMeusEventos");
+            const arrowMeusEventos = document.getElementById("arrowMeusEventos");
+            
+            const subTodosEventos = document.getElementById("subTodosEventos");
+            const subCupons = document.getElementById("subCupons");
             
             const panelDashboard = document.getElementById("panelDashboardContent");
+            const panelCoupons = document.getElementById("panelCouponsContent");
             const panelSac = document.getElementById("panelSacContent");
             
             const menuItems = document.querySelectorAll(".menu-item");
+            const submenuItems = document.querySelectorAll(".submenu-item");
             
             function deactivateAll() {
                 menuItems.forEach(item => item.classList.remove("active"));
+                submenuItems.forEach(item => item.classList.remove("active"));
             }
+            
+            // Expand/Collapse accordion submenu for Meus Eventos
+            menuMeusEventos.addEventListener("click", (e) => {
+                e.preventDefault();
+                const isExpanded = submenuMeusEventos.classList.toggle("show");
+                if (isExpanded) {
+                    arrowMeusEventos.style.transform = "rotate(180deg)";
+                } else {
+                    arrowMeusEventos.style.transform = "rotate(0deg)";
+                }
+            });
             
             menuPainelGeral.addEventListener("click", (e) => {
                 e.preventDefault();
                 deactivateAll();
                 menuPainelGeral.classList.add("active");
                 panelDashboard.classList.remove("d-none");
+                panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
             });
             
@@ -912,6 +1061,27 @@
                 deactivateAll();
                 menuTodosEventos.classList.add("active");
                 panelDashboard.classList.remove("d-none");
+                panelCoupons.classList.add("d-none");
+                panelSac.classList.add("d-none");
+            });
+            
+            subTodosEventos.addEventListener("click", (e) => {
+                e.preventDefault();
+                deactivateAll();
+                menuMeusEventos.classList.add("active");
+                subTodosEventos.classList.add("active");
+                panelDashboard.classList.remove("d-none");
+                panelCoupons.classList.add("d-none");
+                panelSac.classList.add("d-none");
+            });
+            
+            subCupons.addEventListener("click", (e) => {
+                e.preventDefault();
+                deactivateAll();
+                menuMeusEventos.classList.add("active");
+                subCupons.classList.add("active");
+                panelDashboard.classList.add("d-none");
+                panelCoupons.classList.remove("d-none");
                 panelSac.classList.add("d-none");
             });
             
@@ -920,6 +1090,7 @@
                 deactivateAll();
                 menuSacHub.classList.add("active");
                 panelDashboard.classList.add("d-none");
+                panelCoupons.classList.add("d-none");
                 panelSac.classList.remove("d-none");
             });
         });
