@@ -280,3 +280,114 @@
         top: 20px;
     }
 }
+
+/* Timeline Vertical Component */
+.timeline-v {
+    position: relative;
+    padding-left: 24px;
+    list-style: none;
+}
+.timeline-v::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 11px;
+    width: 2px;
+    background-color: var(--bs-gray-200);
+}
+.timeline-v-item {
+    position: relative;
+    margin-bottom: 16px;
+}
+.timeline-v-item::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb), 0.15);
+    z-index: 1;
+}
+.timeline-v-item.completed::before {
+    background-color: var(--bs-success);
+    box-shadow: 0 0 0 2px rgba(var(--bs-success-rgb), 0.15);
+}
+.timeline-v-item.pending::before {
+    background-color: var(--bs-warning);
+    box-shadow: 0 0 0 2px rgba(var(--bs-warning-rgb), 0.15);
+}
+.timeline-v-time {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--bs-secondary-color);
+    margin-bottom: 2px;
+}
+.timeline-v-desc {
+    font-size: 0.75rem;
+    color: var(--bs-body-color);
+    font-weight: 500;
+}
+
+/* Sentiment Analyzer indicator */
+.sentiment-indicator {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+}
+.sentiment-anger {
+    background-color: rgba(var(--bs-danger-rgb), 0.1);
+    color: var(--bs-danger);
+    border: 1px solid rgba(var(--bs-danger-rgb), 0.2);
+}
+.sentiment-neutral {
+    background-color: rgba(var(--bs-warning-rgb), 0.1);
+    color: var(--bs-warning);
+    border: 1px solid rgba(var(--bs-warning-rgb), 0.2);
+}
+.sentiment-happy {
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+    color: var(--bs-success);
+    border: 1px solid rgba(var(--bs-success-rgb), 0.2);
+}
+
+/* Star rating system */
+.rating-star-btn {
+    font-size: 1.6rem;
+    color: var(--bs-gray-300);
+    cursor: pointer;
+    transition: color 0.15s;
+}
+.rating-star-btn.active, .rating-star-btn:hover {
+    color: #fbbf24;
+}
+.text-gold {
+    color: #fbbf24 !important;
+}
+.bg-gold {
+    background-color: #fbbf24 !important;
+    color: #ffffff !important;
+}
+
+/* Access Control log visualization */
+.gate-log-row {
+    border-left: 3px solid var(--bs-border-color);
+    padding-left: 8px;
+    margin-bottom: 8px;
+}
+.gate-log-row.success {
+    border-left-color: var(--bs-success);
+}
+.gate-log-row.fail {
+    border-left-color: var(--bs-danger);
+}
+
