@@ -144,25 +144,25 @@ function App() {
               </div>
 
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-ticket"></i> Consulta de Ingressos</div>
+                <div className="menu-item-left"><i className="fa-solid fa-ticket"></i> Consulta de Ingressos</div>
               </a>
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-bullhorn"></i> Marketing</div>
+                <div className="menu-item-left"><i className="fa-solid fa-bullhorn"></i> Marketing</div>
                 <i className="fa-solid fa-angle-down" style={{ fontSize: '0.7rem' }}></i>
               </a>
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-arrows-rotate"></i> Remarketing</div>
+                <div className="menu-item-left"><i className="fa-solid fa-arrows-rotate"></i> Remarketing</div>
               </a>
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
+                <div className="menu-item-left"><i className="fa-solid fa-wallet"></i> Financeiro</div>
                 <span className="badge-sidebar badge-green">3</span>
               </a>
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-chart-simple"></i> Relatórios</div>
+                <div className="menu-item-left"><i className="fa-solid fa-chart-simple"></i> Relatórios</div>
                 <span className="badge-sidebar badge-purple">Novo</span>
               </a>
               <a className="menu-item">
-                <div className="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
+                <div className="menu-item-left"><i className="fa-solid fa-gear"></i> Configurações</div>
               </a>
               
               {/* ESTORNO MENU ITEM */}
@@ -174,7 +174,7 @@ function App() {
               {/* SAC / ATENDIMENTO MENU ITEM */}
               <a className={`menu-item ${activePanel === 'sac' ? 'active' : ''}`} onClick={() => { setActivePanel('sac'); }} style={{ borderLeft: '3px solid var(--primary-blue)', backgroundColor: 'rgba(0, 123, 255, 0.05)', color: '#ffffff', marginTop: '4px' }}>
                 <div className="menu-item-left"><i className="fa-solid fa-headset" style={{ color: 'var(--primary-blue)' }}></i> Atendimento / SAC</div>
-                <span class="badge-sidebar badge-blue">Novo</span>
+                <span className="badge-sidebar badge-blue">Novo</span>
               </a>
             </div>
           </div>
@@ -218,7 +218,7 @@ function App() {
                 <div className="event-cards-grid">
                   {/* Event 1 */}
                   <div className="event-card">
-                    <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" class="event-card-img" />
+                    <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" className="event-card-img" />
                     <div className="event-card-body">
                       <div>
                         <div className="event-card-title">Experiência Música e Natureza - JI</div>
@@ -241,7 +241,7 @@ function App() {
 
                   {/* Event 2 */}
                   <div className="event-card">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=250&q=80" alt="Samba 90 Graus" class="event-card-img" />
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=250&q=80" alt="Samba 90 Graus" className="event-card-img" />
                     <div className="event-card-body">
                       <div>
                         <div className="event-card-title">Samba 90 Graus</div>
@@ -501,9 +501,9 @@ function App() {
                               <h6 className="fw-bold border-bottom pb-2 mb-3">Validações Automáticas</h6>
                               
                               <div className="validation-item val-ok"><i className="fa-solid fa-check-circle"></i> Pedido localizado</div>
-                              <div className="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Pagamento confirmado</div>
-                              <div className="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Evento ativo</div>
-                              <div className="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Ingresso não utilizado</div>
+                              <div className="validation-item val-ok"><i className="fa-solid fa-check-circle"></i> Pagamento confirmado</div>
+                              <div className="validation-item val-ok"><i className="fa-solid fa-check-circle"></i> Evento ativo</div>
+                              <div className="validation-item val-ok"><i className="fa-solid fa-check-circle"></i> Ingresso não utilizado</div>
                               
                               {errorSimulationActive ? (
                                 <div style={{ borderTop: '1px solid #dee2e6', marginTop: '10px', paddingTop: '10px' }}>
@@ -511,7 +511,7 @@ function App() {
                                   <div className="validation-item val-fail"><i className="fa-solid fa-times-circle"></i> Prazo expirado</div>
                                 </div>
                               ) : (
-                                <div className="validation-item val-ok"><i class="fa-solid fa-check-circle"></i> Dentro do prazo</div>
+                                <div className="validation-item val-ok"><i className="fa-solid fa-check-circle"></i> Dentro do prazo</div>
                               )}
 
                               <div style={{ textAlign: 'center', marginTop: '15px' }}>
