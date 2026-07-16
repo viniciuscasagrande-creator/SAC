@@ -15,8 +15,22 @@ Write-Host "=========================================================="
 Write-Host "[1/6] Checking for 'cloudflared' executable..."
 $cfPath = Get-Command cloudflared -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
 
+$defaultPaths = @(
+    "C:\Program Files (x86)\cloudflared\cloudflared.exe",
+    "C:\Program Files\cloudflared\cloudflared.exe"
+)
+
 if (-not $cfPath) {
-    Write-Host "cloudflared not found in PATH. Downloading official installer..."
+    foreach ($path in $defaultPaths) {
+        if (Test-Path $path) {
+            $cfPath = $path
+            break
+        }
+    }
+}
+
+if (-not $cfPath) {
+    Write-Host "cloudflared not found in PATH or standard dirs. Downloading official installer..."
     $url = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.msi"
     $output = "$env:TEMP\cloudflared-setup.msi"
     
@@ -26,19 +40,27 @@ if (-not $cfPath) {
     Write-Host "Installing cloudflared globally..."
     Start-Process msiexec.exe -ArgumentList "/i `"$output`" /quiet /qn /norestart" -Wait
     
-    # Reload environment path
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+    # Check default installation paths again
+    foreach ($path in $defaultPaths) {
+        if (Test-Path $path) {
+            $cfPath = $path
+            break
+        }
+    }
     
-    Write-Host "cloudflared installed successfully!"
-} else {
-    Write-Host "cloudflared already installed at: $cfPath"
+    if (-not $cfPath) {
+        Write-Host "MSI completed but cloudflared.exe could not be found. Please install manually."
+        Exit
+    }
 }
+
+Write-Host "Using cloudflared executable at: $cfPath"
 
 # 2. Login to Cloudflare account
 Write-Host "[2/6] Logging in to Cloudflare..."
 Write-Host "A browser window will open. Please log in and authorize your domain."
 Start-Sleep -Seconds 2
-Start-Process cloudflared -ArgumentList "tunnel login" -Wait
+Start-Process $cfPath -ArgumentList "tunnel login" -Wait
 
 # 3. Domain Input
 Write-Host "[3/6] Domain Configuration..."
@@ -53,7 +75,7 @@ $domain = $Domain
 
 # 4. Create Named Tunnel
 Write-Host "[4/6] Creating Named Tunnel 'diskingressos-dev'..."
-$tunnelCreateOut = & cloudflared tunnel create diskingressos-dev 2>&1
+$tunnelCreateOut = & $cfPath tunnel create diskingressos-dev 2>&1
 Write-Host $tunnelCreateOut
 
 # Extract tunnel ID
@@ -61,7 +83,7 @@ $tunnelId = ""
 if ($tunnelCreateOut -match "Created tunnel diskingressos-dev with id ([a-f0-9\-]+)") {
     $tunnelId = $Matches[1]
 } else {
-    $list = & cloudflared tunnel list 2>&1
+    $list = & $cfPath tunnel list 2>&1
     if ($list -match "([a-f0-9\-]+)\s+diskingressos-dev") {
         $tunnelId = $Matches[1]
     }
@@ -102,9 +124,9 @@ Write-Host "Configuration saved to: $configFile"
 
 # 6. Map CNAME DNS records
 Write-Host "[6/6] Mapping CNAME records on Cloudflare DNS..."
-& cloudflared tunnel route dns diskingressos-dev "sac.$domain"
-& cloudflared tunnel route dns diskingressos-dev "erp.$domain"
-& cloudflared tunnel route dns diskingressos-dev "api-sac.$domain"
+& $cfPath tunnel route dns diskingressos-dev "sac.$domain"
+& $cfPath tunnel route dns diskingressos-dev "erp.$domain"
+& $cfPath tunnel route dns diskingressos-dev "api-sac.$domain"
 
 Write-Host "=========================================================="
 Write-Host "CONFIGURATION COMPLETED SUCCESSFULLY!"
