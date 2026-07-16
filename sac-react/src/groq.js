@@ -11,8 +11,8 @@ const getApiUrl = () => {
     return "http://localhost:3000/api/ask-groq";
   }
   
-  // Expose publicly via Cloudflare tunnel
-  return "https://thumbzilla-confidence-massachusetts-artist.trycloudflare.com/api/ask-groq";
+  // Objective static Localtunnel URL
+  return "https://pdtnovosacapi.loca.lt/api/ask-groq";
 };
 
 export async function perguntarIA(texto) {
