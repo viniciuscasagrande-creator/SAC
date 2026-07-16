@@ -15,6 +15,14 @@ function App() {
   const [gatewayProcessing, setGatewayProcessing] = useState(false);
   const [gatewayStep, setGatewayStep] = useState(1); // 1 to 5
 
+  // Gateway Selector State (Stone vs PagSeguro)
+  const [selectedGateway, setSelectedGateway] = useState('pagseguro'); // 'stone' | 'pagseguro'
+  
+  // PagSeguro Credentials Config (Pre-filled for simulation)
+  const [pagSeguroToken, setPagSeguroToken] = useState('A63F8D90B2E14D2C9E88F54785214D1D');
+  const [pagSeguroEmail, setPagSeguroEmail] = useState('financeiro@diskingressos.com.br');
+  const [pagSeguroEnv, setPagSeguroEnv] = useState('production'); // 'production' | 'sandbox'
+
   // Interactive Approvals Queue State
   const [pendingApprovals, setPendingApprovals] = useState([
     { id: 'rowApp1', order: '#154231', client: 'João da Silva', show: 'Show Roupa Nova', value: 'R$ 580,00', tier: 'Gerente Financeiro' },
@@ -37,6 +45,7 @@ function App() {
     setPendingApprovals(prev => prev.filter(item => item.id !== id));
   };
 
+  // Run Gateway Refund Simulation Steps (Customized for Stone or PagSeguro)
   const runGatewaySimulation = () => {
     setGatewayProcessing(true);
     setGatewayStep(1);
@@ -66,7 +75,6 @@ function App() {
     }
     
     // External global access (Cloudflare / Localtunnel)
-    // Preference given to active cloudflare tunnel
     return "https://smart-nyc-provision-architects.trycloudflare.com/limitless/html/layout_6/full/sac_novo_chamado.html";
   };
 
@@ -392,12 +400,12 @@ function App() {
 
                     <div className="events-panel" style={{ flex: 5 }}>
                       <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
-                        <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-shield-halved text-orange me-2"></i> Risco e Conciliação Adyen</h6>
+                        <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-shield-halved text-orange me-2"></i> Risco e Conciliação Gateway</h6>
                       </div>
 
                       <div style={{ textAlign: 'center', margin: '20px 0' }}>
                         <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--primary-green)', margin: 0 }}>0.85%</h1>
-                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Taxa de Chargeback Adyen (Zona Segura Green ✅)</span>
+                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Taxa de Chargeback / Fraude (Zona Segura ✅)</span>
                       </div>
 
                       <div style={{ borderTop: '1px solid #dee2e6', paddingTop: '15px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.8 }}>
@@ -475,11 +483,27 @@ function App() {
                               </tbody>
                             </table>
 
-                            <h6 className="fw-bold mb-2">Situação Financeira</h6>
+                            <h6 className="fw-bold mb-2">Situação Financeira ({selectedGateway === 'pagseguro' ? 'PagSeguro' : 'Stone'})</h6>
                             <table className="info-table">
                               <tbody>
-                                <tr><th>Pagamento</th><td><span class="badge bg-success" style={{ fontSize: '0.65rem', color: '#ffffff', padding: '2px 6px' }}>Aprovado</span></td><th>Gateway / Adq</th><td>Stone / Cielo</td></tr>
-                                <tr><th>TID / NSU</th><td>789654123 / 854785214</td><th>Líquido</th><td className="text-success fw-bold">R$ 565,56</td></tr>
+                                <tr>
+                                  <th>Pagamento</th>
+                                  <td><span className="badge bg-success" style={{ fontSize: '0.65rem', color: '#ffffff', padding: '2px 6px' }}>Aprovado</span></td>
+                                  <th>Gateway</th>
+                                  <td>{selectedGateway === 'pagseguro' ? 'PagSeguro (UOL)' : 'Stone'}</td>
+                                </tr>
+                                <tr>
+                                  <th>Código Transação</th>
+                                  <td>{selectedGateway === 'pagseguro' ? '9E884547-68F5-4214-B1F3-E88A813D1D1D' : '854785214 / TID: 789654123'}</td>
+                                  <th>Taxas</th>
+                                  <td>{selectedGateway === 'pagseguro' ? '3,99% + R$ 0,40' : '2,49%'}</td>
+                                </tr>
+                                <tr>
+                                  <th>Valor Pago</th>
+                                  <td>R$ 580,00</td>
+                                  <th>Valor Líquido</th>
+                                  <td className="text-success fw-bold">{selectedGateway === 'pagseguro' ? 'R$ 556,46' : 'R$ 565,56'}</td>
+                                </tr>
                               </tbody>
                             </table>
                           </div>
@@ -523,6 +547,46 @@ function App() {
                       <div>
                         <div style={{ display: 'flex', gap: '20px' }}>
                           <div style={{ flex: 7 }}>
+                            <div className="form-group" style={{ marginBottom: '20px' }}>
+                              <label style={{ display: 'block', marginBottom: '8px' }}>Selecione o Gateway de Destino</label>
+                              <div style={{ display: 'flex', gap: '15px' }}>
+                                <label style={{ fontSize: '0.8rem', fontWeight: 700 }}>
+                                  <input type="radio" name="gatewaySelect" checked={selectedGateway === 'pagseguro'} onChange={() => setSelectedGateway('pagseguro')} style={{ width: 'auto', marginRight: '6px' }} />
+                                  PagSeguro (UOL)
+                                </label>
+                                <label style={{ fontSize: '0.8rem', fontWeight: 700 }}>
+                                  <input type="radio" name="gatewaySelect" checked={selectedGateway === 'stone'} onChange={() => setSelectedGateway('stone')} style={{ width: 'auto', marginRight: '6px' }} />
+                                  Stone / Cielo
+                                </label>
+                              </div>
+                            </div>
+
+                            {/* PagSeguro Creds drawer */}
+                            {selectedGateway === 'pagseguro' && (
+                              <div style={{ backgroundColor: '#f8f9fa', border: '1px solid #dee2e6', padding: '15px', borderRadius: '6px', marginBottom: '20px' }}>
+                                <div style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--primary-orange)', marginBottom: '10px' }}>
+                                  <i className="fa-solid fa-key me-1"></i> Credenciais da API PagSeguro
+                                </div>
+                                <div className="form-group">
+                                  <label style={{ fontSize: '0.7rem' }}>API Token PagSeguro</label>
+                                  <input type="password" value={pagSeguroToken} onChange={(e) => setPagSeguroToken(e.target.value)} style={{ padding: '6px 10px', fontSize: '0.8rem' }} />
+                                </div>
+                                <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                                  <div className="form-group" style={{ flex: 1 }}>
+                                    <label style={{ fontSize: '0.7rem' }}>E-mail da Conta</label>
+                                    <input type="text" value={pagSeguroEmail} onChange={(e) => setPagSeguroEmail(e.target.value)} style={{ padding: '6px 10px', fontSize: '0.8rem' }} />
+                                  </div>
+                                  <div className="form-group" style={{ flex: 1 }}>
+                                    <label style={{ fontSize: '0.7rem' }}>Ambiente</label>
+                                    <select value={pagSeguroEnv} onChange={(e) => setPagSeguroEnv(e.target.value)} style={{ padding: '6px 10px', fontSize: '0.8rem' }}>
+                                      <option value="production">Produção</option>
+                                      <option value="sandbox">Sandbox (Testes)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
                             <div className="form-group">
                               <label>Tipo de Estorno</label>
                               <div style={{ display: 'flex', gap: '15px', marginTop: '6px' }}>
@@ -565,11 +629,14 @@ function App() {
                         {/* LIVE GATEWAY PROGRESS ANIMATION */}
                         {gatewayProcessing && (
                           <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #dee2e6', textAlign: 'center' }}>
-                            <h6 className="fw-bold"><i className="fa-solid fa-spinner fa-spin text-orange" style={{ marginRight: '6px' }}></i> Comunicando com Gateway Stone / Cielo...</h6>
+                            <h6 className="fw-bold">
+                              <i className="fa-solid fa-spinner fa-spin text-orange" style={{ marginRight: '6px' }}></i> 
+                              Comunicando com {selectedGateway === 'pagseguro' ? 'API PagSeguro (Reembolso UOL)...' : 'Gateway Stone / Cielo...'}
+                            </h6>
                             <div className="gateway-flow-steps">
                               <div className={`g-step ${gatewayStep >= 1 ? 'active' : ''} ${gatewayStep > 1 ? 'done' : ''}`}>Solicitação</div>
-                              <div className={`g-step ${gatewayStep >= 2 ? 'active' : ''} ${gatewayStep > 2 ? 'done' : ''}`}>Gateway</div>
-                              <div className={`g-step ${gatewayStep >= 3 ? 'active' : ''} ${gatewayStep > 3 ? 'done' : ''}`}>Autorização</div>
+                              <div className={`g-step ${gatewayStep >= 2 ? 'active' : ''} ${gatewayStep > 2 ? 'done' : ''}`}>{selectedGateway === 'pagseguro' ? 'PagSeguro API' : 'Gateway'}</div>
+                              <div className={`g-step ${gatewayStep >= 3 ? 'active' : ''} ${gatewayStep > 3 ? 'done' : ''}`}>{selectedGateway === 'pagseguro' ? 'Validar Token' : 'Autorização'}</div>
                               <div className={`g-step ${gatewayStep >= 4 ? 'active' : ''} ${gatewayStep > 4 ? 'done' : ''}`}>Estorno</div>
                               <div className={`g-step ${gatewayStep >= 5 ? 'active' : ''} ${gatewayStep > 5 ? 'done' : ''}`}>Confirmação</div>
                             </div>
@@ -596,16 +663,16 @@ function App() {
 
                         <div style={{ display: 'flex', gap: '20px', textAlign: 'left', marginTop: '20px' }}>
                           <div style={{ flex: 1 }}>
-                            <h6 className="fw-bold">Comunicação Enviada</h6>
+                            <h6 className="fw-bold">Comunicação Enviada ({selectedGateway === 'pagseguro' ? 'PagSeguro' : 'Stone'})</h6>
                             <div style={{ border: '1px solid #dee2e6', padding: '10px', borderRadius: '4px', fontSize: '0.7rem', backgroundColor: '#fcfcfc' }}>
-                              "Seu estorno foi realizado com sucesso. Pedido: 154258 | Valor: R$ 580,00 | Forma: Cartão Crédito | Prazo: 5 dias úteis."
+                              "Seu estorno foi realizado com sucesso. Pedido: 154258 | Valor: R$ 580,00 | Gateway: {selectedGateway === 'pagseguro' ? 'PagSeguro' : 'Cartão Crédito'} | Prazo: 5 dias úteis."
                             </div>
                           </div>
                           <div style={{ flex: 1 }}>
-                            <h6 className="fw-bold">Auditoria do Sistema</h6>
+                            <h6 className="fw-bold">Auditoria do Sistema ({selectedGateway === 'pagseguro' ? 'PagSeguro API' : 'Stone API'})</h6>
                             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
                               ✔ 10:32 - Solicitou Estorno (Vinicius)<br/>
-                              ✔ 10:36 - Confirmado pelo Gateway Stone<br/>
+                              ✔ 10:36 - Confirmado pelo {selectedGateway === 'pagseguro' ? 'API PagSeguro' : 'Gateway Stone'}<br/>
                               ✔ 10:37 - Ingressos cancelados nas catracas
                             </div>
                           </div>
@@ -620,7 +687,7 @@ function App() {
             </div>
           )}
 
-          {/* PANEL D: INTEGRATED SAC WORKSTATION HUB (RESTORED AS PREVIOUSLY CONFIGURED WITH DYNAMIC IFRAME SOURCE) */}
+          {/* PANEL D: INTEGRATED SAC WORKSTATION HUB */}
           {activePanel === 'sac' && (
             <div style={{ height: '100%' }}>
               <iframe 

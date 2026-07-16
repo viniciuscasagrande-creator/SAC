@@ -1456,10 +1456,10 @@
                                     <h6 class="fw-bold mb-2 text-dark">Situação Financeira</h6>
                                     <table class="info-table" style="background-color: #fcfcfc;">
                                         <tbody>
-                                            <tr><th>Pagamento</th><td><span class="badge-status-pago">Aprovado</span></td><th>Gateway / Adq</th><td>Stone / Cielo</td></tr>
-                                            <tr><th>NSU / TID</th><td>854785214 / 789654123</td><th>Autorização</th><td>456987</td></tr>
+                                            <tr><th>Pagamento</th><td><span class="badge-status-pago">Aprovado</span></td><th>Gateway / Adq</th><td id="lblFinanceGateway">Stone / Cielo</td></tr>
+                                            <tr><th>NSU / TID</th><td id="lblFinanceTidNsu">854785214 / 789654123</td><th>Autorização</th><td>456987</td></tr>
                                             <tr><th>Parcelas</th><td>3x</td><th>Valor Pago</th><td>R$ 580,00</td></tr>
-                                            <tr><th>Taxa Gateway</th><td>2,49%</td><th>Valor Líquido</th><td class="fw-bold text-success">R$ 565,56</td></tr>
+                                            <tr><th>Taxa Gateway</th><td id="lblFinanceRates">2,49%</td><th>Valor Líquido</th><td id="lblFinanceNetVal" class="fw-bold text-success">R$ 565,56</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -1512,6 +1512,36 @@
                                 <div class="col-md-7">
                                     <h6 class="fw-bold mb-3 text-dark">Configuração do Estorno</h6>
                                     
+                                    <div class="form-group mb-3">
+                                        <label class="fw-bold text-dark">Gateway de Integração</label>
+                                        <div class="d-flex gap-3 mt-1">
+                                            <label class="fs-xs fw-bold" style="cursor:pointer;"><input type="radio" name="gatewayDestino" value="pagseguro" checked style="width:auto; margin-right:4px;"> PagSeguro (UOL)</label>
+                                            <label class="fs-xs fw-bold" style="cursor:pointer;"><input type="radio" name="gatewayDestino" value="stone" style="width:auto; margin-right:4px;"> Stone / Cielo</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- PagSeguro Credentials Configuration Block -->
+                                    <div id="pagseguroCredsBlock" class="p-3 mb-3 border rounded" style="background-color:#f8f9fa;">
+                                        <h6 class="fw-bold fs-xs text-orange mb-2"><i class="fa-solid fa-key me-1"></i> Credenciais PagSeguro</h6>
+                                        <div class="row g-2">
+                                            <div class="col-12 form-group m-0 mb-2">
+                                                <label class="fs-xxs text-muted m-0">API Token PagSeguro</label>
+                                                <input type="password" class="form-control form-control-sm" value="A63F8D90B2E14D2C9E88F54785214D1D" placeholder="Insira o Token PagSeguro">
+                                            </div>
+                                            <div class="col-7 form-group m-0">
+                                                <label class="fs-xxs text-muted m-0">E-mail da Conta</label>
+                                                <input type="text" class="form-control form-control-sm" value="financeiro@diskingressos.com.br" placeholder="vendas@...">
+                                            </div>
+                                            <div class="col-5 form-group m-0">
+                                                <label class="fs-xxs text-muted m-0">Ambiente</label>
+                                                <select class="form-select form-select-sm" style="padding: 2px 8px; font-size: 0.75rem;">
+                                                    <option value="production">Produção</option>
+                                                    <option value="sandbox">Sandbox</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label>Tipo de Estorno</label>
                                         <div class="d-flex flex-wrap gap-3 mt-2">
@@ -1543,10 +1573,10 @@
                                         <label>Forma de Reembolso Original</label>
                                         <div class="border p-3 rounded" style="background-color:#fcfcfc;">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="fw-bold fs-xs">Gateway Original: Stone (Cartão de Crédito)</span>
+                                                <span class="fw-bold fs-xs" id="lblGatewayOriginal">Gateway Original: PagSeguro (UOL)</span>
                                                 <span class="badge bg-primary">3 parcelas</span>
                                             </div>
-                                            <span class="text-muted fs-xs d-block">O valor de R$ 580,00 será devolvido à fatura do cartão Cielo do comprador.</span>
+                                            <span class="text-muted fs-xs d-block" id="lblGatewayDescricaoOriginal">O valor de R$ 580,00 será devolvido à conta PagSeguro do comprador.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1875,6 +1905,57 @@
             document.getElementById("btnStep2Back").addEventListener("click", () => showStep(1));
             document.getElementById("btnStep2Next").addEventListener("click", () => showStep(3));
             document.getElementById("btnStep3Back").addEventListener("click", () => showStep(2));
+
+            // PagSeguro UI event bindings
+            const radioGateways = document.getElementsByName("gatewayDestino");
+            const pagseguroCredsBlock = document.getElementById("pagseguroCredsBlock");
+            const lblGatewayOriginal = document.getElementById("lblGatewayOriginal");
+            const lblGatewayDescricaoOriginal = document.getElementById("lblGatewayDescricaoOriginal");
+
+            const lblFinanceGateway = document.getElementById("lblFinanceGateway");
+            const lblFinanceTidNsu = document.getElementById("lblFinanceTidNsu");
+            const lblFinanceRates = document.getElementById("lblFinanceRates");
+            const lblFinanceNetVal = document.getElementById("lblFinanceNetVal");
+            const headerProgressTitle = document.querySelector("#gatewayLoadingContainer h6");
+
+            function updateGatewayUI(gateway) {
+                if (gateway === "pagseguro") {
+                    if (pagseguroCredsBlock) pagseguroCredsBlock.classList.remove("d-none");
+                    if (lblGatewayOriginal) lblGatewayOriginal.textContent = "Gateway Original: PagSeguro (UOL)";
+                    if (lblGatewayDescricaoOriginal) lblGatewayDescricaoOriginal.textContent = "O valor de R$ 580,00 será devolvido à conta PagSeguro do comprador.";
+                    
+                    if (lblFinanceGateway) lblFinanceGateway.textContent = "PagSeguro (UOL)";
+                    if (lblFinanceTidNsu) lblFinanceTidNsu.textContent = "9E884547-68F5-4214-B1F3-E88A813D1D1D";
+                    if (lblFinanceRates) lblFinanceRates.textContent = "3,99% + R$ 0,40";
+                    if (lblFinanceNetVal) {
+                        lblFinanceNetVal.textContent = "R$ 556,46";
+                        lblFinanceNetVal.className = "fw-bold text-danger";
+                    }
+                    if (headerProgressTitle) headerProgressTitle.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-orange"></i> Comunicando com API PagSeguro (Reembolso UOL)...';
+                } else {
+                    if (pagseguroCredsBlock) pagseguroCredsBlock.classList.add("d-none");
+                    if (lblGatewayOriginal) lblGatewayOriginal.textContent = "Gateway Original: Stone / Cielo";
+                    if (lblGatewayDescricaoOriginal) lblGatewayDescricaoOriginal.textContent = "O valor de R$ 580,00 será devolvido à fatura do cartão Cielo do comprador.";
+                    
+                    if (lblFinanceGateway) lblFinanceGateway.textContent = "Stone / Cielo";
+                    if (lblFinanceTidNsu) lblFinanceTidNsu.textContent = "854785214 / 789654123";
+                    if (lblFinanceRates) lblFinanceRates.textContent = "2,49%";
+                    if (lblFinanceNetVal) {
+                        lblFinanceNetVal.textContent = "R$ 565,56";
+                        lblFinanceNetVal.className = "fw-bold text-success";
+                    }
+                    if (headerProgressTitle) headerProgressTitle.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-orange"></i> Comunicando com Gateway Stone / Cielo...';
+                }
+            }
+
+            radioGateways.forEach(radio => {
+                radio.addEventListener("change", (e) => {
+                    updateGatewayUI(e.target.value);
+                });
+            });
+
+            // Trigger initial UI setup
+            updateGatewayUI("pagseguro");
             
             // Simulation of error rules toggle
             const btnSimulateError = document.getElementById("btnSimulateError");
