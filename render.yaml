@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: diskingressos-sac-erp
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: GROQ_API_KEY
+        sync: false
+        placeholder: "Cole aqui sua API Key do Groq (começando com gsk_)"
+      - key: PORT
+        value: 3000
