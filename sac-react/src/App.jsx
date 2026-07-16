@@ -5,7 +5,7 @@ import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/fir
 
 function App() {
   // Navigation State
-  const [activePanel, setActivePanel] = useState('dashboard'); // 'dashboard' | 'coupons' | 'estornos' | 'sac'
+  const [activePanel, setActivePanel] = useState('dashboard'); // 'dashboard' | 'coupons' | 'estornos' | 'sac' | 'financeiro'
   const [menuMeusEventosExpanded, setMenuMeusEventosExpanded] = useState(false);
 
   // Estorno Sub-views & Wizard State
@@ -33,6 +33,39 @@ function App() {
   // Firebase Status
   const [firebaseStatus, setFirebaseStatus] = useState('Off-line (Mock)');
 
+  // ------------------------------------------------------------------------
+  // FINANCEIRO PANEL STATE (EXPRESSES FIRESTORE SALDOS/REPASSES/DESPESAS SCHEMA)
+  // ------------------------------------------------------------------------
+  const [financeTab, setFinanceTab] = useState('saldos'); // 'saldos' | 'repasses' | 'despesas' | 'contas'
+
+  const [eventosList, setEventosList] = useState([
+    { id: 'evt-1', nome: 'Show Roupa Nova', organizador: 'Teatro Positivo Produções', data: '20/07/2026', status: 'Ativo' },
+    { id: 'evt-2', nome: 'Samba 90 Graus', organizador: 'Live Curitiba Ent.', data: '05/07/2025', status: 'Concluído' }
+  ]);
+
+  const [saldosList, setSaldosList] = useState([
+    { id: 'sal-1', eventoId: 'evt-1', receitaBruta: 120500.00, taxas: 12050.00, liquido: 108450.00, disponivel: 80000.00, bloqueado: 28450.00, liberarEm: '25/07/2026' },
+    { id: 'sal-2', eventoId: 'evt-2', receitaBruta: 85000.00, taxas: 8500.00, liquido: 76500.00, disponivel: 76500.00, bloqueado: 0.00, liberarEm: 'Imediato' }
+  ]);
+
+  const [repassesList, setRepassesList] = useState([
+    { id: 'rep-1', eventoId: 'evt-2', valor: 50000.00, status: 'Concluído', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '10/07/2025' },
+    { id: 'rep-2', eventoId: 'evt-2', valor: 26500.00, status: 'Pendente', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '15/07/2025' }
+  ]);
+
+  const [despesasList, setDespesasList] = useState([
+    { id: 'des-1', eventoId: 'evt-1', descricao: 'Aluguel de Palco & Som', categoria: 'Produção', valor: 15000.00, data: '10/07/2026' },
+    { id: 'des-2', eventoId: 'evt-1', descricao: 'Taxa Ecad Licença', categoria: 'Taxas Fiscais', valor: 3500.00, data: '12/07/2026' }
+  ]);
+
+  const [contasList, setContasList] = useState([
+    { id: 'cnt-1', banco: 'Banco do Brasil', agencia: '1234-5', conta: '56789-0', titular: 'Teatro Positivo Produções Ltda', pix: '00.000.000/0001-00' }
+  ]);
+
+  // Request payout form state
+  const [selectedRepasseEvento, setSelectedRepasseEvento] = useState('evt-2');
+  const [repasseValorInput, setRepasseValorInput] = useState(26500.00);
+
   useEffect(() => {
     if (db) {
       getDocs(query(collection(db, "tickets"), limit(1)))
@@ -45,7 +78,6 @@ function App() {
     setPendingApprovals(prev => prev.filter(item => item.id !== id));
   };
 
-  // Run Gateway Refund Simulation Steps (Customized for Stone or PagSeguro)
   const runGatewaySimulation = () => {
     setGatewayProcessing(true);
     setGatewayStep(1);
@@ -62,6 +94,24 @@ function App() {
         }
       });
     }, 850);
+  };
+
+  // Submit payout request handler
+  const handleRequestPayout = (e) => {
+    e.preventDefault();
+    if (repasseValorInput <= 0) return;
+    
+    const newRepasse = {
+      id: `rep-${Date.now()}`,
+      eventoId: selectedRepasseEvento,
+      valor: Number(repasseValorInput),
+      status: 'Pendente',
+      contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)',
+      dataSolicitacao: new Date().toLocaleDateString('pt-BR')
+    };
+
+    setRepassesList(prev => [newRepasse, ...prev]);
+    alert("Solicitação de Repasse enviada ao Financeiro com sucesso!");
   };
 
   // Dynamically calculate the iframe source to support local and external global web access
@@ -151,10 +201,13 @@ function App() {
               <a className="menu-item">
                 <div className="menu-item-left"><i className="fa-solid fa-arrows-rotate"></i> Remarketing</div>
               </a>
-              <a className="menu-item">
-                <div className="menu-item-left"><i className="fa-solid fa-wallet"></i> Financeiro</div>
+              
+              {/* FINANCEIRO MENU ITEM (INTEGRATED VIEW) */}
+              <a className={`menu-item ${activePanel === 'financeiro' ? 'active' : ''}`} onClick={() => { setActivePanel('financeiro'); setFinanceTab('saldos'); }} style={{ borderLeft: activePanel === 'financeiro' ? '3px solid var(--primary-green)' : 'none' }}>
+                <div className="menu-item-left"><i className="fa-solid fa-wallet" style={{ color: activePanel === 'financeiro' ? 'var(--primary-green)' : 'inherit' }}></i> Financeiro</div>
                 <span className="badge-sidebar badge-green">3</span>
               </a>
+              
               <a className="menu-item">
                 <div className="menu-item-left"><i className="fa-solid fa-chart-simple"></i> Relatórios</div>
                 <span className="badge-sidebar badge-purple">Novo</span>
@@ -694,6 +747,221 @@ function App() {
                 src={getIframeSrc()} 
                 style={{ width: '100%', height: 'calc(100vh - 120px)', border: 'none', borderRadius: '8px', backgroundColor: '#ffffff' }}
               ></iframe>
+            </div>
+          )}
+
+          {/* PANEL E: COMPREHENSIVE FINANCEIRO MODULE (SALDOS, REPASSES, DESPESAS, CONTAS) */}
+          {activePanel === 'financeiro' && (
+            <div>
+              <div className="dashboard-header">
+                <div className="dashboard-title-box">
+                  <h2>Módulo Financeiro & Controle de Eventos</h2>
+                  <p>Consiliação de saldos, fluxo de repasse aos produtores e controle de contas bancárias.</p>
+                </div>
+                <div className="header-buttons">
+                  <button className={`btn-header-action ${financeTab === 'saldos' ? 'primary' : ''}`} onClick={() => setFinanceTab('saldos')} style={{ backgroundColor: financeTab === 'saldos' ? 'var(--primary-green)' : '', borderColor: financeTab === 'saldos' ? 'var(--primary-green)' : '', color: financeTab === 'saldos' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-wallet"></i> Saldos por Evento
+                  </button>
+                  <button className={`btn-header-action ${financeTab === 'repasses' ? 'primary' : ''}`} onClick={() => setFinanceTab('repasses')} style={{ backgroundColor: financeTab === 'repasses' ? 'var(--primary-green)' : '', borderColor: financeTab === 'repasses' ? 'var(--primary-green)' : '', color: financeTab === 'repasses' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse
+                  </button>
+                  <button className={`btn-header-action ${financeTab === 'despesas' ? 'primary' : ''}`} onClick={() => setFinanceTab('despesas')} style={{ backgroundColor: financeTab === 'despesas' ? 'var(--primary-green)' : '', borderColor: financeTab === 'despesas' ? 'var(--primary-green)' : '', color: financeTab === 'despesas' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-file-invoice-dollar"></i> Despesas
+                  </button>
+                  <button className={`btn-header-action ${financeTab === 'contas' ? 'primary' : ''}`} onClick={() => setFinanceTab('contas')} style={{ backgroundColor: financeTab === 'contas' ? 'var(--primary-green)' : '', borderColor: financeTab === 'contas' ? 'var(--primary-green)' : '', color: financeTab === 'contas' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-building-columns"></i> Contas Bancárias
+                  </button>
+                </div>
+              </div>
+
+              {/* FINANCE TAB 1: SALDOS POR EVENTO */}
+              {financeTab === 'saldos' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-wallet text-green me-2"></i> Balanços e Receita Consolidada por Evento (Firestore)</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Evento</th>
+                        <th>Receita Bruta</th>
+                        <th>Taxas Cobradas</th>
+                        <th>Receita Líquida</th>
+                        <th>Disponível Repasse</th>
+                        <th>Bloqueado</th>
+                        <th>Liberação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {saldosList.map((saldo) => {
+                        const evt = eventosList.find(e => e.id === saldo.eventoId) || {};
+                        return (
+                          <tr key={saldo.id}>
+                            <td>
+                              <strong>{evt.nome || 'Evento'}</strong><br/>
+                              <span className="text-muted" style={{ fontSize: '0.7rem' }}>Organizador: {evt.organizador}</span>
+                            </td>
+                            <td className="fw-bold">R$ {saldo.receitaBruta.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="text-danger">R$ {saldo.taxas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="fw-bold text-dark">R$ {saldo.liquido.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="text-success fw-bold">R$ {saldo.disponivel.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="text-warning">R$ {saldo.bloqueado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td><span className="badge bg-light text-dark border">{saldo.liberarEm}</span></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* FINANCE TAB 2: SOLICITAÇÕES DE REPASSE */}
+              {financeTab === 'repasses' && (
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  {/* Left Table */}
+                  <div className="events-panel" style={{ flex: 7 }}>
+                    <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                      <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-money-bill-transfer text-green me-2"></i> Extrato de Repasses aos Produtores</h6>
+                    </div>
+
+                    <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                      <thead className="table-light">
+                        <tr>
+                          <th>Evento</th>
+                          <th>Valor Solicitado</th>
+                          <th>Data Solicitação</th>
+                          <th>Conta de Crédito</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {repassesList.map((rep) => {
+                          const evt = eventosList.find(e => e.id === rep.eventoId) || {};
+                          return (
+                            <tr key={rep.id}>
+                              <td><strong>{evt.nome || 'Evento'}</strong></td>
+                              <td className="fw-bold">R$ {rep.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                              <td>{rep.dataSolicitacao}</td>
+                              <td style={{ fontSize: '0.7rem' }}>{rep.contaDestino}</td>
+                              <td>
+                                <span className={`badge ${rep.status === 'Concluído' ? 'bg-success text-white' : 'bg-warning text-dark'}`}>
+                                  {rep.status}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Right Form: Request Repasse */}
+                  <div className="events-panel" style={{ flex: 5 }}>
+                    <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                      <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-paper-plane text-green me-2"></i> Solicitar Novo Repasse</h6>
+                    </div>
+
+                    <form onSubmit={handleRequestPayout}>
+                      <div className="form-group">
+                        <label>Evento para Repasse</label>
+                        <select value={selectedRepasseEvento} onChange={(e) => setSelectedRepasseEvento(e.target.value)}>
+                          {eventosList.map(evt => (
+                            <option key={evt.id} value={evt.id}>{evt.nome}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="form-group" style={{ marginTop: '10px' }}>
+                        <label>Valor a Liberar (R$)</label>
+                        <input 
+                          type="number" 
+                          step="0.01" 
+                          value={repasseValorInput} 
+                          onChange={(e) => setRepasseValorInput(e.target.value)} 
+                          required 
+                        />
+                        <span className="text-muted" style={{ fontSize: '0.65rem', display: 'block', marginTop: '4px' }}>
+                          O valor solicitado será debitado do saldo "Disponível" e creditado na conta cadastrada.
+                        </span>
+                      </div>
+
+                      <button type="submit" className="btn-wizard-next" style={{ backgroundColor: 'var(--primary-green)', marginTop: '15px', width: '100%' }}>
+                        Confirmar & Solicitar Payout
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
+
+              {/* FINANCE TAB 3: DESPESAS */}
+              {financeTab === 'despesas' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-file-invoice-dollar text-green me-2"></i> Despesas e Borderô Operacional (Notas Fiscais/Extratos)</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Evento Relacionado</th>
+                        <th>Descrição da Despesa</th>
+                        <th>Categoria</th>
+                        <th>Data Lançamento</th>
+                        <th>Valor Debitado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {despesasList.map((des) => {
+                        const evt = eventosList.find(e => e.id === des.eventoId) || {};
+                        return (
+                          <tr key={des.id}>
+                            <td><strong>{evt.nome || 'Evento'}</strong></td>
+                            <td>{des.descricao}</td>
+                            <td><span className="badge bg-light text-dark border">{des.categoria}</span></td>
+                            <td>{des.data}</td>
+                            <td className="fw-bold text-danger">- R$ {des.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* FINANCE TAB 4: CONTAS BANCÁRIAS */}
+              {financeTab === 'contas' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-building-columns text-green me-2"></i> Contas Bancárias Cadastradas para Recebimento</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Titularidade</th>
+                        <th>Banco</th>
+                        <th>Agência</th>
+                        <th>Conta Corrente</th>
+                        <th>Chave PIX Associada</th>
+                        <th>Status Conexão</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {contasList.map((conta) => (
+                        <tr key={conta.id}>
+                          <td><strong>{conta.titular}</strong></td>
+                          <td>{conta.banco}</td>
+                          <td>{conta.agencia}</td>
+                          <td>{conta.conta}</td>
+                          <td><code>{conta.pix}</code></td>
+                          <td><span className="badge bg-success text-white">Verificada (Ativa)</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
 
