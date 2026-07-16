@@ -1,19 +1,38 @@
-import Groq from "groq-sdk";
+// sac-react/src/groq.js
+// Client-side API adapter communicating with our secure Node.js backend.
+// No Groq SDK imports or API Keys are exposed to the client browser bundle.
 
-const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY,
-  dangerouslyAllowBrowser: true, // Apenas para testes no navegador
-});
+const getApiUrl = () => {
+  if (typeof window === "undefined") return "";
+  const hostname = window.location.hostname;
+  
+  // Local development fallback
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
+    return "http://localhost:3000/api/ask-groq";
+  }
+  
+  // Expose publicly via Cloudflare tunnel
+  return "https://thumbzilla-confidence-massachusetts-artist.trycloudflare.com/api/ask-groq";
+};
 
 export async function perguntarIA(texto) {
-  const resposta = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
-    messages: [
-      {
-        role: "user",
-        content: texto,
+  try {
+    const response = await fetch(getApiUrl(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ],
-  });
-  return resposta.choices[0].message.content;
+      body: JSON.stringify({ texto }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro na resposta do backend seguro: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.resposta;
+  } catch (error) {
+    console.error("Falha ao comunicar com o servidor de IA seguro:", error);
+    throw error;
+  }
 }
