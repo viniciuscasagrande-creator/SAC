@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Security rules for event balances (saldos collection)
+    match /saldos/{id} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Security rules for payout requests (repasses collection)
+    match /repasses/{id} {
+      allow read, write: if request.auth != null &&
+        (resource == null || request.auth.uid == resource.data.userId);
+    }
+    
+    // Security rules for advances (antecipacoes collection)
+    match /antecipacoes/{id} {
+      allow read, write: if request.auth != null &&
+        (resource == null || request.auth.uid == resource.data.userId);
+    }
+
+    // Security rules for statement ledger (extrato collection)
+    match /extrato/{id} {
+      allow read: if request.auth != null;
+      allow write: if false; // Read-only for audit integrity
+    }
+
+    // Security rules for event expenses (despesas collection)
+    match /despesas/{id} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Security rules for event bank accounts (contas collection)
+    match /contas/{id} {
+      allow read, write: if request.auth != null &&
+        (resource == null || request.auth.uid == resource.data.userId);
+    }
+  }
+}
