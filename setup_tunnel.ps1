@@ -1,6 +1,10 @@
 # 🏢 DiskIngressos - Assistente de Configuração de Túnel Fixo Cloudflare
 # Execute este script para criar e configurar seu túnel nomeado permanente.
 
+param(
+    [string]$Domain
+)
+
 $ErrorActionPreference = "Stop"
 
 Write-Host "==========================================================" -ForegroundColor Cyan
@@ -38,11 +42,14 @@ Start-Process cloudflared -ArgumentList "tunnel login" -Wait
 
 # 3. Solicitação de Domínio
 Write-Host "`n[3/6] Configuração de Domínio..." -ForegroundColor Yellow
-$domain = Read-Host "Digite o domínio que você autorizou no Cloudflare (Ex: diskingressos.com.br)"
-if (-not $domain) {
+if (-not $Domain) {
+    $Domain = Read-Host "Digite o domínio que você autorizou no Cloudflare (Ex: diskingressos.com.br)"
+}
+if (-not $Domain) {
     Write-Host "❌ Domínio inválido. Encerrando." -ForegroundColor Red
     Exit
 }
+$domain = $Domain
 
 # 4. Criação do Túnel Fixo
 Write-Host "`n[4/6] Criando Túnel Fixo 'diskingressos-dev'..." -ForegroundColor Yellow
