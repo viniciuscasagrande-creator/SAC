@@ -30,6 +30,14 @@ function App() {
     { id: 'rowApp3', order: '#154302', client: 'Pedro Santos', show: 'Samba 90 Graus', value: 'R$ 240,00', tier: 'Supervisor' },
   ]);
 
+  // Interactive Approval Modal State
+  const [selectedApproval, setSelectedApproval] = useState(null);
+  const [approvalPasswordInput, setApprovalPasswordInput] = useState('');
+  
+  // Dashboard Search & Filters
+  const [estornoSearchQuery, setEstornoSearchQuery] = useState('');
+  const [estornoGatewayFilter, setEstornoGatewayFilter] = useState('all'); // 'all' | 'pagseguro' | 'stone'
+
   // Firebase Status
   const [firebaseStatus, setFirebaseStatus] = useState('Off-line (Mock)');
 
@@ -164,15 +172,25 @@ function App() {
     setPendingApprovals(prev => prev.filter(item => item.id !== id));
   };
 
-  const saveRefundToDb = async () => {
-    const value = 580.00;
-    const netRefund = selectedGateway === 'pagseguro' ? 556.46 : 565.56;
+  const saveRefundToDb = async (customRefundInfo = null) => {
+    let value = 580.00;
+    let gateway = selectedGateway;
+    let netRefund = selectedGateway === 'pagseguro' ? 556.46 : 565.56;
+
+    if (customRefundInfo) {
+      // Parse value like "R$ 580,00" or similar
+      const rawVal = customRefundInfo.value || "580.00";
+      value = Number(rawVal.replace(/[^0-9,.-]/g, '').replace(',', '.')) || 580.00;
+      gateway = Math.random() > 0.5 ? 'stone' : 'pagseguro';
+      netRefund = value * 0.96; // 4% average gateway fee
+    }
+
     const newRefund = {
-      order: "154258",
-      client: "João da Silva",
-      show: "Show Roupa Nova",
+      order: customRefundInfo ? customRefundInfo.order.replace('#', '') : "154258",
+      client: customRefundInfo ? customRefundInfo.client : "João da Silva",
+      show: customRefundInfo ? customRefundInfo.show : "Show Roupa Nova",
       value: value,
-      gateway: selectedGateway,
+      gateway: gateway,
       netRefund: netRefund,
       status: "Sucesso",
       timestamp: new Date().toISOString()
@@ -512,106 +530,170 @@ function App() {
               {/* SUBVIEW 1: EXECUTIVE ANALYTICS DASHBOARD */}
               {estornoSubView === 'dashboard' && (
                 <div>
+                  {/* Top Cards Grid */}
                   <div className="row g-3 mb-4" style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
-                    <div style={{ flex: 1, background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', color: '#ffffff', padding: '20px', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700 }}>Estornos Executados</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>{estornosList.length}</h2>
-                      <span style={{ color: '#10b981', fontSize: '0.7rem' }}><i className="fa-solid fa-arrow-up me-1"></i>+5% vs ontem</span>
+                    <div style={{ flex: 1, background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: '#ffffff', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700, letterSpacing: '0.5px' }}>Estornos Executados</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
+                        <h2 style={{ fontSize: '2rem', fontWeight: 800, margin: 0 }}>{estornosList.length}</h2>
+                        <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-arrow-up me-1"></i>+5%</span>
+                      </div>
+                      <div style={{ fontSize: '0.65rem', color: '#64748b', marginTop: '8px' }}>Atualizado em tempo real</div>
                     </div>
-                    <div style={{ flex: 1, background: 'linear-gradient(135deg, #ff5722 0%, #d84315 100%)', color: '#ffffff', padding: '20px', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>Montante Devolvido</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>
-                        R$ {estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                      </h2>
-                      <span style={{ color: '#ffffff', opacity: 0.8, fontSize: '0.7rem' }}><i className="fa-solid fa-arrow-down me-1"></i>Em tempo real</span>
+                    
+                    <div style={{ flex: 1, background: 'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)', color: '#ffffff', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', fontWeight: 700, letterSpacing: '0.5px' }}>Montante Devolvido</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
+                        <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0 }}>
+                          R$ {estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </h2>
+                      </div>
+                      <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.6)', marginTop: '8px' }}>Integrado via APIs</div>
                     </div>
-                    <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #dee2e6', padding: '20px', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700 }}>Taxas Convenience Retidas</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--text-dark)' }}>
-                        R$ {estornosList.reduce((acc, curr) => acc + (Number(curr.value || 0) - Number(curr.netRefund || 0)), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                      </h2>
-                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-lock me-1"></i>Retido no caixa do ERP</span>
+
+                    <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #e2e8f0', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)' }}>
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#64748b', fontWeight: 700, letterSpacing: '0.5px' }}>Taxas Convenience Retidas</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
+                        <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                          R$ {estornosList.reduce((acc, curr) => acc + (Number(curr.value || 0) - Number(curr.netRefund || 0)), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </h2>
+                        <span style={{ color: '#3b82f6', fontSize: '0.7rem', fontWeight: 600 }}>15% retido</span>
+                      </div>
+                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: '8px' }}>Retido no caixa do ERP</div>
                     </div>
-                    <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #dee2e6', padding: '20px', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700 }}>Preservado em Voucher</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--primary-green)' }}>
-                        R$ {(estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0) * 0.3).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                      </h2>
-                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-shield-halved me-1"></i>30% retido em crédito</span>
+
+                    <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #e2e8f0', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)' }}>
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#64748b', fontWeight: 700, letterSpacing: '0.5px' }}>Preservado em Voucher</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
+                        <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: '#10b981' }}>
+                          R$ {(estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0) * 0.3).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </h2>
+                        <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}>30% preservado</span>
+                      </div>
+                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: '8px' }}>Retido em crédito de compras</div>
                     </div>
                   </div>
 
+                  {/* Split Panel: Pending Approvals & Risk metrics */}
                   <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-                    <div className="events-panel" style={{ flex: 7 }}>
-                      <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
+                    
+                    {/* Interactive Pending Approvals List */}
+                    <div className="events-panel" style={{ flex: 7, borderRadius: '12px', padding: '20px' }}>
+                      <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-file-shield text-orange me-2"></i> Fila de Aprovações Pendentes (Alçadas)</h6>
-                        <span className={`badge ${pendingApprovals.length > 0 ? 'bg-warning text-dark' : 'bg-success text-white'}`} style={{ padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
-                          {pendingApprovals.length > 0 ? `${pendingApprovals.length} Pendentes` : 'Fila Limpa! ✅'}
+                        <span className={`badge ${pendingApprovals.length > 0 ? 'bg-warning text-dark' : 'bg-success text-white'}`} style={{ padding: '6px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 700 }}>
+                          {pendingApprovals.length > 0 ? `${pendingApprovals.length} Chamados Requerem Alçada` : 'Fila Limpa! ✅'}
                         </span>
                       </div>
 
-                      <table className="info-table" style={{ fontSize: '0.8rem' }}>
-                        <thead className="table-light">
-                          <tr>
-                            <th>Pedido</th>
-                            <th>Cliente / Evento</th>
-                            <th>Valor</th>
-                            <th>Alçada Alvo</th>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {pendingApprovals.map((item) => (
-                            <tr key={item.id}>
-                              <td className="fw-bold">{item.order}</td>
-                              <td>
-                                <strong>{item.client}</strong><br/>
-                                <span className="text-muted" style={{ fontSize: '0.7rem' }}>{item.show}</span>
-                              </td>
-                              <td className="fw-bold">{item.value}</td>
-                              <td><span className="badge bg-light text-primary border" style={{ padding: '2px 6px', fontSize: '0.7rem' }}>{item.tier}</span></td>
-                              <td style={{ textAlign: 'center' }}>
-                                <button className="btn btn-sm btn-success me-1" onClick={() => handleApprovalAction(item.id)} style={{ color: '#ffffff', backgroundColor: '#10b981', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', marginRight: '4px' }}><i className="fa-solid fa-check"></i></button>
-                                <button className="btn btn-sm btn-danger" onClick={() => handleApprovalAction(item.id)} style={{ color: '#ffffff', backgroundColor: '#ff5722', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}><i className="fa-solid fa-times"></i></button>
-                              </td>
-                            </tr>
-                          ))}
-                          {pendingApprovals.length === 0 && (
+                      <div style={{ overflowX: 'auto' }}>
+                        <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                          <thead className="table-light">
                             <tr>
-                              <td colSpan="5" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>Nenhuma aprovação pendente no momento!</td>
+                              <th>Pedido</th>
+                              <th>Cliente / Evento</th>
+                              <th>Valor</th>
+                              <th>Alçada Alvo</th>
+                              <th style={{ textAlign: 'center' }}>Análise</th>
                             </tr>
-                          )}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {pendingApprovals.map((item) => (
+                              <tr key={item.id} onClick={() => setSelectedApproval(item)} style={{ cursor: 'pointer', transition: 'background-color 0.15s' }} className="hover-row-effect">
+                                <td className="fw-bold" style={{ color: 'var(--primary-orange)' }}>{item.order}</td>
+                                <td>
+                                  <strong>{item.client}</strong><br/>
+                                  <span className="text-muted" style={{ fontSize: '0.7rem' }}>{item.show}</span>
+                                </td>
+                                <td className="fw-bold">{item.value}</td>
+                                <td><span className="badge bg-light text-primary border" style={{ padding: '4px 8px', fontSize: '0.65rem' }}>{item.tier}</span></td>
+                                <td style={{ textAlign: 'center' }}>
+                                  <button className="btn btn-xs btn-outline-primary" style={{ fontSize: '0.65rem', padding: '2px 8px', borderRadius: '4px' }}>Analisar</button>
+                                </td>
+                              </tr>
+                            ))}
+                            {pendingApprovals.length === 0 && (
+                              <tr>
+                                <td colSpan="5" style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)' }}>
+                                  <i className="fa-solid fa-circle-check text-success" style={{ fontSize: '1.5rem', display: 'block', marginBottom: '8px' }}></i>
+                                  Nenhuma alçada de aprovação pendente na fila!
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
-                    <div className="events-panel" style={{ flex: 5 }}>
+                    {/* Beautiful Interactive Risk Gauge Card */}
+                    <div className="events-panel" style={{ flex: 5, borderRadius: '12px', padding: '20px' }}>
                       <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
-                        <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-shield-halved text-orange me-2"></i> Risco e Conciliação Gateway</h6>
+                        <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-shield-halved text-orange me-2"></i> Conciliação & Risco Operacional</h6>
                       </div>
 
-                      <div style={{ textAlign: 'center', margin: '20px 0' }}>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--primary-green)', margin: 0 }}>0.85%</h1>
-                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Taxa de Chargeback / Fraude (Zona Segura ✅)</span>
-                      </div>
-
-                      <div style={{ borderTop: '1px solid #dee2e6', paddingTop: '15px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.8 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <span>Estornos por PIX:</span>
-                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>{Math.round(estornosList.length * 0.36)} devoluções</span>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', margin: '20px 0' }}>
+                        {/* Circular Gauge Chart */}
+                        <div style={{ position: 'relative', width: '100px', height: '100px' }}>
+                          <svg width="100" height="100" viewBox="0 0 100 100" style={{ transform: 'rotate(-90deg)' }}>
+                            <circle cx="50" cy="50" r="44" fill="transparent" stroke="#f1f5f9" strokeWidth="6" />
+                            <circle cx="50" cy="50" r="44" fill="transparent" stroke="#10b981" strokeWidth="6" strokeDasharray="276.46" strokeDashoffset={276.46 * (1 - 0.0085)} style={{ strokeLinecap: 'round', transition: 'stroke-dashoffset 1s ease' }} />
+                          </svg>
+                          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+                            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a' }}>0.85%</div>
+                            <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase' }}>Taxa</div>
+                          </div>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <span>Estornos por Cartão:</span>
-                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>{Math.round(estornosList.length * 0.64)} devoluções</span>
+
+                        <div>
+                          <h6 className="fw-bold text-dark m-0" style={{ fontSize: '0.85rem' }}>Zona de Segurança Ativa</h6>
+                          <p className="text-muted m-0" style={{ fontSize: '0.7rem', lineHeight: 1.4 }}>Métricas de Chargeback e contestações consolidadas no gateway dentro da meta operacional permitida.</p>
+                        </div>
+                      </div>
+
+                      {/* Sub-Progress metrics */}
+                      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '15px', fontSize: '0.75rem' }}>
+                        <div style={{ marginBottom: '10px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span className="text-muted">Estornos por PIX (Rápido)</span>
+                            <span className="fw-bold text-dark">{Math.round(estornosList.length * 0.36)} devoluções</span>
+                          </div>
+                          <div style={{ width: '100%', height: '6px', backgroundColor: '#f1f5f9', borderRadius: '3px' }}>
+                            <div style={{ width: '36%', height: '100%', backgroundColor: '#3b82f6', borderRadius: '3px' }}></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span className="text-muted">Estornos por Cartão (Crédito)</span>
+                            <span className="fw-bold text-dark">{Math.round(estornosList.length * 0.64)} devoluções</span>
+                          </div>
+                          <div style={{ width: '100%', height: '6px', backgroundColor: '#f1f5f9', borderRadius: '3px' }}>
+                            <div style={{ width: '64%', height: '100%', backgroundColor: '#ea580c', borderRadius: '3px' }}></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* TABELA DE ESTORNOS EXECUTADOS DO BANCO DE DADOS */}
-                  <div className="events-panel" style={{ marginTop: '20px' }}>
-                    <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
+                  {/* Table 3: Database Completed Refunds Table (Fully Filterable) */}
+                  <div className="events-panel" style={{ marginTop: '20px', borderRadius: '12px', padding: '20px' }}>
+                    <div className="events-panel-header" style={{ marginBottom: '15px', borderBottom: 'none', display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'space-between', alignItems: 'center' }}>
                       <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-list-check text-orange me-2"></i> Registro Geral de Estornos Efetuados (Banco de Dados)</h6>
+                      
+                      {/* Interactive Search and Filters */}
+                      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                        {/* Search Input */}
+                        <div style={{ position: 'relative' }}>
+                          <i className="fa-solid fa-magnifying-glass" style={{ position: 'absolute', left: '10px', top: '10px', fontSize: '0.75rem', color: '#94a3b8' }}></i>
+                          <input type="text" placeholder="Buscar por pedido ou cliente..." value={estornoSearchQuery} onChange={(e) => setEstornoSearchQuery(e.target.value)} style={{ padding: '6px 12px 6px 30px', fontSize: '0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', width: '220px' }} />
+                        </div>
+                        {/* Gateway Filter Tabs */}
+                        <div style={{ display: 'flex', backgroundColor: '#f1f5f9', borderRadius: '6px', padding: '2px' }}>
+                          <button onClick={() => setEstornoGatewayFilter('all')} style={{ padding: '4px 10px', fontSize: '0.7rem', border: 'none', borderRadius: '4px', cursor: 'pointer', backgroundColor: estornoGatewayFilter === 'all' ? '#ffffff' : 'transparent', fontWeight: estornoGatewayFilter === 'all' ? 700 : 500, boxShadow: estornoGatewayFilter === 'all' ? '0 1px 3px rgba(0,0,0,0.05)' : 'none' }}>Todos</button>
+                          <button onClick={() => setEstornoGatewayFilter('pagseguro')} style={{ padding: '4px 10px', fontSize: '0.7rem', border: 'none', borderRadius: '4px', cursor: 'pointer', backgroundColor: estornoGatewayFilter === 'pagseguro' ? '#ffffff' : 'transparent', fontWeight: estornoGatewayFilter === 'pagseguro' ? 700 : 500, boxShadow: estornoGatewayFilter === 'pagseguro' ? '0 1px 3px rgba(0,0,0,0.05)' : 'none' }}>PagSeguro</button>
+                          <button onClick={() => setEstornoGatewayFilter('stone')} style={{ padding: '4px 10px', fontSize: '0.7rem', border: 'none', borderRadius: '4px', cursor: 'pointer', backgroundColor: estornoGatewayFilter === 'stone' ? '#ffffff' : 'transparent', fontWeight: estornoGatewayFilter === 'stone' ? 700 : 500, boxShadow: estornoGatewayFilter === 'stone' ? '0 1px 3px rgba(0,0,0,0.05)' : 'none' }}>Stone</button>
+                        </div>
+                      </div>
                     </div>
 
                     <table className="info-table" style={{ fontSize: '0.8rem' }}>
@@ -628,8 +710,12 @@ function App() {
                         </tr>
                       </thead>
                       <tbody>
-                        {estornosList.map((item) => (
-                          <tr key={item.id}>
+                        {estornosList.filter(item => {
+                          const matchesSearch = item.client.toLowerCase().includes(estornoSearchQuery.toLowerCase()) || item.order.toLowerCase().includes(estornoSearchQuery.toLowerCase());
+                          const matchesGateway = estornoGatewayFilter === 'all' || item.gateway === estornoGatewayFilter;
+                          return matchesSearch && matchesGateway;
+                        }).map((item) => (
+                          <tr key={item.id} className="hover-row-effect">
                             <td className="text-muted">{item.timestamp ? new Date(item.timestamp).toLocaleString('pt-BR') : '-'}</td>
                             <td className="fw-bold">#{item.order}</td>
                             <td>{item.client}</td>
@@ -640,14 +726,70 @@ function App() {
                             <td><span className="badge bg-success">{item.status}</span></td>
                           </tr>
                         ))}
-                        {estornosList.length === 0 && (
+                        {estornosList.filter(item => {
+                          const matchesSearch = item.client.toLowerCase().includes(estornoSearchQuery.toLowerCase()) || item.order.toLowerCase().includes(estornoSearchQuery.toLowerCase());
+                          const matchesGateway = estornoGatewayFilter === 'all' || item.gateway === estornoGatewayFilter;
+                          return matchesSearch && matchesGateway;
+                        }).length === 0 && (
                           <tr>
-                            <td colSpan="8" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>Nenhum estorno gravado no banco de dados.</td>
+                            <td colSpan="8" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>Nenhum estorno correspondente aos filtros.</td>
                           </tr>
                         )}
                       </tbody>
                     </table>
                   </div>
+
+                  {/* Beautiful Overlay Modal for Pending Approvals Analysis */}
+                  {selectedApproval && (
+                    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(15, 23, 42, 0.45)', backdropFilter: 'blur(5px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+                      <div className="custom-modal-card" style={{ width: '460px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)', padding: '24px', animation: 'scaleUp 0.2s ease-out' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '16px' }}>
+                          <h5 className="fw-bold m-0 text-dark"><i className="fa-solid fa-user-shield text-orange me-2"></i> Analisar Alçada de Liberação</h5>
+                          <button onClick={() => { setSelectedApproval(null); setApprovalPasswordInput(''); }} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.2rem', color: '#64748b' }}>&times;</button>
+                        </div>
+
+                        <div style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.6 }}>
+                          <div style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #f1f5f9', marginBottom: '15px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px', marginBottom: '6px' }}>
+                              <span>Código do Pedido:</span>
+                              <strong className="text-dark">{selectedApproval.order}</strong>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px', marginBottom: '6px' }}>
+                              <span>Cliente Portador:</span>
+                              <strong className="text-dark">{selectedApproval.client}</strong>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px', marginBottom: '6px' }}>
+                              <span>Show associado:</span>
+                              <strong className="text-dark">{selectedApproval.show}</strong>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '4px' }}>
+                              <span>Valor de Devolução:</span>
+                              <strong style={{ color: 'var(--primary-orange)', fontSize: '1.05rem' }}>{selectedApproval.value}</strong>
+                            </div>
+                          </div>
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(59, 130, 246, 0.05)', borderLeft: '3px solid #3b82f6', padding: '10px 12px', borderRadius: '4px', marginBottom: '15px' }}>
+                            <i className="fa-solid fa-triangle-exclamation text-primary"></i>
+                            <div>
+                              <strong>Alçada de Liberação Necessária:</strong><br/>
+                              Exige validação de credencial nível <strong>{selectedApproval.tier}</strong>.
+                            </div>
+                          </div>
+
+                          <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label className="fw-bold text-dark" style={{ display: 'block', marginBottom: '6px' }}>Senha de Supervisor/Gerente</label>
+                            <input type="password" placeholder="Digite sua senha de autorização..." value={approvalPasswordInput} onChange={(e) => setApprovalPasswordInput(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.8rem' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '24px', borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
+                          <button className="btn btn-sm btn-light border" onClick={() => { setSelectedApproval(null); setApprovalPasswordInput(''); }} style={{ fontSize: '0.75rem', padding: '6px 12px' }}>Voltar</button>
+                          <button className="btn btn-sm btn-danger" onClick={() => { handleApprovalAction(selectedApproval.id); setSelectedApproval(null); setApprovalPasswordInput(''); }} style={{ color: '#ffffff', backgroundColor: '#ef4444', border: 'none', fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px' }}>Rejeitar</button>
+                          <button className="btn btn-sm btn-success" onClick={() => { handleApprovalAction(selectedApproval.id); saveRefundToDb(selectedApproval); setSelectedApproval(null); setApprovalPasswordInput(''); }} style={{ color: '#ffffff', backgroundColor: '#10b981', border: 'none', fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px' }} disabled={!approvalPasswordInput}>Aprovar & Processar</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
