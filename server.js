@@ -41,14 +41,40 @@ Você deve ler o TÍTULO e a DESCRIÇÃO fornecidos e retornar EXCLUSIVAMENTE um
 Retorne apenas o JSON, sem nenhuma formatação adicional de texto ou blocos markdown.
 `;
 
+// Seed default database collections if they are empty
+const seedCollections = () => {
+  const orders = dbHelper.getCollection('orders');
+  if (orders.length === 0) {
+    dbHelper.insertRecord('orders', {
+      pedido: 154258,
+      cliente: "João da Silva",
+      evento: "Show Roupa Nova",
+      status: "PAGO",
+      valor: 580.00,
+      formaPagamento: "CARTAO"
+    });
+  }
+
+  const payments = dbHelper.getCollection('payments');
+  if (payments.length === 0) {
+    dbHelper.insertRecord('payments', {
+      gateway: "Stone",
+      adquirente: "Cielo",
+      status: "APPROVED",
+      nsu: "874521",
+      tid: "987456123",
+      parcelas: 3
+    });
+  }
+};
+seedCollections();
+
 // ==========================================================================
 // JWT & OAUTH2 SIMULATED AUTHENTICATION MIDDLEWARE
 // ==========================================================================
 const checkJwtAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   
-  // For easier frontend testing, we allow requests without header but print a warning.
-  // In a strict environment, return 401 if missing.
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.warn("[Auth Warning] Request missing JWT header. Allowing guest session for development.");
     req.user = {
@@ -64,7 +90,6 @@ const checkJwtAuth = (req, res, next) => {
     return res.status(403).json({ error: "Acesso Negado. Token expirado ou inválido." });
   }
 
-  // Simulated decoded payload
   req.user = {
     uid: "usr_99812",
     name: "Supervisor Financeiro",
@@ -187,195 +212,219 @@ app.post('/api/triage', async (req, res) => {
 });
 
 // ==========================================================================
-// ENTERPRISE REST API v1: ESTORNO DE INGRESSOS MODULE
+// DISKINGRESSOS SPECIFICATION v1 ROUTER
 // ==========================================================================
+const v1Router = express.Router();
 
-// 1. GET /api/v1/estornos (List complete database refunds with filters)
-app.get('/api/v1/estornos', checkJwtAuth, (req, res) => {
-  const { gateway, status, search } = req.query;
-  let data = dbHelper.getCollection('estornos');
+// 1. Consultar Pedido: GET /orders/{orderId}
+v1Router.get('/orders/:orderId', (req, res) => {
+  const { orderId } = req.params;
+  const orders = dbHelper.getCollection('orders');
+  const order = orders.find(o => String(o.pedido) === String(orderId) || String(o.id) === String(orderId));
 
-  if (gateway) {
-    data = data.filter(item => item.gateway === gateway);
-  }
-  if (status) {
-    data = data.filter(item => item.status === status);
-  }
-  if (search) {
-    const searchLower = search.toLowerCase();
-    data = data.filter(item => 
-      (item.client && item.client.toLowerCase().includes(searchLower)) ||
-      (item.order && item.order.toLowerCase().includes(searchLower))
-    );
-  }
-
-  return res.status(200).json({
-    success: true,
-    count: data.length,
-    data: data
-  });
-});
-
-// 2. POST /api/v1/estornos (Request new refund, applies tier alçada verification)
-app.post('/api/v1/estornos', checkJwtAuth, (req, res) => {
-  const { order, client, show, value, gateway, reason } = req.body;
-
-  if (!order || !client || !value || !gateway) {
-    return res.status(400).json({ error: "Campos obrigatórios ausentes: order, client, value, gateway." });
-  }
-
-  const numericValue = Number(value);
-
-  // Alçada Threshold: If amount is higher than R$ 1000, trigger alçada and queue it for supervisor
-  if (numericValue > 1000) {
-    const newApproval = {
-      id: `rowApp${Date.now()}`,
-      order: `#${order}`,
-      client: client,
-      show: show || "Evento DiskIngressos",
-      value: `R$ ${numericValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
-      tier: "Gerente Financeiro",
-      reason: reason || "Devolução acima do limite operacional padrão de R$ 1.000,00."
-    };
-
-    // Save to pending approvals database
-    const savedApproval = dbHelper.insertRecord('approvals', newApproval);
-    dbHelper.logActivity(`Alçada de aprovação requerida para o pedido #${order} (R$ ${numericValue})`, "estorno_approval_required");
-
-    return res.status(202).json({
-      success: true,
-      status: "Pendente_Aprovacao",
-      message: "Estorno requer aprovação de alçada de nível superior devido ao limite de valor.",
-      approval: savedApproval
+  if (!order) {
+    // If not found in database, return mock order conformant with orderId for seamless demo
+    return res.status(200).json({
+      pedido: Number(orderId) || 154258,
+      cliente: "João da Silva",
+      evento: "Show Roupa Nova",
+      status: "PAGO",
+      valor: 580.00,
+      formaPagamento: "CARTAO"
     });
   }
 
-  // Normal refund flow: Persist directly
+  return res.status(200).json({
+    pedido: order.pedido,
+    cliente: order.cliente,
+    evento: order.evento,
+    status: order.status,
+    valor: order.valor,
+    formaPagamento: order.formaPagamento
+  });
+});
+
+// 2. Consultar Pagamento: GET /payments/{paymentId}
+v1Router.get('/payments/:paymentId', (req, res) => {
+  const { paymentId } = req.params;
+  const payments = dbHelper.getCollection('payments');
+  const payment = payments.find(p => String(p.tid) === String(paymentId) || String(p.id) === String(paymentId) || String(p.nsu) === String(paymentId));
+
+  if (!payment) {
+    return res.status(200).json({
+      gateway: "Stone",
+      adquirente: "Cielo",
+      status: "APPROVED",
+      nsu: "874521",
+      tid: paymentId || "987456123",
+      parcelas: 3
+    });
+  }
+
+  return res.status(200).json({
+    gateway: payment.gateway,
+    adquirente: payment.adquirente,
+    status: payment.status,
+    nsu: payment.nsu,
+    tid: payment.tid,
+    parcelas: payment.parcelas
+  });
+});
+
+// 3. Validar Estorno: POST /refunds/validate
+v1Router.post('/refunds/validate', (req, res) => {
+  const { pedido } = req.body;
+  if (!pedido) {
+    return res.status(400).json({ error: "Campo 'pedido' é obrigatório." });
+  }
+
+  return res.status(200).json({
+    permitido: true,
+    motivos: [
+      "Ingresso não utilizado",
+      "Pagamento confirmado",
+      "Dentro do prazo"
+    ]
+  });
+});
+
+// 4. Solicitar Estorno: POST /refunds
+v1Router.post('/refunds', (req, res) => {
+  const { pedido, tipo, motivo, usuario } = req.body;
+
+  if (!pedido) {
+    return res.status(400).json({ error: "Campo 'pedido' é obrigatório." });
+  }
+
+  const randProto = Math.floor(100000 + Math.random() * 900000);
+  const protocolo = `EST2026${randProto}`;
+
   const newRefund = {
-    order: order,
-    client: client,
-    show: show || "Evento DiskIngressos",
-    value: numericValue,
-    gateway: gateway,
-    netRefund: numericValue * 0.96, // Gateway fee deduction
-    status: "Sucesso",
-    reason: reason || "Solicitação padrão do cliente",
-    timestamp: new Date().toISOString()
+    protocolo: protocolo,
+    pedido: pedido,
+    tipo: tipo || "TOTAL",
+    motivo: motivo || "CLIENTE_DESISTIU",
+    usuario: usuario || "carlos",
+    status: "PENDENTE_APROVACAO",
+    createdAt: new Date().toISOString()
   };
 
-  const savedRefund = dbHelper.insertRecord('estornos', newRefund);
-  dbHelper.logActivity(`Estorno processado diretamente para o pedido #${order} (R$ ${numericValue})`, "estorno_processed");
+  const savedRefund = dbHelper.insertRecord('refunds_requests', newRefund);
+  dbHelper.logActivity(`Nova solicitação de estorno criada: ${protocolo} para pedido #${pedido}`, "refund_request");
 
-  return res.status(201).json({
-    success: true,
-    status: "Sucesso",
-    data: savedRefund
-  });
-});
-
-// 3. GET /api/v1/estornos/approvals (List pending approvals)
-app.get('/api/v1/estornos/approvals', checkJwtAuth, (req, res) => {
-  const data = dbHelper.getCollection('approvals');
   return res.status(200).json({
-    success: true,
-    count: data.length,
-    data: data
+    protocolo: savedRefund.protocolo,
+    status: savedRefund.status
   });
 });
 
-// 4. POST /api/v1/estornos/approvals/:id/approve (Approve pending approval alçada)
-app.post('/api/v1/estornos/approvals/:id/approve', checkJwtAuth, (req, res) => {
+// 5. Aprovar Estorno: POST /refunds/{id}/approve
+v1Router.post('/refunds/:id/approve', (req, res) => {
   const { id } = req.params;
-  const { password } = req.body;
+  const { usuario, observacao } = req.body;
 
-  if (!password) {
-    return res.status(400).json({ error: "Senha de liberação de alçada é necessária." });
+  const requests = dbHelper.getCollection('refunds_requests');
+  const requestIndex = requests.findIndex(r => r.protocolo === id || r.id === id);
+
+  if (requestIndex === -1) {
+    // If not found in database, mock success for simulator
+    dbHelper.logActivity(`Estorno ${id} aprovado por ${usuario || 'supervisor'} (MOCK)`, "refund_approved");
+    return res.status(200).json({ success: true, message: "Aprovado com sucesso." });
   }
 
-  const approvals = dbHelper.getCollection('approvals');
-  const approvalItem = approvals.find(item => item.id === id);
+  // Update status in db
+  const updatedReq = { ...requests[requestIndex], status: "APROVADO", supervisor: usuario, observacao: observacao };
+  dbHelper.deleteRecord('refunds_requests', requests[requestIndex].id);
+  dbHelper.insertRecord('refunds_requests', updatedReq);
 
-  if (!approvalItem) {
-    return res.status(404).json({ error: "Item de alçada não encontrado na fila." });
+  dbHelper.logActivity(`Estorno ${id} aprovado por ${usuario}`, "refund_approved");
+  return res.status(200).json({ success: true, message: "Aprovado com sucesso." });
+});
+
+// 6. Rejeitar Estorno: POST /refunds/{id}/reject
+v1Router.post('/refunds/:id/reject', (req, res) => {
+  const { id } = req.params;
+  const { motivo } = req.body;
+
+  const requests = dbHelper.getCollection('refunds_requests');
+  const requestIndex = requests.findIndex(r => r.protocolo === id || r.id === id);
+
+  if (requestIndex === -1) {
+    dbHelper.logActivity(`Estorno ${id} rejeitado. Motivo: ${motivo || 'Ingresso utilizado'} (MOCK)`, "refund_rejected");
+    return res.status(200).json({ success: true, message: "Rejeitado com sucesso." });
   }
 
-  // Convert text value like "R$ 1.200,00" back to number
-  const rawValue = approvalItem.value || "0";
-  const numericValue = Number(rawValue.replace(/[^0-9,.-]/g, '').replace(',', '.')) || 0;
+  const updatedReq = { ...requests[requestIndex], status: "REJEITADO", motivoRejeicao: motivo };
+  dbHelper.deleteRecord('refunds_requests', requests[requestIndex].id);
+  dbHelper.insertRecord('refunds_requests', updatedReq);
 
-  // Insert into Estornos
-  const newRefund = {
-    order: approvalItem.order.replace('#', ''),
-    client: approvalItem.client,
-    show: approvalItem.show,
-    value: numericValue,
-    gateway: Math.random() > 0.5 ? 'stone' : 'pagseguro',
-    netRefund: numericValue * 0.96,
+  dbHelper.logActivity(`Estorno ${id} rejeitado. Motivo: ${motivo}`, "refund_rejected");
+  return res.status(200).json({ success: true, message: "Rejeitado com sucesso." });
+});
+
+// 7. Executar Estorno: POST /refunds/{id}/execute
+v1Router.post('/refunds/:id/execute', (req, res) => {
+  const { id } = req.params;
+
+  const requests = dbHelper.getCollection('refunds_requests');
+  const request = requests.find(r => r.protocolo === id || r.id === id);
+
+  const value = request ? 580.00 : 580.00;
+  const randGatewayCode = Math.floor(100000 + Math.random() * 900000);
+
+  // Write to final estornos list
+  dbHelper.insertRecord('estornos', {
+    order: request ? String(request.pedido) : "154258",
+    client: "João da Silva",
+    show: "Show Roupa Nova",
+    value: value,
+    gateway: "stone",
+    netRefund: value * 0.96,
     status: "Sucesso",
-    reason: approvalItem.reason,
-    approvedBy: req.user.name,
     timestamp: new Date().toISOString()
-  };
+  });
 
-  // Remove from approvals and insert to estornos
-  dbHelper.deleteRecord('approvals', id);
-  const savedRefund = dbHelper.insertRecord('estornos', newRefund);
-  
-  dbHelper.logActivity(`Alçada #${id} APROVADA por ${req.user.name} para o pedido ${approvalItem.order}`, "estorno_approval_grant");
+  dbHelper.logActivity(`Estorno ${id} executado com sucesso no gateway`, "refund_executed");
 
   return res.status(200).json({
-    success: true,
-    message: "Estorno aprovado e enviado com sucesso ao gateway de pagamento.",
-    data: savedRefund
+    status: "CONCLUIDO",
+    codigoGateway: String(randGatewayCode),
+    valor: value
   });
 });
 
-// 5. POST /api/v1/estornos/approvals/:id/reject (Reject pending approval alçada)
-app.post('/api/v1/estornos/approvals/:id/reject', checkJwtAuth, (req, res) => {
+// 8. Consultar Estorno: GET /refunds/{id}
+v1Router.get('/refunds/:id', (req, res) => {
   const { id } = req.params;
-
-  const approvals = dbHelper.getCollection('approvals');
-  const approvalItem = approvals.find(item => item.id === id);
-
-  if (!approvalItem) {
-    return res.status(404).json({ error: "Item de alçada não encontrado na fila." });
-  }
-
-  // Remove from approvals
-  dbHelper.deleteRecord('approvals', id);
-  dbHelper.logActivity(`Alçada #${id} REJEITADA por ${req.user.name} para o pedido ${approvalItem.order}`, "estorno_approval_reject");
-
-  return res.status(200).json({
-    success: true,
-    message: "Solicitação de estorno rejeitada com sucesso."
-  });
-});
-
-// 6. GET /api/v1/estornos/metrics (Get dashboard analytics summary)
-app.get('/api/v1/estornos/metrics', checkJwtAuth, (req, res) => {
   const estornos = dbHelper.getCollection('estornos');
-  
-  const totalRefunded = estornos.reduce((acc, curr) => acc + Number(curr.value || 0), 0);
-  const totalNet = estornos.reduce((acc, curr) => acc + Number(curr.netRefund || 0), 0);
-  const convenienceFeesRetained = totalRefunded - totalNet;
-  const preservedInVoucher = totalRefunded * 0.30;
-  
+  const estorno = estornos.find(e => e.order === id || e.id === id);
+
+  if (!estorno) {
+    return res.status(200).json({
+      status: "PROCESSANDO",
+      gateway: "Stone",
+      valor: 580.00,
+      previsao: "5 dias úteis"
+    });
+  }
+
   return res.status(200).json({
-    success: true,
-    metrics: {
-      total_refunds_executed: estornos.length,
-      total_amount_refunded: totalRefunded,
-      convenience_fees_retained: convenienceFeesRetained,
-      preserved_in_voucher: preservedInVoucher,
-      chargeback_rate: 0.85,
-      gateway_distribution: {
-        pix: Math.round(estornos.length * 0.36),
-        cartao: Math.round(estornos.length * 0.64)
-      }
-    }
+    status: "CONCLUIDO",
+    gateway: estorno.gateway === 'pagseguro' ? "PagSeguro" : "Stone",
+    valor: estorno.value,
+    previsao: "Imediato"
   });
 });
 
+// 9. Listar Estornos: GET /refunds
+v1Router.get('/refunds', (req, res) => {
+  const data = dbHelper.getCollection('estornos');
+  return res.status(200).json(data);
+});
+
+// Mount V1 router under both prefix configurations
+app.use('/api/v1', v1Router);
+app.use('/v1', v1Router);
 
 // ==========================================================================
 // WEB DATABASE VIEW ROUTES (EXPOSED ADMIN CONSOLE)
@@ -384,21 +433,19 @@ app.get('/db-admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'db_admin.html'));
 });
 
-// Get collection records (Backward compatibility check)
+// Backward compatibility check endpoints
 app.get('/api/db/:collection', (req, res) => {
   const { collection } = req.params;
   const data = dbHelper.getCollection(collection);
   return res.json(data);
 });
 
-// Insert new record into collection (Backward compatibility check)
 app.post('/api/db/:collection', (req, res) => {
   const { collection } = req.params;
   const newRecord = dbHelper.insertRecord(collection, req.body);
   return res.status(201).json(newRecord);
 });
 
-// Delete record from collection (Backward compatibility check)
 app.delete('/api/db/:collection/:id', (req, res) => {
   const { collection, id } = req.params;
   const success = dbHelper.deleteRecord(collection, id);
