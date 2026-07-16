@@ -222,7 +222,9 @@
             csatTicketId: document.getElementById("csatTicketId"),
             csatStars: document.querySelectorAll("#csatStarsContainer .rating-star-btn"),
             csatComment: document.getElementById("csatComment"),
-            btnSubmitCsat: document.getElementById("btnSubmitCsat")
+            btnSubmitCsat: document.getElementById("btnSubmitCsat"),
+            operatorTicketForm: document.getElementById("operatorTicketForm"),
+            ticketTimelineList: document.getElementById("ticketTimelineList")
         };
     }
 
@@ -345,16 +347,13 @@
             validateForm();
         });
         
-        DOM.ticketTitle.addEventListener("input", validateForm);
-        DOM.ticketDesc.addEventListener("input", (e) => {
-            validateForm();
-            analyzeTextSentiment(e.target.value);
-        });
+        DOM.ticketTitle.addEventListener("input", triggerAiTriage);
+        DOM.ticketDesc.addEventListener("input", triggerAiTriage);
         
         DOM.btnHelpScript.addEventListener("click", () => {
             DOM.ticketDesc.value = `### Detalhes da ocorrência:\n- Módulo / Menu: \n- Descrição da falha: \n- Passos para simulação: \n- Impacto no cliente: \n`;
             DOM.ticketDesc.focus();
-            validateForm();
+            triggerAiTriage();
         });
     }
     
@@ -465,27 +464,79 @@
     // AI suggestions & sentiment analyzer
     function setupAiSimulation() {
         DOM.btnUseAiSuggestedText.addEventListener("click", () => {
-            DOM.ticketDesc.value += "\n\nSugestão de Resposta:\n" + DOM.aiSuggestedText.textContent;
+            DOM.ticketDesc.value += "\n\nResposta do Assistente:\n" + DOM.aiSuggestedText.textContent;
             validateForm();
         });
     }
-    
-    function updateAiSuggestion(issueText) {
-        let answer = `Olá João, identificamos o problema de "${issueText}". Já acionei a equipe responsável para regularizar imediatamente.`;
-        if (issueText.includes("QR Code")) {
-            answer = `Olá João, localizei seu pedido e o QR Code foi regenerado. Pode passar novamente o código na catraca do Teatro Positivo.`;
-        } else if (issueText.includes("PIX")) {
-            answer = `Olá João, localizei seu PIX e seu ingresso foi reenviado para joao@email.com.`;
-        }
+
+    let triageDebounce = null;
+    function triggerAiTriage() {
+        validateForm();
+        const title = DOM.ticketTitle.value.trim();
+        const desc = DOM.ticketDesc.value.trim();
         
-        DOM.aiSuggestedText.textContent = answer;
-        DOM.btnUseAiSuggestedText.disabled = false;
+        // Analyze basic local sentiment first (HMR feel)
+        analyzeTextSentiment(desc);
+
+        if (title.length < 5 || desc.length < 10) return;
+
+        clearTimeout(triageDebounce);
+        triageDebounce = setTimeout(async () => {
+            DOM.aiRecommendedQueue.innerHTML = `<i class="ph-spinner spinner me-1"></i> Analisando Chamado...`;
+            
+            try {
+                // Call secure AI Triage API
+                const res = await fetch('/api/triage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, description: desc })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    // Auto-categorize form fields based on AI decision
+                    if (data.priority) {
+                        DOM.ticketPriority.value = data.priority;
+                    }
+                    
+                    // Display predicted queue and bypass status
+                    DOM.aiRecommendedQueue.innerHTML = `<i class="ph-git-fork me-1 text-primary"></i> ${data.queue}`;
+                    if (data.bypass) {
+                        DOM.aiRecommendedQueue.innerHTML += ` <span class="badge bg-success text-uppercase fs-10 ms-2"><i class="ph-bolt"></i> Bypass N1</span>`;
+                    }
+
+                    // Display KB article deflection hint
+                    if (data.deflection_article) {
+                        DOM.aiSuggestedText.textContent = `[Recomendação da base: "${data.deflection_article}"]\n\nProcessando resposta sugerida pela IA...`;
+                    }
+
+                    // Request final email draft suggestion from Groq
+                    const askRes = await fetch('/api/ask-groq', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            texto: `Crie uma resposta de e-mail curta, objetiva e muito educada para o cliente João da Silva sobre o chamado: "${title} - ${desc}". Sugira o artigo: "${data.deflection_article}". Assine como 'Suporte DiskIngressos'.`
+                        })
+                    });
+
+                    if (askRes.ok) {
+                        const askData = await askRes.json();
+                        DOM.aiSuggestedText.textContent = askData.resposta;
+                        DOM.btnUseAiSuggestedText.disabled = false;
+                    }
+                }
+            } catch (err) {
+                console.warn("Falha ao comunicar com os endpoints de IA da API:", err);
+                DOM.aiRecommendedQueue.innerHTML = `<i class="ph-git-fork me-1 text-primary"></i> Triagem Geral N1`;
+            }
+        }, 1200);
     }
-    
+
     function analyzeTextSentiment(text) {
         const lower = text.toLowerCase();
-        const angryWords = ["não funciona", "erro", "recusado", "bloqueada", "ruim", "péssimo", "estou com raiva", "demora"];
-        const happyWords = ["obrigado", "valeu", "ótimo", "funciona", "perfeito", "parabéns"];
+        const angryWords = ["erro", "falha", "rejeitado", "bloqueada", "ruim", "pessimo", "estou com raiva", "demora", "lento"];
+        const happyWords = ["obrigado", "valeu", "otimo", "funciona", "perfeito", "parabens", "legal"];
         
         let countAngry = angryWords.filter(w => lower.includes(w)).length;
         let countHappy = happyWords.filter(w => lower.includes(w)).length;
