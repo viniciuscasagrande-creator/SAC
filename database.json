@@ -46,6 +46,42 @@
       "message": "API Server iniciado com sucesso.",
       "type": "system",
       "timestamp": "2026-07-16T12:26:15.549Z"
+    },
+    {
+      "id": "log-1784208091355",
+      "message": "Adicionado novo registro em orders: ord-1784208091353",
+      "type": "user_action",
+      "timestamp": "2026-07-16T13:21:31.355Z"
+    },
+    {
+      "id": "log-1784208091358",
+      "message": "Adicionado novo registro em payments: pay-1784208091357",
+      "type": "user_action",
+      "timestamp": "2026-07-16T13:21:31.358Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-1784208091353",
+      "timestamp": "2026-07-16T13:21:31.353Z",
+      "pedido": 154258,
+      "cliente": "João da Silva",
+      "evento": "Show Roupa Nova",
+      "status": "PAGO",
+      "valor": 580,
+      "formaPagamento": "CARTAO"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1784208091357",
+      "timestamp": "2026-07-16T13:21:31.357Z",
+      "gateway": "Stone",
+      "adquirente": "Cielo",
+      "status": "APPROVED",
+      "nsu": "874521",
+      "tid": "987456123",
+      "parcelas": 3
     }
   ]
 }
