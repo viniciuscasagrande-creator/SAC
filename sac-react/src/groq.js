@@ -1,18 +1,9 @@
 // sac-react/src/groq.js
 // Client-side API adapter communicating with our secure Node.js backend.
-// No Groq SDK imports or API Keys are exposed to the client browser bundle.
+// Uses relative paths to support unified single-port hosting.
 
 const getApiUrl = () => {
-  if (typeof window === "undefined") return "";
-  const hostname = window.location.hostname;
-  
-  // Local development fallback
-  if (hostname === "localhost" || hostname === "127.0.0.1") {
-    return "http://localhost:3000/api/ask-groq";
-  }
-  
-  // Objective static Localtunnel URL
-  return "https://pdtnovosacapi.loca.lt/api/ask-groq";
+  return "/api/ask-groq";
 };
 
 export async function perguntarIA(texto) {

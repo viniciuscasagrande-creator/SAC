@@ -178,18 +178,9 @@ function App() {
     alert("Solicitação de Repasse enviada com sucesso!");
   };
 
-  // Dynamically calculate the iframe source to support local and external global web access
+  // Use relative path for unified hosting
   const getIframeSrc = () => {
-    if (typeof window === "undefined") return "";
-    const hostname = window.location.hostname;
-    
-    // Local access
-    if (hostname === "localhost" || hostname === "127.0.0.1") {
-      return "http://localhost:8080/limitless/html/layout_6/full/sac_novo_chamado.html";
-    }
-    
-    // External global access (Cloudflare / Localtunnel)
-    return "https://smart-nyc-provision-architects.trycloudflare.com/limitless/html/layout_6/full/sac_novo_chamado.html";
+    return "/limitless/html/layout_6/full/sac_novo_chamado.html";
   };
 
   return (
