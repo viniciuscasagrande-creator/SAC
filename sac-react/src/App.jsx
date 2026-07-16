@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { db } from './firebase'; // Firebase integration import
-import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, doc, onSnapshot, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 function App() {
   // Navigation State
@@ -34,9 +34,9 @@ function App() {
   const [firebaseStatus, setFirebaseStatus] = useState('Off-line (Mock)');
 
   // ------------------------------------------------------------------------
-  // FINANCEIRO PANEL STATE (EXPRESSES FIRESTORE SALDOS/REPASSES/DESPESAS SCHEMA)
+  // FINANCEIRO PANEL STATE (EXPRESSES FIRESTORE COMPLETE SCHEMA)
   // ------------------------------------------------------------------------
-  const [financeTab, setFinanceTab] = useState('saldos'); // 'saldos' | 'repasses' | 'despesas' | 'contas'
+  const [financeTab, setFinanceTab] = useState('saldos'); // 'saldos' | 'repasses' | 'antecipacoes' | 'extrato' | 'despesas' | 'contas'
 
   const [eventosList, setEventosList] = useState([
     { id: 'evt-1', nome: 'Show Roupa Nova', organizador: 'Teatro Positivo Produções', data: '20/07/2026', status: 'Ativo' },
@@ -44,18 +44,29 @@ function App() {
   ]);
 
   const [saldosList, setSaldosList] = useState([
-    { id: 'sal-1', eventoId: 'evt-1', receitaBruta: 120500.00, taxas: 12050.00, liquido: 108450.00, disponivel: 80000.00, bloqueado: 28450.00, liberarEm: '25/07/2026' },
+    { id: 'sal-1', eventoId: 'evt-1', receitaBruta: 120500.00, taxas: 12050.00, liquido: 108450.00, disponivel: 80000.00, bloqueado: 28450.00, liberarEm: '2026-07-20' },
     { id: 'sal-2', eventoId: 'evt-2', receitaBruta: 85000.00, taxas: 8500.00, liquido: 76500.00, disponivel: 76500.00, bloqueado: 0.00, liberarEm: 'Imediato' }
   ]);
 
   const [repassesList, setRepassesList] = useState([
-    { id: 'rep-1', eventoId: 'evt-2', valor: 50000.00, status: 'Concluído', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '10/07/2025' },
-    { id: 'rep-2', eventoId: 'evt-2', valor: 26500.00, status: 'Pendente', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '15/07/2025' }
+    { id: 'rep-1', eventoId: 'evt-2', valor: 50000.00, status: 'Concluído', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '10/07/2025', dataPagamento: '11/07/2025' },
+    { id: 'rep-2', eventoId: 'evt-2', valor: 26500.00, status: 'Pendente', contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)', dataSolicitacao: '15/07/2025', dataPagamento: '-' }
+  ]);
+
+  const [antecipacoesList, setAntecipacoesList] = useState([
+    { id: 'ant-1', eventoId: 'evt-1', valor: 30000.00, taxa: 4.50, status: 'Aprovado' },
+    { id: 'ant-2', eventoId: 'evt-1', valor: 15000.00, taxa: 4.50, status: 'Pendente' }
+  ]);
+
+  const [extratoList, setExtratoList] = useState([
+    { id: 'mov-1', eventoId: 'evt-1', tipo: 'Receita', descricao: 'Venda de Ingresso Lote 1', valor: 580.00, data: '16/07/2026 09:12' },
+    { id: 'mov-2', eventoId: 'evt-1', tipo: 'Despesa', descricao: 'Aluguel de Palco & Som', valor: -15000.00, data: '10/07/2026 14:00' },
+    { id: 'mov-3', eventoId: 'evt-2', tipo: 'Repasse', descricao: 'Transferência de Repasse Efetuada', valor: -50000.00, data: '11/07/2025 10:00' }
   ]);
 
   const [despesasList, setDespesasList] = useState([
-    { id: 'des-1', eventoId: 'evt-1', descricao: 'Aluguel de Palco & Som', categoria: 'Produção', valor: 15000.00, data: '10/07/2026' },
-    { id: 'des-2', eventoId: 'evt-1', descricao: 'Taxa Ecad Licença', categoria: 'Taxas Fiscais', valor: 3500.00, data: '12/07/2026' }
+    { id: 'des-1', eventoId: 'evt-1', descricao: 'Aluguel de Palco & Som', categoria: 'Produção', valor: 15000.00, fornecedor: 'Som & Luz Sul Ltda', data: '10/07/2026' },
+    { id: 'des-2', eventoId: 'evt-1', descricao: 'Taxa Ecad Licença', categoria: 'Taxas Fiscais', valor: 3500.00, fornecedor: 'ECAD Regional Sul', data: '12/07/2026' }
   ]);
 
   const [contasList, setContasList] = useState([
@@ -66,11 +77,54 @@ function App() {
   const [selectedRepasseEvento, setSelectedRepasseEvento] = useState('evt-2');
   const [repasseValorInput, setRepasseValorInput] = useState(26500.00);
 
+  // Firestore Real-time listener configuration
   useEffect(() => {
     if (db) {
-      getDocs(query(collection(db, "tickets"), limit(1)))
-        .then(() => setFirebaseStatus('Conectado 🔥'))
-        .catch(() => setFirebaseStatus('Offline (Mock Local)'));
+      // Connect check
+      getDocs(query(collection(db, "saldos"), limit(1)))
+        .then(() => {
+          setFirebaseStatus('Conectado 🔥');
+
+          // Real-time listener: saldos
+          onSnapshot(collection(db, "saldos"), (snapshot) => {
+            if (!snapshot.empty) {
+              const list = [];
+              snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+              setSaldosList(list);
+            }
+          });
+
+          // Real-time listener: repasses
+          onSnapshot(collection(db, "repasses"), (snapshot) => {
+            if (!snapshot.empty) {
+              const list = [];
+              snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+              setRepassesList(list);
+            }
+          });
+
+          // Real-time listener: despesas
+          onSnapshot(collection(db, "despesas"), (snapshot) => {
+            if (!snapshot.empty) {
+              const list = [];
+              snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+              setDespesasList(list);
+            }
+          });
+
+          // Real-time listener: contas
+          onSnapshot(collection(db, "contas"), (snapshot) => {
+            if (!snapshot.empty) {
+              const list = [];
+              snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+              setContasList(list);
+            }
+          });
+        })
+        .catch((err) => {
+          console.warn("Firestore connection unavailable, using local mock storage.", err);
+          setFirebaseStatus('Offline (Mock Local)');
+        });
     }
   }, [activePanel]);
 
@@ -96,22 +150,32 @@ function App() {
     }, 850);
   };
 
-  // Submit payout request handler
-  const handleRequestPayout = (e) => {
+  // Submit payout request handler (Firestore integrated)
+  const handleRequestPayout = async (e) => {
     e.preventDefault();
     if (repasseValorInput <= 0) return;
     
     const newRepasse = {
-      id: `rep-${Date.now()}`,
       eventoId: selectedRepasseEvento,
       valor: Number(repasseValorInput),
       status: 'Pendente',
       contaDestino: 'Banco do Brasil (Ag: 1234, CC: 56789-0)',
-      dataSolicitacao: new Date().toLocaleDateString('pt-BR')
+      dataSolicitacao: new Date().toLocaleDateString('pt-BR'),
+      dataPagamento: '-'
     };
 
-    setRepassesList(prev => [newRepasse, ...prev]);
-    alert("Solicitação de Repasse enviada ao Financeiro com sucesso!");
+    if (db && firebaseStatus.includes('Conectado')) {
+      try {
+        await addDoc(collection(db, "repasses"), newRepasse);
+      } catch (err) {
+        console.error("Erro ao gravar repasse no Firestore:", err);
+      }
+    } else {
+      // Fallback
+      setRepassesList(prev => [{ id: `rep-${Date.now()}`, ...newRepasse }, ...prev]);
+    }
+    
+    alert("Solicitação de Repasse enviada com sucesso!");
   };
 
   // Dynamically calculate the iframe source to support local and external global web access
@@ -202,7 +266,7 @@ function App() {
                 <div className="menu-item-left"><i className="fa-solid fa-arrows-rotate"></i> Remarketing</div>
               </a>
               
-              {/* FINANCEIRO MENU ITEM (INTEGRATED VIEW) */}
+              {/* FINANCEIRO MENU ITEM */}
               <a className={`menu-item ${activePanel === 'financeiro' ? 'active' : ''}`} onClick={() => { setActivePanel('financeiro'); setFinanceTab('saldos'); }} style={{ borderLeft: activePanel === 'financeiro' ? '3px solid var(--primary-green)' : 'none' }}>
                 <div className="menu-item-left"><i className="fa-solid fa-wallet" style={{ color: activePanel === 'financeiro' ? 'var(--primary-green)' : 'inherit' }}></i> Financeiro</div>
                 <span className="badge-sidebar badge-green">3</span>
@@ -750,7 +814,7 @@ function App() {
             </div>
           )}
 
-          {/* PANEL E: COMPREHENSIVE FINANCEIRO MODULE (SALDOS, REPASSES, DESPESAS, CONTAS) */}
+          {/* PANEL E: COMPREHENSIVE FINANCEIRO MODULE */}
           {activePanel === 'financeiro' && (
             <div>
               <div className="dashboard-header">
@@ -758,12 +822,18 @@ function App() {
                   <h2>Módulo Financeiro & Controle de Eventos</h2>
                   <p>Consiliação de saldos, fluxo de repasse aos produtores e controle de contas bancárias.</p>
                 </div>
-                <div className="header-buttons">
+                <div className="header-buttons" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   <button className={`btn-header-action ${financeTab === 'saldos' ? 'primary' : ''}`} onClick={() => setFinanceTab('saldos')} style={{ backgroundColor: financeTab === 'saldos' ? 'var(--primary-green)' : '', borderColor: financeTab === 'saldos' ? 'var(--primary-green)' : '', color: financeTab === 'saldos' ? '#ffffff' : '' }}>
                     <i className="fa-solid fa-wallet"></i> Saldos por Evento
                   </button>
                   <button className={`btn-header-action ${financeTab === 'repasses' ? 'primary' : ''}`} onClick={() => setFinanceTab('repasses')} style={{ backgroundColor: financeTab === 'repasses' ? 'var(--primary-green)' : '', borderColor: financeTab === 'repasses' ? 'var(--primary-green)' : '', color: financeTab === 'repasses' ? '#ffffff' : '' }}>
                     <i className="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse
+                  </button>
+                  <button className={`btn-header-action ${financeTab === 'antecipacoes' ? 'primary' : ''}`} onClick={() => setFinanceTab('antecipacoes')} style={{ backgroundColor: financeTab === 'antecipacoes' ? 'var(--primary-green)' : '', borderColor: financeTab === 'antecipacoes' ? 'var(--primary-green)' : '', color: financeTab === 'antecipacoes' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-hand-holding-dollar"></i> Antecipações
+                  </button>
+                  <button className={`btn-header-action ${financeTab === 'extrato' ? 'primary' : ''}`} onClick={() => setFinanceTab('extrato')} style={{ backgroundColor: financeTab === 'extrato' ? 'var(--primary-green)' : '', borderColor: financeTab === 'extrato' ? 'var(--primary-green)' : '', color: financeTab === 'extrato' ? '#ffffff' : '' }}>
+                    <i className="fa-solid fa-list-check"></i> Extrato
                   </button>
                   <button className={`btn-header-action ${financeTab === 'despesas' ? 'primary' : ''}`} onClick={() => setFinanceTab('despesas')} style={{ backgroundColor: financeTab === 'despesas' ? 'var(--primary-green)' : '', borderColor: financeTab === 'despesas' ? 'var(--primary-green)' : '', color: financeTab === 'despesas' ? '#ffffff' : '' }}>
                     <i className="fa-solid fa-file-invoice-dollar"></i> Despesas
@@ -831,6 +901,7 @@ function App() {
                           <th>Evento</th>
                           <th>Valor Solicitado</th>
                           <th>Data Solicitação</th>
+                          <th>Data Pagamento</th>
                           <th>Conta de Crédito</th>
                           <th>Status</th>
                         </tr>
@@ -843,6 +914,7 @@ function App() {
                               <td><strong>{evt.nome || 'Evento'}</strong></td>
                               <td className="fw-bold">R$ {rep.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                               <td>{rep.dataSolicitacao}</td>
+                              <td>{rep.dataPagamento || '-'}</td>
                               <td style={{ fontSize: '0.7rem' }}>{rep.contaDestino}</td>
                               <td>
                                 <span className={`badge ${rep.status === 'Concluído' ? 'bg-success text-white' : 'bg-warning text-dark'}`}>
@@ -894,7 +966,92 @@ function App() {
                 </div>
               )}
 
-              {/* FINANCE TAB 3: DESPESAS */}
+              {/* FINANCE TAB 3: ANTECIPAÇÕES */}
+              {financeTab === 'antecipacoes' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-hand-holding-dollar text-green me-2"></i> Solicitações de Antecipação de Recebíveis</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Evento</th>
+                        <th>Valor Solicitado</th>
+                        <th>Taxa (%)</th>
+                        <th>Valor da Taxa</th>
+                        <th>Valor Líquido Antecipado</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {antecipacoesList.map((ant) => {
+                        const evt = eventosList.find(e => e.id === ant.eventoId) || {};
+                        const valTaxa = ant.valor * (ant.taxa / 100);
+                        const valLiq = ant.valor - valTaxa;
+                        return (
+                          <tr key={ant.id}>
+                            <td><strong>{evt.nome || 'Evento'}</strong></td>
+                            <td className="fw-bold">R$ {ant.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td>{ant.taxa.toFixed(2)}%</td>
+                            <td className="text-danger">R$ {valTaxa.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="text-success fw-bold">R$ {valLiq.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td>
+                              <span className={`badge ${ant.status === 'Aprovado' ? 'bg-success text-white' : 'bg-warning text-dark'}`}>
+                                {ant.status}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* FINANCE TAB 4: EXTRATO COMPLETO */}
+              {financeTab === 'extrato' && (
+                <div className="events-panel">
+                  <div className="events-panel-header" style={{ marginBottom: '15px' }}>
+                    <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-list-check text-green me-2"></i> Extrato de Movimentações da Conta do Evento</h6>
+                  </div>
+
+                  <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                    <thead className="table-light">
+                      <tr>
+                        <th>Data/Hora</th>
+                        <th>Evento</th>
+                        <th>Descrição da Movimentação</th>
+                        <th>Tipo</th>
+                        <th>Valor Movimentado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {extratoList.map((mov) => {
+                        const evt = eventosList.find(e => e.id === mov.eventoId) || {};
+                        const isIncome = mov.valor > 0;
+                        return (
+                          <tr key={mov.id}>
+                            <td style={{ color: 'var(--text-muted)' }}>{mov.data}</td>
+                            <td><strong>{evt.nome || 'Evento'}</strong></td>
+                            <td>{mov.descricao}</td>
+                            <td>
+                              <span className={`badge ${isIncome ? 'bg-success text-white' : mov.tipo === 'Repasse' ? 'bg-blue text-white' : 'bg-red text-white'}`}>
+                                {mov.tipo}
+                              </span>
+                            </td>
+                            <td className={`fw-bold ${isIncome ? 'text-success' : 'text-danger'}`}>
+                              {isIncome ? '+' : ''} R$ {mov.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* FINANCE TAB 5: DESPESAS */}
               {financeTab === 'despesas' && (
                 <div className="events-panel">
                   <div className="events-panel-header" style={{ marginBottom: '15px' }}>
@@ -905,6 +1062,7 @@ function App() {
                     <thead className="table-light">
                       <tr>
                         <th>Evento Relacionado</th>
+                        <th>Fornecedor</th>
                         <th>Descrição da Despesa</th>
                         <th>Categoria</th>
                         <th>Data Lançamento</th>
@@ -917,6 +1075,7 @@ function App() {
                         return (
                           <tr key={des.id}>
                             <td><strong>{evt.nome || 'Evento'}</strong></td>
+                            <td><strong>{des.fornecedor || 'Fornecedor corporativo'}</strong></td>
                             <td>{des.descricao}</td>
                             <td><span className="badge bg-light text-dark border">{des.categoria}</span></td>
                             <td>{des.data}</td>
@@ -929,7 +1088,7 @@ function App() {
                 </div>
               )}
 
-              {/* FINANCE TAB 4: CONTAS BANCÁRIAS */}
+              {/* FINANCE TAB 6: CONTAS BANCÁRIAS */}
               {financeTab === 'contas' && (
                 <div className="events-panel">
                   <div className="events-panel-header" style={{ marginBottom: '15px' }}>
