@@ -83,11 +83,30 @@ app.delete('/api/db/:collection/:id', (req, res) => {
   }
 });
 
+// ==========================================================================
+// UNIFIED STATIC PATHS (SERVES FRONTEND, IFRAME & ERP FROM ONE PORT)
+// ==========================================================================
+
+// Serve limitless template assets
+app.use('/limitless', express.static(path.join(__dirname, 'limitless')));
+
+// Serve React production build on /financeiro
+app.use('/financeiro', express.static(path.join(__dirname, 'sac-react', 'dist')));
+
+// Serve other root-level assets (like index.html/coupons.html)
+app.use(express.static(path.join(__dirname)));
+
+// Fallback SPA routing for /financeiro (to support routing inside React)
+app.get(/^\/financeiro\/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'sac-react', 'dist', 'index.html'));
+});
+
 // Start listening
 app.listen(PORT, () => {
   console.log(`==================================================`);
   console.log(`🚀 ApexERP secure backend listening on port ${PORT}`);
-  console.log(`🔗 API endpoint ready at: http://localhost:${PORT}/api/ask-groq`);
+  console.log(`🔗 ERP Dashboard URL:     http://localhost:${PORT}/index.html`);
+  console.log(`💳 React Financeiro URL:  http://localhost:${PORT}/financeiro`);
   console.log(`📂 Web DB Admin Console:  http://localhost:${PORT}/db-admin`);
   console.log(`==================================================`);
 });

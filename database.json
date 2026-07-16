@@ -1,0 +1,51 @@
+{
+  "tickets": [
+    {
+      "id": "t-1",
+      "title": "PIX pago mas ingresso não emitido",
+      "category": "PIX",
+      "subcategory": "PIX pago mas não aprovado",
+      "module": "Financeiro",
+      "description": "Cliente enviou o comprovante de PIX mas o ingresso ainda não consta na carteira.",
+      "sla": "1h",
+      "priority": "Crítica",
+      "queue": "Fila Operações PIX",
+      "bypass": true,
+      "timestamp": "2026-07-16T11:26:15.549Z"
+    },
+    {
+      "id": "t-2",
+      "title": "Solicitação de estorno parcial do show Roupa Nova",
+      "category": "Estorno",
+      "subcategory": "Estorno de Cartão",
+      "module": "Financeiro",
+      "description": "Cliente deseja estornar 1 de 2 ingressos comprados no mesmo pedido.",
+      "sla": "2h",
+      "priority": "Alta",
+      "queue": "Fila Financeiro - Estorno",
+      "bypass": true,
+      "timestamp": "2026-07-16T10:26:15.549Z"
+    }
+  ],
+  "estornos": [
+    {
+      "id": "est-1",
+      "order": "154258",
+      "client": "João da Silva",
+      "show": "Show Roupa Nova",
+      "value": 580,
+      "gateway": "pagseguro",
+      "netRefund": 556.46,
+      "status": "Sucesso",
+      "timestamp": "2026-07-16T11:56:15.549Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-1",
+      "message": "API Server iniciado com sucesso.",
+      "type": "system",
+      "timestamp": "2026-07-16T12:26:15.549Z"
+    }
+  ]
+}
