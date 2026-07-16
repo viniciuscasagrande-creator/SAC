@@ -38,6 +38,17 @@
       "netRefund": 556.46,
       "status": "Sucesso",
       "timestamp": "2026-07-16T11:56:15.549Z"
+    },
+    {
+      "id": "est-1784208700089",
+      "timestamp": "2026-07-16T13:31:39.469Z",
+      "order": "154258",
+      "client": "João da Silva",
+      "show": "Show Roupa Nova",
+      "value": 580,
+      "gateway": "pagseguro",
+      "netRefund": 556.46,
+      "status": "Sucesso"
     }
   ],
   "logs": [
@@ -58,6 +69,12 @@
       "message": "Adicionado novo registro em payments: pay-1784208091357",
       "type": "user_action",
       "timestamp": "2026-07-16T13:21:31.358Z"
+    },
+    {
+      "id": "log-1784208700090",
+      "message": "Adicionado novo registro em estornos: est-1784208700089",
+      "type": "user_action",
+      "timestamp": "2026-07-16T13:31:40.090Z"
     }
   ],
   "orders": [
