@@ -34,6 +34,13 @@ function App() {
   const [firebaseStatus, setFirebaseStatus] = useState('Off-line (Mock)');
 
   // ------------------------------------------------------------------------
+  // ESTORNOS DATA STATE (LOCAL & FIRESTORE ALIGNED)
+  // ------------------------------------------------------------------------
+  const [estornosList, setEstornosList] = useState([
+    { id: 'est-1', order: '154258', client: 'João da Silva', show: 'Show Roupa Nova', value: 580.00, gateway: 'pagseguro', netRefund: 556.46, status: 'Sucesso', timestamp: new Date(Date.now() - 1800000).toISOString() }
+  ]);
+
+  // ------------------------------------------------------------------------
   // FINANCEIRO PANEL STATE (EXPRESSES FIRESTORE COMPLETE SCHEMA)
   // ------------------------------------------------------------------------
   const [financeTab, setFinanceTab] = useState('saldos'); // 'saldos' | 'repasses' | 'antecipacoes' | 'extrato' | 'despesas' | 'contas'
@@ -79,11 +86,33 @@ function App() {
 
   // Firestore Real-time listener configuration
   useEffect(() => {
+    // Helper to fetch local database REST collections (Express db API)
+    const loadLocalDb = async () => {
+      try {
+        const res = await fetch('/api/db/estornos');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) setEstornosList(data);
+        }
+      } catch (e) {
+        console.warn("Local DB API offline, using default mocks.", e);
+      }
+    };
+
     if (db) {
       // Connect check
       getDocs(query(collection(db, "saldos"), limit(1)))
         .then(() => {
           setFirebaseStatus('Conectado 🔥');
+
+          // Real-time listener: estornos
+          onSnapshot(collection(db, "estornos"), (snapshot) => {
+            if (!snapshot.empty) {
+              const list = [];
+              snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+              setEstornosList(list);
+            }
+          });
 
           // Real-time listener: saldos
           onSnapshot(collection(db, "saldos"), (snapshot) => {
@@ -122,14 +151,57 @@ function App() {
           });
         })
         .catch((err) => {
-          console.warn("Firestore connection unavailable, using local mock storage.", err);
-          setFirebaseStatus('Offline (Mock Local)');
+          console.warn("Firestore connection unavailable, syncing with local REST DB.", err);
+          setFirebaseStatus('Offline (Local DB)');
+          loadLocalDb();
         });
+    } else {
+      loadLocalDb();
     }
   }, [activePanel]);
 
   const handleApprovalAction = (id) => {
     setPendingApprovals(prev => prev.filter(item => item.id !== id));
+  };
+
+  const saveRefundToDb = async () => {
+    const value = 580.00;
+    const netRefund = selectedGateway === 'pagseguro' ? 556.46 : 565.56;
+    const newRefund = {
+      order: "154258",
+      client: "João da Silva",
+      show: "Show Roupa Nova",
+      value: value,
+      gateway: selectedGateway,
+      netRefund: netRefund,
+      status: "Sucesso",
+      timestamp: new Date().toISOString()
+    };
+
+    if (db && firebaseStatus.includes('Conectado')) {
+      try {
+        await addDoc(collection(db, "estornos"), newRefund);
+      } catch (e) {
+        console.error("Erro ao gravar estorno no Firestore:", e);
+      }
+    } else {
+      // Try local REST API
+      try {
+        const res = await fetch('/api/db/estornos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newRefund)
+        });
+        if (res.ok) {
+          const saved = await res.json();
+          setEstornosList(prev => [saved, ...prev]);
+        } else {
+          setEstornosList(prev => [{ id: `est-${Date.now()}`, ...newRefund }, ...prev]);
+        }
+      } catch (err) {
+        setEstornosList(prev => [{ id: `est-${Date.now()}`, ...newRefund }, ...prev]);
+      }
+    }
   };
 
   const runGatewaySimulation = () => {
@@ -144,6 +216,7 @@ function App() {
           clearInterval(interval);
           setGatewayProcessing(false);
           setWizardStep(4);
+          saveRefundToDb(); // Persist refund to database on success
           return 5;
         }
       });
@@ -442,23 +515,29 @@ function App() {
                   <div className="row g-3 mb-4" style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
                     <div style={{ flex: 1, background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', color: '#ffffff', padding: '20px', borderRadius: '8px' }}>
                       <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700 }}>Estornos Executados</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>38</h2>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>{estornosList.length}</h2>
                       <span style={{ color: '#10b981', fontSize: '0.7rem' }}><i className="fa-solid fa-arrow-up me-1"></i>+5% vs ontem</span>
                     </div>
                     <div style={{ flex: 1, background: 'linear-gradient(135deg, #ff5722 0%, #d84315 100%)', color: '#ffffff', padding: '20px', borderRadius: '8px' }}>
                       <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>Montante Devolvido</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>R$ 18.420,00</h2>
-                      <span style={{ color: '#ffffff', opacity: 0.8, fontSize: '0.7rem' }}><i className="fa-solid fa-arrow-down me-1"></i>-12% vs ontem</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0' }}>
+                        R$ {estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </h2>
+                      <span style={{ color: '#ffffff', opacity: 0.8, fontSize: '0.7rem' }}><i className="fa-solid fa-arrow-down me-1"></i>Em tempo real</span>
                     </div>
                     <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #dee2e6', padding: '20px', borderRadius: '8px' }}>
                       <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700 }}>Taxas Convenience Retidas</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--text-dark)' }}>R$ 2.763,00</h2>
-                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-lock me-1"></i>15% retido no caixa</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--text-dark)' }}>
+                        R$ {estornosList.reduce((acc, curr) => acc + (Number(curr.value || 0) - Number(curr.netRefund || 0)), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </h2>
+                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-lock me-1"></i>Retido no caixa do ERP</span>
                     </div>
                     <div style={{ flex: 1, backgroundColor: '#ffffff', border: '1px solid #dee2e6', padding: '20px', borderRadius: '8px' }}>
                       <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700 }}>Preservado em Voucher</div>
-                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--primary-green)' }}>R$ 5.430,00</h2>
-                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-shield-halved me-1"></i>29% retido em crédito</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '5px 0 0 0', color: 'var(--primary-green)' }}>
+                        R$ {(estornosList.reduce((acc, curr) => acc + Number(curr.value || 0), 0) * 0.3).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </h2>
+                      <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 600 }}><i className="fa-solid fa-shield-halved me-1"></i>30% retido em crédito</span>
                     </div>
                   </div>
 
@@ -519,14 +598,55 @@ function App() {
                       <div style={{ borderTop: '1px solid #dee2e6', paddingTop: '15px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.8 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                           <span>Estornos por PIX:</span>
-                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>14 devoluções (36%)</span>
+                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>{Math.round(estornosList.length * 0.36)} devoluções</span>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                           <span>Estornos por Cartão:</span>
-                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>20 devoluções (53%)</span>
+                          <span style={{ fontWeight: 700, color: 'var(--text-dark)' }}>{Math.round(estornosList.length * 0.64)} devoluções</span>
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  {/* TABELA DE ESTORNOS EXECUTADOS DO BANCO DE DADOS */}
+                  <div className="events-panel" style={{ marginTop: '20px' }}>
+                    <div className="events-panel-header" style={{ marginBottom: '15px', paddingBottom: '10px' }}>
+                      <h6 className="fw-bold text-dark m-0"><i className="fa-solid fa-list-check text-orange me-2"></i> Registro Geral de Estornos Efetuados (Banco de Dados)</h6>
+                    </div>
+
+                    <table className="info-table" style={{ fontSize: '0.8rem' }}>
+                      <thead className="table-light">
+                        <tr>
+                          <th>Data/Hora</th>
+                          <th>Pedido</th>
+                          <th>Cliente</th>
+                          <th>Show/Evento</th>
+                          <th>Gateway</th>
+                          <th>Valor Pago</th>
+                          <th>Valor Reembolsado (Líquido)</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {estornosList.map((item) => (
+                          <tr key={item.id}>
+                            <td className="text-muted">{item.timestamp ? new Date(item.timestamp).toLocaleString('pt-BR') : '-'}</td>
+                            <td className="fw-bold">#{item.order}</td>
+                            <td>{item.client}</td>
+                            <td>{item.show}</td>
+                            <td><span className="badge bg-light text-dark border">{item.gateway === 'pagseguro' ? 'PagSeguro' : 'Stone'}</span></td>
+                            <td className="fw-bold">R$ {Number(item.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td className="text-success fw-bold">R$ {Number(item.netRefund).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td><span className="badge bg-success">{item.status}</span></td>
+                          </tr>
+                        ))}
+                        {estornosList.length === 0 && (
+                          <tr>
+                            <td colSpan="8" style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>Nenhum estorno gravado no banco de dados.</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               )}
