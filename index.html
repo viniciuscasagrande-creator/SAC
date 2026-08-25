@@ -1016,33 +1016,32 @@
                     <!-- SUBMENU CONTAINER -->
                     <div class="submenu-container" id="submenuMeusEventos">
                         <a class="submenu-item" id="subTodosEventos">Todos Eventos</a>
-                        <a class="submenu-item">Novo Evento</a>
-                        <a class="submenu-item">Lotes</a>
+                        <a class="submenu-item" id="subNovoEvento">Novo Evento</a>
+                        <a class="submenu-item" id="subLotes">Lotes</a>
                         <a class="submenu-item" id="subCupons">Cupons</a>
-                        <a class="submenu-item">Check-in</a>
-                        <a class="submenu-item">Participantes</a>
-                        <a class="submenu-item">Página do Evento</a>
+                        <a class="submenu-item" id="subCheckin">Check-in</a>
+                        <a class="submenu-item" id="subParticipantes">Participantes</a>
+                        <a class="submenu-item" id="subPaginaEvento">Página do Evento</a>
                     </div>
 
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuIngressos">
                         <div class="menu-item-left"><i class="fa-solid fa-ticket"></i> Consulta de Ingressos</div>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuMarketing">
                         <div class="menu-item-left"><i class="fa-solid fa-bullhorn"></i> Marketing</div>
-                        <i class="fa-solid fa-angle-down" style="font-size:0.7rem; margin-right:0;"></i>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuRemarketing">
                         <div class="menu-item-left"><i class="fa-solid fa-arrows-rotate"></i> Remarketing</div>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuFinanceiro">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
                         <span class="badge-sidebar badge-green">3</span>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuRelatorios">
                         <div class="menu-item-left"><i class="fa-solid fa-chart-simple"></i> Relatórios</div>
                         <span class="badge-sidebar badge-purple">Novo</span>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="menuConfiguracoes">
                         <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
                     </a>
                     
@@ -1067,8 +1066,8 @@
             </div>
             
             <div class="sidebar-footer">
-                <button class="btn-sidebar-footer btn-create-event"><i class="fa-solid fa-plus"></i> Criar Evento</button>
-                <button class="btn-sidebar-footer btn-request-payout"><i class="fa-solid fa-money-bill-transfer"></i> Solicitar Repasse</button>
+                <button class="btn-sidebar-footer btn-create-event" id="btnSidebarCreateEvent"><i class="fa-solid fa-plus"></i> Criar Evento</button>
+                <button class="btn-sidebar-footer btn-request-payout" id="btnSidebarRequestPayout"><i class="fa-solid fa-money-bill-transfer"></i> Solicitar Repasse</button>
             </div>
         </aside>
 
@@ -1920,11 +1919,335 @@
                 <iframe src="/db-admin" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#0b0f19;"></iframe>
             </div>
 
+            <!-- PANEL G: CONSULTA DE INGRESSOS & PEDIDOS -->
+            <div id="panelIngressosContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Consulta de Ingressos & Pedidos</h2>
+                        <p>Busca global de transações, reenvio de vouchers e conciliação de adquirentes.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary" onclick="loadIngressosData()"><i class="fa-solid fa-arrows-rotate"></i> Atualizar</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <div class="d-flex flex-wrap gap-2 mb-3 align-items-center justify-content-between">
+                        <div class="search-box" style="flex: 1; max-width: 400px;">
+                            <input type="text" id="inputSearchIngressos" class="form-control" placeholder="Buscar por Nº Pedido, Nome ou Evento..." oninput="filterIngressosTable()">
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="filterIngressosStatus('TODOS')">Todos</button>
+                            <button class="btn btn-sm btn-outline-success" onclick="filterIngressosStatus('PAGO')">Pagos</button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="filterIngressosStatus('PENDENTE')">Pendentes</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table" id="tableIngressos">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Evento</th>
+                                    <th>Qtd</th>
+                                    <th>Valor</th>
+                                    <th>Pagamento</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyIngressos">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL H: MARKETING & REMARKETING -->
+            <div id="panelMarketingContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Marketing & Remarketing</h2>
+                        <p>Automações de venda, recuperação de carrinhos abandonados e performance de campanhas.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary" onclick="dispararCampanhaRemarketing()"><i class="fa-solid fa-paper-plane"></i> Disparar Campanha</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-body border-0 shadow-sm" style="background-color:#ffffff; padding:20px; border-radius:8px;">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Carrinhos Abandonados</div>
+                            <h2 class="fw-bold mb-1 mt-1 text-danger">47</h2>
+                            <span class="text-muted fs-11">Últimas 24 horas</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-body border-0 shadow-sm" style="background-color:#ffffff; padding:20px; border-radius:8px;">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Taxa de Recuperação</div>
+                            <h2 class="fw-bold mb-1 mt-1 text-success">31.4%</h2>
+                            <span class="text-success fs-11 fw-semibold">+8% com cupom WhatsApp</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-body border-0 shadow-sm" style="background-color:#ffffff; padding:20px; border-radius:8px;">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Receita Recuperada</div>
+                            <h2 class="fw-bold mb-1 mt-1 text-dark">R$ 14.890,00</h2>
+                            <span class="text-muted fs-11">Este mês</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-body border-0 shadow-sm" style="background-color:#ffffff; padding:20px; border-radius:8px;">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Status dos Pixels</div>
+                            <h2 class="fw-bold mb-1 mt-1 text-success" style="font-size: 1.2rem;">Meta & Google OK</h2>
+                            <span class="text-success fs-11"><i class="fa-solid fa-circle-check"></i> Rastreamento Ativo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h5>Leads & Carrinhos Pendentes para Disparo</h5>
+                    <table class="coupon-table mt-3">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Contato</th>
+                                <th>Evento</th>
+                                <th>Valor Carrinho</th>
+                                <th>Tempo Parado</th>
+                                <th>Ação Rápida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carlos Alberto Mendes</td>
+                                <td>(41) 99123-4567</td>
+                                <td>Show Roupa Nova</td>
+                                <td>R$ 580,00</td>
+                                <td><span class="badge bg-warning text-dark">2 horas atrás</span></td>
+                                <td><button class="btn btn-sm btn-success" onclick="alert('Cupom de 10% enviado via WhatsApp para Carlos!')"><i class="fa-brands fa-whatsapp"></i> Enviar Oferta</button></td>
+                            </tr>
+                            <tr>
+                                <td>Fernanda Lima Ramos</td>
+                                <td>(41) 98877-6655</td>
+                                <td>Samba 90 Graus</td>
+                                <td>R$ 240,00</td>
+                                <td><span class="badge bg-warning text-dark">4 horas atrás</span></td>
+                                <td><button class="btn btn-sm btn-success" onclick="alert('Cupom de 10% enviado via WhatsApp para Fernanda!')"><i class="fa-brands fa-whatsapp"></i> Enviar Oferta</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PANEL I: FINANCEIRO CONSOLIDADO -->
+            <div id="panelFinanceiroContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Módulo Financeiro & Conciliação</h2>
+                        <p>Painel React integrado de liquidação financeira, taxas e repasses.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <a href="/financeiro" target="_blank" class="btn-header-action primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir em Nova Aba</a>
+                    </div>
+                </div>
+                <iframe src="/financeiro" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#ffffff;"></iframe>
+            </div>
+
+            <!-- PANEL J: RELATÓRIOS & BI -->
+            <div id="panelRelatoriosContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Relatórios Gerenciais & BI</h2>
+                        <p>Consolidação de faturamento por lote, canal de venda e adquirente.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+                        <button class="btn-header-action primary" onclick="exportData('pdf')"><i class="fa-regular fa-file-pdf"></i> Exportar PDF</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card p-3 border shadow-sm">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i> Vendas por Meio de Pagamento</h6>
+                                <div style="display:flex; flex-direction:column; gap:12px;">
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">PIX (Instantâneo)</span><span class="fs-12 fw-bold">58% (R$ 145.800)</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width: 58%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">Cartão de Crédito</span><span class="fs-12 fw-bold">36% (R$ 90.500)</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width: 36%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">Boleto Bancário</span><span class="fs-12 fw-bold">6% (R$ 15.200)</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width: 6%;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 border shadow-sm">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-success me-2"></i> Performance por Setor de Ingressos</h6>
+                                <div style="display:flex; flex-direction:column; gap:12px;">
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">Pista Premium</span><span class="fs-12 fw-bold">89% Esgotado</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar bg-danger" style="width: 89%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">Camarote VIP</span><span class="fs-12 fw-bold">74% Esgotado</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar" style="width: 74%; background-color:#8b5cf6;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold">Pista Comum</span><span class="fs-12 fw-bold">45% Vendido</span></div>
+                                        <div class="progress" style="height:8px;"><div class="progress-bar bg-info" style="width: 45%;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL K: CONFIGURAÇÕES -->
+            <div id="panelConfiguracoesContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Configurações do Sistema & Gateways</h2>
+                        <p>Parametrização de taxas, credenciais de adquirentes e preferências operacionais.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary" onclick="salvarConfiguracoes()"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h5 class="mb-3">Gateways de Pagamento Ativos</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card p-3 border">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="fw-bold m-0"><i class="fa-solid fa-credit-card text-primary me-2"></i> Stone / Pagar.me</h6>
+                                    <div class="form-check form-switch m-0"><input class="form-check-input" type="checkbox" checked></div>
+                                </div>
+                                <p class="text-muted fs-11 m-0">Adquirente principal para Cartão de Crédito e Débito com antifraude ClearSale integrado.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 border">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="fw-bold m-0"><i class="fa-solid fa-qrcode text-success me-2"></i> PIX Banco Central (Adyen)</h6>
+                                    <div class="form-check form-switch m-0"><input class="form-check-input" type="checkbox" checked></div>
+                                </div>
+                                <p class="text-muted fs-11 m-0">Emissão de QR Code Dinâmico com liquidação instantânea em subconta escrow.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 mb-3">Parâmetros de SAC & Triagem com IA</h5>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="fs-12 fw-bold text-muted">Modelo de IA Padrão</label>
+                            <select class="form-select fs-12 mt-1">
+                                <option selected>Groq (LLaMA 3.3 70B Versatile)</option>
+                                <option>Groq (Mixtral 8x7B)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fs-12 fw-bold text-muted">Auto-Deflection (Shift-Left)</label>
+                            <select class="form-select fs-12 mt-1">
+                                <option selected>Habilitado (Sugerir Base de Conhecimento)</option>
+                                <option>Desabilitado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fs-12 fw-bold text-muted">SLA Crítico Padrão</label>
+                            <input type="text" class="form-control fs-12 mt-1" value="1 hora">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL L: CHECK-IN & CONTROLE DE ACESSO -->
+            <div id="panelCheckinContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Controle de Acesso & Check-in</h2>
+                        <p>Validação de ingressos na portaria em tempo real com leitor e contagem de presença.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary" onclick="simularCheckin()"><i class="fa-solid fa-qrcode"></i> Simular Leitura</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card card-body border-0 shadow-sm text-center p-4">
+                            <h6 class="text-muted text-uppercase fs-11 fw-bold">Público Presente</h6>
+                            <h1 class="fw-bold text-success display-4" id="lblCheckinCount">1.420</h1>
+                            <span class="badge bg-success p-2">Portaria Ativa</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card card-body border-0 shadow-sm p-4">
+                            <h6 class="fw-bold mb-3"><i class="fa-solid fa-barcode me-2"></i> Validador de Ingresso Rápido</h6>
+                            <div class="input-group mb-3">
+                                <input type="text" id="inputCheckinCode" class="form-control" placeholder="Digite o código do voucher ou leia o QR Code (ex: TKT-154258)...">
+                                <button class="btn btn-primary" onclick="validarIngressoManual()" style="background-color: var(--primary-orange); border:none;"><i class="fa-solid fa-check"></i> Validar Entrada</button>
+                            </div>
+                            <div id="checkinAlertArea"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL M: PARTICIPANTES & CRM -->
+            <div id="panelParticipantesContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Base de Participantes & Clientes</h2>
+                        <p>Gestão de CRM, histórico de pedidos e fidelidade de compradores.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn-header-action primary" onclick="loadClientesData()"><i class="fa-solid fa-arrows-rotate"></i> Atualizar</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <input type="text" id="inputSearchClientes" class="form-control" style="max-width:350px;" placeholder="Filtrar por nome, CPF ou e-mail..." oninput="filterClientesTable()">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>E-mail</th>
+                                    <th>Telefone</th>
+                                    <th>Nível</th>
+                                    <th>Total Compras</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyClientes">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
     <!-- 3. FLOATING ASSISTANT BUTTON -->
-    <button class="assistant-float-btn">
+    <button class="assistant-float-btn" id="btnAssistantFloat">
         <i class="fa-solid fa-robot"></i> Assistente Virtual
     </button>
 
@@ -1934,153 +2257,213 @@
     <!-- Navigation interaction script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Sidebar menu items
             const menuPainelGeral = document.getElementById("menuPainelGeral");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
-            const menuSacHub = document.getElementById("menuSacHub");
-            const menuDbConsole = document.getElementById("menuDbConsole");
-            const menuEstorno = document.getElementById("menuEstorno");
             const menuMeusEventos = document.getElementById("menuMeusEventos");
             const submenuMeusEventos = document.getElementById("submenuMeusEventos");
             const arrowMeusEventos = document.getElementById("arrowMeusEventos");
             
             const subTodosEventos = document.getElementById("subTodosEventos");
+            const subNovoEvento = document.getElementById("subNovoEvento");
+            const subLotes = document.getElementById("subLotes");
             const subCupons = document.getElementById("subCupons");
-            
-            const panelDashboard = document.getElementById("panelDashboardContent");
-            const panelCoupons = document.getElementById("panelCouponsContent");
-            const panelSac = document.getElementById("panelSacContent");
-            const panelDb = document.getElementById("panelDbContent");
-            const panelEstorno = document.getElementById("panelEstornoContent");
+            const subCheckin = document.getElementById("subCheckin");
+            const subParticipantes = document.getElementById("subParticipantes");
+            const subPaginaEvento = document.getElementById("subPaginaEvento");
 
-            // Subviews for Estorno panel
+            const menuIngressos = document.getElementById("menuIngressos");
+            const menuMarketing = document.getElementById("menuMarketing");
+            const menuRemarketing = document.getElementById("menuRemarketing");
+            const menuFinanceiro = document.getElementById("menuFinanceiro");
+            const menuRelatorios = document.getElementById("menuRelatorios");
+            const menuConfiguracoes = document.getElementById("menuConfiguracoes");
+            const menuEstorno = document.getElementById("menuEstorno");
+            const menuSacHub = document.getElementById("menuSacHub");
+            const menuDbConsole = document.getElementById("menuDbConsole");
+            
+            const btnSidebarCreateEvent = document.getElementById("btnSidebarCreateEvent");
+            const btnSidebarRequestPayout = document.getElementById("btnSidebarRequestPayout");
+            const btnAssistantFloat = document.getElementById("btnAssistantFloat");
+
+            // Panels
+            const panels = {
+                dashboard: document.getElementById("panelDashboardContent"),
+                coupons: document.getElementById("panelCouponsContent"),
+                estorno: document.getElementById("panelEstornoContent"),
+                sac: document.getElementById("panelSacContent"),
+                db: document.getElementById("panelDbContent"),
+                ingressos: document.getElementById("panelIngressosContent"),
+                marketing: document.getElementById("panelMarketingContent"),
+                financeiro: document.getElementById("panelFinanceiroContent"),
+                relatorios: document.getElementById("panelRelatoriosContent"),
+                configuracoes: document.getElementById("panelConfiguracoesContent"),
+                checkin: document.getElementById("panelCheckinContent"),
+                participantes: document.getElementById("panelParticipantesContent")
+            };
+
+            const menuItems = document.querySelectorAll(".menu-item");
+            const submenuItems = document.querySelectorAll(".submenu-item");
+
+            function switchPanel(panelKey, activeMenuEl) {
+                // Hide all panels
+                Object.values(panels).forEach(p => {
+                    if (p) p.classList.add("d-none");
+                });
+
+                // Deactivate all menus
+                menuItems.forEach(item => item.classList.remove("active"));
+                submenuItems.forEach(item => item.classList.remove("active"));
+
+                // Show target panel
+                if (panels[panelKey]) {
+                    panels[panelKey].classList.remove("d-none");
+                }
+
+                // Activate menu element
+                if (activeMenuEl) {
+                    activeMenuEl.classList.add("active");
+                }
+
+                // Auto-load dynamic data for specific panels
+                if (panelKey === 'ingressos') loadIngressosData();
+                if (panelKey === 'participantes') loadClientesData();
+            }
+
+            // Accordion toggle for Meus Eventos
+            if (menuMeusEventos) {
+                menuMeusEventos.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const isExpanded = submenuMeusEventos.classList.toggle("show");
+                    if (arrowMeusEventos) {
+                        arrowMeusEventos.style.transform = isExpanded ? "rotate(180deg)" : "rotate(0deg)";
+                    }
+                });
+            }
+
+            // Menu Bindings
+            if (menuPainelGeral) menuPainelGeral.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuPainelGeral); });
+            if (menuTodosEventos) menuTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuTodosEventos); });
+            if (subTodosEventos) subTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', subTodosEventos); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
+
+            if (subCupons) subCupons.addEventListener("click", (e) => { e.preventDefault(); switchPanel('coupons', subCupons); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
+            if (subCheckin) subCheckin.addEventListener("click", (e) => { e.preventDefault(); switchPanel('checkin', subCheckin); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
+            if (subParticipantes) subParticipantes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('participantes', subParticipantes); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
+
+            if (menuIngressos) menuIngressos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('ingressos', menuIngressos); });
+            if (menuMarketing) menuMarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuMarketing); });
+            if (menuRemarketing) menuRemarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuRemarketing); });
+            if (menuFinanceiro) menuFinanceiro.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiro', menuFinanceiro); });
+            if (menuRelatorios) menuRelatorios.addEventListener("click", (e) => { e.preventDefault(); switchPanel('relatorios', menuRelatorios); });
+            if (menuConfiguracoes) menuConfiguracoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('configuracoes', menuConfiguracoes); });
+            if (menuSacHub) menuSacHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('sac', menuSacHub); });
+            if (menuDbConsole) menuDbConsole.addEventListener("click", (e) => { e.preventDefault(); switchPanel('db', menuDbConsole); });
+
+            // Estorno Menu
+            if (menuEstorno) {
+                menuEstorno.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    switchPanel('estorno', menuEstorno);
+                    const estDash = document.getElementById("estornoDashboardSubView");
+                    const estWiz = document.getElementById("estornoWizardSubView");
+                    const btnWiz = document.getElementById("btnOpenRefundWizard");
+                    const btnBack = document.getElementById("btnBackToEstornoDash");
+                    if (estDash) estDash.classList.remove("d-none");
+                    if (estWiz) estWiz.classList.add("d-none");
+                    if (btnWiz) btnWiz.classList.remove("d-none");
+                    if (btnBack) btnBack.classList.add("d-none");
+                });
+            }
+
+            // Modal openers
+            if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", () => openModalById('modalCreateEvent'));
+            if (subNovoEvento) subNovoEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalCreateEvent'); });
+            if (subLotes) subLotes.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalLotes'); });
+            if (subPaginaEvento) subPaginaEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalPaginaEvento'); });
+            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", () => openModalById('modalRequestPayout'));
+            if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
+
+            // Subviews inside Estorno Panel
             const estornoDashboardSubView = document.getElementById("estornoDashboardSubView");
             const estornoWizardSubView = document.getElementById("estornoWizardSubView");
             const btnOpenRefundWizard = document.getElementById("btnOpenRefundWizard");
             const btnBackToEstornoDash = document.getElementById("btnBackToEstornoDash");
-            
-            const menuItems = document.querySelectorAll(".menu-item");
-            const submenuItems = document.querySelectorAll(".submenu-item");
-            
-            function deactivateAll() {
-                menuItems.forEach(item => item.classList.remove("active"));
-                submenuItems.forEach(item => item.classList.remove("active"));
+
+            if (btnOpenRefundWizard) {
+                btnOpenRefundWizard.addEventListener("click", () => {
+                    if (estornoDashboardSubView) estornoDashboardSubView.classList.add("d-none");
+                    if (estornoWizardSubView) estornoWizardSubView.classList.remove("d-none");
+                    btnOpenRefundWizard.classList.add("d-none");
+                    if (btnBackToEstornoDash) btnBackToEstornoDash.classList.remove("d-none");
+                    showStep(1);
+                });
             }
+
+            if (btnBackToEstornoDash) {
+                btnBackToEstornoDash.addEventListener("click", () => {
+                    if (estornoDashboardSubView) estornoDashboardSubView.classList.remove("d-none");
+                    if (estornoWizardSubView) estornoWizardSubView.classList.add("d-none");
+                    if (btnOpenRefundWizard) btnOpenRefundWizard.classList.remove("d-none");
+                    btnBackToEstornoDash.classList.add("d-none");
+                });
+            }
+
+            // Dashboard Filter Tabs (Ativos, Inativos, Todos)
+            const filterTabs = document.querySelectorAll(".filter-tabs .filter-tab-btn");
+            const eventCards = document.querySelectorAll(".events-panel .event-card-col");
             
-            // Expand/Collapse accordion submenu for Meus Eventos
-            menuMeusEventos.addEventListener("click", (e) => {
-                e.preventDefault();
-                const isExpanded = submenuMeusEventos.classList.toggle("show");
-                if (isExpanded) {
-                    arrowMeusEventos.style.transform = "rotate(180deg)";
-                } else {
-                    arrowMeusEventos.style.transform = "rotate(0deg)";
+            filterTabs.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    filterTabs.forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    const filter = this.textContent.trim().toLowerCase();
+
+                    eventCards.forEach(card => {
+                        const statusBadge = card.querySelector(".event-card-badge");
+                        const statusText = statusBadge ? statusBadge.textContent.trim().toLowerCase() : "";
+                        
+                        if (filter === "todos") {
+                            card.style.display = "block";
+                        } else if (filter === "ativos" && (statusText.includes("ativo") || statusText.includes("venda"))) {
+                            card.style.display = "block";
+                        } else if (filter === "inativos" && (statusText.includes("inativo") || statusText.includes("encerrado"))) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = (filter === "ativos" && !statusText.includes("inativo")) ? "block" : "none";
+                        }
+                    });
+                });
+            });
+
+            // Global Topbar Search Filter
+            const searchInputs = document.querySelectorAll(".header-search, .events-panel input[type='text']");
+            searchInputs.forEach(input => {
+                input.addEventListener("input", function() {
+                    const query = this.value.toLowerCase().trim();
+                    eventCards.forEach(card => {
+                        const title = card.querySelector(".event-card-title")?.textContent.toLowerCase() || "";
+                        const location = card.querySelector(".event-location")?.textContent.toLowerCase() || "";
+                        if (title.includes(query) || location.includes(query)) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = query === "" ? "block" : "none";
+                        }
+                    });
+                });
+            });
+
+            // Event Card Action Icons
+            document.addEventListener("click", function(e) {
+                if (e.target.closest(".event-footer-icons .fa-gear")) {
+                    openModalById('modalLotes');
+                } else if (e.target.closest(".event-footer-icons .fa-edit")) {
+                    openModalById('modalCreateEvent');
+                } else if (e.target.closest(".event-footer-icons .fa-layer-group")) {
+                    openModalById('modalPaginaEvento');
                 }
             });
-            
-            menuPainelGeral.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuPainelGeral.classList.add("active");
-                panelDashboard.classList.remove("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.add("d-none");
-            });
-            
-            menuTodosEventos.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuTodosEventos.classList.add("active");
-                panelDashboard.classList.remove("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.add("d-none");
-            });
-            
-            subTodosEventos.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuMeusEventos.classList.add("active");
-                subTodosEventos.classList.add("active");
-                panelDashboard.classList.remove("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.add("d-none");
-            });
-            
-            subCupons.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuMeusEventos.classList.add("active");
-                subCupons.classList.add("active");
-                panelDashboard.classList.add("d-none");
-                panelCoupons.classList.remove("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.add("d-none");
-            });
-            
-            menuSacHub.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuSacHub.classList.add("active");
-                panelDashboard.classList.add("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.remove("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.add("d-none");
-            });
 
-            menuDbConsole.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuDbConsole.classList.add("active");
-                panelDashboard.classList.add("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.remove("d-none");
-                panelEstorno.classList.add("d-none");
-            });
-
-            menuEstorno.addEventListener("click", (e) => {
-                e.preventDefault();
-                deactivateAll();
-                menuEstorno.classList.add("active");
-                panelDashboard.classList.add("d-none");
-                panelCoupons.classList.add("d-none");
-                panelSac.classList.add("d-none");
-                panelDb.classList.add("d-none");
-                panelEstorno.classList.remove("d-none");
-                
-                // Show dashboard subview by default
-                estornoDashboardSubView.classList.remove("d-none");
-                estornoWizardSubView.classList.add("d-none");
-                btnOpenRefundWizard.classList.remove("d-none");
-                btnBackToEstornoDash.classList.add("d-none");
-            });
-
-            // Toggle subviews inside Estorno Panel
-            btnOpenRefundWizard.addEventListener("click", () => {
-                estornoDashboardSubView.classList.add("d-none");
-                estornoWizardSubView.classList.remove("d-none");
-                btnOpenRefundWizard.classList.add("d-none");
-                btnBackToEstornoDash.classList.remove("d-none");
-                showStep(1);
-            });
-
-            btnBackToEstornoDash.addEventListener("click", () => {
-                estornoDashboardSubView.classList.remove("d-none");
-                estornoWizardSubView.classList.add("d-none");
-                btnOpenRefundWizard.classList.remove("d-none");
-                btnBackToEstornoDash.classList.add("d-none");
-            });
-
-            // --- NEW FEATURES FOR ESTORNO VIEW ---
-
-            // 1. Period Selector logic
+            // Period Selector logic
             window.changePeriod = function(period) {
                 const lblPeriod = document.getElementById("lblPeriodSelected");
                 const kpis = document.querySelectorAll("#panelEstornoContent .row.g-3 h2");
@@ -2111,11 +2494,8 @@
                 }
             };
 
-            // 2. Export logic
+            // Export logic
             window.exportData = function(format) {
-                alert(`Exportando relatório consolidado de estornos para ${format.toUpperCase()}...`);
-            };
-
             // 3. Details Modal Logic
             let modalRefundDetails = null;
             try {
@@ -2602,6 +2982,202 @@
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Fechar</button>
                     <button type="button" class="btn btn-danger btn-sm" id="btnModalDeny" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Rejeitar Estorno</button>
                     <button type="button" class="btn btn-success btn-sm" id="btnModalApprove" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Aprovar Estorno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL 1: CRIAR NOVO EVENTO -->
+    <div class="modal fade" id="modalCreateEvent" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 8px; border:none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header" style="background-color: var(--bg-header); color:#fff;">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-plus-circle text-orange me-2"></i> Criar Novo Evento</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form onsubmit="submitCreateEvent(event)">
+                    <div class="modal-body fs-xs">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nome do Evento</label>
+                            <input type="text" id="evtNome" class="form-control" placeholder="Ex: Festival de Verão 2026" required>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Local / Cidade</label>
+                                <input type="text" id="evtLocal" class="form-control" placeholder="Ex: Live Curitiba - PR" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Data do Evento</label>
+                                <input type="date" id="evtData" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Capacidade Máxima</label>
+                                <input type="number" id="evtCapacidade" class="form-control" value="2500" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Produtora Responsável</label>
+                                <input type="text" id="evtProdutor" class="form-control" value="DiskIngressos Produções" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-sm" style="background-color: var(--primary-orange); border:none;">Publicar Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SOLICITAR REPASSE FINANCEIRO -->
+    <div class="modal fade" id="modalRequestPayout" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 8px; border:none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header" style="background-color: var(--bg-header); color:#fff;">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-money-bill-transfer text-success me-2"></i> Solicitação de Repasse Financeiro</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form onsubmit="submitRequestPayout(event)">
+                    <div class="modal-body fs-xs">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Evento Selecionado</label>
+                            <select id="payEvento" class="form-select">
+                                <option>Show Roupa Nova - 40 Anos (Saldo: R$ 80.000,00)</option>
+                                <option>Samba 90 Graus Festival (Saldo: R$ 26.500,00)</option>
+                                <option>Stand-Up Especial de Comédia (Saldo: R$ 46.000,00)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Valor a Resgatar (R$)</label>
+                            <input type="number" step="0.01" id="payValor" class="form-control" value="25000.00" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Chave PIX de Destino</label>
+                            <input type="text" id="payChavePix" class="form-control" value="financeiro@diskingressos.com.br" required>
+                        </div>
+                        <div class="p-2 bg-light rounded text-muted fs-11">
+                            <i class="fa-solid fa-circle-info text-primary me-1"></i> Os repasses solicitados em dias úteis são processados em até 24h úteis via PIX instantâneo.
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success btn-sm">Confirmar Solicitação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: GESTÃO DE LOTES -->
+    <div class="modal fade" id="modalLotes" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="border-radius: 8px; border:none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header" style="background-color: var(--bg-header); color:#fff;">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-layer-group text-primary me-2"></i> Gestão de Lotes & Preços</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body fs-xs">
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Setor / Lote</th>
+                                <th>Preço Unitário</th>
+                                <th>Qtd Total</th>
+                                <th>Vendidos</th>
+                                <th>Status</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">Pista - 1º Lote</td>
+                                <td>R$ 120,00</td>
+                                <td>1.000</td>
+                                <td>1.000</td>
+                                <td><span class="badge bg-danger text-white">Esgotado</span></td>
+                                <td><button class="btn btn-sm btn-outline-secondary" onclick="alert('Lote esgotado.')">Detalhes</button></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Pista - 2º Lote</td>
+                                <td>R$ 150,00</td>
+                                <td>1.500</td>
+                                <td>980</td>
+                                <td><span class="badge bg-success text-white">Em Venda</span></td>
+                                <td><button class="btn btn-sm btn-outline-primary" onclick="alert('Lote atualizado!')">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Camarote Open Bar</td>
+                                <td>R$ 380,00</td>
+                                <td>400</td>
+                                <td>320</td>
+                                <td><span class="badge bg-success text-white">Em Venda</span></td>
+                                <td><button class="btn btn-sm btn-outline-primary" onclick="alert('Lote atualizado!')">Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Novo lote criado!')" style="background-color: var(--primary-orange); border:none;"><i class="fa-solid fa-plus"></i> Adicionar Lote</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: VISUALIZADOR DA PÁGINA PÚBLICA DO EVENTO -->
+    <div class="modal fade" id="modalPaginaEvento" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="border-radius: 8px; border:none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-globe text-info me-2"></i> Prévia da Página Pública do Evento (DiskIngressos)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4" style="background: #f8fafc;">
+                    <div class="card border-0 shadow-sm p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-success">VENDAS ABERTAS</span>
+                            <span class="text-muted fs-11"><i class="fa-solid fa-lock text-success me-1"></i> Checkout Seguro 256-bit SSL</span>
+                        </div>
+                        <h3 class="fw-bold text-dark mb-1">Show Roupa Nova - 40 Anos de Sucesso</h3>
+                        <p class="text-muted mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Teatro Positivo - Curitiba, PR • Sex, 20/07/2026 às 21h00</p>
+                        <hr>
+                        <h6 class="fw-bold mb-2">Selecione seus Ingressos:</h6>
+                        <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded mb-2">
+                            <div>
+                                <strong>Pista Inteira - 2º Lote</strong>
+                                <div class="text-muted fs-11">Acesso à pista geral</div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold fs-6">R$ 150,00</span>
+                                <button class="btn btn-sm btn-primary" onclick="alert('Ingresso adicionado ao carrinho de compra!')">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: ASSISTENTE VIRTUAL AI (GROQ) -->
+    <div class="modal fade" id="modalAiAssistant" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" style="border-radius: 12px; border:none; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-robot text-warning me-2"></i> Assistente Virtual DiskIngressos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="aiChatMessages" style="background:#0f172a; min-height: 320px; max-height: 400px; color:#fff;">
+                    <div class="p-2 mb-2 rounded bg-secondary text-white me-auto" style="max-width:85%; font-size:0.85rem;">
+                        <strong><i class="fa-solid fa-robot text-warning me-1"></i> Assistente DiskIngressos:</strong><br>
+                        Olá! Sou o assistente de IA do ApexERP. Como posso ajudar com dúvidas sobre pedidos, regras de estorno, conciliação ou relatórios?
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark border-top border-secondary p-2">
+                    <div class="input-group">
+                        <input type="text" id="aiChatInput" class="form-control bg-secondary text-white border-0" placeholder="Digite sua pergunta..." onkeypress="if(event.key==='Enter') sendAiMessage()">
+                        <button class="btn btn-warning fw-bold" onclick="sendAiMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
