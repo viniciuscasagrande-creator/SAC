@@ -527,11 +527,149 @@
             color: var(--text-dark);
         }
 
-        /* EVENT CARDS GRID */
+        /* EVENT CARDS GRID - EXACT SCREENSHOT PORTRAIT DESIGN */
         .event-cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
+        }
+
+        .event-card-portrait {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .event-card-portrait:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .event-card-img-wrap {
+            position: relative;
+            height: 145px;
+            width: 100%;
+            overflow: hidden;
+            background-color: #0f172a;
+        }
+
+        .event-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card-portrait:hover .event-card-img-wrap img {
+            transform: scale(1.04);
+        }
+
+        .event-badge-ativo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #10b981;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .event-badge-inativo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #64748b;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .event-card-portrait-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .event-card-portrait-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            line-height: 1.35;
+            min-height: 2.6em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .event-card-portrait-meta {
+            font-size: 0.78rem;
+            color: #64748b;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .event-card-portrait-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .event-card-portrait-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .event-card-vendas-label {
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        .event-card-vendas-label strong {
+            color: #0f172a;
+        }
+
+        .event-card-revenue {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0284c7;
+        }
+
+        .event-progress-bar-wrap {
+            width: 100%;
+            height: 4px;
+            background-color: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .event-progress-bar-fill {
+            height: 100%;
+            background-color: #0284c7;
+            border-radius: 2px;
         }
 
         .event-card {
@@ -1003,6 +1141,7 @@
                     </a>
                     <a class="menu-item active" id="menuPainelGeral">
                         <div class="menu-item-left"><i class="fa-solid fa-gauge-high"></i> Painel Geral</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
                     </a>
                     
                     <!-- ACCORDION: MEUS EVENTOS -->
@@ -1010,7 +1149,7 @@
                         <div class="menu-item-left"><i class="fa-regular fa-calendar"></i> Meus Eventos</div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge-sidebar badge-orange">2</span>
-                            <i class="fa-solid fa-angle-down" id="arrowMeusEventos" style="font-size:0.7rem; margin-right:0; transition: transform 0.2s;"></i>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowMeusEventos" style="transition: transform 0.2s;"></i>
                         </div>
                     </a>
                     <!-- SUBMENU CONTAINER -->
@@ -1029,20 +1168,44 @@
                     </a>
                     <a class="menu-item" id="menuMarketing">
                         <div class="menu-item-left"><i class="fa-solid fa-bullhorn"></i> Marketing</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
                     </a>
                     <a class="menu-item" id="menuRemarketing">
                         <div class="menu-item-left"><i class="fa-solid fa-arrows-rotate"></i> Remarketing</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
                     </a>
                     <a class="menu-item" id="menuFinanceiro">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
-                        <span class="badge-sidebar badge-green">3</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar badge-green" style="background:#10b981; color:#fff; font-weight:700;">19</span>
+                            <i class="fa-solid fa-angle-right menu-chevron"></i>
+                        </div>
+                    </a>
+                    <a class="menu-item" id="menuContabilidade">
+                        <div class="menu-item-left"><i class="fa-solid fa-book"></i> Contabilidade Disk</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar" style="background:#f97316; color:#fff; font-weight:700; font-size:0.65rem;">Contábil</span>
+                            <i class="fa-solid fa-angle-right menu-chevron"></i>
+                        </div>
+                    </a>
+                    <a class="menu-item" id="menuFluxoCaixa">
+                        <div class="menu-item-left"><i class="fa-solid fa-chart-line"></i> Fluxo de Caixa</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    </a>
+                    <a class="menu-item" id="menuReceitas">
+                        <div class="menu-item-left"><i class="fa-solid fa-coins"></i> Receitas Detalhadas</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    </a>
+                    <a class="menu-item" id="menuDespesas">
+                        <div class="menu-item-left"><i class="fa-solid fa-receipt"></i> Despesas Detalhadas</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
                     </a>
                     <a class="menu-item" id="menuRelatorios">
-                        <div class="menu-item-left"><i class="fa-solid fa-chart-simple"></i> Relatórios</div>
-                        <span class="badge-sidebar badge-purple">Novo</span>
+                        <div class="menu-item-left"><i class="fa-solid fa-file-lines"></i> Relatórios</div>
                     </a>
                     <a class="menu-item" id="menuConfiguracoes">
                         <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
+                        <i class="fa-solid fa-angle-right menu-chevron"></i>
                     </a>
                     
                     <!-- ESTORNO MENU ITEM -->
@@ -1073,8 +1236,7 @@
 
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
-            
-            <!-- PANEL A: DASHBOARD PAINEL DE CONTROLE (EVENT CARDS) -->
+                  <!-- PANEL A: DASHBOARD PAINEL DE CONTROLE (EVENT CARDS) -->
             <div id="panelDashboardContent">
                 
                 <div class="dashboard-header">
@@ -1083,198 +1245,200 @@
                         <p>Bem-vindo de volta! Visualize as métricas operacionais consolidadas.</p>
                     </div>
                     <div class="header-buttons">
-                        <button class="btn-header-action primary"><i class="fa-solid fa-database"></i> Dados</button>
-                        <button class="btn-header-action"><i class="fa-regular fa-file-pdf"></i> PDF</button>
+                        <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 fw-semibold" style="background-color: #0284c7; border-color: #0284c7; border-radius: 6px; font-size: 0.85rem;" onclick="exportData('dados')">
+                            <i class="fa-solid fa-database"></i> Dados
+                        </button>
+                        <button class="btn btn-light d-flex align-items-center gap-2 px-3 py-2 fw-semibold border" style="background-color: #ffffff; border-radius: 6px; font-size: 0.85rem; color: #1e293b;" onclick="exportData('pdf')">
+                            <i class="fa-regular fa-file-pdf"></i> PDF
+                        </button>
                     </div>
                 </div>
 
                 <div class="events-panel">
-                    <div class="events-panel-header">
-                        <h5>Eventos</h5>
+                    <div class="events-panel-header" style="border-bottom:none; margin-bottom: 15px; padding-bottom:0;">
+                        <h4 class="fw-bold m-0" style="color:#0f172a;">Eventos</h4>
                         
-                        <div class="filter-tabs">
-                            <button class="btn-header-action" style="padding: 6px 12px; border-radius:20px; font-weight:600;"><i class="fa-solid fa-sliders"></i> Comparar</button>
-                            <button class="filter-tab-btn active">Ativos</button>
-                            <button class="filter-tab-btn">Inativos</button>
-                            <button class="filter-tab-btn">Todos</button>
-                            <button class="btn-header-action" style="padding: 6px 12px; border-radius:20px; font-weight:600;"><i class="fa-solid fa-table-cells-large"></i> Layout</button>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnCompararEventos" onclick="openModalById('modalCompararEventos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                                <i class="fa-solid fa-right-left"></i> Comparar
+                            </button>
+                            <button class="btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterAtivos" onclick="filterEventsByStatus('ativos')" style="background-color: #0284c7; border-color:#0284c7; border-radius: 6px; font-size: 0.8rem;">
+                                <i class="fa-solid fa-circle-check"></i> Ativos
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterInativos" onclick="filterEventsByStatus('inativos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                                <i class="fa-solid fa-circle-minus"></i> Inativos
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterTodos" onclick="filterEventsByStatus('todos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                                <i class="fa-solid fa-bars"></i> Todos
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnToggleLayout" onclick="toggleEventsLayout()" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                                <i class="fa-solid fa-sliders"></i> Layout
+                            </button>
                         </div>
                     </div>
 
-                    <div class="event-cards-grid">
+                    <!-- GRID VIEW (4 CARDS MATCHING SCREENSHOT) -->
+                    <div class="event-cards-grid mt-3" id="eventsCardsGridView">
                         
-                        <!-- Event 1: Música e Natureza -->
-                        <div class="event-card">
-                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" class="event-card-img">
-                            <div class="event-card-body">
+                        <!-- Card 1: Experiencia Música e Natureza - Julho -->
+                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Experiencia Música e Natureza - Julho" data-vendas="674" data-receita="12851.00">
+                            <div class="event-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="Experiencia Música e Natureza">
+                                <span class="event-badge-ativo">Ativo</span>
+                            </div>
+                            <div class="event-card-portrait-body">
                                 <div>
-                                    <div class="event-card-title">Experiência Música e Natureza - JI</div>
-                                    <div class="event-card-location"><i class="fa-solid fa-location-dot"></i> Parque Jaime Lerner - Curitiba/PR</div>
+                                    <div class="event-card-portrait-title">Experiencia Música e Natureza - Julho</div>
+                                    <div class="event-card-portrait-meta">
+                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Parque Jaime Lerner</span>
+                                        <span><i class="fa-regular fa-calendar text-muted"></i> Sáb, 11/07/2026 - 11:00</span>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="event-card-stats">
-                                        <div class="stat-col">
-                                            <span class="stat-label">Total (R$)</span>
-                                            <span class="stat-val">2.033,00</span>
-                                        </div>
-                                        <div class="col border-start border-end px-1">
-                                            <div class="stat-label">Vendas</div>
-                                            <div class="stat-val">99</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Disponível</div>
-                                            <div class="stat-val">1901</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Cortesia</div>
-                                            <div class="stat-val">39</div>
-                                        </div>
-                                        <div class="stat-col">
-                                            <span class="stat-label">Ocupação</span>
-                                            <span class="stat-val percentage">6.9%</span>
-                                        </div>
+                                    <div class="event-card-portrait-footer">
+                                        <div class="event-card-vendas-label">Vendas: <strong>674</strong></div>
+                                        <div class="event-card-revenue">R$ 12.851,00</div>
                                     </div>
-                                    <div class="event-card-footer">
-                                        <div><i class="fa-regular fa-calendar-check"></i> Seg, 06/07/2026 - 11:00</div>
-                                        <div class="event-footer-icons">
-                                            <i class="fa-solid fa-gear"></i>
-                                            <i class="fa-regular fa-edit"></i>
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
+                                    <div class="event-progress-bar-wrap">
+                                        <div class="event-progress-bar-fill" style="width: 78%;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Event 2: Samba 90 Graus -->
-                        <div class="event-card">
-                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=250&q=80" alt="Samba 90 Graus" class="event-card-img">
-                            <div class="event-card-body">
+                        <!-- Card 2: 9º Knife Show Curitiba -->
+                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="9º Knife Show Curitiba - Feira e Exposição de Facas" data-vendas="328" data-receita="7720.00">
+                            <div class="event-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="9º Knife Show Curitiba">
+                                <span class="event-badge-ativo">Ativo</span>
+                            </div>
+                            <div class="event-card-portrait-body">
                                 <div>
-                                    <div class="event-card-title">Samba 90 Graus</div>
-                                    <div class="event-card-location"><i class="fa-solid fa-location-dot"></i> Live Curitiba - Curitiba/PR</div>
+                                    <div class="event-card-portrait-title">9º Knife Show Curitiba - Feira e Exposição de Facas</div>
+                                    <div class="event-card-portrait-meta">
+                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Associação AABB Curitiba</span>
+                                        <span><i class="fa-regular fa-calendar text-muted"></i> Sáb, 11/07/2026 - 11:00</span>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="event-card-stats">
-                                        <div class="stat-col">
-                                            <span class="stat-label">Total (R$)</span>
-                                            <span class="stat-val">11.669,90</span>
-                                        </div>
-                                        <div class="col border-start border-end px-1">
-                                            <div class="stat-label">Vendas</div>
-                                            <div class="stat-val">300</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Disponível</div>
-                                            <div class="stat-val">1700</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Cortesia</div>
-                                            <div class="stat-val">50</div>
-                                        </div>
-                                        <div class="stat-col">
-                                            <span class="stat-label">Ocupação</span>
-                                            <span class="stat-val percentage">17.5%</span>
-                                        </div>
+                                    <div class="event-card-portrait-footer">
+                                        <div class="event-card-vendas-label">Vendas: <strong>328</strong></div>
+                                        <div class="event-card-revenue">R$ 7.720,00</div>
                                     </div>
-                                    <div class="event-card-footer">
-                                        <div><i class="fa-regular fa-calendar-check"></i> Sáb, 05/07/2025 - 19:00</div>
-                                        <div class="event-footer-icons">
-                                            <i class="fa-solid fa-gear"></i>
-                                            <i class="fa-regular fa-edit"></i>
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
+                                    <div class="event-progress-bar-wrap">
+                                        <div class="event-progress-bar-fill" style="width: 52%;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Event 3: L7nnon e Xamã -->
-                        <div class="event-card">
-                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=250&q=80" alt="L7nnon e Xamã" class="event-card-img">
-                            <div class="event-card-body">
+                        <!-- Card 3: Feijoada e Costela assada -->
+                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Feijoada e Costela assada - PETFRIENDLY" data-vendas="0" data-receita="0.00">
+                            <div class="event-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=400&q=80" alt="Feijoada e Costela">
+                                <span class="event-badge-ativo">Ativo</span>
+                            </div>
+                            <div class="event-card-portrait-body">
                                 <div>
-                                    <div class="event-card-title">L7nnon e Xamã</div>
-                                    <div class="event-card-location"><i class="fa-solid fa-location-dot"></i> Live Curitiba - Curitiba/PR</div>
+                                    <div class="event-card-portrait-title">Feijoada e Costela assada - PETFRIENDLY</div>
+                                    <div class="event-card-portrait-meta">
+                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Restaurante Vila Brasil - Comi...</span>
+                                        <span><i class="fa-regular fa-calendar text-muted"></i> Dom, 12/07/2026 - 12:00</span>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="event-card-stats">
-                                        <div class="stat-col">
-                                            <span class="stat-label">Total (R$)</span>
-                                            <span class="stat-val negative">-6.210,00</span>
-                                        </div>
-                                        <div class="col border-start border-end px-1">
-                                            <div class="stat-label">Vendas</div>
-                                            <div class="stat-val">200</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Disponível</div>
-                                            <div class="stat-val">1800</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Cortesia</div>
-                                            <div class="stat-val">10</div>
-                                        </div>
-                                        <div class="stat-col">
-                                            <span class="stat-label">Ocupação</span>
-                                            <span class="stat-val percentage">10.5%</span>
-                                        </div>
+                                    <div class="event-card-portrait-footer">
+                                        <div class="event-card-vendas-label">Vendas: <strong>0</strong></div>
+                                        <div class="event-card-revenue">R$ 0,00</div>
                                     </div>
-                                    <div class="event-card-footer">
-                                        <div><i class="fa-regular fa-calendar-check"></i> Sáb, 12/07/2025 - 22:00</div>
-                                        <div class="event-footer-icons">
-                                            <i class="fa-solid fa-gear"></i>
-                                            <i class="fa-regular fa-edit"></i>
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
+                                    <div class="event-progress-bar-wrap">
+                                        <div class="event-progress-bar-fill" style="width: 0%; background-color: #cbd5e1;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Event 4: Kieram Ectori -->
-                        <div class="event-card">
-                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=250&q=80" alt="Kieram Ectori" class="event-card-img">
-                            <div class="event-card-body">
+                        <!-- Card 4: Rebobinando - Uma Peça Quatro Histórias -->
+                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Rebobinando - Uma Peça Quatro Histórias" data-vendas="16" data-receita="960.00">
+                            <div class="event-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Rebobinando">
+                                <span class="event-badge-ativo">Ativo</span>
+                            </div>
+                            <div class="event-card-portrait-body">
                                 <div>
-                                    <div class="event-card-title">Kieram Ectori - A Essência do Desafio</div>
-                                    <div class="event-card-location"><i class="fa-solid fa-location-dot"></i> Live Curitiba - Curitiba/PR</div>
+                                    <div class="event-card-portrait-title">Rebobinando - Uma Peça Quatro Histórias</div>
+                                    <div class="event-card-portrait-meta">
+                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Espaço Excêntrico Mauro Zan...</span>
+                                        <span><i class="fa-regular fa-calendar text-muted"></i> Dom, 12/07/2026 - 16:00</span>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="event-card-stats">
-                                        <div class="stat-col">
-                                            <span class="stat-label">Total (R$)</span>
-                                            <span class="stat-val">0,00</span>
-                                        </div>
-                                        <div class="col border-start border-end px-1">
-                                            <div class="stat-label">Vendas</div>
-                                            <div class="stat-val">0</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Disponível</div>
-                                            <div class="stat-val">1000</div>
-                                        </div>
-                                        <div class="col border-end px-1">
-                                            <div class="stat-label">Cortesia</div>
-                                            <div class="stat-val">0</div>
-                                        </div>
-                                        <div class="stat-col">
-                                            <span class="stat-label">Ocupação</span>
-                                            <span class="stat-val percentage">0.0%</span>
-                                        </div>
+                                    <div class="event-card-portrait-footer">
+                                        <div class="event-card-vendas-label">Vendas: <strong>16</strong></div>
+                                        <div class="event-card-revenue">R$ 960,00</div>
                                     </div>
-                                    <div class="event-card-footer">
-                                        <div><i class="fa-regular fa-calendar-check"></i> Sex, 18/07/2025 - 20:00</div>
-                                        <div class="event-footer-icons">
-                                            <i class="fa-solid fa-gear"></i>
-                                            <i class="fa-regular fa-edit"></i>
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </div>
+                                    <div class="event-progress-bar-wrap">
+                                        <div class="event-progress-bar-fill" style="width: 18%;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                    </div>
+
+                    <!-- LIST VIEW (TOGGLEABLE VIA LAYOUT BUTTON) -->
+                    <div class="table-responsive d-none mt-3" id="eventsTableView">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Local</th>
+                                    <th>Data</th>
+                                    <th>Vendas</th>
+                                    <th>Receita Bruta</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold"><i class="fa-solid fa-music text-primary me-2"></i>Experiencia Música e Natureza - Julho</td>
+                                    <td>Parque Jaime Lerner - Curitiba/PR</td>
+                                    <td>Sáb, 11/07/2026 - 11:00</td>
+                                    <td><strong>674</strong></td>
+                                    <td class="fw-bold text-primary">R$ 12.851,00</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold"><i class="fa-solid fa-ticket text-primary me-2"></i>9º Knife Show Curitiba - Feira e Exposição de Facas</td>
+                                    <td>Associação AABB Curitiba</td>
+                                    <td>Sáb, 11/07/2026 - 11:00</td>
+                                    <td><strong>328</strong></td>
+                                    <td class="fw-bold text-primary">R$ 7.720,00</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold"><i class="fa-solid fa-utensils text-primary me-2"></i>Feijoada e Costela assada - PETFRIENDLY</td>
+                                    <td>Restaurante Vila Brasil</td>
+                                    <td>Dom, 12/07/2026 - 12:00</td>
+                                    <td><strong>0</strong></td>
+                                    <td class="fw-bold text-muted">R$ 0,00</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold"><i class="fa-solid fa-masks-theater text-primary me-2"></i>Rebobinando - Uma Peça Quatro Histórias</td>
+                                    <td>Espaço Excêntrico Mauro Zanatta</td>
+                                    <td>Dom, 12/07/2026 - 16:00</td>
+                                    <td><strong>16</strong></td>
+                                    <td class="fw-bold text-primary">R$ 960,00</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -2243,6 +2407,315 @@
                 </div>
             </div>
 
+            <!-- PANEL N: CONTABILIDADE DISK -->
+            <div id="panelContabilidadeContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Contabilidade DiskIngressos</h2>
+                        <p>Gestão contábil, DRE Gerencial, emissão de NFS-e e conciliação fiscal.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-outline-secondary" onclick="alert('Exportando Livro Razão Digital (SPED Contábil)...')"><i class="fa-solid fa-file-export"></i> SPED Contábil</button>
+                        <button class="btn btn-primary" style="background:#f97316; border-color:#f97316;" onclick="alert('Emitindo lote de 142 NFS-e na Prefeitura de Curitiba...')"><i class="fa-solid fa-file-invoice"></i> Emitir Lote NFS-e</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Faturamento Bruto (Mês)</div>
+                            <h3 class="fw-bold text-dark mt-1">R$ 582.400,00</h3>
+                            <span class="text-success fs-11"><i class="fa-solid fa-arrow-trend-up"></i> +14.2% vs mês anterior</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Impostos Apurados (ISS/PIS)</div>
+                            <h3 class="fw-bold text-danger mt-1">R$ 49.504,00</h3>
+                            <span class="text-muted fs-11">Alíquota efetiva: 8.5%</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">NFS-e Emitidas</div>
+                            <h3 class="fw-bold text-primary mt-1">1.428</h3>
+                            <span class="text-success fs-11"><i class="fa-solid fa-circle-check"></i> 100% Sincronizadas</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Lucro Líquido Operacional</div>
+                            <h3 class="fw-bold text-success mt-1">R$ 87.360,00</h3>
+                            <span class="text-success fs-11">Margem: 15.0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h5 class="fw-bold mb-3">Demonstração do Resultado do Exercício (DRE Gerencial)</h5>
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Conta Contábil / Descrição</th>
+                                <th>Mês Atual (R$)</th>
+                                <th>Mês Anterior (R$)</th>
+                                <th>Variação (%)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">(+) Receita Bruta de Serviços (Taxas de Conveniência)</td>
+                                <td class="fw-bold text-success">R$ 87.360,00</td>
+                                <td>R$ 76.490,00</td>
+                                <td class="text-success">+14.2%</td>
+                                <td><span class="badge bg-success text-white">Conciliado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">(-) Deduções e Impostos sobre Serviços (ISS 5% + PIS/COFINS 3.65%)</td>
+                                <td class="fw-bold text-danger">- R$ 7.556,64</td>
+                                <td>- R$ 6.616,38</td>
+                                <td class="text-danger">+14.2%</td>
+                                <td><span class="badge bg-success text-white">Apurado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">(=) Receita Líquida Operacional</td>
+                                <td class="fw-bold text-dark">R$ 79.803,36</td>
+                                <td>R$ 69.873,62</td>
+                                <td class="text-success">+14.2%</td>
+                                <td><span class="badge bg-primary text-white">Fechado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">(-) Custos Operacionais dos Gateways & Antifraude (Adyen/Stone)</td>
+                                <td class="fw-bold text-danger">- R$ 14.560,00</td>
+                                <td>- R$ 12.800,00</td>
+                                <td class="text-danger">+13.7%</td>
+                                <td><span class="badge bg-success text-white">Auditado</span></td>
+                            </tr>
+                            <tr class="table-active">
+                                <td class="fw-bold fs-6">(=) Resultado Líquido do Período</td>
+                                <td class="fw-bold text-success fs-6">R$ 65.243,36</td>
+                                <td class="fw-bold fs-6">R$ 57.073,62</td>
+                                <td class="fw-bold text-success fs-6">+14.3%</td>
+                                <td><span class="badge bg-success text-white font-weight-bold">Aprovado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PANEL O: FLUXO DE CAIXA -->
+            <div id="panelFluxoCaixaContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Fluxo de Caixa Diário & Projetado</h2>
+                        <p>Acompanhamento em tempo real de entradas de ingressos, liquidações e provisões de repasses.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-outline-secondary" onclick="exportData('csv')"><i class="fa-solid fa-file-csv"></i> Exportar CSV</button>
+                        <button class="btn btn-primary" onclick="alert('Lançamento manual de entrada/saída registrado!')"><i class="fa-solid fa-plus"></i> Novo Lançamento</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Saldo Disponível em Caixa (D+0)</div>
+                            <h2 class="fw-bold text-primary mt-1">R$ 214.850,00</h2>
+                            <span class="text-muted fs-11">Contas Stone / Banco Inter / Santander</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">A Receber Previsto (D+1 a D+30)</div>
+                            <h2 class="fw-bold text-success mt-1">R$ 367.550,00</h2>
+                            <span class="text-success fs-11">Vendas parceladas no cartão de crédito</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Repasses e Saídas Programadas</div>
+                            <h2 class="fw-bold text-danger mt-1">R$ 152.500,00</h2>
+                            <span class="text-muted fs-11">Próximos 7 dias para produtores</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h5 class="fw-bold mb-3">Extrato Diário de Movimentações Financeiras</h5>
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Descrição / Origem</th>
+                                <th>Canal / Gateway</th>
+                                <th>Valor</th>
+                                <th>Saldo Acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>25/08/2026</td>
+                                <td><span class="badge bg-success text-white">Entrada</span></td>
+                                <td>Vendas de Ingressos - Roupa Nova 40 Anos</td>
+                                <td>PIX Adyen (D+0)</td>
+                                <td class="fw-bold text-success">+ R$ 18.420,00</td>
+                                <td class="fw-bold">R$ 214.850,00</td>
+                            </tr>
+                            <tr>
+                                <td>25/08/2026</td>
+                                <td><span class="badge bg-danger text-white">Saída</span></td>
+                                <td>Repasse Solicitado - Live Curitiba Produtora</td>
+                                <td>PIX Banco Inter</td>
+                                <td class="fw-bold text-danger">- R$ 25.000,00</td>
+                                <td class="fw-bold">R$ 196.430,00</td>
+                            </tr>
+                            <tr>
+                                <td>24/08/2026</td>
+                                <td><span class="badge bg-success text-white">Entrada</span></td>
+                                <td>Liquidação Lote Cartões Stone (Crédito à Vista)</td>
+                                <td>Stone Adquirente</td>
+                                <td class="fw-bold text-success">+ R$ 42.150,00</td>
+                                <td class="fw-bold">R$ 221.430,00</td>
+                            </tr>
+                            <tr>
+                                <td>24/08/2026</td>
+                                <td><span class="badge bg-warning text-dark">Estorno</span></td>
+                                <td>Reembolso Aprovado - Pedido #154231</td>
+                                <td>Stone Cielo</td>
+                                <td class="fw-bold text-danger">- R$ 580,00</td>
+                                <td class="fw-bold">R$ 179.280,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PANEL P: RECEITAS DETALHADAS -->
+            <div id="panelReceitasContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Receitas Detalhadas por Evento</h2>
+                        <p>Segmentação por tipo de ingresso, taxa de serviço e canais de distribuição.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" onclick="exportData('pdf')"><i class="fa-regular fa-file-pdf"></i> Baixar Relatório</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Evento</th>
+                                <th>Ingressos Vendidos</th>
+                                <th>Valor Face (Produtor)</th>
+                                <th>Taxa Conveniência (Disk)</th>
+                                <th>Juros / Upsell</th>
+                                <th>Receita Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">Experiencia Música e Natureza - Julho</td>
+                                <td>674</td>
+                                <td>R$ 10.923,35</td>
+                                <td class="fw-bold text-primary">R$ 1.927,65</td>
+                                <td>R$ 0,00</td>
+                                <td class="fw-bold text-success">R$ 12.851,00</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">9º Knife Show Curitiba - Feira e Exposição</td>
+                                <td>328</td>
+                                <td>R$ 6.562,00</td>
+                                <td class="fw-bold text-primary">R$ 1.158,00</td>
+                                <td>R$ 0,00</td>
+                                <td class="fw-bold text-success">R$ 7.720,00</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Feijoada e Costela assada - PETFRIENDLY</td>
+                                <td>0</td>
+                                <td>R$ 0,00</td>
+                                <td class="fw-bold text-muted">R$ 0,00</td>
+                                <td>R$ 0,00</td>
+                                <td class="fw-bold text-muted">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Rebobinando - Uma Peça Quatro Histórias</td>
+                                <td>16</td>
+                                <td>R$ 816,00</td>
+                                <td class="fw-bold text-primary">R$ 144,00</td>
+                                <td>R$ 0,00</td>
+                                <td class="fw-bold text-success">R$ 960,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PANEL Q: DESPESAS DETALHADAS -->
+            <div id="panelDespesasContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Despesas Detalhadas & Custos Operacionais</h2>
+                        <p>Discriminação de taxas de adquirentes, custos de infraestrutura e estornos processados.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-outline-secondary" onclick="exportData('dados')"><i class="fa-solid fa-download"></i> Exportar Dados</button>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Categoria de Custo</th>
+                                <th>Fornecedor / Gateway</th>
+                                <th>Base de Cálculo</th>
+                                <th>Taxa Aplicada</th>
+                                <th>Custo Total (R$)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">Taxa de Adquirência Cartão de Crédito</td>
+                                <td>Stone / Pagar.me</td>
+                                <td>R$ 90.500,00</td>
+                                <td>2,49% + R$ 0,39</td>
+                                <td class="fw-bold text-danger">R$ 2.453,45</td>
+                                <td><span class="badge bg-success text-white">Retido na Fonte</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Taxa de Processamento PIX</td>
+                                <td>Adyen Banking</td>
+                                <td>R$ 145.800,00</td>
+                                <td>0,99%</td>
+                                <td class="fw-bold text-danger">R$ 1.443,42</td>
+                                <td><span class="badge bg-success text-white">Liquidado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Serviço de Análise Antifraude</td>
+                                <td>ClearSale Total</td>
+                                <td>820 pedidos</td>
+                                <td>R$ 1,20 / pedido</td>
+                                <td class="fw-bold text-danger">R$ 984,00</td>
+                                <td><span class="badge bg-primary text-white">Faturado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Servidores & Infraestrutura Cloud</td>
+                                <td>Amazon Web Services (AWS)</td>
+                                <td>3 instâncias EC2 + RDS</td>
+                                <td>Mensalidade Fixa</td>
+                                <td class="fw-bold text-danger">R$ 1.850,00</td>
+                                <td><span class="badge bg-success text-white">Pago</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -2276,6 +2749,10 @@
             const menuMarketing = document.getElementById("menuMarketing");
             const menuRemarketing = document.getElementById("menuRemarketing");
             const menuFinanceiro = document.getElementById("menuFinanceiro");
+            const menuContabilidade = document.getElementById("menuContabilidade");
+            const menuFluxoCaixa = document.getElementById("menuFluxoCaixa");
+            const menuReceitas = document.getElementById("menuReceitas");
+            const menuDespesas = document.getElementById("menuDespesas");
             const menuRelatorios = document.getElementById("menuRelatorios");
             const menuConfiguracoes = document.getElementById("menuConfiguracoes");
             const menuEstorno = document.getElementById("menuEstorno");
@@ -2296,6 +2773,10 @@
                 ingressos: document.getElementById("panelIngressosContent"),
                 marketing: document.getElementById("panelMarketingContent"),
                 financeiro: document.getElementById("panelFinanceiroContent"),
+                contabilidade: document.getElementById("panelContabilidadeContent"),
+                fluxoCaixa: document.getElementById("panelFluxoCaixaContent"),
+                receitas: document.getElementById("panelReceitasContent"),
+                despesas: document.getElementById("panelDespesasContent"),
                 relatorios: document.getElementById("panelRelatoriosContent"),
                 configuracoes: document.getElementById("panelConfiguracoesContent"),
                 checkin: document.getElementById("panelCheckinContent"),
@@ -2336,7 +2817,7 @@
                     e.preventDefault();
                     const isExpanded = submenuMeusEventos.classList.toggle("show");
                     if (arrowMeusEventos) {
-                        arrowMeusEventos.style.transform = isExpanded ? "rotate(180deg)" : "rotate(0deg)";
+                        arrowMeusEventos.style.transform = isExpanded ? "rotate(90deg)" : "rotate(0deg)";
                     }
                 });
             }
@@ -2354,10 +2835,75 @@
             if (menuMarketing) menuMarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuMarketing); });
             if (menuRemarketing) menuRemarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuRemarketing); });
             if (menuFinanceiro) menuFinanceiro.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiro', menuFinanceiro); });
+            if (menuContabilidade) menuContabilidade.addEventListener("click", (e) => { e.preventDefault(); switchPanel('contabilidade', menuContabilidade); });
+            if (menuFluxoCaixa) menuFluxoCaixa.addEventListener("click", (e) => { e.preventDefault(); switchPanel('fluxoCaixa', menuFluxoCaixa); });
+            if (menuReceitas) menuReceitas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('receitas', menuReceitas); });
+            if (menuDespesas) menuDespesas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('despesas', menuDespesas); });
             if (menuRelatorios) menuRelatorios.addEventListener("click", (e) => { e.preventDefault(); switchPanel('relatorios', menuRelatorios); });
             if (menuConfiguracoes) menuConfiguracoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('configuracoes', menuConfiguracoes); });
             if (menuSacHub) menuSacHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('sac', menuSacHub); });
             if (menuDbConsole) menuDbConsole.addEventListener("click", (e) => { e.preventDefault(); switchPanel('db', menuDbConsole); });
+
+            // Layout Toggle Function (Grid vs Table)
+            window.toggleEventsLayout = function() {
+                const grid = document.getElementById("eventsCardsGridView");
+                const table = document.getElementById("eventsTableView");
+                if (!grid || !table) return;
+                const isGridHidden = grid.classList.contains("d-none");
+                if (isGridHidden) {
+                    grid.classList.remove("d-none");
+                    table.classList.add("d-none");
+                } else {
+                    grid.classList.add("d-none");
+                    table.classList.remove("d-none");
+                }
+            };
+
+            // Filter Events by Status (Ativos, Inativos, Todos)
+            window.filterEventsByStatus = function(status) {
+                const btnAtivos = document.getElementById("btnFilterAtivos");
+                const btnInativos = document.getElementById("btnFilterInativos");
+                const btnTodos = document.getElementById("btnFilterTodos");
+                const cards = document.querySelectorAll("#eventsCardsGridView .event-card-portrait");
+
+                [btnAtivos, btnInativos, btnTodos].forEach(btn => {
+                    if (btn) {
+                        btn.className = "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
+                        btn.style.backgroundColor = "#fff";
+                        btn.style.color = "#334155";
+                    }
+                });
+
+                if (status === 'ativos' && btnAtivos) {
+                    btnAtivos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
+                    btnAtivos.style.backgroundColor = "#0284c7";
+                    btnAtivos.style.borderColor = "#0284c7";
+                    btnAtivos.style.color = "#fff";
+                } else if (status === 'inativos' && btnInativos) {
+                    btnInativos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
+                    btnInativos.style.backgroundColor = "#0284c7";
+                    btnInativos.style.borderColor = "#0284c7";
+                    btnInativos.style.color = "#fff";
+                } else if (status === 'todos' && btnTodos) {
+                    btnTodos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
+                    btnTodos.style.backgroundColor = "#0284c7";
+                    btnTodos.style.borderColor = "#0284c7";
+                    btnTodos.style.color = "#fff";
+                }
+
+                cards.forEach(card => {
+                    const cardStatus = card.getAttribute("data-status");
+                    if (status === 'todos') {
+                        card.style.display = "flex";
+                    } else if (status === 'ativos' && cardStatus === 'ativo') {
+                        card.style.display = "flex";
+                    } else if (status === 'inativos' && cardStatus === 'inativo') {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            };
 
             // Estorno Menu
             if (menuEstorno) {
@@ -3178,6 +3724,81 @@
                         <input type="text" id="aiChatInput" class="form-control bg-secondary text-white border-0" placeholder="Digite sua pergunta..." onkeypress="if(event.key==='Enter') sendAiMessage()">
                         <button class="btn btn-warning fw-bold" onclick="sendAiMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL 6: COMPARADOR DE EVENTOS (SCREENSHOT ACTION) -->
+    <div class="modal fade" id="modalCompararEventos" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content" style="border-radius: 10px; border:none; box-shadow: 0 15px 35px rgba(0,0,0,0.25);">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-right-left text-primary me-2"></i> Comparador de Performance de Eventos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold text-dark text-truncate" title="Experiencia Música e Natureza">Música e Natureza</h6>
+                                <span class="badge bg-success mb-2 w-auto align-self-start">Ativo</span>
+                                <div class="fs-12 text-muted mb-3">📍 Parque Jaime Lerner</div>
+                                <div class="border-top pt-2">
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Vendas:</span><strong>674</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Receita:</span><strong class="text-primary">R$ 12.851,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Ticket Médio:</span><strong>R$ 19,06</strong></div>
+                                    <div class="d-flex justify-content-between mb-2"><span class="fs-11 text-muted">Ocupação:</span><strong class="text-success">78%</strong></div>
+                                    <div class="progress" style="height:6px;"><div class="progress-bar bg-primary" style="width: 78%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold text-dark text-truncate" title="9º Knife Show Curitiba">9º Knife Show Curitiba</h6>
+                                <span class="badge bg-success mb-2 w-auto align-self-start">Ativo</span>
+                                <div class="fs-12 text-muted mb-3">📍 Associação AABB</div>
+                                <div class="border-top pt-2">
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Vendas:</span><strong>328</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Receita:</span><strong class="text-primary">R$ 7.720,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Ticket Médio:</span><strong>R$ 23,53</strong></div>
+                                    <div class="d-flex justify-content-between mb-2"><span class="fs-11 text-muted">Ocupação:</span><strong class="text-success">52%</strong></div>
+                                    <div class="progress" style="height:6px;"><div class="progress-bar bg-primary" style="width: 52%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold text-dark text-truncate" title="Feijoada e Costela assada">Feijoada e Costela</h6>
+                                <span class="badge bg-success mb-2 w-auto align-self-start">Ativo</span>
+                                <div class="fs-12 text-muted mb-3">📍 Restaurante Vila Brasil</div>
+                                <div class="border-top pt-2">
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Vendas:</span><strong>0</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Receita:</span><strong class="text-muted">R$ 0,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Ticket Médio:</span><strong>R$ 0,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-2"><span class="fs-11 text-muted">Ocupação:</span><strong class="text-muted">0%</strong></div>
+                                    <div class="progress" style="height:6px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold text-dark text-truncate" title="Rebobinando - Uma Peça Quatro Histórias">Rebobinando</h6>
+                                <span class="badge bg-success mb-2 w-auto align-self-start">Ativo</span>
+                                <div class="fs-12 text-muted mb-3">📍 Espaço Excêntrico</div>
+                                <div class="border-top pt-2">
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Vendas:</span><strong>16</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Receita:</span><strong class="text-primary">R$ 960,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-11 text-muted">Ticket Médio:</span><strong>R$ 60,00</strong></div>
+                                    <div class="d-flex justify-content-between mb-2"><span class="fs-11 text-muted">Ocupação:</span><strong class="text-warning">18%</strong></div>
+                                    <div class="progress" style="height:6px;"><div class="progress-bar bg-warning" style="width: 18%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="exportData('pdf')"><i class="fa-regular fa-file-pdf"></i> Exportar Comparativo</button>
                 </div>
             </div>
         </div>
