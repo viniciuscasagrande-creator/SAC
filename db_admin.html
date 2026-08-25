@@ -583,10 +583,14 @@
         </div>
         <div class="stat-card">
             <div>
-                <h3>Status do Storage</h3>
-                <div class="value" style="font-size: 1.2rem; color: #34d399; margin-top: 10px;">database.json (OK)</div>
+                <h3>Engines de Banco de Dados</h3>
+                <div id="lblEngineStatus" style="font-size: 0.85rem; margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span class="badge bg-green" title="Storage JSON"><i class="fa-solid fa-file-code"></i> JSON: OK</span>
+                    <span class="badge" id="badgePgStatus" style="background: rgba(59,130,246,0.15); color: #94a3b8; border: 1px solid #334155;"><i class="fa-solid fa-database"></i> PG: ...</span>
+                    <span class="badge" id="badgeMySqlStatus" style="background: rgba(249,115,22,0.15); color: #94a3b8; border: 1px solid #334155;"><i class="fa-solid fa-dolphin"></i> MySQL: ...</span>
+                </div>
             </div>
-            <div class="icon"><i class="fa-solid fa-circle-check text-success"></i></div>
+            <div class="icon"><i class="fa-solid fa-server text-success"></i></div>
         </div>
     </div>
 
@@ -732,7 +736,7 @@
             loadCollectionData();
         });
 
-        // 1. Fetch Global Database Stats
+        // 1. Fetch Global Database Stats & Engine Health
         async function fetchStats() {
             try {
                 const res = await fetch('/api/db/stats/overview');
@@ -747,6 +751,36 @@
                         const badge = document.getElementById(`badge_${col}`);
                         if (badge) badge.textContent = count;
                     }
+                }
+
+                // Check engine status
+                try {
+                    const engineRes = await fetch('/api/db/engine/status');
+                    const engineData = await engineRes.json();
+                    
+                    const pgBadge = document.getElementById('badgePgStatus');
+                    if (pgBadge) {
+                        if (engineData.postgres && engineData.postgres.connected) {
+                            pgBadge.className = 'badge bg-green';
+                            pgBadge.innerHTML = '<i class="fa-solid fa-database"></i> PG: Conectado';
+                        } else {
+                            pgBadge.className = 'badge bg-red';
+                            pgBadge.innerHTML = '<i class="fa-solid fa-database"></i> PG: Offline';
+                        }
+                    }
+
+                    const mySqlBadge = document.getElementById('badgeMySqlStatus');
+                    if (mySqlBadge) {
+                        if (engineData.mysql && engineData.mysql.connected) {
+                            mySqlBadge.className = 'badge bg-green';
+                            mySqlBadge.innerHTML = '<i class="fa-solid fa-dolphin"></i> MySQL: Conectado';
+                        } else {
+                            mySqlBadge.className = 'badge bg-red';
+                            mySqlBadge.innerHTML = '<i class="fa-solid fa-dolphin"></i> MySQL: Offline';
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Status de engines indisponível:", e);
                 }
             } catch (err) {
                 console.error("Erro ao carregar estatísticas:", err);

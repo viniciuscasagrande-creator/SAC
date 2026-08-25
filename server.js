@@ -460,10 +460,43 @@ app.get('/db-admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'db_admin.html'));
 });
 
+const pgHelper = require('./postgres');
+const mysqlHelper = require('./mysql');
+
 // Database global statistics
 app.get('/api/db/stats/overview', (req, res) => {
   const stats = dbHelper.getDatabaseStats();
   return res.json(stats);
+});
+
+// Database engines health & status check
+app.get('/api/db/engine/status', async (req, res) => {
+  const jsonStats = dbHelper.getDatabaseStats();
+  let pgStatus = { connected: false };
+  let mysqlStatus = { connected: false };
+
+  try {
+    pgStatus = await pgHelper.testConnection();
+  } catch (e) {
+    pgStatus = { connected: false, error: e.message };
+  }
+
+  try {
+    mysqlStatus = await mysqlHelper.testConnection();
+  } catch (e) {
+    mysqlStatus = { connected: false, error: e.message };
+  }
+
+  return res.json({
+    activeEngine: process.env.DB_ENGINE || 'json',
+    json: {
+      status: 'active',
+      records: jsonStats.totalRecords,
+      collections: jsonStats.totalCollections
+    },
+    postgres: pgStatus,
+    mysql: mysqlStatus
+  });
 });
 
 // Seed full demo data
