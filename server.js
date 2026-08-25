@@ -1,6 +1,28 @@
+const fs = require('fs');
+const path = require('path');
+
+// Load environment variables from .env if present
+try {
+  const envPath = path.join(__dirname, '.env');
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    envContent.split('\n').forEach(line => {
+      const parts = line.split('=');
+      if (parts.length >= 2) {
+        const key = parts[0].trim();
+        const value = parts.slice(1).join('=').trim();
+        if (key && !process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    });
+  }
+} catch (e) {
+  console.warn("Could not read .env file:", e.message);
+}
+
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const { Groq } = require('groq-sdk');
 const dbHelper = require('./database'); // Database management helper
 
@@ -11,10 +33,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize Groq API client
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-});
+// Initialize Groq API client safely
+let groq = null;
+try {
+  groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY || 'gsk_fallback_key'
+  });
+} catch (err) {
+  console.warn("Groq SDK init warning:", err.message);
+}
 
 // System Prompts for AI Agents
 const ASSISTANT_SYSTEM_PROMPT = `

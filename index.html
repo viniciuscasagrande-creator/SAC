@@ -11,6 +11,9 @@
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
@@ -149,17 +152,21 @@
         }
 
         .profile-avatar {
-            width: 24px;
-            height: 24px;
-            background-color: #3b82f6;
-            color: #ffffff;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 0.75rem;
             position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .profile-avatar svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
         }
 
         .status-dot {
@@ -244,6 +251,64 @@
             background-color: rgba(255, 255, 255, 0.08);
             color: #ffffff;
             font-weight: 600;
+        }
+
+        #menuEstorno.active {
+            border-left: 3px solid var(--primary-orange);
+            background-color: rgba(255, 87, 34, 0.05);
+            color: #ffffff;
+        }
+
+        #menuSacHub.active {
+            border-left: 3px solid var(--primary-blue);
+            background-color: rgba(0, 123, 255, 0.05);
+            color: #ffffff;
+        }
+
+        /* High-contrast vibrant action buttons */
+        .btn-view-details {
+            background-color: rgba(13, 110, 253, 0.1) !important;
+            color: #0d6efd !important;
+            border: 1px solid rgba(13, 110, 253, 0.3) !important;
+            font-weight: 600 !important;
+            padding: 4px 8px !important;
+            font-size: 0.7rem !important;
+            border-radius: 4px !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-view-details:hover {
+            background-color: #0d6efd !important;
+            color: #ffffff !important;
+        }
+
+        .btn-approve {
+            background-color: rgba(25, 135, 84, 0.1) !important;
+            color: #198754 !important;
+            border: 1px solid rgba(25, 135, 84, 0.3) !important;
+            font-weight: 600 !important;
+            padding: 4px 8px !important;
+            font-size: 0.7rem !important;
+            border-radius: 4px !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-approve:hover {
+            background-color: #198754 !important;
+            color: #ffffff !important;
+        }
+
+        .btn-deny {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            color: #dc3545 !important;
+            border: 1px solid rgba(220, 53, 69, 0.3) !important;
+            font-weight: 600 !important;
+            padding: 4px 8px !important;
+            font-size: 0.7rem !important;
+            border-radius: 4px !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-deny:hover {
+            background-color: #dc3545 !important;
+            color: #ffffff !important;
         }
 
         .menu-item-left {
@@ -892,7 +957,32 @@
         <div class="header-right">
             <div class="profile-pill">
                 <div class="profile-avatar">
-                    VI
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="bgGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#1e3a8a" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                            <linearGradient id="skinGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f5d0c5" />
+                                <stop offset="100%" stop-color="#e2a997" />
+                            </linearGradient>
+                            <linearGradient id="suitGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0f172a" />
+                                <stop offset="100%" stop-color="#1e293b" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="32" fill="url(#bgGradMale)" />
+                        <path d="M12 56 C12 44 20 38 32 38 C44 38 52 44 52 56 Z" fill="url(#suitGradMale)" />
+                        <polygon points="32,42 27,38 37,38" fill="#ffffff" />
+                        <polygon points="32,40 29,54 32,58 35,54" fill="#ef4444" />
+                        <rect x="27" y="30" width="10" height="10" rx="3" fill="url(#skinGradMale)" />
+                        <path d="M20 22 C20 14 24 12 32 12 C40 12 44 14 44 22 C44 30 40 34 32 34 C24 34 20 30 20 22 Z" fill="url(#skinGradMale)" />
+                        <circle cx="19" cy="22" r="2.5" fill="url(#skinGradMale)" />
+                        <circle cx="45" cy="22" r="2.5" fill="url(#skinGradMale)" />
+                        <path d="M19 20 C18 13 24 9 32 9 C40 9 46 13 45 20 C43 14 39 11 32 11 C25 11 21 14 19 20 Z" fill="#1c1917" />
+                        <path d="M21 24 C21 31 26 34 32 34 C38 34 43 31 43 24 C43 26 38 32 32 32 C26 32 21 26 21 24 Z" fill="#1c1917" opacity="0.35" />
+                    </svg>
                     <span class="status-dot"></span>
                 </div>
                 <div class="profile-email">vinicius.casagrande@diskingressos.com.br</div>
@@ -957,13 +1047,13 @@
                     </a>
                     
                     <!-- ESTORNO MENU ITEM -->
-                    <a class="menu-item" id="menuEstorno" style="border-left: 3px solid var(--primary-orange); background-color: rgba(255, 87, 34, 0.05); color: #ffffff; margin-top: 4px;">
+                    <a class="menu-item" id="menuEstorno" style="margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
                         <span class="badge-sidebar badge-orange">ERP</span>
                     </a>
                     
                     <!-- SAC / ATENDIMENTO MENU ITEM -->
-                    <a class="menu-item" id="menuSacHub" style="border-left: 3px solid var(--primary-blue); background-color: rgba(0, 123, 255, 0.05); color: #ffffff; margin-top: 4px;">
+                    <a class="menu-item" id="menuSacHub" style="margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
                     </a>
@@ -1010,7 +1100,7 @@
                         
                         <!-- Event 1: Música e Natureza -->
                         <div class="event-card">
-                            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" class="event-card-img">
+                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" class="event-card-img">
                             <div class="event-card-body">
                                 <div>
                                     <div class="event-card-title">Experiência Música e Natureza - JI</div>
@@ -1240,8 +1330,30 @@
                         <h2>Controle de Reembolsos e Estornos</h2>
                         <p>Gestão executiva de devoluções financeiras, conciliação de adquirentes e aprovação de alçadas.</p>
                     </div>
-                    <div class="header-buttons">
-                        <button class="btn-header-action primary" id="btnOpenRefundWizard" style="background-color: var(--primary-orange); border-color:var(--primary-orange); color:#ffffff;">
+                    <div class="header-buttons d-flex align-items-center gap-2">
+                        <!-- Period Selector -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="btnPeriodSelector" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.8rem; padding: 6px 12px; border-radius: 6px; border-color: #cbd5e1; background-color: #ffffff; color: #334155; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                <i class="fa-regular fa-calendar me-1"></i> Período: <span id="lblPeriodSelected">Hoje</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btnPeriodSelector" style="font-size: 0.8rem;">
+                                <li><a class="dropdown-item" href="#" onclick="changePeriod('hoje'); return false;">Hoje</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changePeriod('7dias'); return false;">Últimos 7 dias</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changePeriod('mes'); return false;">Mês Atual</a></li>
+                            </ul>
+                        </div>
+                        <!-- Export Button -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="btnExportMenu" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.8rem; padding: 6px 12px; border-radius: 6px; border-color: #cbd5e1; background-color: #ffffff; color: #334155; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                <i class="fa-solid fa-download me-1"></i> Exportar
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btnExportMenu" style="font-size: 0.8rem;">
+                                <li><a class="dropdown-item" href="#" onclick="exportData('csv'); return false;"><i class="fa-solid fa-file-csv me-2 text-success"></i> CSV</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="exportData('excel'); return false;"><i class="fa-solid fa-file-excel me-2 text-success"></i> Excel</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="exportData('pdf'); return false;"><i class="fa-solid fa-file-pdf me-2 text-danger"></i> PDF</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn-header-action primary" id="btnOpenRefundWizard" style="background-color: var(--primary-orange); border-color:var(--primary-orange); color:#ffffff; padding: 6px 12px; font-size: 0.85rem; border-radius: 6px;">
                             <i class="fa-solid fa-plus-circle"></i> Novo Estorno
                         </button>
                         <button class="btn-header-action" id="btnBackToEstornoDash" class="d-none">
@@ -1293,68 +1405,160 @@
                     <div class="row g-4 mb-4">
                         <!-- Left Panel: Fila de Aprovações Pendentes -->
                         <div class="col-lg-7">
-                            <div class="events-panel h-100">
-                                <div class="events-panel-header" style="margin-bottom:15px; padding-bottom:10px;">
-                                    <h6 class="fw-bold text-dark m-0"><i class="fa-solid fa-file-shield text-orange me-2" style="color:var(--primary-orange);"></i> Fila de Aprovações Pendentes (Alçadas)</h6>
-                                    <span class="badge bg-warning text-dark font-weight-bold" id="lblCountPendingApprovals">3 Pendentes</span>
+                            <div class="events-panel h-100" style="padding: 20px;">
+                                <div class="events-panel-header flex-column align-items-stretch" style="margin-bottom:15px; padding-bottom:10px; border-bottom: 1px solid var(--border-color);">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold text-dark m-0"><i class="fa-solid fa-file-shield text-orange me-2" style="color:var(--primary-orange);"></i> Controle de Aprovações</h6>
+                                        <span class="badge bg-warning text-dark font-weight-bold" id="lblCountPendingApprovals">3 Pendentes</span>
+                                    </div>
+                                    
+                                    <!-- Tabs for switching views -->
+                                    <ul class="nav nav-tabs border-0 mb-1" id="refundTabs" role="tablist" style="font-size: 0.85rem;">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active py-1 px-3 border-0 text-dark fw-bold" id="tab-pendentes" data-bs-toggle="tab" data-bs-target="#panel-pendentes" type="button" role="tab" style="background: none; border-bottom: 3px solid var(--primary-orange) !important; border-radius: 0;">
+                                                Pendentes <span class="badge bg-warning text-dark ms-1" id="lblTabCountPendentes" style="font-size:0.65rem; padding: 2px 5px;">3</span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link py-1 px-3 border-0 text-muted" id="tab-concluidos" data-bs-toggle="tab" data-bs-target="#panel-concluidos" type="button" role="tab" style="background: none; border-radius: 0;">
+                                                Histórico / Concluídos <span class="badge bg-secondary text-white ms-1" id="lblTabCountConcluidos" style="font-size:0.65rem; padding: 2px 5px;">2</span>
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-                                
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle" style="font-size:0.8rem;" id="tblPendingApprovals">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>Pedido</th>
-                                                <th>Cliente / Evento</th>
-                                                <th>Valor</th>
-                                                <th>Alçada Alvo</th>
-                                                <th class="text-center">Ações</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Row 1 -->
-                                            <tr id="rowApp1">
-                                                <td class="fw-bold">#154231</td>
-                                                <td>
-                                                    <strong>João da Silva</strong><br>
-                                                    <span class="text-muted fs-xs">Show Roupa Nova</span>
-                                                </td>
-                                                <td class="fw-bold">R$ 580,00</td>
-                                                <td><span class="badge bg-light text-primary border border-primary-200">Gerente Financeiro</span></td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp1" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
-                                                    <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp1" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
-                                                </td>
-                                            </tr>
-                                            <!-- Row 2 -->
-                                            <tr id="rowApp2">
-                                                <td class="fw-bold">#154299</td>
-                                                <td>
-                                                    <strong>Maria de Souza</strong><br>
-                                                    <span class="text-muted fs-xs">Música e Natureza</span>
-                                                </td>
-                                                <td class="fw-bold">R$ 1.200,00</td>
-                                                <td><span class="badge bg-light text-primary border border-primary-200">Gerente Financeiro</span></td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp2" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
-                                                    <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp2" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
-                                                </td>
-                                            </tr>
-                                            <!-- Row 3 -->
-                                            <tr id="rowApp3">
-                                                <td class="fw-bold">#154302</td>
-                                                <td>
-                                                    <strong>Pedro Santos</strong><br>
-                                                    <span class="text-muted fs-xs">Samba 90 Graus</span>
-                                                </td>
-                                                <td class="fw-bold">R$ 240,00</td>
-                                                <td><span class="badge bg-light text-secondary border">Supervisor</span></td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp3" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
-                                                    <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp3" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                                <div class="tab-content" id="refundTabContent">
+                                    <!-- TAB PENDENTES -->
+                                    <div class="tab-pane fade show active" id="panel-pendentes" role="tabpanel" aria-labelledby="tab-pendentes">
+                                        
+                                        <!-- Filters and Batch Actions Toolbar -->
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 bg-light p-2 rounded" style="font-size: 0.75rem;">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="form-check m-0 d-flex align-items-center">
+                                                    <input class="form-check-input" type="checkbox" id="chkAllPending" style="margin-top: 0; width: 14px; height: 14px; cursor: pointer;">
+                                                    <label class="form-check-label ms-1 text-muted fw-semibold" for="chkAllPending" style="user-select: none; cursor: pointer;">Selecionar todos</label>
+                                                </div>
+                                                <button class="btn btn-success text-white fw-bold d-none" id="btnBatchApprove" style="padding: 2px 8px; font-size: 0.7rem; border-radius: 4px;">
+                                                    <i class="fa-solid fa-check-double me-1"></i> Aprovar (<span id="lblBatchCount">0</span>)
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="d-flex align-items-center gap-2">
+                                                <select class="form-select form-select-sm py-0 px-2" id="filterAlcada" style="font-size: 0.75rem; height: 26px; width: 120px;">
+                                                    <option value="all">Todas Alçadas</option>
+                                                    <option value="Gerente Financeiro">Gerente Fin.</option>
+                                                    <option value="Supervisor">Supervisor</option>
+                                                </select>
+                                                <select class="form-select form-select-sm py-0 px-2" id="filterOrder" style="font-size: 0.75rem; height: 26px; width: 110px;">
+                                                    <option value="asc">Menor Valor</option>
+                                                    <option value="desc">Maior Valor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle" style="font-size:0.8rem;" id="tblPendingApprovals">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th style="width: 30px;"></th>
+                                                        <th>Pedido</th>
+                                                        <th>Cliente / Evento</th>
+                                                        <th>Valor</th>
+                                                        <th>Alçada Alvo</th>
+                                                        <th class="text-center">Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbodyPending">
+                                                    <!-- Row 1 -->
+                                                    <tr id="rowApp1" data-val="580" data-alcada="Gerente Financeiro">
+                                                        <td><input type="checkbox" class="chk-pending form-check-input" data-id="rowApp1" style="width: 14px; height: 14px; cursor: pointer;"></td>
+                                                        <td class="fw-bold">#154231</td>
+                                                        <td>
+                                                            <strong>João da Silva</strong><br>
+                                                            <span class="text-muted fs-xs">Show Roupa Nova</span>
+                                                        </td>
+                                                        <td class="fw-bold">R$ 580,00</td>
+                                                        <td><span class="badge bg-light text-primary border border-primary-200">Gerente Financeiro</span></td>
+                                                        <td class="text-center">
+                                                            <button class="btn btn-xs btn-outline-secondary me-1 btn-view-details" data-id="rowApp1" title="Ver Detalhes" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-eye"></i></button>
+                                                            <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp1" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
+                                                            <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp1" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Row 2 -->
+                                                    <tr id="rowApp2" data-val="1200" data-alcada="Gerente Financeiro">
+                                                        <td><input type="checkbox" class="chk-pending form-check-input" data-id="rowApp2" style="width: 14px; height: 14px; cursor: pointer;"></td>
+                                                        <td class="fw-bold">#154299</td>
+                                                        <td>
+                                                            <strong>Maria de Souza</strong><br>
+                                                            <span class="text-muted fs-xs">Música e Natureza</span>
+                                                        </td>
+                                                        <td class="fw-bold">R$ 1.200,00</td>
+                                                        <td><span class="badge bg-light text-primary border border-primary-200">Gerente Financeiro</span></td>
+                                                        <td class="text-center">
+                                                            <button class="btn btn-xs btn-outline-secondary me-1 btn-view-details" data-id="rowApp2" title="Ver Detalhes" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-eye"></i></button>
+                                                            <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp2" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
+                                                            <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp2" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Row 3 -->
+                                                    <tr id="rowApp3" data-val="240" data-alcada="Supervisor">
+                                                        <td><input type="checkbox" class="chk-pending form-check-input" data-id="rowApp3" style="width: 14px; height: 14px; cursor: pointer;"></td>
+                                                        <td class="fw-bold">#154302</td>
+                                                        <td>
+                                                            <strong>Pedro Santos</strong><br>
+                                                            <span class="text-muted fs-xs">Samba 90 Graus</span>
+                                                        </td>
+                                                        <td class="fw-bold">R$ 240,00</td>
+                                                        <td><span class="badge bg-light text-secondary border">Supervisor</span></td>
+                                                        <td class="text-center">
+                                                            <button class="btn btn-xs btn-outline-secondary me-1 btn-view-details" data-id="rowApp3" title="Ver Detalhes" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-eye"></i></button>
+                                                            <button class="btn btn-xs btn-success me-1 btn-approve" data-id="rowApp3" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-check"></i></button>
+                                                            <button class="btn btn-xs btn-danger btn-deny" data-id="rowApp3" style="font-size:0.7rem; padding:4px 8px;"><i class="fa-solid fa-times"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- TAB CONCLUÍDOS -->
+                                    <div class="tab-pane fade" id="panel-concluidos" role="tabpanel" aria-labelledby="tab-concluidos">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle" style="font-size:0.8rem;" id="tblCompletedApprovals">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Pedido</th>
+                                                        <th>Cliente / Evento</th>
+                                                        <th>Valor</th>
+                                                        <th>Resultado</th>
+                                                        <th>Data Decisão</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbodyCompleted">
+                                                    <tr class="text-muted">
+                                                        <td class="fw-bold">#154102</td>
+                                                        <td>
+                                                            <strong>Roberto Martins</strong><br>
+                                                            <span class="text-muted fs-xs">Show Roupa Nova</span>
+                                                        </td>
+                                                        <td>R$ 290,00</td>
+                                                        <td><span class="badge bg-success text-white">Aprovado</span></td>
+                                                        <td>16/07/2026</td>
+                                                    </tr>
+                                                    <tr class="text-muted">
+                                                        <td class="fw-bold">#154098</td>
+                                                        <td>
+                                                            <strong>Juliana Ferreira</strong><br>
+                                                            <span class="text-muted fs-xs">Samba 90 Graus</span>
+                                                        </td>
+                                                        <td>R$ 120,00</td>
+                                                        <td><span class="badge bg-danger text-white">Rejeitado</span></td>
+                                                        <td>15/07/2026</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1397,6 +1601,13 @@
                 <!-- SUB-VIEW B: WIZARD FLUXO DE ESTORNO (Hidden by default, triggered by "Novo Estorno" button) -->
                 <div id="estornoWizardSubView" class="d-none">
                     <!-- Wizard Progress Stepper -->
+                    <div class="wizard-stepper" style="margin-top: 15px;">
+                        <div class="stepper-progress" id="wizardProgress"></div>
+                        <div class="step-indicator active" id="ind1">1</div>
+                        <div class="step-indicator" id="ind2">2</div>
+                        <div class="step-indicator" id="ind3">3</div>
+                        <div class="step-indicator" id="ind4">4</div>
+                    </div>
                     <!-- Wizard Card Container -->
                     <div class="wizard-card">
                         
@@ -1706,6 +1917,9 @@
         <i class="fa-solid fa-robot"></i> Assistente Virtual
     </button>
 
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Navigation interaction script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -1834,27 +2048,316 @@
                 btnBackToEstornoDash.classList.add("d-none");
             });
 
-            // Approve/Deny buttons in the Pending approvals list
-            let pendingCount = 3;
-            document.querySelectorAll(".btn-approve, .btn-deny").forEach(button => {
-                button.addEventListener("click", (e) => {
-                    const rowId = button.getAttribute("data-id");
-                    const row = document.getElementById(rowId);
-                    if (row) {
-                        row.style.opacity = "0.5";
-                        row.style.textDecoration = "line-through";
-                        button.disabled = true;
+            // --- NEW FEATURES FOR ESTORNO VIEW ---
+
+            // 1. Period Selector logic
+            window.changePeriod = function(period) {
+                const lblPeriod = document.getElementById("lblPeriodSelected");
+                const kpis = document.querySelectorAll("#panelEstornoContent .row.g-3 h2");
+                
+                if (lblPeriod) {
+                    if (period === 'hoje') lblPeriod.textContent = "Hoje";
+                    else if (period === '7dias') lblPeriod.textContent = "Últimos 7 dias";
+                    else if (period === 'mes') lblPeriod.textContent = "Mês Atual";
+                }
+                
+                if (kpis && kpis.length >= 4) {
+                    if (period === 'hoje') {
+                        kpis[0].textContent = "38";
+                        kpis[1].textContent = "R$ 18.420,00";
+                        kpis[2].textContent = "R$ 2.763,00";
+                        kpis[3].textContent = "R$ 5.430,00";
+                    } else if (period === '7dias') {
+                        kpis[0].textContent = "145";
+                        kpis[1].textContent = "R$ 85.900,00";
+                        kpis[2].textContent = "R$ 12.885,00";
+                        kpis[3].textContent = "R$ 24.910,00";
+                    } else if (period === 'mes') {
+                        kpis[0].textContent = "582";
+                        kpis[1].textContent = "R$ 342.150,00";
+                        kpis[2].textContent = "R$ 51.322,00";
+                        kpis[3].textContent = "R$ 99.220,00";
+                    }
+                }
+            };
+
+            // 2. Export logic
+            window.exportData = function(format) {
+                alert(`Exportando relatório consolidado de estornos para ${format.toUpperCase()}...`);
+            };
+
+            // 3. Details Modal Logic
+            let modalRefundDetails = null;
+            try {
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    modalRefundDetails = new bootstrap.Modal(document.getElementById('modalRefundDetails'));
+                }
+            } catch (err) {
+                console.warn("Bootstrap modal initialization skipped or failed:", err);
+            }
+            
+            let activeRowIdForModal = null;
+
+            // Details data mapping
+            const refundDetailsData = {
+                "rowApp1": {
+                    pedido: "#154231",
+                    cliente: "João da Silva",
+                    valor: "R$ 580,00",
+                    evento: "Show Roupa Nova",
+                    forma: "Cartão de Crédito (3x)",
+                    justificativa: "Cliente comprou por engano e solicitou reembolso dentro do prazo legal de 7 dias (Art. 49 CDC).",
+                    alcada: "Gerente Financeiro"
+                },
+                "rowApp2": {
+                    pedido: "#154299",
+                    cliente: "Maria de Souza",
+                    valor: "R$ 1.200,00",
+                    evento: "Música e Natureza",
+                    forma: "PIX",
+                    justificativa: "Cancelamento por problemas médicos de força maior. Aprovado sob exceção comercial pelo Supervisor.",
+                    alcada: "Gerente Financeiro"
+                },
+                "rowApp3": {
+                    pedido: "#154302",
+                    cliente: "Pedro Santos",
+                    valor: "R$ 240,00",
+                    evento: "Samba 90 Graus",
+                    forma: "PIX",
+                    justificativa: "Compra duplicada. Estorno da transação excedente solicitada e confirmada via Conciliação Adyen.",
+                    alcada: "Supervisor"
+                }
+            };
+
+            const tbodyPending = document.getElementById("tbodyPending");
+            const tbodyCompleted = document.getElementById("tbodyCompleted");
+
+            // Event delegation for action buttons
+            document.addEventListener("click", function(e) {
+                const btnView = e.target.closest(".btn-view-details");
+                if (btnView) {
+                    const rowId = btnView.getAttribute("data-id");
+                    const data = refundDetailsData[rowId];
+                    if (data) {
+                        activeRowIdForModal = rowId;
                         
-                        // Decrement count
-                        pendingCount--;
-                        document.getElementById("lblCountPendingApprovals").textContent = `${pendingCount} Pendentes`;
-                        if (pendingCount === 0) {
-                            document.getElementById("lblCountPendingApprovals").textContent = "Fila Limpa! ✅";
-                            document.getElementById("lblCountPendingApprovals").className = "badge bg-success text-white font-weight-bold";
+                        const elPedido = document.getElementById("detPedido");
+                        const elCliente = document.getElementById("detCliente");
+                        const elValor = document.getElementById("detValor");
+                        const elEvento = document.getElementById("detEvento");
+                        const elForma = document.getElementById("detForma");
+                        const elJustificativa = document.getElementById("detJustificativa");
+                        const elAlcada = document.getElementById("detAlcada");
+
+                        if (elPedido) elPedido.textContent = data.pedido;
+                        if (elCliente) elCliente.textContent = data.cliente;
+                        if (elValor) elValor.textContent = data.valor;
+                        if (elEvento) elEvento.textContent = data.evento;
+                        if (elForma) elForma.textContent = data.forma;
+                        if (elJustificativa) elJustificativa.textContent = `"${data.justificativa}"`;
+                        if (elAlcada) elAlcada.textContent = data.alcada;
+                        
+                        if (modalRefundDetails) {
+                            modalRefundDetails.show();
+                        } else {
+                            // Safe fallback in case Bootstrap JS is not loaded
+                            const proceed = confirm(`DETALHES DO PEDIDO ${data.pedido}\n\n` +
+                                    `Cliente: ${data.cliente}\n` +
+                                    `Valor: ${data.valor}\n` +
+                                    `Evento: ${data.evento}\n` +
+                                    `Pagamento: ${data.forma}\n` +
+                                    `Alçada: ${data.alcada}\n` +
+                                    `Justificativa: ${data.justificativa}\n\n` +
+                                    `Deseja APROVAR este estorno diretamente? (OK = Aprovar, Cancelar = Voltar)`);
+                            if (proceed) {
+                                processApproval(rowId, "Aprovado");
+                            }
                         }
                     }
-                });
+                    return;
+                }
+
+                const btnApprove = e.target.closest(".btn-approve");
+                if (btnApprove) {
+                    const rowId = btnApprove.getAttribute("data-id");
+                    processApproval(rowId, "Aprovado");
+                    return;
+                }
+
+                const btnDeny = e.target.closest(".btn-deny");
+                if (btnDeny) {
+                    const rowId = btnDeny.getAttribute("data-id");
+                    processApproval(rowId, "Rejeitado");
+                    return;
+                }
             });
+
+            // Modal action buttons
+            const btnModalApprove = document.getElementById("btnModalApprove");
+            if (btnModalApprove) {
+                btnModalApprove.addEventListener("click", function() {
+                    if (activeRowIdForModal) {
+                        processApproval(activeRowIdForModal, "Aprovado");
+                        if (modalRefundDetails) modalRefundDetails.hide();
+                    }
+                });
+            }
+
+            const btnModalDeny = document.getElementById("btnModalDeny");
+            if (btnModalDeny) {
+                btnModalDeny.addEventListener("click", function() {
+                    if (activeRowIdForModal) {
+                        processApproval(activeRowIdForModal, "Rejeitado");
+                        if (modalRefundDetails) modalRefundDetails.hide();
+                    }
+                });
+            }
+
+            function processApproval(rowId, status) {
+                const row = document.getElementById(rowId);
+                if (!row) return;
+
+                const pedido = row.cells[1] ? row.cells[1].textContent : "";
+                const clienteEventoHtml = row.cells[2] ? row.cells[2].innerHTML : "";
+                const valor = row.cells[3] ? row.cells[3].textContent : "";
+                
+                // Remove row
+                row.remove();
+
+                // Add to completed table
+                if (tbodyCompleted) {
+                    const newRow = document.createElement("tr");
+                    newRow.className = "text-muted";
+                    newRow.innerHTML = `
+                        <td class="fw-bold">${pedido}</td>
+                        <td>${clienteEventoHtml}</td>
+                        <td>${valor}</td>
+                        <td><span class="badge ${status === 'Aprovado' ? 'bg-success' : 'bg-danger'} text-white">${status}</span></td>
+                        <td>${new Date().toLocaleDateString('pt-BR')}</td>
+                    `;
+                    tbodyCompleted.insertBefore(newRow, tbodyCompleted.firstChild);
+                }
+
+                // Update counters
+                updateCounters();
+            }
+
+            function updateCounters() {
+                if (!tbodyPending || !tbodyCompleted) return;
+                const pendingRows = tbodyPending.querySelectorAll("tr:not(.d-none)").length;
+                const completedRows = tbodyCompleted.querySelectorAll("tr").length;
+
+                const elCount = document.getElementById("lblCountPendingApprovals");
+                const elTabPend = document.getElementById("lblTabCountPendentes");
+                const elTabConc = document.getElementById("lblTabCountConcluidos");
+
+                if (elCount) {
+                    if (pendingRows === 0) {
+                        elCount.textContent = "Fila Limpa! ✅";
+                        elCount.className = "badge bg-success text-white font-weight-bold";
+                    } else {
+                        elCount.textContent = `${pendingRows} Pendentes`;
+                        elCount.className = "badge bg-warning text-dark font-weight-bold";
+                    }
+                }
+                
+                if (elTabPend) elTabPend.textContent = pendingRows;
+                if (elTabConc) elTabConc.textContent = completedRows;
+                
+                updateBatchButtonState();
+            }
+
+            // 4. Checkbox multi-select logic
+            const chkAllPending = document.getElementById("chkAllPending");
+            const btnBatchApprove = document.getElementById("btnBatchApprove");
+            const lblBatchCount = document.getElementById("lblBatchCount");
+
+            if (chkAllPending && tbodyPending) {
+                chkAllPending.addEventListener("change", function() {
+                    const checkboxes = tbodyPending.querySelectorAll(".chk-pending");
+                    checkboxes.forEach(chk => {
+                        const row = chk.closest("tr");
+                        if (row && !row.classList.contains("d-none")) {
+                            chk.checked = chkAllPending.checked;
+                        }
+                    });
+                    updateBatchButtonState();
+                });
+            }
+
+            if (tbodyPending) {
+                tbodyPending.addEventListener("change", function(e) {
+                    if (e.target.classList.contains("chk-pending")) {
+                        updateBatchButtonState();
+                    }
+                });
+            }
+
+            function updateBatchButtonState() {
+                if (!tbodyPending || !btnBatchApprove || !lblBatchCount) return;
+                const checked = tbodyPending.querySelectorAll(".chk-pending:checked");
+                const count = checked.length;
+                
+                if (count > 0) {
+                    btnBatchApprove.classList.remove("d-none");
+                    lblBatchCount.textContent = count;
+                } else {
+                    btnBatchApprove.classList.add("d-none");
+                }
+            }
+
+            // Batch Approve execution
+            if (btnBatchApprove) {
+                btnBatchApprove.addEventListener("click", function() {
+                    if (!tbodyPending) return;
+                    const checked = tbodyPending.querySelectorAll(".chk-pending:checked");
+                    checked.forEach(chk => {
+                        const rowId = chk.getAttribute("data-id");
+                        processApproval(rowId, "Aprovado");
+                    });
+                    if (chkAllPending) chkAllPending.checked = false;
+                    btnBatchApprove.classList.add("d-none");
+                });
+            }
+
+            // 5. Filtering and Sorting Logic
+            const filterAlcada = document.getElementById("filterAlcada");
+            const filterOrder = document.getElementById("filterOrder");
+
+            if (filterAlcada) filterAlcada.addEventListener("change", applyFiltersAndSorting);
+            if (filterOrder) filterOrder.addEventListener("change", applyFiltersAndSorting);
+
+            function applyFiltersAndSorting() {
+                if (!tbodyPending || !filterAlcada || !filterOrder) return;
+                const alcadaValue = filterAlcada.value;
+                const orderValue = filterOrder.value;
+
+                // 1. Filter
+                const rows = Array.from(tbodyPending.querySelectorAll("tr"));
+                rows.forEach(row => {
+                    const alcada = row.getAttribute("data-alcada");
+                    if (alcadaValue === "all" || alcada === alcadaValue) {
+                        row.classList.remove("d-none");
+                    } else {
+                        row.classList.add("d-none");
+                        const chk = row.querySelector(".chk-pending");
+                        if (chk) chk.checked = false;
+                    }
+                });
+
+                // 2. Sort
+                const visibleRows = rows.filter(row => !row.classList.contains("d-none"));
+                visibleRows.sort((a, b) => {
+                    const valA = parseFloat(a.getAttribute("data-val"));
+                    const valB = parseFloat(b.getAttribute("data-val"));
+                    return orderValue === "asc" ? valA - valB : valB - valA;
+                });
+
+                // Re-append in sorted order
+                visibleRows.forEach(row => tbodyPending.appendChild(row));
+                
+                updateCounters();
+            }
 
             // WIZARD FLUXO DE ESTORNO ACTIONS
             const ind1 = document.getElementById("ind1");
@@ -2022,5 +2525,56 @@
             document.getElementById("btnWizardReset").addEventListener("click", () => showStep(1));
         });
     </script>
+
+    <!-- MODAL DETALHES DO ESTORNO -->
+    <div class="modal fade" id="modalRefundDetails" tabindex="-1" aria-labelledby="modalRefundDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 8px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                <div class="modal-header" style="background-color: var(--bg-header); color: #fff; border-bottom: none; padding: 16px 20px;">
+                    <h5 class="modal-title fw-bold fs-6" id="modalRefundDetailsLabel"><i class="fa-solid fa-file-invoice-dollar me-2" style="color:var(--primary-orange);"></i> Detalhes da Solicitação</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar" style="font-size: 0.75rem;"></button>
+                </div>
+                <div class="modal-body fs-xs" style="padding: 20px;">
+                    <div class="mb-3 border-bottom pb-2">
+                        <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Pedido</span>
+                        <strong class="fs-6 text-dark" id="detPedido">#154231</strong>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Cliente</span>
+                            <strong class="text-dark" id="detCliente">João da Silva</strong>
+                        </div>
+                        <div class="col-6">
+                            <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Valor</span>
+                            <strong class="text-dark" id="detValor">R$ 580,00</strong>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Evento</span>
+                        <strong class="text-dark" id="detEvento">Show Roupa Nova</strong>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Forma de Pagamento Original</span>
+                        <span class="badge bg-light text-dark border" id="detForma">PIX</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Justificativa / Motivo</span>
+                        <div class="p-2 rounded text-dark mt-1" id="detJustificativa" style="font-style: italic; background-color: #f1f3f7; border-left: 3px solid var(--primary-orange);">
+                            "Solicitação de reembolso parcial devido a imprevisto pessoal."
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-muted d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">Alçada Alvo</span>
+                        <span class="badge bg-warning text-dark mt-1" id="detAlcada">Gerente Financeiro</span>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6; padding: 12px 20px;">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Fechar</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnModalDeny" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Rejeitar Estorno</button>
+                    <button type="button" class="btn btn-success btn-sm" id="btnModalApprove" style="font-size: 0.75rem; font-weight: 600; border-radius: 4px;">Aprovar Estorno</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

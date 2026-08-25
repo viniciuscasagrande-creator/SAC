@@ -294,7 +294,32 @@ function App() {
         <div className="header-right">
           <div className="profile-pill">
             <div className="profile-avatar">
-              VI
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgGradMaleReact" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1e3a8a" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                  <linearGradient id="skinGradMaleReact" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#f5d0c5" />
+                    <stop offset="100%" stopColor="#e2a997" />
+                  </linearGradient>
+                  <linearGradient id="suitGradMaleReact" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0f172a" />
+                    <stop offset="100%" stopColor="#1e293b" />
+                  </linearGradient>
+                </defs>
+                <circle cx="32" cy="32" r="32" fill="url(#bgGradMaleReact)" />
+                <path d="M12 56 C12 44 20 38 32 38 C44 38 52 44 52 56 Z" fill="url(#suitGradMaleReact)" />
+                <polygon points="32,42 27,38 37,38" fill="#ffffff" />
+                <polygon points="32,40 29,54 32,58 35,54" fill="#ef4444" />
+                <rect x="27" y="30" width="10" height="10" rx="3" fill="url(#skinGradMaleReact)" />
+                <path d="M20 22 C20 14 24 12 32 12 C40 12 44 14 44 22 C44 30 40 34 32 34 C24 34 20 30 20 22 Z" fill="url(#skinGradMaleReact)" />
+                <circle cx="19" cy="22" r="2.5" fill="url(#skinGradMaleReact)" />
+                <circle cx="45" cy="22" r="2.5" fill="url(#skinGradMaleReact)" />
+                <path d="M19 20 C18 13 24 9 32 9 C40 9 46 13 45 20 C43 14 39 11 32 11 C25 11 21 14 19 20 Z" fill="#1c1917" />
+                <path d="M21 24 C21 31 26 34 32 34 C38 34 43 31 43 24 C43 26 38 32 32 32 C26 32 21 26 21 24 Z" fill="#1c1917" opacity="0.35" />
+              </svg>
               <span className="status-dot"></span>
             </div>
             <div className="profile-email">vinicius.casagrande@diskingressos.com.br</div>
@@ -415,7 +440,7 @@ function App() {
                 <div className="event-cards-grid">
                   {/* Event 1 */}
                   <div className="event-card">
-                    <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" className="event-card-img" />
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=250&q=80" alt="Música e Natureza" className="event-card-img" />
                     <div className="event-card-body">
                       <div>
                         <div className="event-card-title">Experiência Música e Natureza - JI</div>
