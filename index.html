@@ -1071,6 +1071,203 @@
             transform: translateY(-2px);
         }
 
+        /* VIDEO DASHBOARD KPI CARDS & BOTTOM BAR */
+        .kpi-row-video {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 1200px) {
+            .kpi-row-video {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .kpi-row-video {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .kpi-card-v {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .kpi-card-v:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .kpi-icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .kpi-v-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .kpi-v-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .kpi-v-val {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* STICKY BOTTOM FILTER BAR */
+        .bottom-filter-bar {
+            position: sticky;
+            bottom: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            z-index: 100;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .bottom-filter-pills {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+        }
+        .bottom-filter-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .bottom-filter-btn.active, .bottom-filter-btn:hover {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        /* SUB-SIDEBAR FOR FINANCIAL & ADMIN MODULES */
+        .sub-layout-container {
+            display: flex;
+            gap: 20px;
+            min-height: calc(100vh - 140px);
+        }
+        .sub-nav-sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            height: fit-content;
+        }
+        .sub-nav-header {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            padding: 8px 12px 4px 12px;
+            letter-spacing: 0.5px;
+        }
+        .sub-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sub-nav-item:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+        .sub-nav-item.active {
+            background: #0f172a;
+            color: #ffffff;
+        }
+        .sub-main-content {
+            flex: 1;
+            overflow-x: hidden;
+        }
+
+        /* WIZARD STEPPER */
+        .wizard-stepper {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .wizard-step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .wizard-step-bubble {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .wizard-step-node.active .wizard-step-bubble {
+            background: #0284c7;
+            color: #ffffff;
+        }
+        .wizard-step-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        .wizard-step-node.active .wizard-step-title {
+            color: #0284c7;
+        }
+
         /* Layout visibility */
         .d-none {
             display: none !important;
@@ -1135,96 +1332,54 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
-                <div class="menu-section-header">Navegação</div>
+                <div class="menu-section-header">MENU PRINCIPAL</div>
                 <div class="sidebar-menu">
+                    <a class="menu-item active" id="menuDashboard">
+                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
+                    </a>
+                    <a class="menu-item" id="menuDadosProdutora">
+                        <div class="menu-item-left"><i class="fa-regular fa-building"></i> Dados da Produtora</div>
+                    </a>
+                    <a class="menu-item" id="menuStatusFaciais">
+                        <div class="menu-item-left"><i class="fa-solid fa-id-badge"></i> Status Faciais</div>
+                    </a>
                     <a class="menu-item" id="menuTodosEventos">
                         <div class="menu-item-left"><i class="fa-regular fa-calendar-days"></i> Todos os Eventos</div>
                     </a>
-                    <a class="menu-item active" id="menuPainelGeral">
-                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high"></i> Painel Geral</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
-                    </a>
-                    
-                    <!-- ACCORDION: MEUS EVENTOS -->
-                    <a class="menu-item" id="menuMeusEventos">
-                        <div class="menu-item-left"><i class="fa-regular fa-calendar"></i> Meus Eventos</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar badge-orange">2</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowMeusEventos" style="transition: transform 0.2s;"></i>
-                        </div>
-                    </a>
-                    <!-- SUBMENU CONTAINER -->
-                    <div class="submenu-container" id="submenuMeusEventos">
-                        <a class="submenu-item" id="subTodosEventos">Todos Eventos</a>
-                        <a class="submenu-item" id="subNovoEvento">Novo Evento</a>
-                        <a class="submenu-item" id="subLotes">Lotes</a>
-                        <a class="submenu-item" id="subCupons">Cupons</a>
-                        <a class="submenu-item" id="subCheckin">Check-in</a>
-                        <a class="submenu-item" id="subParticipantes">Participantes</a>
-                        <a class="submenu-item" id="subPaginaEvento">Página do Evento</a>
-                    </div>
-
-                    <a class="menu-item" id="menuIngressos">
-                        <div class="menu-item-left"><i class="fa-solid fa-ticket"></i> Consulta de Ingressos</div>
-                    </a>
-                    <a class="menu-item" id="menuMarketing">
-                        <div class="menu-item-left"><i class="fa-solid fa-bullhorn"></i> Marketing</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
-                    </a>
-                    <a class="menu-item" id="menuRemarketing">
-                        <div class="menu-item-left"><i class="fa-solid fa-arrows-rotate"></i> Remarketing</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
-                    </a>
-                    <a class="menu-item" id="menuFinanceiro">
+                    <a class="menu-item" id="menuFinanceiroFull">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar badge-green" style="background:#10b981; color:#fff; font-weight:700;">19</span>
-                            <i class="fa-solid fa-angle-right menu-chevron"></i>
-                        </div>
                     </a>
-                    <a class="menu-item" id="menuContabilidade">
-                        <div class="menu-item-left"><i class="fa-solid fa-book"></i> Contabilidade Disk</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#f97316; color:#fff; font-weight:700; font-size:0.65rem;">Contábil</span>
-                            <i class="fa-solid fa-angle-right menu-chevron"></i>
-                        </div>
+                    <a class="menu-item" id="menuNovoEvento">
+                        <div class="menu-item-left"><i class="fa-solid fa-plus-circle"></i> Novo Evento</div>
                     </a>
-                    <a class="menu-item" id="menuFluxoCaixa">
-                        <div class="menu-item-left"><i class="fa-solid fa-chart-line"></i> Fluxo de Caixa</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    <a class="menu-item" id="menuTerminaisPos">
+                        <div class="menu-item-left"><i class="fa-solid fa-calculator"></i> Terminais POS</div>
                     </a>
-                    <a class="menu-item" id="menuReceitas">
-                        <div class="menu-item-left"><i class="fa-solid fa-coins"></i> Receitas Detalhadas</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    <a class="menu-item" id="menuMensagens">
+                        <div class="menu-item-left"><i class="fa-regular fa-paper-plane"></i> Mensagens</div>
                     </a>
-                    <a class="menu-item" id="menuDespesas">
-                        <div class="menu-item-left"><i class="fa-solid fa-receipt"></i> Despesas Detalhadas</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    <a class="menu-item" id="menuGerenciarAcessos">
+                        <div class="menu-item-left"><i class="fa-solid fa-user-shield"></i> Gerenciar Acessos</div>
                     </a>
-                    <a class="menu-item" id="menuRelatorios">
-                        <div class="menu-item-left"><i class="fa-solid fa-file-lines"></i> Relatórios</div>
+                    <a class="menu-item" id="menuAdministracao">
+                        <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Administração</div>
                     </a>
-                    <a class="menu-item" id="menuConfiguracoes">
-                        <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Configurações</div>
-                        <i class="fa-solid fa-angle-right menu-chevron"></i>
+                    <a class="menu-item" id="menuClubeRuaMusica">
+                        <div class="menu-item-left"><i class="fa-solid fa-music"></i> Clube Rua da Música</div>
                     </a>
                     
-                    <!-- ESTORNO MENU ITEM -->
-                    <a class="menu-item" id="menuEstorno" style="margin-top: 4px;">
+                    <!-- SPECIAL SYSTEM MODULES -->
+                    <a class="menu-item" id="menuEstorno" style="margin-top: 6px;">
                         <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
                         <span class="badge-sidebar badge-orange">ERP</span>
                     </a>
-                    
-                    <!-- SAC / ATENDIMENTO MENU ITEM -->
-                    <a class="menu-item" id="menuSacHub" style="margin-top: 4px;">
+                    <a class="menu-item" id="menuSacHub">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
                     </a>
-
-                    <!-- BANCO DE DADOS MENU ITEM -->
-                    <a class="menu-item" id="menuDbConsole" style="margin-top: 4px;">
+                    <a class="menu-item" id="menuDbConsole">
                         <div class="menu-item-left"><i class="fa-solid fa-database" style="color: #38bdf8;"></i> Banco de Dados</div>
-                        <span class="badge-sidebar" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Console</span>
+                        <span class="badge-sidebar" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">Console</span>
                     </a>
                 </div>
             </div>
@@ -1237,13 +1392,12 @@
 
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
-                  <!-- PANEL A: DASHBOARD PAINEL DE CONTROLE (EVENT CARDS) -->
+            <!-- 1. PANEL DASHBOARD (EXACT VIDEO LAYOUT) -->
             <div id="panelDashboardContent">
-                
                 <div class="dashboard-header">
                     <div class="dashboard-title-box">
-                        <h2>Painel de Controle</h2>
-                        <p>Bem-vindo de volta! Visualize as métricas operacionais consolidadas.</p>
+                        <h2>Dashboard</h2>
+                        <p>Visão geral de métricas, vendas e desempenho operacional da produtora.</p>
                     </div>
                     <div class="header-buttons">
                         <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 fw-semibold" style="background-color: #0284c7; border-color: #0284c7; border-radius: 6px; font-size: 0.85rem;" onclick="exportData('dados')">
@@ -1255,194 +1409,952 @@
                     </div>
                 </div>
 
+                <!-- 6 VIDEO KPI CARDS -->
+                <div class="kpi-row-video">
+                    <!-- KPI 1 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Receita Bruta (R$)</span>
+                            <span class="kpi-v-val">582.400,00</span>
+                        </div>
+                    </div>
+                    <!-- KPI 2 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Receita Líquida (R$)</span>
+                            <span class="kpi-v-val">494.040,00</span>
+                        </div>
+                    </div>
+                    <!-- KPI 3 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(249, 115, 22, 0.12); color: #f97316;">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Ingressos Vendidos</span>
+                            <span class="kpi-v-val">3.820</span>
+                        </div>
+                    </div>
+                    <!-- KPI 4 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(239, 68, 68, 0.12); color: #ef4444;">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Ticket Médio (R$)</span>
+                            <span class="kpi-v-val">152,46</span>
+                        </div>
+                    </div>
+                    <!-- KPI 5 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Cortesias</span>
+                            <span class="kpi-v-val">184</span>
+                        </div>
+                    </div>
+                    <!-- KPI 6 -->
+                    <div class="kpi-card-v">
+                        <div class="kpi-icon-circle" style="background: rgba(236, 72, 153, 0.12); color: #ec4899;">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <div class="kpi-v-info">
+                            <span class="kpi-v-title">Ocupação Média</span>
+                            <span class="kpi-v-val">68,4%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW 1 -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-8">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                                <h6 class="fw-bold m-0 text-dark">Vendas ao Longo do Tempo</h6>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Diário</button>
+                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Acumulado</button>
+                                    </div>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Qtd</button>
+                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Valor</button>
+                                    </div>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Mensal</button>
+                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Semanal</button>
+                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Diário</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mock chart bars visual -->
+                            <div style="height: 220px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding-top: 20px; border-bottom: 1px solid #e2e8f0;">
+                                <div style="width:10%; background:#0284c7; height:45%; border-radius:4px 4px 0 0;" title="Seg: R$ 38.000"></div>
+                                <div style="width:10%; background:#0284c7; height:60%; border-radius:4px 4px 0 0;" title="Ter: R$ 52.000"></div>
+                                <div style="width:10%; background:#0284c7; height:75%; border-radius:4px 4px 0 0;" title="Qua: R$ 68.000"></div>
+                                <div style="width:10%; background:#0284c7; height:50%; border-radius:4px 4px 0 0;" title="Qui: R$ 44.000"></div>
+                                <div style="width:10%; background:#0284c7; height:90%; border-radius:4px 4px 0 0;" title="Sex: R$ 92.000"></div>
+                                <div style="width:10%; background:#38bdf8; height:100%; border-radius:4px 4px 0 0;" title="Sáb: R$ 115.000"></div>
+                                <div style="width:10%; background:#0284c7; height:80%; border-radius:4px 4px 0 0;" title="Dom: R$ 82.000"></div>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fs-11 mt-2">
+                                <span>18/08</span><span>19/08</span><span>20/08</span><span>21/08</span><span>22/08</span><span>23/08</span><span>24/08</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark">Formas de Pagamento</h6>
+                            <div class="d-flex flex-column gap-3 justify-content-center h-100 pb-2">
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-qrcode text-success me-1"></i> PIX (Instantâneo)</span><span class="fs-12 fw-bold text-success">58% (R$ 337.792)</span></div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width: 58%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-credit-card text-primary me-1"></i> Cartão de Crédito</span><span class="fs-12 fw-bold text-primary">36% (R$ 209.664)</span></div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width: 36%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-barcode text-warning me-1"></i> Boleto Bancário</span><span class="fs-12 fw-bold text-warning">6% (R$ 34.944)</span></div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width: 6%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW 2: RANKING DE EVENTOS & PERFORMANCE POR PDV -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold m-0 text-dark">Ranking de Eventos</h6>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2" style="font-size:0.75rem;" onclick="openModalById('modalCompararEventos')"><i class="fa-solid fa-right-left"></i> Comparar</button>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
+                                    <span class="fs-12 fw-bold text-dark">1. Experiência Música e Natureza</span>
+                                    <span class="fs-12 fw-bold text-primary">R$ 16.248,00 (836 vend.)</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
+                                    <span class="fs-12 fw-bold text-dark">2. 9º Knife Show Curitiba</span>
+                                    <span class="fs-12 fw-bold text-primary">R$ 7.720,00 (328 vend.)</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
+                                    <span class="fs-12 fw-bold text-dark">3. TWELVE BEERS VITÓRIA</span>
+                                    <span class="fs-12 fw-bold text-primary">R$ 119.894,00 (302 vend.)</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
+                                    <span class="fs-12 fw-bold text-dark">4. Rebobinando - Peça Teatral</span>
+                                    <span class="fs-12 fw-bold text-primary">R$ 960,00 (16 vend.)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark">Performance por PDV & Modalidades</h6>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+                                    <span class="fs-12 text-muted"><i class="fa-solid fa-globe text-primary me-2"></i>Site Online (App & Web)</span>
+                                    <strong class="fs-12 text-dark">82% (R$ 477.568,00)</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+                                    <span class="fs-12 text-muted"><i class="fa-solid fa-cash-register text-success me-2"></i>Bilheterias Físicas (POS)</span>
+                                    <strong class="fs-12 text-dark">14% (R$ 81.536,00)</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+                                    <span class="fs-12 text-muted"><i class="fa-solid fa-handshake text-warning me-2"></i>Comissários & Promoters</span>
+                                    <strong class="fs-12 text-dark">4% (R$ 23.296,00)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STICKY BOTTOM FILTER BAR MATCHING VIDEO -->
+                <div class="bottom-filter-bar">
+                    <div class="bottom-filter-pills">
+                        <button class="bottom-filter-btn active" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">TUDO</button>
+                        <button class="bottom-filter-btn" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">HOJE</button>
+                        <button class="bottom-filter-btn" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">7 DIAS</button>
+                        <button class="bottom-filter-btn" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">30 DIAS</button>
+                        <button class="bottom-filter-btn" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">POR PERÍODO</button>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="form-select form-select-sm" style="font-size:0.78rem; width:220px; font-weight:600;">
+                            <option selected>Produtora: Todas</option>
+                            <option>DAA</option>
+                            <option>.0</option>
+                            <option>2A FEIRAS E EVENTOS LTDA</option>
+                            <option>2GR COMUNICAÇÃO E EVENTOS LTDA</option>
+                            <option>AADC - AMIGOS E APOIADORES</option>
+                            <option>A BANDA MAIS BONITA DA CIDADE</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 2. PANEL DADOS DA PRODUTORA (VIDEO /p/company) -->
+            <div id="panelDadosProdutoraContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Dados da Produtora</h2>
+                        <p>Gestão cadastral, endereço fiscal, canais de comunicação e identidade visual.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <span class="badge bg-dark px-3 py-2 fs-12 fw-bold text-white">#2481 - .0</span>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white mb-4">
+                    <h5 class="fw-bold mb-3 text-dark"><i class="fa-regular fa-building text-primary me-2"></i> Informações Cadastrais</h5>
+                    <form onsubmit="event.preventDefault(); alert('Dados da produtora atualizados com sucesso!');">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome Fantasia</label>
+                                <input type="text" class="form-control fs-12" placeholder="Nome comercial da produtora">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Razão Social *</label>
+                                <input type="text" class="form-control fs-12" value=".0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">CNPJ</label>
+                                <input type="text" class="form-control fs-12" value="00.000.000/0001-00">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">Responsável</label>
+                                <input type="text" class="form-control fs-12" placeholder="Nome do titular">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">CPF do Responsável</label>
+                                <input type="text" class="form-control fs-12" value="000.000.000-00">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">E-mail *</label>
+                                <input type="email" class="form-control fs-12" value="contato@produtora.com.br" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fs-12 fw-bold text-muted">CEP</label>
+                                <input type="text" class="form-control fs-12" value="00000-000">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">Endereço (Rua)</label>
+                                <input type="text" class="form-control fs-12" placeholder="Rua / Avenida">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fs-12 fw-bold text-muted">Número</label>
+                                <input type="text" class="form-control fs-12" placeholder="Ex: 100">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">Complemento</label>
+                                <input type="text" class="form-control fs-12" placeholder="Sala / Bloco">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">Bairro</label>
+                                <input type="text" class="form-control fs-12" placeholder="Bairro">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fs-12 fw-bold text-muted">Cidade</label>
+                                <input type="text" class="form-control fs-12" value="Curitiba">
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-label fs-12 fw-bold text-muted">Estado (UF)</label>
+                                <input type="text" class="form-control fs-12" value="PR">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card p-4 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold m-0 text-dark"><i class="fa-solid fa-share-nodes text-primary me-2"></i> Redes Sociais</h5>
+                                <button class="btn btn-sm btn-outline-primary" onclick="alert('Formulário de nova rede social adicionado!')"><i class="fa-solid fa-plus"></i> Adicionar Rede Social</button>
+                            </div>
+                            <p class="text-muted fs-12 text-center my-4">Nenhuma rede social cadastrada. Clique em "Adicionar Rede Social" acima para incluir.</p>
+                            <button class="btn btn-success btn-sm w-100 mt-auto" onclick="alert('Redes sociais salvas!')"><i class="fa-solid fa-check"></i> Salvar Alterações</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-4 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-image text-primary me-2"></i> Logomarca da Produtora</h5>
+                                <button class="btn btn-sm btn-primary" style="background:#0284c7;" onclick="alert('Selecione o arquivo de imagem (PNG, JPG, WEBP)...')"><i class="fa-solid fa-upload"></i> Alterar Logomarca</button>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 p-3 rounded bg-light border">
+                                <div style="width:60px; height:60px; background:#fff; border:1px solid #cbd5e1; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem;">.0</div>
+                                <div>
+                                    <strong class="d-block text-dark fs-13">.0</strong>
+                                    <span class="text-muted fs-11">A imagem da logomarca é utilizada no cabeçalho do painel, documentos e comprovantes gerados para os clientes.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. PANEL STATUS FACIAIS (VIDEO /p/status-facials) -->
+            <div id="panelStatusFaciaisContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Status Faciais</h2>
+                        <p>Acompanhamento de biometria facial cadastrada para controle de acesso seguro nos eventos.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <span class="badge bg-success p-2 fs-12 fw-bold text-white"><i class="fa-solid fa-wifi me-1"></i> Sincronização Biométrica Ativa</span>
+                    </div>
+                </div>
+
+                <!-- 4 METRIC CARDS -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border-0 shadow-sm text-white" style="background:#0284c7; border-radius:8px;">
+                            <div class="fs-10 text-uppercase fw-bold opacity-75">Hoje</div>
+                            <h2 class="fw-bold mt-1 mb-0">2</h2>
+                            <span class="fs-11 opacity-90">Cadastros realizados hoje</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border-0 shadow-sm text-white" style="background:#06b6d4; border-radius:8px;">
+                            <div class="fs-10 text-uppercase fw-bold opacity-75">Este Mês</div>
+                            <h2 class="fw-bold mt-1 mb-0">165</h2>
+                            <span class="fs-11 opacity-90">Acumulado do mês atual</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border-0 shadow-sm text-white" style="background:#f97316; border-radius:8px;">
+                            <div class="fs-10 text-uppercase fw-bold opacity-75">Este Ano</div>
+                            <h2 class="fw-bold mt-1 mb-0">2.586</h2>
+                            <span class="fs-11 opacity-90">Acumulado do ano atual</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border-0 shadow-sm text-white" style="background:#10b981; border-radius:8px;">
+                            <div class="fs-10 text-uppercase fw-bold opacity-75">Total Geral</div>
+                            <h2 class="fw-bold mt-1 mb-0">3.687</h2>
+                            <span class="fs-11 opacity-90">Total de cadastros faciais</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FACIAL CHARTS -->
+                <div class="card p-4 border shadow-sm bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-chart-area text-primary me-2"></i> Evolução Diária (Mês Atual)</h6>
+                        <span class="badge bg-light text-dark border">Tempo real (30s)</span>
+                    </div>
+                    <div style="height: 180px; display: flex; align-items: flex-end; justify-content: space-between; gap: 4px; border-bottom: 1px solid #e2e8f0; padding-top: 10px;">
+                        <div style="width:3%; background:#0284c7; height:15%;"></div>
+                        <div style="width:3%; background:#0284c7; height:25%;"></div>
+                        <div style="width:3%; background:#0284c7; height:10%;"></div>
+                        <div style="width:3%; background:#0284c7; height:40%;"></div>
+                        <div style="width:3%; background:#0284c7; height:35%;"></div>
+                        <div style="width:3%; background:#0284c7; height:20%;"></div>
+                        <div style="width:3%; background:#0284c7; height:55%;"></div>
+                        <div style="width:3%; background:#0284c7; height:45%;"></div>
+                        <div style="width:3%; background:#0284c7; height:30%;"></div>
+                        <div style="width:3%; background:#0284c7; height:70%;"></div>
+                        <div style="width:3%; background:#0284c7; height:60%;"></div>
+                        <div style="width:3%; background:#0284c7; height:85%;"></div>
+                        <div style="width:3%; background:#38bdf8; height:100%;"></div>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted fs-11 mt-2">
+                        <span>01/08</span><span>05/08</span><span>09/08</span><span>13/08</span><span>17/08</span><span>21/08</span><span>25/08</span>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card p-4 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-chart-column text-primary me-2"></i> Histórico Mensal (Faciais Cadastradas)</h6>
+                            <div style="height: 160px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; border-bottom: 1px solid #e2e8f0;">
+                                <div style="width:10%; background:#1e293b; height:35%;" title="Set/25: 180"></div>
+                                <div style="width:10%; background:#1e293b; height:50%;" title="Out/25: 250"></div>
+                                <div style="width:10%; background:#1e293b; height:40%;" title="Nov/25: 210"></div>
+                                <div style="width:10%; background:#1e293b; height:65%;" title="Dez/25: 380"></div>
+                                <div style="width:10%; background:#1e293b; height:55%;" title="Jan/26: 290"></div>
+                                <div style="width:10%; background:#1e293b; height:75%;" title="Jun/26: 450"></div>
+                                <div style="width:10%; background:#0284c7; height:90%;" title="Ago/26: 620"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-4 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-regular fa-clock text-primary me-2"></i> Cadastro por Horário (Hoje)</h6>
+                            <div style="height: 160px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; border-bottom: 1px solid #e2e8f0;">
+                                <div style="width:10%; background:#10b981; height:10%;"></div>
+                                <div style="width:10%; background:#10b981; height:20%;"></div>
+                                <div style="width:10%; background:#10b981; height:80%;"></div>
+                                <div style="width:10%; background:#10b981; height:40%;"></div>
+                                <div style="width:10%; background:#10b981; height:15%;"></div>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fs-11 mt-2">
+                                <span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>22h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. PANEL TODOS OS EVENTOS (VIDEO /p/events) -->
+            <div id="panelTodosEventosContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Eventos</h2>
+                        <p>Catálogo consolidado de eventos cadastrados, status de vendas e ocupação.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 fw-semibold" style="background-color: #0284c7;" onclick="switchPanel('menuNovoEvento')">
+                            <i class="fa-solid fa-plus"></i> Novo Evento
+                        </button>
+                    </div>
+                </div>
+
                 <div class="events-panel">
                     <div class="events-panel-header" style="border-bottom:none; margin-bottom: 15px; padding-bottom:0;">
                         <h4 class="fw-bold m-0" style="color:#0f172a;">Eventos</h4>
                         
                         <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnCompararEventos" onclick="openModalById('modalCompararEventos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" onclick="openModalById('modalCompararEventos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff;">
                                 <i class="fa-solid fa-right-left"></i> Comparar
                             </button>
-                            <button class="btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterAtivos" onclick="filterEventsByStatus('ativos')" style="background-color: #0284c7; border-color:#0284c7; border-radius: 6px; font-size: 0.8rem;">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-3 py-1 fw-semibold" type="button" data-bs-toggle="dropdown" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff;">
+                                    <i class="fa-solid fa-grip-lines"></i> Horizontal
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="return false;">Horizontal</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="return false;">Vertical</a></li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" onclick="filterEventsByStatus('ativos')" style="background-color: #0284c7; border-color:#0284c7; border-radius: 6px; font-size: 0.8rem;">
                                 <i class="fa-solid fa-circle-check"></i> Ativos
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterInativos" onclick="filterEventsByStatus('inativos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" onclick="filterEventsByStatus('inativos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff;">
                                 <i class="fa-solid fa-circle-minus"></i> Inativos
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnFilterTodos" onclick="filterEventsByStatus('todos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
+                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" onclick="filterEventsByStatus('todos')" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff;">
                                 <i class="fa-solid fa-bars"></i> Todos
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold" id="btnToggleLayout" onclick="toggleEventsLayout()" style="border-radius: 6px; font-size: 0.8rem; background-color:#fff; color:#334155;">
-                                <i class="fa-solid fa-sliders"></i> Layout
-                            </button>
                         </div>
                     </div>
 
-                    <!-- GRID VIEW (4 CARDS MATCHING SCREENSHOT) -->
-                    <div class="event-cards-grid mt-3" id="eventsCardsGridView">
-                        
-                        <!-- Card 1: Experiencia Música e Natureza - Julho -->
-                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Experiencia Música e Natureza - Julho" data-vendas="674" data-receita="12851.00">
-                            <div class="event-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="Experiencia Música e Natureza">
-                                <span class="event-badge-ativo">Ativo</span>
-                            </div>
-                            <div class="event-card-portrait-body">
-                                <div>
-                                    <div class="event-card-portrait-title">Experiencia Música e Natureza - Julho</div>
-                                    <div class="event-card-portrait-meta">
-                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Parque Jaime Lerner</span>
-                                        <span><i class="fa-regular fa-calendar text-muted"></i> Sáb, 11/07/2026 - 11:00</span>
+                    <!-- FULL VIDEO EVENTS CARDS -->
+                    <div class="row g-3 mt-1">
+                        <!-- Event 1: EXPERIENCIA MUSICA E NATUREZA -->
+                        <div class="col-lg-6">
+                            <div class="card p-3 border shadow-sm bg-white">
+                                <div class="d-flex gap-3">
+                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
+                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">3634</span>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="event-card-portrait-footer">
-                                        <div class="event-card-vendas-label">Vendas: <strong>674</strong></div>
-                                        <div class="event-card-revenue">R$ 12.851,00</div>
-                                    </div>
-                                    <div class="event-progress-bar-wrap">
-                                        <div class="event-progress-bar-fill" style="width: 78%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: 9º Knife Show Curitiba -->
-                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="9º Knife Show Curitiba - Feira e Exposição de Facas" data-vendas="328" data-receita="7720.00">
-                            <div class="event-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="9º Knife Show Curitiba">
-                                <span class="event-badge-ativo">Ativo</span>
-                            </div>
-                            <div class="event-card-portrait-body">
-                                <div>
-                                    <div class="event-card-portrait-title">9º Knife Show Curitiba - Feira e Exposição de Facas</div>
-                                    <div class="event-card-portrait-meta">
-                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Associação AABB Curitiba</span>
-                                        <span><i class="fa-regular fa-calendar text-muted"></i> Sáb, 11/07/2026 - 11:00</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="event-card-portrait-footer">
-                                        <div class="event-card-vendas-label">Vendas: <strong>328</strong></div>
-                                        <div class="event-card-revenue">R$ 7.720,00</div>
-                                    </div>
-                                    <div class="event-progress-bar-wrap">
-                                        <div class="event-progress-bar-fill" style="width: 52%;"></div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="fw-bold text-dark mb-1">Experiencia Música e Natureza - Agosto</h6>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1"></i> Parque Jaime Lerner</div>
+                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
+                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>16.248,00</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>836</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>1164</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>0</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">41.8%</strong></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
+                                            <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 10:00</span>
+                                            <div>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalLotes')"><i class="fa-solid fa-gear"></i></button>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalPaginaEvento')"><i class="fa-solid fa-layer-group"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 3: Feijoada e Costela assada -->
-                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Feijoada e Costela assada - PETFRIENDLY" data-vendas="0" data-receita="0.00">
-                            <div class="event-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=400&q=80" alt="Feijoada e Costela">
-                                <span class="event-badge-ativo">Ativo</span>
-                            </div>
-                            <div class="event-card-portrait-body">
-                                <div>
-                                    <div class="event-card-portrait-title">Feijoada e Costela assada - PETFRIENDLY</div>
-                                    <div class="event-card-portrait-meta">
-                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Restaurante Vila Brasil - Comi...</span>
-                                        <span><i class="fa-regular fa-calendar text-muted"></i> Dom, 12/07/2026 - 12:00</span>
+                        <!-- Event 2: TWELVE BEERS VITORIA -->
+                        <div class="col-lg-6">
+                            <div class="card p-3 border shadow-sm bg-white">
+                                <div class="d-flex gap-3">
+                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
+                                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">3130</span>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="event-card-portrait-footer">
-                                        <div class="event-card-vendas-label">Vendas: <strong>0</strong></div>
-                                        <div class="event-card-revenue">R$ 0,00</div>
-                                    </div>
-                                    <div class="event-progress-bar-wrap">
-                                        <div class="event-progress-bar-fill" style="width: 0%; background-color: #cbd5e1;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Rebobinando - Uma Peça Quatro Histórias -->
-                        <div class="event-card-portrait event-card-col" data-status="ativo" data-nome="Rebobinando - Uma Peça Quatro Histórias" data-vendas="16" data-receita="960.00">
-                            <div class="event-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Rebobinando">
-                                <span class="event-badge-ativo">Ativo</span>
-                            </div>
-                            <div class="event-card-portrait-body">
-                                <div>
-                                    <div class="event-card-portrait-title">Rebobinando - Uma Peça Quatro Histórias</div>
-                                    <div class="event-card-portrait-meta">
-                                        <span><i class="fa-solid fa-location-dot text-muted"></i> Espaço Excêntrico Mauro Zan...</span>
-                                        <span><i class="fa-regular fa-calendar text-muted"></i> Dom, 12/07/2026 - 16:00</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="event-card-portrait-footer">
-                                        <div class="event-card-vendas-label">Vendas: <strong>16</strong></div>
-                                        <div class="event-card-revenue">R$ 960,00</div>
-                                    </div>
-                                    <div class="event-progress-bar-wrap">
-                                        <div class="event-progress-bar-fill" style="width: 18%;"></div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="fw-bold text-dark mb-1">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h6>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1"></i> Jardim da Penha / Praia de Canto</div>
+                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
+                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>119.894,00</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>302</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>334</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>6</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">48.4%</strong></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
+                                            <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 11:00</span>
+                                            <div>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalLotes')"><i class="fa-solid fa-gear"></i></button>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalPaginaEvento')"><i class="fa-solid fa-layer-group"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                </div>
+            </div>
 
-                    <!-- LIST VIEW (TOGGLEABLE VIA LAYOUT BUTTON) -->
-                    <div class="table-responsive d-none mt-3" id="eventsTableView">
+            <!-- 5. PANEL FINANCEIRO COMPLETO (VIDEO /finance WITH SUB-SIDEBAR) -->
+            <div id="panelFinanceiroFullContent" class="d-none">
+                <div class="sub-layout-container">
+                    <!-- SUB-SIDEBAR -->
+                    <aside class="sub-nav-sidebar">
+                        <div class="sub-nav-header">Navegação Financeira</div>
+                        <a class="sub-nav-item active" onclick="switchFinTab('hub', this)"><i class="fa-solid fa-cubes"></i> Hub Financeiro</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('saldo', this)"><i class="fa-solid fa-vault"></i> Saldo Consolidado</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('repasse', this)"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('antecipacoes', this)"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('extrato', this)"><i class="fa-solid fa-file-invoice"></i> Extrato Detalhado</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('despesas', this)"><i class="fa-solid fa-receipt"></i> Despesas</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('contas', this)"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('bordero', this)"><i class="fa-solid fa-file-signature"></i> Borderô</a>
+                        <a class="sub-nav-item" onclick="switchFinTab('negociacoes', this)"><i class="fa-solid fa-scale-balanced"></i> Negociações</a>
+                    </aside>
+
+                    <!-- SUB MAIN CONTENT -->
+                    <div class="sub-main-content">
+                        <!-- FIN SUB: HUB FINANCEIRO -->
+                        <div id="finTabHub">
+                            <div class="dashboard-header mb-3">
+                                <div class="dashboard-title-box">
+                                    <h2>Hub Financeiro</h2>
+                                    <p>Operações de caixa, liquidações e simuladores avançados.</p>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('saldo', null)">
+                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-vault text-primary me-2"></i> Saldo Consolidado</h6>
+                                        <p class="text-muted fs-11 m-0">Saldo geral acumulado e exportações rápidas.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('repasse', null)">
+                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-money-bill-transfer text-success me-2"></i> Solicitar Repasse</h6>
+                                        <p class="text-muted fs-11 m-0">Solicite a transferência para sua conta bancária.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('antecipacoes', null)">
+                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-hand-holding-dollar text-warning me-2"></i> Antecipações</h6>
+                                        <p class="text-muted fs-11 m-0">Antecipe o recebimento de vendas a prazo.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FIN SUB: REPASSES -->
+                        <div id="finTabRepasse" class="d-none">
+                            <div class="dashboard-header mb-3">
+                                <h2>Solicitações de Repasse</h2>
+                            </div>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <div class="card p-3 border shadow-sm bg-white">
+                                        <div class="text-muted fs-10 text-uppercase fw-bold">Saldo Disponível</div>
+                                        <h4 class="fw-bold text-success mt-1">R$ 248,96</h4>
+                                        <span class="fs-10 text-muted">Liberado para transferência</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card p-3 border shadow-sm bg-white">
+                                        <div class="text-muted fs-10 text-uppercase fw-bold">Valor Bloqueado</div>
+                                        <h4 class="fw-bold text-dark mt-1">R$ 0,00</h4>
+                                        <span class="fs-10 text-muted">Eventos em andamento</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card p-3 border shadow-sm bg-white">
+                                        <div class="text-muted fs-10 text-uppercase fw-bold">Próximo Payout</div>
+                                        <h4 class="fw-bold text-primary mt-1">08/07/2026</h4>
+                                        <span class="fs-10 text-muted">Repasse automático</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card p-3 border shadow-sm bg-white">
+                                        <div class="text-muted fs-10 text-uppercase fw-bold">Solicitações Pendentes</div>
+                                        <h4 class="fw-bold text-warning mt-1">1</h4>
+                                        <span class="fs-10 text-muted">Sob análise financeira</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card p-4 border shadow-sm bg-white">
+                                <h6 class="fw-bold mb-3 text-dark">Solicitar Novo Repasse Bancário</h6>
+                                <form onsubmit="submitRequestPayout(event)">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fs-12 fw-bold text-muted">Selecione os Eventos</label>
+                                            <select class="form-select fs-12" id="payEvento">
+                                                <option>Festival X 2026 (R$ 1.850,00 Disponível)</option>
+                                                <option>Rodeio Nacional de Curitiba (R$ 3.200,00)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fs-12 fw-bold text-muted">Valor a Transferir (R$)</label>
+                                            <input type="number" id="payValor" class="form-control fs-12" value="248.96" step="0.01">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label fs-12 fw-bold text-muted">Chave PIX ou Conta Destino</label>
+                                            <input type="text" id="payChavePix" class="form-control fs-12" value="12.345.678/0001-99">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary" style="background:#0284c7;"><i class="fa-solid fa-paper-plane me-1"></i> Confirmar Solicitação de Repasse</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- FIN SUB: BORDERÔ -->
+                        <div id="finTabBordero" class="d-none">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h4 class="fw-bold m-0 text-dark">Demonstrativo Financeiro (Borderô)</h4>
+                                    <span class="text-muted fs-11">Evento: Rock concert com Luciano Reis - 18/06/2026</span>
+                                </div>
+                                <button class="btn btn-success" onclick="alert('Documento enviado para assinatura digital no Autêntique!')"><i class="fa-solid fa-signature"></i> Assinar via Autêntique</button>
+                            </div>
+                            <div class="card p-4 border shadow-sm bg-white">
+                                <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                                    <span class="fw-bold">1. RECEITA BRUTA DE VENDAS (446 un.)</span>
+                                    <strong class="text-dark">R$ 71.976,20</strong>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom pb-2 mb-2 text-danger">
+                                    <span>2. TAXAS E RETENÇÕES OPERACIONAIS (15% Disk + Gateways)</span>
+                                    <strong>- R$ 9.388,20</strong>
+                                </div>
+                                <div class="d-flex justify-content-between pt-2 fs-5 fw-bold text-success">
+                                    <span>3. VALOR LÍQUIDO A REPASSAR AO PRODUTOR</span>
+                                    <strong>R$ 62.588,00</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. PANEL NOVO EVENTO (VIDEO /events/new) -->
+            <div id="panelNovoEventoContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Nova Solicitação de Evento</h2>
+                        <p>Preencha os dados e configurações para publicação de vendas na plataforma DiskIngressos.</p>
+                    </div>
+                </div>
+
+                <div class="wizard-stepper">
+                    <div class="wizard-step-node active">
+                        <div class="wizard-step-bubble">1</div>
+                        <span class="wizard-step-title">Identificação & Detalhes</span>
+                    </div>
+                    <div class="wizard-step-node">
+                        <div class="wizard-step-bubble">2</div>
+                        <span class="wizard-step-title">Período & Ingressos</span>
+                    </div>
+                    <div class="wizard-step-node">
+                        <div class="wizard-step-bubble">3</div>
+                        <span class="wizard-step-title">Informações & Imagens</span>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white">
+                    <form onsubmit="submitCreateEvent(event)">
+                        <h5 class="fw-bold mb-3 text-dark">Identificação do Evento</h5>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome do Evento *</label>
+                                <input type="text" id="evtNome" class="form-control fs-12" placeholder="Ex: Festival de Rock 2026" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Local *</label>
+                                <input type="text" id="evtLocal" class="form-control fs-12" placeholder="Ex: Pedreira Paulo Leminski - Curitiba/PR" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Produtora *</label>
+                                <input type="text" id="evtProdutor" class="form-control fs-12" value="DiskIngressos Produções" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Código do Vídeo (YouTube)</label>
+                                <input type="text" class="form-control fs-12" placeholder="Ex: dQw4w9WgXcQ">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="chkLinkPrivado">
+                                    <label class="form-check-label fs-12 fw-bold text-muted" for="chkLinkPrivado">Venda apenas por link (sem exibição pública na home)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Descrição Completa *</label>
+                                <textarea class="form-control fs-12" rows="4" placeholder="Descreva as atrações, classificação etária, horários de abertura dos portões..."></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-light border" onclick="switchPanel('menuTodosEventos')"><i class="fa-solid fa-arrow-left me-1"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary" style="background:#0284c7;"><i class="fa-solid fa-arrow-right me-1"></i> Próximo Passo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 7. PANEL TERMINAIS POS (VIDEO /pos) -->
+            <div id="panelTerminaisPosContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Terminais POS</h2>
+                        <p>Gerenciamento de máquinas de cartão, bilheterias físicas e PDVs autorizados.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Adicionar nova máquina POS...')"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <input type="text" class="form-control form-control-sm" style="max-width:350px;" placeholder="Buscar por serial, nome, PDV...">
+                    </div>
+                    <div class="table-responsive">
                         <table class="coupon-table">
                             <thead>
                                 <tr>
-                                    <th>Evento</th>
-                                    <th>Local</th>
-                                    <th>Data</th>
-                                    <th>Vendas</th>
-                                    <th>Receita Bruta</th>
-                                    <th>Status</th>
+                                    <th>Serial</th>
+                                    <th>Nome</th>
+                                    <th>Habilit.</th>
+                                    <th>Tipo</th>
+                                    <th>PDV</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="fw-bold"><i class="fa-solid fa-music text-primary me-2"></i>Experiencia Música e Natureza - Julho</td>
-                                    <td>Parque Jaime Lerner - Curitiba/PR</td>
-                                    <td>Sáb, 11/07/2026 - 11:00</td>
-                                    <td><strong>674</strong></td>
-                                    <td class="fw-bold text-primary">R$ 12.851,00</td>
-                                    <td><span class="badge bg-success text-white">Ativo</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold"><i class="fa-solid fa-ticket text-primary me-2"></i>9º Knife Show Curitiba - Feira e Exposição de Facas</td>
-                                    <td>Associação AABB Curitiba</td>
-                                    <td>Sáb, 11/07/2026 - 11:00</td>
-                                    <td><strong>328</strong></td>
-                                    <td class="fw-bold text-primary">R$ 7.720,00</td>
-                                    <td><span class="badge bg-success text-white">Ativo</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold"><i class="fa-solid fa-utensils text-primary me-2"></i>Feijoada e Costela assada - PETFRIENDLY</td>
-                                    <td>Restaurante Vila Brasil</td>
-                                    <td>Dom, 12/07/2026 - 12:00</td>
-                                    <td><strong>0</strong></td>
-                                    <td class="fw-bold text-muted">R$ 0,00</td>
-                                    <td><span class="badge bg-success text-white">Ativo</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold"><i class="fa-solid fa-masks-theater text-primary me-2"></i>Rebobinando - Uma Peça Quatro Histórias</td>
-                                    <td>Espaço Excêntrico Mauro Zanatta</td>
-                                    <td>Dom, 12/07/2026 - 16:00</td>
-                                    <td><strong>16</strong></td>
-                                    <td class="fw-bold text-primary">R$ 960,00</td>
-                                    <td><span class="badge bg-success text-white">Ativo</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')">Gerenciar</button></td>
-                                </tr>
+                                <tr><td>0170420830</td><td class="fw-bold">0170420830 - PAX A930</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>-</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>024343980394614</td><td class="fw-bold">Samsung SM-A065M</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Disk Ingressos</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>032462872848285</td><td class="fw-bold">antigo</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>-</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>047214141256314</td><td class="fw-bold">Samsung SM-A065M</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Disk Ingressos</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>061383944317395</td><td class="fw-bold">Samsung SM-X216B</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Bilheteria Mundo Pixar</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>1170217552</td><td class="fw-bold">TERMINAL DEBUG [DEV]</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Diskingressos - Curitiba</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td>1170338222</td><td class="fw-bold">PAX A930</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Galo Veio Bar PDV PRODUTOR</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-2">
+                        <span>Exibindo 1 a 20 de 633 registros</span>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Anterior</button>
+                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7;">1</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">2</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">3</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Próximo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. PANEL MENSAGENS (VIDEO /marketing/messages) -->
+            <div id="panelMensagensContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Mensagens</h2>
+                        <p>Central de comunicação direta com compradores por E-mail, SMS e WhatsApp.</p>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white">
+                    <ul class="nav nav-tabs mb-4">
+                        <li class="nav-item"><a class="nav-link active" href="#"><i class="fa-regular fa-paper-plane me-1"></i> Enviar</a></li>
+                        <li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-history me-1"></i> Histórico</a></li>
+                        <li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-chart-pie me-1"></i> Estatísticas</a></li>
+                        <li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-list-check me-1"></i> Templates</a></li>
+                    </ul>
+
+                    <div class="mb-4 p-3 bg-light rounded d-flex justify-content-between align-items-center">
+                        <span class="fs-12 text-muted">Destinatários: <strong>Nenhum comprador selecionado.</strong></span>
+                        <button class="btn btn-sm btn-outline-primary" onclick="alert('Selecionando todos os 3.820 compradores...')"><i class="fa-solid fa-users me-1"></i> Selecionar Compradores</button>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="card p-3 border text-center">
+                                <div class="form-check d-inline-block"><input class="form-check-input" type="radio" name="msgType" checked><label class="form-check-label fw-bold">E-mail</label></div>
+                                <select class="form-select fs-12 mt-2"><option>-- Selecionar Template --</option><option>Aviso de Abertura de Portões</option><option>Cupom Exclusivo</option></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 border text-center">
+                                <div class="form-check d-inline-block"><input class="form-check-input" type="radio" name="msgType"><label class="form-check-label fw-bold">SMS</label></div>
+                                <select class="form-select fs-12 mt-2"><option>-- Selecionar Template --</option><option>Lembrete de Ingresso</option></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 border text-center">
+                                <div class="form-check d-inline-block"><input class="form-check-input" type="radio" name="msgType"><label class="form-check-label fw-bold">WhatsApp</label></div>
+                                <select class="form-select fs-12 mt-2"><option>-- Selecionar Template --</option><option>Voucher Digital com QR Code</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Disparo de mensagem agendado para a fila!')"><i class="fa-solid fa-paper-plane me-1"></i> Enviar Mensagem</button>
+                </div>
+            </div>
+
+            <!-- 9. PANEL GERENCIAR ACESSOS (VIDEO /access) -->
+            <div id="panelGerenciarAcessosContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Gestão de Acessos e Permissões</h2>
+                        <p>Controle de operadores, validadores de portaria e níveis de permissão.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Cadastrar novo operador...')"><i class="fa-solid fa-user-plus"></i> Adicionar Usuário</button>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <input type="text" class="form-control form-control-sm" style="max-width:350px;" placeholder="Buscar por e-mail ou telefone...">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr><th>E-mail</th><th>Telefone</th><th>Status</th><th>Ações</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="fw-bold">anferacontato@bol.com.br</td><td>(54) 99606-3028</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td class="fw-bold">daniladecarvalho@gmail.com</td><td>(11) 98999-8174</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td class="fw-bold">validador15@disk.com.br</td><td>-</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                <tr><td class="fw-bold">validador14@disk.com.br</td><td>-</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-2">
+                        <span>Exibindo 1 a 10 de 1151 registros</span>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Anterior</button>
+                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7;">1</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">2</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Próximo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. PANEL ADMINISTRAÇÃO (VIDEO /admin/users) -->
+            <div id="panelAdministracaoContent" class="d-none">
+                <div class="sub-layout-container">
+                    <aside class="sub-nav-sidebar">
+                        <div class="sub-nav-header">Administração</div>
+                        <a class="sub-nav-item active" onclick="switchAdminTab('users', this)"><i class="fa-solid fa-users"></i> Usuários</a>
+                        <a class="sub-nav-item" onclick="switchAdminTab('roles', this)"><i class="fa-solid fa-user-tag"></i> Tipos de Usuário (Roles)</a>
+                        <a class="sub-nav-item" onclick="switchAdminTab('permissions', this)"><i class="fa-solid fa-key"></i> Permissões</a>
+                        <a class="sub-nav-item" onclick="switchAdminTab('rbac', this)"><i class="fa-solid fa-shield-halved"></i> Regras RBAC</a>
+                    </aside>
+
+                    <div class="sub-main-content">
+                        <!-- USERS SUB -->
+                        <div id="adminTabUsers">
+                            <div class="dashboard-header mb-3">
+                                <h2>Administração de Usuários</h2>
+                                <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Criar novo usuário...')"><i class="fa-solid fa-plus"></i> Adicionar usuário</button>
+                            </div>
+                            <div class="card p-3 border shadow-sm bg-white">
+                                <div class="table-responsive">
+                                    <table class="coupon-table">
+                                        <thead>
+                                            <tr><th>ID</th><th>Usuário</th><th>E-mail</th><th>Telefone</th><th>Tipo</th><th>Status</th><th>Criado em</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>8762</td><td class="fw-bold">anferacontato@bol.com.br</td><td>anferacontato@bol.com.br</td><td>(54) 99606-3028</td><td><span class="badge bg-primary">Produtor Master</span></td><td><span class="badge bg-success">Ativo</span></td><td>25/08/2026</td></tr>
+                                            <tr><td>8761</td><td class="fw-bold">daniladecarvalho@gmail.com</td><td>daniladecarvalho@gmail.com</td><td>(11) 98999-8174</td><td><span class="badge bg-primary">Produtor Master</span></td><td><span class="badge bg-success">Ativo</span></td><td>25/08/2026</td></tr>
+                                            <tr><td>8753</td><td class="fw-bold">validador15</td><td>validador15@disk.com.br</td><td>-</td><td><span class="badge bg-secondary">Validador</span></td><td><span class="badge bg-success">Ativo</span></td><td>19/08/2026</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROLES SUB -->
+                        <div id="adminTabRoles" class="d-none">
+                            <div class="dashboard-header mb-3">
+                                <h2>Tipos de Usuário (Roles)</h2>
+                                <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Nova role criada!')"><i class="fa-solid fa-plus"></i> Adicionar role</button>
+                            </div>
+                            <div class="card p-3 border shadow-sm bg-white">
+                                <table class="coupon-table">
+                                    <thead><tr><th>Nome</th><th>Descrição</th><th>Usuários</th><th>Ações</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="fw-bold">dk_administrador_local</td><td>Administrador de local</td><td><strong>1</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                        <tr><td class="fw-bold">dk_divulgador</td><td>Divulgador</td><td><strong>1999</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                        <tr><td class="fw-bold">dk_funcionario_diskingressos</td><td>Funcionário diskingressos</td><td><strong>30</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                        <tr><td class="fw-bold">dk_produtor</td><td>Funcionário de produtora</td><td><strong>123</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                        <tr><td class="fw-bold">dk_produtor_master</td><td>Produtor Master</td><td><strong>893</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                        <tr><td class="fw-bold">dk_promoter</td><td>Promoter</td><td><strong>106</strong></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. PANEL CLUBE RUA DA MÚSICA (VIDEO /clube-rua-musica) -->
+            <div id="panelClubeRuaMusicaContent" class="d-none">
+                <div class="dashboard-header">
+                    <div class="dashboard-title-box">
+                        <h2>Convites — Clube Rua da Música</h2>
+                        <p>Gestão de convites VIP, acessos exclusivos e credenciamento de convidados.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-light border btn-sm"><i class="fa-solid fa-chart-simple"></i> Indicadores</button>
+                        <button class="btn btn-light border btn-sm"><i class="fa-solid fa-file-import"></i> Importar Convites</button>
+                        <button class="btn btn-light border btn-sm"><i class="fa-solid fa-sliders"></i> Parâmetros</button>
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="alert('Novo convite criado!')"><i class="fa-solid fa-plus"></i> Novo Convite</button>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex gap-2 align-items-center">
+                            <button class="btn btn-sm btn-light border py-1 px-2" onclick="document.querySelectorAll('.chk-convite').forEach(c=>c.checked=true)">Selecionar Todos</button>
+                            <button class="btn btn-sm btn-light border py-1 px-2" onclick="document.querySelectorAll('.chk-convite').forEach(c=>c.checked=false)">Desselecionar</button>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" style="max-width:300px;" placeholder="Buscar por nome ou e-mail...">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr><th></th><th>ID</th><th>Nome</th><th>E-mail</th><th>Criado em</th><th>Validade</th><th>Status</th><th>Visitas</th><th>Ações</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><input type="checkbox" class="chk-convite"></td><td>95</td><td class="fw-bold">Dup teste</td><td>lehaveg822@zikat.com</td><td>27/03/2026</td><td>25/06/2026</td><td><span class="badge bg-warning text-dark">Pendente</span></td><td>0</td><td><button class="btn btn-sm btn-outline-primary py-0 px-1"><i class="fa-solid fa-envelope"></i></button></td></tr>
+                                <tr><td><input type="checkbox" class="chk-convite"></td><td>92</td><td class="fw-bold">Jackson Ferreira Pedroso</td><td>jferreirapedroso@gmail.com</td><td>27/03/2026</td><td>10/10/2026</td><td><span class="badge bg-warning text-dark">Pendente</span></td><td>0</td><td><button class="btn btn-sm btn-outline-primary py-0 px-1"><i class="fa-solid fa-envelope"></i></button></td></tr>
+                                <tr><td><input type="checkbox" class="chk-convite"></td><td>91</td><td class="fw-bold">Gabriel Compilare</td><td>suporte@compilare.com.br</td><td>27/03/2026</td><td>01/01/2027</td><td><span class="badge bg-success text-white">Aceito</span></td><td>0</td><td><button class="btn btn-sm btn-outline-primary py-0 px-1"><i class="fa-solid fa-qrcode"></i></button></td></tr>
+                                <tr><td><input type="checkbox" class="chk-convite"></td><td>89</td><td class="fw-bold">Felipe</td><td>lehaveg822@zikat.com</td><td>27/03/2026</td><td>27/04/2026</td><td><span class="badge bg-success text-white">Aceito</span></td><td>0</td><td><button class="btn btn-sm btn-outline-primary py-0 px-1"><i class="fa-solid fa-qrcode"></i></button></td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
 
             <!-- PANEL B: CUPONS DE DESCONTO PANEL -->
@@ -2732,30 +3644,17 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Sidebar menu items
-            const menuPainelGeral = document.getElementById("menuPainelGeral");
+            const menuDashboard = document.getElementById("menuDashboard");
+            const menuDadosProdutora = document.getElementById("menuDadosProdutora");
+            const menuStatusFaciais = document.getElementById("menuStatusFaciais");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
-            const menuMeusEventos = document.getElementById("menuMeusEventos");
-            const submenuMeusEventos = document.getElementById("submenuMeusEventos");
-            const arrowMeusEventos = document.getElementById("arrowMeusEventos");
-            
-            const subTodosEventos = document.getElementById("subTodosEventos");
-            const subNovoEvento = document.getElementById("subNovoEvento");
-            const subLotes = document.getElementById("subLotes");
-            const subCupons = document.getElementById("subCupons");
-            const subCheckin = document.getElementById("subCheckin");
-            const subParticipantes = document.getElementById("subParticipantes");
-            const subPaginaEvento = document.getElementById("subPaginaEvento");
-
-            const menuIngressos = document.getElementById("menuIngressos");
-            const menuMarketing = document.getElementById("menuMarketing");
-            const menuRemarketing = document.getElementById("menuRemarketing");
-            const menuFinanceiro = document.getElementById("menuFinanceiro");
-            const menuContabilidade = document.getElementById("menuContabilidade");
-            const menuFluxoCaixa = document.getElementById("menuFluxoCaixa");
-            const menuReceitas = document.getElementById("menuReceitas");
-            const menuDespesas = document.getElementById("menuDespesas");
-            const menuRelatorios = document.getElementById("menuRelatorios");
-            const menuConfiguracoes = document.getElementById("menuConfiguracoes");
+            const menuFinanceiroFull = document.getElementById("menuFinanceiroFull");
+            const menuNovoEvento = document.getElementById("menuNovoEvento");
+            const menuTerminaisPos = document.getElementById("menuTerminaisPos");
+            const menuMensagens = document.getElementById("menuMensagens");
+            const menuGerenciarAcessos = document.getElementById("menuGerenciarAcessos");
+            const menuAdministracao = document.getElementById("menuAdministracao");
+            const menuClubeRuaMusica = document.getElementById("menuClubeRuaMusica");
             const menuEstorno = document.getElementById("menuEstorno");
             const menuSacHub = document.getElementById("menuSacHub");
             const menuDbConsole = document.getElementById("menuDbConsole");
@@ -2767,6 +3666,16 @@
             // Panels
             const panels = {
                 dashboard: document.getElementById("panelDashboardContent"),
+                dadosProdutora: document.getElementById("panelDadosProdutoraContent"),
+                statusFaciais: document.getElementById("panelStatusFaciaisContent"),
+                todosEventos: document.getElementById("panelTodosEventosContent"),
+                financeiroFull: document.getElementById("panelFinanceiroFullContent"),
+                novoEvento: document.getElementById("panelNovoEventoContent"),
+                terminaisPos: document.getElementById("panelTerminaisPosContent"),
+                mensagens: document.getElementById("panelMensagensContent"),
+                gerenciarAcessos: document.getElementById("panelGerenciarAcessosContent"),
+                administracao: document.getElementById("panelAdministracaoContent"),
+                clubeRuaMusica: document.getElementById("panelClubeRuaMusicaContent"),
                 coupons: document.getElementById("panelCouponsContent"),
                 estorno: document.getElementById("panelEstornoContent"),
                 sac: document.getElementById("panelSacContent"),
@@ -2787,7 +3696,7 @@
             const menuItems = document.querySelectorAll(".menu-item");
             const submenuItems = document.querySelectorAll(".submenu-item");
 
-            function switchPanel(panelKey, activeMenuEl) {
+            window.switchPanel = function(panelKey, activeMenuEl) {
                 // Hide all panels
                 Object.values(panels).forEach(p => {
                     if (p) p.classList.add("d-none");
@@ -2810,40 +3719,74 @@
                 // Auto-load dynamic data for specific panels
                 if (panelKey === 'ingressos') loadIngressosData();
                 if (panelKey === 'participantes') loadClientesData();
-            }
+            };
 
-            // Accordion toggle for Meus Eventos
-            if (menuMeusEventos) {
-                menuMeusEventos.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const isExpanded = submenuMeusEventos.classList.toggle("show");
-                    if (arrowMeusEventos) {
-                        arrowMeusEventos.style.transform = isExpanded ? "rotate(90deg)" : "rotate(0deg)";
-                    }
+            // Global Sub-tab Switchers
+            window.switchFinTab = function(tab, el) {
+                const tabs = {
+                    hub: document.getElementById("finTabHub"),
+                    saldo: document.getElementById("finTabHub"),
+                    repasse: document.getElementById("finTabRepasse"),
+                    antecipacoes: document.getElementById("finTabHub"),
+                    extrato: document.getElementById("panelFluxoCaixaContent"),
+                    despesas: document.getElementById("panelDespesasContent"),
+                    contas: document.getElementById("finTabHub"),
+                    bordero: document.getElementById("finTabBordero"),
+                    negociacoes: document.getElementById("panelReceitasContent")
+                };
+                document.querySelectorAll(".sub-nav-item").forEach(i => i.classList.remove("active"));
+                if (el) el.classList.add("active");
+                
+                ['finTabHub', 'finTabRepasse', 'finTabBordero'].forEach(id => {
+                    const t = document.getElementById(id);
+                    if (t) t.classList.add("d-none");
                 });
-            }
+
+                if (tab === 'hub' || tab === 'saldo' || tab === 'antecipacoes' || tab === 'contas') {
+                    document.getElementById("finTabHub")?.classList.remove("d-none");
+                } else if (tab === 'repasse') {
+                    document.getElementById("finTabRepasse")?.classList.remove("d-none");
+                } else if (tab === 'bordero') {
+                    document.getElementById("finTabBordero")?.classList.remove("d-none");
+                }
+            };
+
+            window.switchAdminTab = function(tab, el) {
+                document.querySelectorAll(".sub-nav-item").forEach(i => i.classList.remove("active"));
+                if (el) el.classList.add("active");
+                
+                const u = document.getElementById("adminTabUsers");
+                const r = document.getElementById("adminTabRoles");
+                if (u && r) {
+                    if (tab === 'users') {
+                        u.classList.remove("d-none");
+                        r.classList.add("d-none");
+                    } else if (tab === 'roles') {
+                        u.classList.add("d-none");
+                        r.classList.remove("d-none");
+                    }
+                }
+            };
 
             // Menu Bindings
-            if (menuPainelGeral) menuPainelGeral.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuPainelGeral); });
-            if (menuTodosEventos) menuTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuTodosEventos); });
-            if (subTodosEventos) subTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', subTodosEventos); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
-
-            if (subCupons) subCupons.addEventListener("click", (e) => { e.preventDefault(); switchPanel('coupons', subCupons); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
-            if (subCheckin) subCheckin.addEventListener("click", (e) => { e.preventDefault(); switchPanel('checkin', subCheckin); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
-            if (subParticipantes) subParticipantes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('participantes', subParticipantes); if (menuMeusEventos) menuMeusEventos.classList.add('active'); });
-
-            if (menuIngressos) menuIngressos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('ingressos', menuIngressos); });
-            if (menuMarketing) menuMarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuMarketing); });
-            if (menuRemarketing) menuRemarketing.addEventListener("click", (e) => { e.preventDefault(); switchPanel('marketing', menuRemarketing); });
-            if (menuFinanceiro) menuFinanceiro.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiro', menuFinanceiro); });
-            if (menuContabilidade) menuContabilidade.addEventListener("click", (e) => { e.preventDefault(); switchPanel('contabilidade', menuContabilidade); });
-            if (menuFluxoCaixa) menuFluxoCaixa.addEventListener("click", (e) => { e.preventDefault(); switchPanel('fluxoCaixa', menuFluxoCaixa); });
-            if (menuReceitas) menuReceitas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('receitas', menuReceitas); });
-            if (menuDespesas) menuDespesas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('despesas', menuDespesas); });
-            if (menuRelatorios) menuRelatorios.addEventListener("click", (e) => { e.preventDefault(); switchPanel('relatorios', menuRelatorios); });
-            if (menuConfiguracoes) menuConfiguracoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('configuracoes', menuConfiguracoes); });
+            if (menuDashboard) menuDashboard.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuDashboard); });
+            if (menuDadosProdutora) menuDadosProdutora.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dadosProdutora', menuDadosProdutora); });
+            if (menuStatusFaciais) menuStatusFaciais.addEventListener("click", (e) => { e.preventDefault(); switchPanel('statusFaciais', menuStatusFaciais); });
+            if (menuTodosEventos) menuTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('todosEventos', menuTodosEventos); });
+            if (menuFinanceiroFull) menuFinanceiroFull.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiroFull', menuFinanceiroFull); });
+            if (menuNovoEvento) menuNovoEvento.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
+            if (menuTerminaisPos) menuTerminaisPos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('terminaisPos', menuTerminaisPos); });
+            if (menuMensagens) menuMensagens.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mensagens', menuMensagens); });
+            if (menuGerenciarAcessos) menuGerenciarAcessos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('gerenciarAcessos', menuGerenciarAcessos); });
+            if (menuAdministracao) menuAdministracao.addEventListener("click", (e) => { e.preventDefault(); switchPanel('administracao', menuAdministracao); });
+            if (menuClubeRuaMusica) menuClubeRuaMusica.addEventListener("click", (e) => { e.preventDefault(); switchPanel('clubeRuaMusica', menuClubeRuaMusica); });
+            if (menuEstorno) menuEstorno.addEventListener("click", (e) => { e.preventDefault(); switchPanel('estorno', menuEstorno); });
             if (menuSacHub) menuSacHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('sac', menuSacHub); });
             if (menuDbConsole) menuDbConsole.addEventListener("click", (e) => { e.preventDefault(); switchPanel('db', menuDbConsole); });
+
+            if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
+            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiroFull', menuFinanceiroFull); switchFinTab('repasse', null); });
+            if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
 
             // Layout Toggle Function (Grid vs Table)
             window.toggleEventsLayout = function() {
