@@ -454,25 +454,90 @@ app.use('/api/v1', v1Router);
 app.use('/v1', v1Router);
 
 // ==========================================================================
-// WEB DATABASE VIEW ROUTES (EXPOSED ADMIN CONSOLE)
+// WEB DATABASE VIEW & API ROUTES (EXPOSED ADMIN CONSOLE)
 // ==========================================================================
 app.get('/db-admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'db_admin.html'));
 });
 
-// Backward compatibility check endpoints
-app.get('/api/db/:collection', (req, res) => {
+// Database global statistics
+app.get('/api/db/stats/overview', (req, res) => {
+  const stats = dbHelper.getDatabaseStats();
+  return res.json(stats);
+});
+
+// Seed full demo data
+app.post('/api/db/seed', (req, res) => {
+  const data = dbHelper.seedFullDatabase();
+  return res.json({ success: true, message: "Banco de dados repovoado com dados padrão de demonstração.", data });
+});
+
+// Export collection (JSON or CSV)
+app.get('/api/db/export/:collection', (req, res) => {
   const { collection } = req.params;
+  const format = (req.query.format || 'json').toLowerCase();
+
+  if (format === 'csv') {
+    const csvData = dbHelper.exportToCsv(collection);
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="${collection}-${Date.now()}.csv"`);
+    return res.send(csvData);
+  }
+
   const data = dbHelper.getCollection(collection);
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', `attachment; filename="${collection}-${Date.now()}.json"`);
   return res.json(data);
 });
 
+// Import collection items
+app.post('/api/db/import/:collection', (req, res) => {
+  const { collection } = req.params;
+  const { items, overwrite } = req.body;
+  if (!items || !Array.isArray(items)) {
+    return res.status(400).json({ error: "Parâmetro 'items' deve ser uma lista (array) de objetos." });
+  }
+
+  const success = dbHelper.importCollection(collection, items, !!overwrite);
+  return res.json({ success, message: `${items.length} registros processados com sucesso.` });
+});
+
+// Get single record
+app.get('/api/db/:collection/:id', (req, res) => {
+  const { collection, id } = req.params;
+  const record = dbHelper.getRecord(collection, id);
+  if (!record) {
+    return res.status(404).json({ error: "Registro não encontrado." });
+  }
+  return res.json(record);
+});
+
+// List collection with search & sort
+app.get('/api/db/:collection', (req, res) => {
+  const { collection } = req.params;
+  const { q, sortBy, order } = req.query;
+  const data = dbHelper.getCollection(collection, q, sortBy, order);
+  return res.json(data);
+});
+
+// Create new record
 app.post('/api/db/:collection', (req, res) => {
   const { collection } = req.params;
   const newRecord = dbHelper.insertRecord(collection, req.body);
   return res.status(201).json(newRecord);
 });
 
+// Update existing record
+app.put('/api/db/:collection/:id', (req, res) => {
+  const { collection, id } = req.params;
+  const updated = dbHelper.updateRecord(collection, id, req.body);
+  if (!updated) {
+    return res.status(404).json({ error: "Registro não encontrado para atualização." });
+  }
+  return res.json(updated);
+});
+
+// Delete record
 app.delete('/api/db/:collection/:id', (req, res) => {
   const { collection, id } = req.params;
   const success = dbHelper.deleteRecord(collection, id);

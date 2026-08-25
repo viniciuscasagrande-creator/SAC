@@ -1,35 +1,57 @@
 {
   "tickets": [
     {
-      "id": "t-1",
+      "id": "t-101",
       "title": "PIX pago mas ingresso não emitido",
       "category": "PIX",
       "subcategory": "PIX pago mas não aprovado",
       "module": "Financeiro",
-      "description": "Cliente enviou o comprovante de PIX mas o ingresso ainda não consta na carteira.",
+      "client": "João da Silva",
+      "cpf": "123.456.789-00",
+      "description": "Cliente enviou comprovante de PIX mas o ingresso ainda não consta na carteira digital.",
       "sla": "1h",
       "priority": "Crítica",
       "queue": "Fila Operações PIX",
+      "status": "Em Análise",
       "bypass": true,
-      "timestamp": "2026-07-16T11:26:15.549Z"
+      "timestamp": "2026-08-25T13:08:42.722Z"
     },
     {
-      "id": "t-2",
-      "title": "Solicitação de estorno parcial do show Roupa Nova",
+      "id": "t-102",
+      "title": "Solicitação de estorno do show Roupa Nova",
       "category": "Estorno",
       "subcategory": "Estorno de Cartão",
       "module": "Financeiro",
-      "description": "Cliente deseja estornar 1 de 2 ingressos comprados no mesmo pedido.",
+      "client": "Maria de Souza",
+      "cpf": "234.567.890-11",
+      "description": "Cliente deseja estornar 1 de 2 ingressos comprados no mesmo pedido por motivo de viagem.",
       "sla": "2h",
       "priority": "Alta",
       "queue": "Fila Financeiro - Estorno",
+      "status": "Aguardando Aprovação",
       "bypass": true,
-      "timestamp": "2026-07-16T10:26:15.549Z"
+      "timestamp": "2026-08-25T12:08:42.722Z"
+    },
+    {
+      "id": "t-103",
+      "title": "Erro de autenticação 3D Secure no cartão",
+      "category": "Cartão",
+      "subcategory": "Erro 3D Secure",
+      "module": "Faturamento",
+      "client": "Carlos Eduardo Santos",
+      "cpf": "345.678.901-22",
+      "description": "Banco emissor não retornou confirmação do desafio 3DS durante checkout do festival.",
+      "sla": "4h",
+      "priority": "Média",
+      "queue": "Fila Gateway - Adquirentes",
+      "status": "Resolvido",
+      "bypass": false,
+      "timestamp": "2026-08-25T10:08:42.722Z"
     }
   ],
   "estornos": [
     {
-      "id": "est-1",
+      "id": "est-1001",
       "order": "154258",
       "client": "João da Silva",
       "show": "Show Roupa Nova",
@@ -37,68 +59,242 @@
       "gateway": "pagseguro",
       "netRefund": 556.46,
       "status": "Sucesso",
-      "timestamp": "2026-07-16T11:56:15.549Z"
+      "motivo": "Desistência no prazo legal (7 dias)",
+      "timestamp": "2026-08-25T13:38:42.722Z"
     },
     {
-      "id": "est-1784208700089",
-      "timestamp": "2026-07-16T13:31:39.469Z",
-      "order": "154258",
-      "client": "João da Silva",
-      "show": "Show Roupa Nova",
-      "value": 580,
+      "id": "est-1002",
+      "order": "154299",
+      "client": "Maria de Souza",
+      "show": "Festival de Inverno 2026",
+      "value": 1200,
+      "gateway": "stone",
+      "netRefund": 1170.12,
+      "status": "Em Processamento",
+      "motivo": "Cancelamento voluntário",
+      "timestamp": "2026-08-25T12:38:42.722Z"
+    },
+    {
+      "id": "est-1003",
+      "order": "154302",
+      "client": "Pedro Henrique Ramos",
+      "show": "Samba 90 Graus",
+      "value": 240,
       "gateway": "pagseguro",
-      "netRefund": 556.46,
-      "status": "Sucesso"
+      "netRefund": 230.02,
+      "status": "Sucesso",
+      "motivo": "Erro de digitação no setor",
+      "timestamp": "2026-08-25T06:08:42.722Z"
     }
   ],
-  "logs": [
+  "clientes": [
     {
-      "id": "log-1",
-      "message": "API Server iniciado com sucesso.",
-      "type": "system",
-      "timestamp": "2026-07-16T12:26:15.549Z"
+      "id": "cli-1",
+      "nome": "João da Silva",
+      "cpf": "123.456.789-00",
+      "email": "joao.silva@email.com",
+      "telefone": "(41) 98888-1122",
+      "cidade": "Curitiba - PR",
+      "nivel": "Cliente Ouro",
+      "totalCompras": 8420,
+      "pedidosRealizados": 24,
+      "status": "Ativo",
+      "timestamp": "2026-07-26T14:08:42.722Z"
     },
     {
-      "id": "log-1784208091355",
-      "message": "Adicionado novo registro em orders: ord-1784208091353",
-      "type": "user_action",
-      "timestamp": "2026-07-16T13:21:31.355Z"
+      "id": "cli-2",
+      "nome": "Maria de Souza",
+      "cpf": "234.567.890-11",
+      "email": "maria.souza@email.com",
+      "telefone": "(41) 99911-3344",
+      "cidade": "São José dos Pinhais - PR",
+      "nivel": "Cliente Prata",
+      "totalCompras": 3150,
+      "pedidosRealizados": 8,
+      "status": "Ativo",
+      "timestamp": "2026-08-05T14:08:42.722Z"
     },
     {
-      "id": "log-1784208091358",
-      "message": "Adicionado novo registro em payments: pay-1784208091357",
-      "type": "user_action",
-      "timestamp": "2026-07-16T13:21:31.358Z"
+      "id": "cli-3",
+      "nome": "Pedro Henrique Ramos",
+      "cpf": "345.678.901-22",
+      "email": "pedro.ramos@email.com",
+      "telefone": "(41) 97722-5566",
+      "cidade": "Curitiba - PR",
+      "nivel": "Cliente Bronze",
+      "totalCompras": 720,
+      "pedidosRealizados": 3,
+      "status": "Ativo",
+      "timestamp": "2026-08-15T14:08:42.722Z"
+    }
+  ],
+  "eventos": [
+    {
+      "id": "evt-1",
+      "nome": "Show Roupa Nova - 40 Anos",
+      "produtor": "Teatro Positivo Produções Ltda",
+      "local": "Teatro Positivo - Curitiba",
+      "data": "2026-07-20",
+      "capacidade": 2400,
+      "ingressosVendidos": 1980,
+      "receitaBruta": 120500,
+      "status": "Ativo"
     },
     {
-      "id": "log-1784208700090",
-      "message": "Adicionado novo registro em estornos: est-1784208700089",
-      "type": "user_action",
-      "timestamp": "2026-07-16T13:31:40.090Z"
+      "id": "evt-2",
+      "nome": "Samba 90 Graus Festival",
+      "produtor": "Live Curitiba Entretenimento",
+      "local": "Live Curitiba",
+      "data": "2025-07-05",
+      "capacidade": 4500,
+      "ingressosVendidos": 4500,
+      "receitaBruta": 85000,
+      "status": "Concluído"
+    },
+    {
+      "id": "evt-3",
+      "nome": "Stand-Up Especial de Comédia",
+      "produtor": "Risorama Produções",
+      "local": "Ópera de Arame",
+      "data": "2026-08-15",
+      "capacidade": 1600,
+      "ingressosVendidos": 920,
+      "receitaBruta": 46000,
+      "status": "Ativo"
     }
   ],
   "orders": [
     {
-      "id": "ord-1784208091353",
-      "timestamp": "2026-07-16T13:21:31.353Z",
+      "id": "ord-154258",
       "pedido": 154258,
       "cliente": "João da Silva",
-      "evento": "Show Roupa Nova",
-      "status": "PAGO",
+      "evento": "Show Roupa Nova - 40 Anos",
+      "qtdIngressos": 2,
       "valor": 580,
-      "formaPagamento": "CARTAO"
+      "formaPagamento": "CARTAO",
+      "status": "PAGO",
+      "timestamp": "2026-08-25T10:08:42.722Z"
+    },
+    {
+      "id": "ord-154299",
+      "pedido": 154299,
+      "cliente": "Maria de Souza",
+      "evento": "Show Roupa Nova - 40 Anos",
+      "qtdIngressos": 4,
+      "valor": 1200,
+      "formaPagamento": "CARTAO",
+      "status": "PAGO",
+      "timestamp": "2026-08-25T06:08:42.722Z"
+    },
+    {
+      "id": "ord-154302",
+      "pedido": 154302,
+      "cliente": "Pedro Henrique Ramos",
+      "evento": "Samba 90 Graus Festival",
+      "qtdIngressos": 2,
+      "valor": 240,
+      "formaPagamento": "PIX",
+      "status": "PAGO",
+      "timestamp": "2026-08-25T02:08:42.722Z"
     }
   ],
   "payments": [
     {
-      "id": "pay-1784208091357",
-      "timestamp": "2026-07-16T13:21:31.357Z",
-      "gateway": "Stone",
-      "adquirente": "Cielo",
+      "id": "pay-801",
+      "pedido": 154258,
+      "gateway": "PagSeguro",
+      "adquirente": "Rede",
       "status": "APPROVED",
       "nsu": "874521",
       "tid": "987456123",
-      "parcelas": 3
+      "parcelas": 3,
+      "valor": 580,
+      "taxaGateway": 23.54,
+      "timestamp": "2026-08-25T10:08:42.722Z"
+    },
+    {
+      "id": "pay-802",
+      "pedido": 154299,
+      "gateway": "Stone",
+      "adquirente": "Stone",
+      "status": "APPROVED",
+      "nsu": "945112",
+      "tid": "112233445",
+      "parcelas": 6,
+      "valor": 1200,
+      "taxaGateway": 29.88,
+      "timestamp": "2026-08-25T06:08:42.722Z"
+    },
+    {
+      "id": "pay-803",
+      "pedido": 154302,
+      "gateway": "PIX Banco Central",
+      "adquirente": "Itaú",
+      "status": "APPROVED",
+      "nsu": "102938",
+      "tid": "E202607160912PIX001",
+      "parcelas": 1,
+      "valor": 240,
+      "taxaGateway": 2.4,
+      "timestamp": "2026-08-25T02:08:42.722Z"
+    }
+  ],
+  "repasses": [
+    {
+      "id": "rep-501",
+      "eventoId": "evt-2",
+      "eventoNome": "Samba 90 Graus Festival",
+      "produtor": "Live Curitiba Entretenimento",
+      "valor": 50000,
+      "status": "Concluído",
+      "contaDestino": "Banco do Brasil (Ag: 1234, CC: 56789-0)",
+      "dataSolicitacao": "2025-07-10",
+      "dataPagamento": "2025-07-11",
+      "comprovante": "TED-9948210491"
+    },
+    {
+      "id": "rep-502",
+      "eventoId": "evt-2",
+      "eventoNome": "Samba 90 Graus Festival",
+      "produtor": "Live Curitiba Entretenimento",
+      "valor": 26500,
+      "status": "Pendente",
+      "contaDestino": "Banco do Brasil (Ag: 1234, CC: 56789-0)",
+      "dataSolicitacao": "2025-07-15",
+      "dataPagamento": "-",
+      "comprovante": "-"
+    },
+    {
+      "id": "rep-503",
+      "eventoId": "evt-1",
+      "eventoNome": "Show Roupa Nova - 40 Anos",
+      "produtor": "Teatro Positivo Produções Ltda",
+      "valor": 80000,
+      "status": "Concluído",
+      "contaDestino": "Bradesco (Ag: 0987, CC: 12345-6)",
+      "dataSolicitacao": "2026-07-18",
+      "dataPagamento": "2026-07-19",
+      "comprovante": "PIX-1204918239"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-1787666922726",
+      "message": "Banco de dados resetado e preenchido com dados de demonstração.",
+      "type": "system",
+      "timestamp": "2026-08-25T14:08:42.726Z"
+    },
+    {
+      "id": "log-1",
+      "message": "Banco de dados inicializado com sucesso.",
+      "type": "system",
+      "timestamp": "2026-08-24T14:08:42.722Z"
+    },
+    {
+      "id": "log-2",
+      "message": "Sincronização de tabelas e coleções do ApexERP concluída.",
+      "type": "system",
+      "timestamp": "2026-08-25T02:08:42.722Z"
     }
   ]
 }

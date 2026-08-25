@@ -1057,6 +1057,12 @@
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
                     </a>
+
+                    <!-- BANCO DE DADOS MENU ITEM -->
+                    <a class="menu-item" id="menuDbConsole" style="margin-top: 4px;">
+                        <div class="menu-item-left"><i class="fa-solid fa-database" style="color: #38bdf8;"></i> Banco de Dados</div>
+                        <span class="badge-sidebar" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Console</span>
+                    </a>
                 </div>
             </div>
             
@@ -1909,6 +1915,11 @@
                 <iframe src="limitless/html/layout_6/full/sac_novo_chamado.html" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#ffffff;"></iframe>
             </div>
 
+            <!-- PANEL F: INTEGRATED DATABASE CONSOLE -->
+            <div id="panelDbContent" class="d-none">
+                <iframe src="/db-admin" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#0b0f19;"></iframe>
+            </div>
+
         </main>
     </div>
 
@@ -1926,6 +1937,7 @@
             const menuPainelGeral = document.getElementById("menuPainelGeral");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
             const menuSacHub = document.getElementById("menuSacHub");
+            const menuDbConsole = document.getElementById("menuDbConsole");
             const menuEstorno = document.getElementById("menuEstorno");
             const menuMeusEventos = document.getElementById("menuMeusEventos");
             const submenuMeusEventos = document.getElementById("submenuMeusEventos");
@@ -1937,6 +1949,7 @@
             const panelDashboard = document.getElementById("panelDashboardContent");
             const panelCoupons = document.getElementById("panelCouponsContent");
             const panelSac = document.getElementById("panelSacContent");
+            const panelDb = document.getElementById("panelDbContent");
             const panelEstorno = document.getElementById("panelEstornoContent");
 
             // Subviews for Estorno panel
@@ -1971,6 +1984,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelDb.classList.add("d-none");
                 panelEstorno.classList.add("d-none");
             });
             
@@ -1981,6 +1995,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelDb.classList.add("d-none");
                 panelEstorno.classList.add("d-none");
             });
             
@@ -1992,6 +2007,7 @@
                 panelDashboard.classList.remove("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelDb.classList.add("d-none");
                 panelEstorno.classList.add("d-none");
             });
             
@@ -2003,6 +2019,7 @@
                 panelDashboard.classList.add("d-none");
                 panelCoupons.classList.remove("d-none");
                 panelSac.classList.add("d-none");
+                panelDb.classList.add("d-none");
                 panelEstorno.classList.add("d-none");
             });
             
@@ -2013,6 +2030,18 @@
                 panelDashboard.classList.add("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.remove("d-none");
+                panelDb.classList.add("d-none");
+                panelEstorno.classList.add("d-none");
+            });
+
+            menuDbConsole.addEventListener("click", (e) => {
+                e.preventDefault();
+                deactivateAll();
+                menuDbConsole.classList.add("active");
+                panelDashboard.classList.add("d-none");
+                panelCoupons.classList.add("d-none");
+                panelSac.classList.add("d-none");
+                panelDb.classList.remove("d-none");
                 panelEstorno.classList.add("d-none");
             });
 
@@ -2023,6 +2052,7 @@
                 panelDashboard.classList.add("d-none");
                 panelCoupons.classList.add("d-none");
                 panelSac.classList.add("d-none");
+                panelDb.classList.add("d-none");
                 panelEstorno.classList.remove("d-none");
                 
                 // Show dashboard subview by default

@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Console do Banco de Dados - ApexERP</title>
+    <title>Console do Banco de Dados - ApexERP & SAC</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --bg-panel: #1e293b;
+            --bg-dark: #0b0f19;
+            --bg-panel: #131b2e;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --primary-orange: #ff5722;
             --primary-blue: #0284c7;
+            --primary-purple: #8b5cf6;
             --primary-green: #10b981;
-            --border-color: #334155;
+            --border-color: #1e293b;
+            --border-light: #334155;
         }
 
         * {
@@ -39,15 +42,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-light);
             padding-bottom: 16px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .header-title h1 {
             font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(to right, #ff8a65, var(--primary-orange));
+            background: linear-gradient(to right, #60a5fa, #38bdf8, #34d399);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
@@ -56,18 +61,44 @@
         }
 
         .header-title p {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin-top: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav-back {
+            background-color: var(--bg-panel);
+            color: var(--text-muted);
+            border: 1px solid var(--border-light);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-nav-back:hover {
+            color: #fff;
+            border-color: var(--primary-blue);
+            background-color: rgba(2, 132, 199, 0.15);
         }
 
         .badge-live {
             background-color: rgba(16, 185, 129, 0.1);
             color: var(--primary-green);
             border: 1px solid var(--primary-green);
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
@@ -75,8 +106,8 @@
         }
 
         .badge-live .pulse-dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: var(--primary-green);
             border-radius: 50%;
             animation: pulse 1.5s infinite;
@@ -88,98 +119,165 @@
             100% { transform: scale(0.9); opacity: 0.8; }
         }
 
+        /* STATS BAR */
         .db-stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
 
         .stat-card {
             background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .stat-card h3 {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             color: var(--text-muted);
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .stat-card .value {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            margin-top: 6px;
+            margin-top: 4px;
+            color: #fff;
         }
 
         .stat-card .icon {
-            font-size: 1.8rem;
-            opacity: 0.15;
+            font-size: 2rem;
+            opacity: 0.2;
         }
 
+        /* MAIN WORKSPACE */
         .main-workspace {
             display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 24px;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
         }
 
+        @media (max-width: 900px) {
+            .main-workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* SIDEBAR COLLECTIONS */
         .collections-sidebar {
             background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
             padding: 16px;
             height: fit-content;
         }
 
         .sidebar-header {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             color: var(--text-muted);
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 12px;
             padding-left: 8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .tab-btn {
             width: 100%;
             text-align: left;
             background: none;
-            border: none;
+            border: 1px solid transparent;
             color: var(--text-muted);
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             transition: all 0.2s ease;
             margin-bottom: 6px;
         }
 
+        .tab-btn .tab-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn .tab-badge {
+            background-color: rgba(255,255,255,0.08);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
         .tab-btn:hover {
-            background-color: rgba(255,255,255,0.03);
+            background-color: rgba(255,255,255,0.04);
             color: var(--text-main);
         }
 
         .tab-btn.active {
-            background-color: rgba(255, 87, 34, 0.1);
-            color: var(--primary-orange);
-            border-left: 3px solid var(--primary-orange);
+            background-color: rgba(2, 132, 199, 0.15);
+            color: #38bdf8;
+            border-color: rgba(2, 132, 199, 0.3);
+            border-left: 3px solid #38bdf8;
+        }
+        .tab-btn.active .tab-badge {
+            background-color: #0284c7;
+            color: #fff;
         }
 
+        .sidebar-actions {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-side-action {
+            background: none;
+            border: 1px dashed var(--border-light);
+            color: var(--text-muted);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-side-action:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+
+        /* DATA PANEL */
         .data-panel {
             background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 24px;
+            padding: 20px;
             overflow: hidden;
         }
 
@@ -187,36 +285,98 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .panel-header h2 {
-            font-size: 1.1rem;
+        .panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-header-left h2 {
+            font-size: 1.15rem;
             font-weight: 700;
         }
 
-        .btn-add {
-            background-color: var(--primary-orange);
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
+        .panel-toolbar {
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.2s;
+            flex-wrap: wrap;
         }
 
-        .btn-add:hover {
-            background-color: #e64a19;
+        .search-box {
+            position: relative;
+        }
+        .search-box input {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            color: #fff;
+            padding: 8px 12px 8px 32px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            outline: none;
+            width: 220px;
+            transition: all 0.2s;
+        }
+        .search-box input:focus {
+            border-color: var(--primary-blue);
+            width: 280px;
+        }
+        .search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.75rem;
         }
 
-        /* Responsive Table */
+        .btn-action {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-action:hover {
+            background-color: rgba(255,255,255,0.08);
+            border-color: #64748b;
+        }
+        .btn-action.primary {
+            background-color: #0284c7;
+            border-color: #0284c7;
+            color: #fff;
+        }
+        .btn-action.primary:hover {
+            background-color: #0369a1;
+        }
+        .btn-action.success {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .btn-action.success:hover {
+            background-color: #059669;
+        }
+
+        /* TABLE */
         .table-container {
             overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background-color: var(--bg-dark);
+            max-height: 560px;
+            overflow-y: auto;
         }
 
         table {
@@ -227,38 +387,54 @@
         }
 
         th {
-            background-color: rgba(255,255,255,0.02);
+            background-color: rgba(19, 27, 46, 0.95);
             color: var(--text-muted);
             font-weight: 700;
-            padding: 12px 16px;
-            border-bottom: 2px solid var(--border-color);
+            padding: 12px 14px;
+            border-bottom: 2px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         td {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             vertical-align: middle;
         }
 
         tr:hover td {
-            background-color: rgba(255,255,255,0.01);
+            background-color: rgba(255,255,255,0.02);
         }
 
-        .btn-delete {
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .bg-red { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .bg-orange { background-color: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .bg-blue { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .bg-purple { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .bg-green { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .btn-tbl-action {
             background: none;
             border: none;
-            color: #ef4444;
+            padding: 4px 8px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
-            padding: 4px;
-            transition: opacity 0.2s;
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
+        .btn-tbl-action.edit { color: #38bdf8; }
+        .btn-tbl-action.edit:hover { background-color: rgba(56, 189, 248, 0.15); }
+        .btn-tbl-action.delete { color: #ef4444; }
+        .btn-tbl-action.delete:hover { background-color: rgba(239, 68, 68, 0.15); }
 
-        .btn-delete:hover {
-            opacity: 0.8;
-        }
-
-        /* JSON modal and forms */
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -266,32 +442,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            align-items: center;
-            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
             z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .modal-content {
             background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
-            width: 500px;
-            max-width: 90%;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
             padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-light);
             padding-bottom: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .modal-header h3 {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
         }
 
@@ -299,169 +480,244 @@
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
         }
+        .close-btn:hover { color: #fff; }
 
         .form-group {
-            margin-bottom: 16px;
-            text-align: left;
+            margin-bottom: 14px;
         }
-
         .form-group label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 700;
             color: var(--text-muted);
-            font-weight: 600;
             margin-bottom: 6px;
+            text-transform: uppercase;
         }
-
-        .form-group input, .form-group textarea, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            background-color: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            color: #fff;
+            padding: 10px 12px;
             border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.8rem;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
+            font-size: 0.85rem;
             outline: none;
-            border-color: var(--primary-orange);
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-blue);
         }
 
         .modal-footer {
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
+            gap: 10px;
             margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
         }
 
-        .btn-cancel {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 6px;
+        /* QUERY CONSOLE TAB */
+        .code-console {
+            background-color: #050811;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
             font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
+            color: #38bdf8;
+            max-height: 400px;
+            overflow: auto;
+            white-space: pre;
         }
-
-        .btn-save {
-            background-color: var(--primary-green);
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        
-        .badge {
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .bg-red { background-color: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid #ef4444; }
-        .bg-orange { background-color: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid #f97316; }
-        .bg-blue { background-color: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid #0ea5e9; }
-        .bg-green { background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid #10b981; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="header-title">
-            <h1><i class="fa-solid fa-database"></i> Console de Administração do Banco de Dados</h1>
-            <p>Acesso de testes corporativo para conciliação de chamados, estornos e auditoria.</p>
+            <h1><i class="fa-solid fa-database"></i> Console de Banco de Dados</h1>
+            <p>Gerenciador Operacional Integrado do ApexERP & Central de Atendimento DiskIngressos</p>
         </div>
-        <div class="badge-live">
-            <span class="pulse-dot"></span>
-            Banco de Dados JSON On-line (Exposto)
+        <div class="header-actions">
+            <div class="badge-live">
+                <div class="pulse-dot"></div> REST API Conectada
+            </div>
+            <a href="/index.html" class="btn-nav-back">
+                <i class="fa-solid fa-gauge-high"></i> Painel Geral
+            </a>
+            <a href="/limitless/html/layout_6/full/sac_novo_chamado.html" class="btn-nav-back">
+                <i class="fa-solid fa-headset"></i> Hub SAC
+            </a>
+            <a href="/financeiro" class="btn-nav-back">
+                <i class="fa-solid fa-wallet"></i> Financeiro
+            </a>
         </div>
     </header>
 
-    <!-- KPI Summary Row -->
+    <!-- TOP KPI STATS -->
     <div class="db-stats-grid">
         <div class="stat-card">
             <div>
-                <h3>Total de Chamados (Tickets)</h3>
-                <div class="value" id="lblCountTickets">0</div>
+                <h3>Total Registros</h3>
+                <div class="value" id="lblTotalRecords">0</div>
             </div>
-            <i class="fa-solid fa-headset icon" style="color: var(--primary-blue);"></i>
+            <div class="icon"><i class="fa-solid fa-layer-group text-primary"></i></div>
         </div>
         <div class="stat-card">
             <div>
-                <h3>Estornos Gravados</h3>
-                <div class="value" id="lblCountEstornos">0</div>
+                <h3>Coleções / Tabelas</h3>
+                <div class="value" id="lblTotalCollections">0</div>
             </div>
-            <i class="fa-solid fa-money-bill-transfer icon" style="color: var(--primary-orange);"></i>
+            <div class="icon"><i class="fa-solid fa-table text-info"></i></div>
         </div>
         <div class="stat-card">
             <div>
-                <h3>Logs Registrados</h3>
-                <div class="value" id="lblCountLogs">0</div>
+                <h3>Tamanho do Banco</h3>
+                <div class="value" id="lblDbSize">0 KB</div>
             </div>
-            <i class="fa-solid fa-terminal icon" style="color: var(--text-muted);"></i>
+            <div class="icon"><i class="fa-solid fa-hard-drive text-warning"></i></div>
+        </div>
+        <div class="stat-card">
+            <div>
+                <h3>Status do Storage</h3>
+                <div class="value" style="font-size: 1.2rem; color: #34d399; margin-top: 10px;">database.json (OK)</div>
+            </div>
+            <div class="icon"><i class="fa-solid fa-circle-check text-success"></i></div>
         </div>
     </div>
 
-    <!-- Workspace Sidebar + Content -->
+    <!-- MAIN WORKSPACE -->
     <div class="main-workspace">
+        
+        <!-- SIDEBAR -->
         <aside class="collections-sidebar">
-            <div class="sidebar-header">Coleções (Tabelas)</div>
-            <button class="tab-btn active" onclick="switchCollection('tickets')">
-                <i class="fa-solid fa-headset"></i> Tickets
-            </button>
-            <button class="tab-btn" onclick="switchCollection('estornos')">
-                <i class="fa-solid fa-money-bill-transfer"></i> Estornos
-            </button>
-            <button class="tab-btn" onclick="switchCollection('logs')">
-                <i class="fa-solid fa-terminal"></i> Logs Auditoria
-            </button>
-        </aside>
+            <div class="sidebar-header">
+                <span>Tabelas & Coleções</span>
+                <i class="fa-solid fa-arrows-rotate cursor-pointer" onclick="fetchStats(); loadCollectionData();" title="Recarregar"></i>
+            </div>
 
-        <main class="data-panel">
-            <div class="panel-header">
-                <h2 id="lblCollectionTitle">Chamados do SAC (tickets)</h2>
-                <button class="btn-add" id="btnAddRecord" onclick="openAddModal()">
-                    <i class="fa-solid fa-plus"></i> Adicionar Registro
+            <button class="tab-btn active" data-col="tickets" onclick="switchCollection('tickets')">
+                <div class="tab-info"><i class="fa-solid fa-headset"></i> Chamados SAC</div>
+                <span class="tab-badge" id="badge_tickets">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="estornos" onclick="switchCollection('estornos')">
+                <div class="tab-info"><i class="fa-solid fa-rotate-left"></i> Estornos</div>
+                <span class="tab-badge" id="badge_estornos">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="clientes" onclick="switchCollection('clientes')">
+                <div class="tab-info"><i class="fa-solid fa-users"></i> Clientes</div>
+                <span class="tab-badge" id="badge_clientes">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="eventos" onclick="switchCollection('eventos')">
+                <div class="tab-info"><i class="fa-solid fa-calendar-days"></i> Eventos & Shows</div>
+                <span class="tab-badge" id="badge_eventos">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="orders" onclick="switchCollection('orders')">
+                <div class="tab-info"><i class="fa-solid fa-ticket"></i> Pedidos</div>
+                <span class="tab-badge" id="badge_orders">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="payments" onclick="switchCollection('payments')">
+                <div class="tab-info"><i class="fa-solid fa-credit-card"></i> Pagamentos</div>
+                <span class="tab-badge" id="badge_payments">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="repasses" onclick="switchCollection('repasses')">
+                <div class="tab-info"><i class="fa-solid fa-money-bill-transfer"></i> Repasses</div>
+                <span class="tab-badge" id="badge_repasses">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="logs" onclick="switchCollection('logs')">
+                <div class="tab-info"><i class="fa-solid fa-list-check"></i> Auditoria / Logs</div>
+                <span class="tab-badge" id="badge_logs">0</span>
+            </button>
+
+            <button class="tab-btn" data-col="raw_json" onclick="switchCollection('raw_json')" style="border-top: 1px solid var(--border-light); margin-top: 8px; padding-top: 12px;">
+                <div class="tab-info"><i class="fa-solid fa-code"></i> Query / JSON Raw</div>
+                <span class="tab-badge">API</span>
+            </button>
+
+            <div class="sidebar-actions">
+                <button class="btn-side-action" onclick="seedDatabase()">
+                    <i class="fa-solid fa-seedling"></i> Popular Dados Padrão
                 </button>
             </div>
+        </aside>
 
-            <div class="table-container">
-                <table id="dataTable">
-                    <thead id="tableHead">
-                        <!-- Filled by JS -->
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Filled by JS -->
-                    </tbody>
+        <!-- DATA PANEL -->
+        <main class="data-panel">
+            
+            <div class="panel-header">
+                <div class="panel-header-left">
+                    <h2 id="lblCollectionTitle">Chamados SAC (tickets)</h2>
+                    <span id="lblCollectionCount" class="badge bg-blue">0 registros</span>
+                </div>
+
+                <div class="panel-toolbar" id="toolbarControls">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="inputSearchQuery" placeholder="Filtrar dados em tempo real..." oninput="filterData()">
+                    </div>
+
+                    <button class="btn-action primary" id="btnAddRecord" onclick="openAddModal()">
+                        <i class="fa-solid fa-plus"></i> Novo Registro
+                    </button>
+
+                    <button class="btn-action" onclick="exportData('json')" title="Baixar JSON">
+                        <i class="fa-solid fa-file-code"></i> JSON
+                    </button>
+
+                    <button class="btn-action" onclick="exportData('csv')" title="Baixar CSV">
+                        <i class="fa-solid fa-file-csv"></i> CSV
+                    </button>
+
+                    <button class="btn-action" onclick="loadCollectionData()" title="Atualizar">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLE CONTAINER -->
+            <div class="table-container" id="tableContainer">
+                <table>
+                    <thead id="tableHead"></thead>
+                    <tbody id="tableBody"></tbody>
                 </table>
             </div>
+
+            <!-- RAW JSON / QUERY VIEW -->
+            <div id="rawJsonContainer" style="display: none;">
+                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Visualizador Direto do Endpoint REST <code>/api/db/:collection</code></span>
+                    <button class="btn-action" onclick="copyRawJson()"><i class="fa-regular fa-copy"></i> Copiar JSON</button>
+                </div>
+                <div class="code-console" id="codeConsoleArea">Carregando dados...</div>
+            </div>
+
         </main>
     </div>
 
-    <!-- Modal Form for Adding record -->
-    <div class="modal" id="addModal">
+    <!-- MODAL ADD / EDIT RECORD -->
+    <div class="modal" id="recordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="lblModalTitle">Adicionar Novo Chamado</h3>
-                <button class="close-btn" onclick="closeAddModal()">&times;</button>
+                <h3 id="lblModalTitle">Adicionar Novo Registro</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <form id="recordForm" onsubmit="saveRecord(event)">
-                <div id="formFields">
-                    <!-- Loaded dynamically depending on collection -->
-                </div>
+                <input type="hidden" id="edit_record_id">
+                <div id="formFields"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-cancel" onclick="closeAddModal()">Cancelar</button>
-                    <button type="submit" class="btn-save">Salvar Registro</button>
+                    <button type="button" class="btn-action" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-action primary">Salvar Registro</button>
                 </div>
             </form>
         </div>
@@ -469,84 +725,121 @@
 
     <script>
         let currentCollection = 'tickets';
+        let currentData = [];
 
-        // Load data on start
         window.addEventListener('DOMContentLoaded', () => {
             fetchStats();
             loadCollectionData();
         });
 
+        // 1. Fetch Global Database Stats
         async function fetchStats() {
             try {
-                const resTickets = await fetch('/api/db/tickets');
-                const tickets = await resTickets.json();
-                document.getElementById('lblCountTickets').textContent = tickets.length;
+                const res = await fetch('/api/db/stats/overview');
+                const stats = await res.json();
+                
+                document.getElementById('lblTotalRecords').textContent = stats.totalRecords || 0;
+                document.getElementById('lblTotalCollections').textContent = stats.totalCollections || 0;
+                document.getElementById('lblDbSize').textContent = stats.fileSize || '0 KB';
 
-                const resEstornos = await fetch('/api/db/estornos');
-                const estornos = await resEstornos.json();
-                document.getElementById('lblCountEstornos').textContent = estornos.length;
-
-                const resLogs = await fetch('/api/db/logs');
-                const logs = await resLogs.json();
-                document.getElementById('lblCountLogs').textContent = logs.length;
+                if (stats.collections) {
+                    for (const [col, count] of Object.entries(stats.collections)) {
+                        const badge = document.getElementById(`badge_${col}`);
+                        if (badge) badge.textContent = count;
+                    }
+                }
             } catch (err) {
                 console.error("Erro ao carregar estatísticas:", err);
             }
         }
 
+        // 2. Switch Current Collection
         function switchCollection(name) {
             currentCollection = name;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-col') === name);
+            });
+
             const titles = {
-                tickets: 'Chamados do SAC (tickets)',
-                estornos: 'Estornos Executados (estornos)',
-                logs: 'Logs do Sistema (logs)'
+                tickets: 'Chamados SAC (tickets)',
+                estornos: 'Estornos & Reembolsos (estornos)',
+                clientes: 'Base de Clientes (clientes)',
+                eventos: 'Eventos & Produções (eventos)',
+                orders: 'Pedidos de Ingressos (orders)',
+                payments: 'Transações de Pagamento (payments)',
+                repasses: 'Repasses a Produtores (repasses)',
+                logs: 'Trilha de Auditoria (logs)',
+                raw_json: 'Console de Dados JSON Raw'
             };
-            document.getElementById('lblCollectionTitle').textContent = titles[name];
-            
-            // Hide/Show add button for logs (read-only for security)
+            document.getElementById('lblCollectionTitle').textContent = titles[name] || name;
+
+            const isRaw = name === 'raw_json';
+            document.getElementById('tableContainer').style.display = isRaw ? 'none' : 'block';
+            document.getElementById('rawJsonContainer').style.display = isRaw ? 'block' : 'none';
+            document.getElementById('toolbarControls').style.display = isRaw ? 'none' : 'flex';
+
             const btnAdd = document.getElementById('btnAddRecord');
-            if (name === 'logs') {
-                btnAdd.style.display = 'none';
-            } else {
-                btnAdd.style.display = 'flex';
+            if (btnAdd) {
+                btnAdd.style.display = (name === 'logs' || isRaw) ? 'none' : 'inline-flex';
             }
 
+            document.getElementById('inputSearchQuery').value = '';
             loadCollectionData();
         }
 
+        // 3. Load Data from API
         async function loadCollectionData() {
+            if (currentCollection === 'raw_json') {
+                loadRawJsonView();
+                return;
+            }
+
             try {
                 const res = await fetch(`/api/db/${currentCollection}`);
-                const data = await res.json();
-                renderTable(data);
+                currentData = await res.json();
+                document.getElementById('lblCollectionCount').textContent = `${currentData.length} registros`;
+                renderTable(currentData);
             } catch (err) {
                 console.error("Erro ao carregar dados da coleção:", err);
             }
         }
 
+        // 4. Real-time Search Filter
+        function filterData() {
+            const q = document.getElementById('inputSearchQuery').value.toLowerCase().trim();
+            if (!q) {
+                renderTable(currentData);
+                return;
+            }
+            const filtered = currentData.filter(item => {
+                return Object.values(item).some(val => 
+                    val !== null && val !== undefined && String(val).toLowerCase().includes(q)
+                );
+            });
+            renderTable(filtered);
+        }
+
+        // 5. Render Dynamic Tables
         function renderTable(data) {
             const head = document.getElementById('tableHead');
             const body = document.getElementById('tableBody');
             head.innerHTML = '';
             body.innerHTML = '';
 
-            if (data.length === 0) {
-                body.innerHTML = `<tr><td colspan="100%" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhum registro encontrado nesta coleção.</td></tr>`;
+            if (!data || data.length === 0) {
+                body.innerHTML = `<tr><td colspan="100%" style="text-align: center; color: var(--text-muted); padding: 40px;"><i class="fa-regular fa-folder-open fa-2x mb-2 d-block"></i>Nenhum registro encontrado.</td></tr>`;
                 return;
             }
 
-            // Headers configuration
             let headers = [];
-            if (currentCollection === 'tickets') {
-                headers = ['ID', 'Título', 'Categoria', 'SLA', 'Prioridade', 'Fila Destino', 'Ações'];
-            } else if (currentCollection === 'estornos') {
-                headers = ['ID', 'Pedido', 'Cliente', 'Show', 'Valor Original', 'Líquido Reembolso', 'Gateway', 'Status', 'Ações'];
-            } else if (currentCollection === 'logs') {
-                headers = ['Timestamp', 'Mensagem Log', 'Tipo'];
-            }
+            if (currentCollection === 'tickets') headers = ['ID', 'Título / Descrição', 'Cliente / CPF', 'Categoria', 'SLA', 'Prioridade', 'Fila', 'Status', 'Ações'];
+            else if (currentCollection === 'estornos') headers = ['ID', 'Pedido', 'Cliente', 'Show', 'Valor Original', 'Líquido Estorno', 'Gateway', 'Status', 'Ações'];
+            else if (currentCollection === 'clientes') headers = ['ID', 'Nome', 'CPF', 'E-mail', 'Telefone', 'Cidade', 'Nível', 'Total Gasto', 'Ações'];
+            else if (currentCollection === 'eventos') headers = ['ID', 'Evento', 'Produtor', 'Local', 'Data', 'Vendidos / Cap.', 'Receita', 'Status', 'Ações'];
+            else if (currentCollection === 'orders') headers = ['ID / Pedido', 'Cliente', 'Evento', 'Qtd', 'Valor', 'Forma Pagto', 'Status', 'Ações'];
+            else if (currentCollection === 'payments') headers = ['ID', 'Pedido', 'Gateway', 'Adquirente', 'NSU / TID', 'Parcelas', 'Valor', 'Status', 'Ações'];
+            else if (currentCollection === 'repasses') headers = ['ID', 'Evento', 'Produtor', 'Valor', 'Conta Destino', 'Data Solicitada', 'Status', 'Ações'];
+            else if (currentCollection === 'logs') headers = ['Timestamp', 'Mensagem', 'Tipo'];
 
             const trHead = document.createElement('tr');
             headers.forEach(h => {
@@ -556,58 +849,130 @@
             });
             head.appendChild(trHead);
 
-            // Populate rows
             data.forEach(item => {
                 const tr = document.createElement('tr');
-                
+
                 if (currentCollection === 'tickets') {
-                    const badgeClass = item.priority === 'Crítica' ? 'bg-red' : item.priority === 'Alta' ? 'bg-orange' : item.priority === 'Média' ? 'bg-blue' : 'bg-green';
+                    const pClass = item.priority === 'Crítica' ? 'bg-red' : item.priority === 'Alta' ? 'bg-orange' : item.priority === 'Média' ? 'bg-blue' : 'bg-green';
                     tr.innerHTML = `
-                        <td><strong>${item.id}</strong></td>
-                        <td>
-                            <strong>${item.title}</strong><br>
-                            <span style="color: var(--text-muted); font-size: 0.7rem;">${item.description || ''}</span>
-                        </td>
-                        <td><span class="badge bg-blue">${item.category}</span></td>
+                        <td><code>${item.id}</code></td>
+                        <td><strong>${item.title || ''}</strong><br><small style="color: var(--text-muted);">${item.description || ''}</small></td>
+                        <td>${item.client || '-'}<br><small style="color: var(--text-muted);">${item.cpf || ''}</small></td>
+                        <td><span class="badge bg-blue">${item.category || ''}</span></td>
                         <td>${item.sla || '24h'}</td>
-                        <td><span class="badge ${badgeClass}">${item.priority || 'Média'}</span></td>
-                        <td>${item.queue || 'Fila Geral'}</td>
+                        <td><span class="badge ${pClass}">${item.priority || 'Média'}</span></td>
+                        <td><small>${item.queue || 'Triagem'}</small></td>
+                        <td><span class="badge bg-purple">${item.status || 'Aberto'}</span></td>
                         <td>
-                            <button class="btn-delete" onclick="deleteRecord('${item.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')" title="Excluir"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     `;
                 } else if (currentCollection === 'estornos') {
                     tr.innerHTML = `
-                        <td><strong>${item.id}</strong></td>
-                        <td>${item.order}</td>
+                        <td><code>${item.id}</code></td>
+                        <td><strong>#${item.order}</strong></td>
                         <td>${item.client}</td>
                         <td>${item.show}</td>
-                        <td>R$ ${Number(item.value).toFixed(2)}</td>
-                        <td class="text-success fw-bold">R$ ${Number(item.netRefund).toFixed(2)}</td>
+                        <td>R$ ${Number(item.value || 0).toFixed(2)}</td>
+                        <td style="color: #34d399; font-weight: 700;">R$ ${Number(item.netRefund || 0).toFixed(2)}</td>
                         <td><span class="badge bg-orange">${item.gateway}</span></td>
                         <td><span class="badge bg-green">${item.status}</span></td>
                         <td>
-                            <button class="btn-delete" onclick="deleteRecord('${item.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                } else if (currentCollection === 'clientes') {
+                    tr.innerHTML = `
+                        <td><code>${item.id}</code></td>
+                        <td><strong>${item.nome}</strong></td>
+                        <td>${item.cpf}</td>
+                        <td>${item.email}</td>
+                        <td>${item.telefone}</td>
+                        <td>${item.cidade || '-'}</td>
+                        <td><span class="badge bg-purple">${item.nivel || 'Ouro'}</span></td>
+                        <td style="color: #34d399; font-weight: 700;">R$ ${Number(item.totalCompras || 0).toFixed(2)}</td>
+                        <td>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                } else if (currentCollection === 'eventos') {
+                    tr.innerHTML = `
+                        <td><code>${item.id}</code></td>
+                        <td><strong>${item.nome}</strong></td>
+                        <td>${item.produtor}</td>
+                        <td>${item.local}</td>
+                        <td>${item.data}</td>
+                        <td>${item.ingressosVendidos || 0} / ${item.capacidade || 0}</td>
+                        <td style="color: #34d399; font-weight: 700;">R$ ${Number(item.receitaBruta || 0).toFixed(2)}</td>
+                        <td><span class="badge bg-blue">${item.status}</span></td>
+                        <td>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                } else if (currentCollection === 'orders') {
+                    tr.innerHTML = `
+                        <td><code>${item.id}</code> (<strong>#${item.pedido}</strong>)</td>
+                        <td>${item.cliente}</td>
+                        <td>${item.evento}</td>
+                        <td>${item.qtdIngressos || 1}</td>
+                        <td style="font-weight: 700;">R$ ${Number(item.valor || 0).toFixed(2)}</td>
+                        <td><span class="badge bg-blue">${item.formaPagamento}</span></td>
+                        <td><span class="badge bg-green">${item.status}</span></td>
+                        <td>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                } else if (currentCollection === 'payments') {
+                    tr.innerHTML = `
+                        <td><code>${item.id}</code></td>
+                        <td>#${item.pedido}</td>
+                        <td><span class="badge bg-orange">${item.gateway}</span></td>
+                        <td>${item.adquirente || '-'}</td>
+                        <td>NSU: ${item.nsu || '-'}<br><small>TID: ${item.tid || '-'}</small></td>
+                        <td>${item.parcelas || 1}x</td>
+                        <td style="font-weight: 700;">R$ ${Number(item.valor || 0).toFixed(2)}</td>
+                        <td><span class="badge bg-green">${item.status}</span></td>
+                        <td>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                } else if (currentCollection === 'repasses') {
+                    tr.innerHTML = `
+                        <td><code>${item.id}</code></td>
+                        <td><strong>${item.eventoNome || item.eventoId}</strong></td>
+                        <td>${item.produtor || '-'}</td>
+                        <td style="color: #34d399; font-weight: 700;">R$ ${Number(item.valor || 0).toFixed(2)}</td>
+                        <td><small>${item.contaDestino}</small></td>
+                        <td>${item.dataSolicitacao}</td>
+                        <td><span class="badge ${item.status === 'Concluído' ? 'bg-green' : 'bg-orange'}">${item.status}</span></td>
+                        <td>
+                            <button class="btn-tbl-action edit" onclick="openEditModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-tbl-action delete" onclick="deleteRecord('${item.id}')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     `;
                 } else if (currentCollection === 'logs') {
-                    const typeBadge = item.type === 'system' ? 'bg-blue' : 'bg-green';
                     tr.innerHTML = `
                         <td style="color: var(--text-muted); font-family: monospace;">${new Date(item.timestamp).toLocaleString()}</td>
                         <td>${item.message}</td>
-                        <td><span class="badge ${typeBadge}">${item.type}</span></td>
+                        <td><span class="badge ${item.type === 'system' ? 'bg-blue' : 'bg-green'}">${item.type}</span></td>
                     `;
                 }
+
                 body.appendChild(tr);
             });
         }
 
+        // 6. Delete Record
         async function deleteRecord(id) {
-            if (!confirm(`Tem certeza de que deseja excluir o registro ${id}?`)) return;
+            if (!confirm(`Confirma a exclusão definitiva do registro [${id}] na coleção '${currentCollection}'?`)) return;
             try {
-                const res = await fetch(`/api/db/${currentCollection}/${id}`, {
-                    method: 'DELETE'
-                });
+                const res = await fetch(`/api/db/${currentCollection}/${id}`, { method: 'DELETE' });
                 if (res.ok) {
                     fetchStats();
                     loadCollectionData();
@@ -619,124 +984,263 @@
             }
         }
 
+        // 7. Modal Form (Add / Edit)
         function openAddModal() {
-            const modal = document.getElementById('addModal');
-            const title = document.getElementById('lblModalTitle');
+            document.getElementById('edit_record_id').value = '';
+            document.getElementById('lblModalTitle').textContent = `Adicionar Novo Registro (${currentCollection})`;
+            buildFormFields({});
+            document.getElementById('recordModal').style.display = 'flex';
+        }
+
+        async function openEditModal(id) {
+            try {
+                const res = await fetch(`/api/db/${currentCollection}/${id}`);
+                if (!res.ok) return alert("Erro ao carregar registro.");
+                const record = await res.json();
+                document.getElementById('edit_record_id').value = id;
+                document.getElementById('lblModalTitle').textContent = `Editar Registro [${id}] em (${currentCollection})`;
+                buildFormFields(record);
+                document.getElementById('recordModal').style.display = 'flex';
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('recordModal').style.display = 'none';
+        }
+
+        function buildFormFields(data) {
             const fields = document.getElementById('formFields');
             fields.innerHTML = '';
 
             if (currentCollection === 'tickets') {
-                title.textContent = "Adicionar Novo Chamado (tickets)";
                 fields.innerHTML = `
-                    <div class="form-group">
-                        <label>Título do Chamado</label>
-                        <input type="text" id="add_title" required placeholder="Ex: Problema com pagamento">
-                    </div>
-                    <div class="form-group">
-                        <label>Categoria (Triagem N1)</label>
-                        <select id="add_category">
-                            <option value="Estorno">Estorno</option>
-                            <option value="PIX">PIX</option>
-                            <option value="Cartão de Crédito">Cartão de Crédito</option>
-                            <option value="Troca">Troca</option>
-                            <option value="Suporte Técnico">Suporte Técnico</option>
+                    <div class="form-group"><label>Título do Chamado</label><input type="text" id="f_title" required value="${data.title || ''}"></div>
+                    <div class="form-group"><label>Nome do Cliente</label><input type="text" id="f_client" required value="${data.client || 'João da Silva'}"></div>
+                    <div class="form-group"><label>CPF</label><input type="text" id="f_cpf" value="${data.cpf || '123.456.789-00'}"></div>
+                    <div class="form-group"><label>Categoria</label>
+                        <select id="f_category">
+                            <option value="Estorno" ${data.category === 'Estorno' ? 'selected' : ''}>Estorno</option>
+                            <option value="PIX" ${data.category === 'PIX' ? 'selected' : ''}>PIX</option>
+                            <option value="Cartão" ${data.category === 'Cartão' ? 'selected' : ''}>Cartão de Crédito</option>
+                            <option value="Ingressos" ${data.category === 'Ingressos' ? 'selected' : ''}>Ingressos</option>
+                            <option value="Suporte Técnico" ${data.category === 'Suporte Técnico' ? 'selected' : ''}>Suporte Técnico</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Prioridade</label>
-                        <select id="add_priority">
-                            <option value="Baixa">Baixa</option>
-                            <option value="Média" selected>Média</option>
-                            <option value="Alta">Alta</option>
-                            <option value="Crítica">Crítica</option>
+                    <div class="form-group"><label>Prioridade</label>
+                        <select id="f_priority">
+                            <option value="Baixa" ${data.priority === 'Baixa' ? 'selected' : ''}>Baixa</option>
+                            <option value="Média" ${data.priority === 'Média' || !data.priority ? 'selected' : ''}>Média</option>
+                            <option value="Alta" ${data.priority === 'Alta' ? 'selected' : ''}>Alta</option>
+                            <option value="Crítica" ${data.priority === 'Crítica' ? 'selected' : ''}>Crítica</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Fila de Destino</label>
-                        <input type="text" id="add_queue" value="Fila de Triagem Geral">
-                    </div>
-                    <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea id="add_description" rows="3" placeholder="Insira a descrição..."></textarea>
-                    </div>
+                    <div class="form-group"><label>Fila de Destino</label><input type="text" id="f_queue" value="${data.queue || 'Fila Operações'}"></div>
+                    <div class="form-group"><label>Descrição</label><textarea id="f_description" rows="3">${data.description || ''}</textarea></div>
                 `;
             } else if (currentCollection === 'estornos') {
-                title.textContent = "Gravar Novo Estorno (estornos)";
                 fields.innerHTML = `
-                    <div class="form-group">
-                        <label>Pedido</label>
-                        <input type="text" id="add_order" required value="#154258">
+                    <div class="form-group"><label>Número do Pedido</label><input type="text" id="f_order" required value="${data.order || '154258'}"></div>
+                    <div class="form-group"><label>Cliente</label><input type="text" id="f_client" required value="${data.client || ''}"></div>
+                    <div class="form-group"><label>Show / Evento</label><input type="text" id="f_show" required value="${data.show || 'Show Roupa Nova'}"></div>
+                    <div class="form-group"><label>Valor Pago Original (R$)</label><input type="number" step="0.01" id="f_value" required value="${data.value || 580.00}"></div>
+                    <div class="form-group"><label>Gateway</label>
+                        <select id="f_gateway">
+                            <option value="pagseguro" ${data.gateway === 'pagseguro' ? 'selected' : ''}>PagSeguro (UOL)</option>
+                            <option value="stone" ${data.gateway === 'stone' ? 'selected' : ''}>Stone / Cielo</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>Cliente</label>
-                        <input type="text" id="add_client" required placeholder="Nome do comprador">
+                `;
+            } else if (currentCollection === 'clientes') {
+                fields.innerHTML = `
+                    <div class="form-group"><label>Nome Completo</label><input type="text" id="f_nome" required value="${data.nome || ''}"></div>
+                    <div class="form-group"><label>CPF</label><input type="text" id="f_cpf" required value="${data.cpf || ''}"></div>
+                    <div class="form-group"><label>E-mail</label><input type="email" id="f_email" required value="${data.email || ''}"></div>
+                    <div class="form-group"><label>Telefone</label><input type="text" id="f_telefone" value="${data.telefone || ''}"></div>
+                    <div class="form-group"><label>Cidade / UF</label><input type="text" id="f_cidade" value="${data.cidade || 'Curitiba - PR'}"></div>
+                    <div class="form-group"><label>Nível</label>
+                        <select id="f_nivel">
+                            <option value="Cliente Ouro" ${data.nivel === 'Cliente Ouro' ? 'selected' : ''}>Cliente Ouro</option>
+                            <option value="Cliente Prata" ${data.nivel === 'Cliente Prata' ? 'selected' : ''}>Cliente Prata</option>
+                            <option value="Cliente Bronze" ${data.nivel === 'Cliente Bronze' ? 'selected' : ''}>Cliente Bronze</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>Show / Evento</label>
-                        <input type="text" id="add_show" required value="Show Roupa Nova">
+                `;
+            } else if (currentCollection === 'eventos') {
+                fields.innerHTML = `
+                    <div class="form-group"><label>Nome do Evento</label><input type="text" id="f_nome" required value="${data.nome || ''}"></div>
+                    <div class="form-group"><label>Produtor / Produtora</label><input type="text" id="f_produtor" required value="${data.produtor || ''}"></div>
+                    <div class="form-group"><label>Local do Evento</label><input type="text" id="f_local" required value="${data.local || ''}"></div>
+                    <div class="form-group"><label>Data</label><input type="date" id="f_data" required value="${data.data || ''}"></div>
+                    <div class="form-group"><label>Capacidade Total</label><input type="number" id="f_capacidade" value="${data.capacidade || 2000}"></div>
+                `;
+            } else if (currentCollection === 'orders') {
+                fields.innerHTML = `
+                    <div class="form-group"><label>Número do Pedido</label><input type="number" id="f_pedido" required value="${data.pedido || 154258}"></div>
+                    <div class="form-group"><label>Cliente</label><input type="text" id="f_cliente" required value="${data.cliente || ''}"></div>
+                    <div class="form-group"><label>Evento</label><input type="text" id="f_evento" required value="${data.evento || ''}"></div>
+                    <div class="form-group"><label>Valor (R$)</label><input type="number" step="0.01" id="f_valor" required value="${data.valor || 0}"></div>
+                    <div class="form-group"><label>Forma de Pagamento</label>
+                        <select id="f_forma">
+                            <option value="CARTAO" ${data.formaPagamento === 'CARTAO' ? 'selected' : ''}>Cartão de Crédito</option>
+                            <option value="PIX" ${data.formaPagamento === 'PIX' ? 'selected' : ''}>PIX</option>
+                            <option value="BOLETO" ${data.formaPagamento === 'BOLETO' ? 'selected' : ''}>Boleto</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>Valor Pago original (R$)</label>
-                        <input type="number" step="0.01" id="add_value" required value="580.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Gateway</label>
-                        <select id="add_gateway">
-                            <option value="pagseguro">PagSeguro (UOL)</option>
-                            <option value="stone">Stone / Cielo</option>
+                `;
+            } else if (currentCollection === 'payments') {
+                fields.innerHTML = `
+                    <div class="form-group"><label>Pedido Associado</label><input type="number" id="f_pedido" required value="${data.pedido || 154258}"></div>
+                    <div class="form-group"><label>Gateway</label><input type="text" id="f_gateway" required value="${data.gateway || 'Stone'}"></div>
+                    <div class="form-group"><label>Adquirente</label><input type="text" id="f_adquirente" value="${data.adquirente || 'Cielo'}"></div>
+                    <div class="form-group"><label>NSU</label><input type="text" id="f_nsu" value="${data.nsu || '874521'}"></div>
+                    <div class="form-group"><label>TID</label><input type="text" id="f_tid" value="${data.tid || '987456123'}"></div>
+                    <div class="form-group"><label>Valor (R$)</label><input type="number" step="0.01" id="f_valor" required value="${data.valor || 0}"></div>
+                `;
+            } else if (currentCollection === 'repasses') {
+                fields.innerHTML = `
+                    <div class="form-group"><label>Nome do Evento</label><input type="text" id="f_eventoNome" required value="${data.eventoNome || ''}"></div>
+                    <div class="form-group"><label>Produtor</label><input type="text" id="f_produtor" required value="${data.produtor || ''}"></div>
+                    <div class="form-group"><label>Valor do Repasse (R$)</label><input type="number" step="0.01" id="f_valor" required value="${data.valor || 0}"></div>
+                    <div class="form-group"><label>Conta Destino</label><input type="text" id="f_contaDestino" required value="${data.contaDestino || 'Banco do Brasil (Ag: 1234, CC: 56789-0)'}"></div>
+                    <div class="form-group"><label>Status</label>
+                        <select id="f_status">
+                            <option value="Pendente" ${data.status === 'Pendente' ? 'selected' : ''}>Pendente</option>
+                            <option value="Concluído" ${data.status === 'Concluído' ? 'selected' : ''}>Concluído</option>
                         </select>
                     </div>
                 `;
             }
-
-            modal.style.display = 'flex';
         }
 
-        function closeAddModal() {
-            document.getElementById('addModal').style.display = 'none';
-        }
-
+        // 8. Save Record (POST or PUT)
         async function saveRecord(e) {
             e.preventDefault();
+            const editId = document.getElementById('edit_record_id').value;
             const record = {};
-            
+
             if (currentCollection === 'tickets') {
-                record.title = document.getElementById('add_title').value;
-                record.category = document.getElementById('add_category').value;
-                record.priority = document.getElementById('add_priority').value;
-                record.queue = document.getElementById('add_queue').value;
-                record.description = document.getElementById('add_description').value;
-                record.sla = record.priority === 'Crítica' ? '1h' : record.priority === 'Alta' ? '2h' : '24h';
-                record.bypass = record.priority === 'Crítica' || record.priority === 'Alta';
+                record.title = document.getElementById('f_title').value;
+                record.client = document.getElementById('f_client').value;
+                record.cpf = document.getElementById('f_cpf').value;
+                record.category = document.getElementById('f_category').value;
+                record.priority = document.getElementById('f_priority').value;
+                record.queue = document.getElementById('f_queue').value;
+                record.description = document.getElementById('f_description').value;
+                record.sla = record.priority === 'Crítica' ? '1h' : record.priority === 'Alta' ? '2h' : '4h';
+                record.status = "Aberto";
             } else if (currentCollection === 'estornos') {
-                record.order = document.getElementById('add_order').value;
-                record.client = document.getElementById('add_client').value;
-                record.show = document.getElementById('add_show').value;
-                record.value = parseFloat(document.getElementById('add_value').value);
-                record.gateway = document.getElementById('add_gateway').value;
+                record.order = document.getElementById('f_order').value;
+                record.client = document.getElementById('f_client').value;
+                record.show = document.getElementById('f_show').value;
+                record.value = parseFloat(document.getElementById('f_value').value);
+                record.gateway = document.getElementById('f_gateway').value;
                 record.netRefund = record.gateway === 'pagseguro' ? (record.value * 0.9601 - 0.40) : (record.value * 0.9751);
                 record.status = "Sucesso";
+            } else if (currentCollection === 'clientes') {
+                record.nome = document.getElementById('f_nome').value;
+                record.cpf = document.getElementById('f_cpf').value;
+                record.email = document.getElementById('f_email').value;
+                record.telefone = document.getElementById('f_telefone').value;
+                record.cidade = document.getElementById('f_cidade').value;
+                record.nivel = document.getElementById('f_nivel').value;
+                record.status = "Ativo";
+            } else if (currentCollection === 'eventos') {
+                record.nome = document.getElementById('f_nome').value;
+                record.produtor = document.getElementById('f_produtor').value;
+                record.local = document.getElementById('f_local').value;
+                record.data = document.getElementById('f_data').value;
+                record.capacidade = parseInt(document.getElementById('f_capacidade').value) || 1000;
+                record.status = "Ativo";
+            } else if (currentCollection === 'orders') {
+                record.pedido = parseInt(document.getElementById('f_pedido').value);
+                record.cliente = document.getElementById('f_cliente').value;
+                record.evento = document.getElementById('f_evento').value;
+                record.valor = parseFloat(document.getElementById('f_valor').value);
+                record.formaPagamento = document.getElementById('f_forma').value;
+                record.status = "PAGO";
+            } else if (currentCollection === 'payments') {
+                record.pedido = parseInt(document.getElementById('f_pedido').value);
+                record.gateway = document.getElementById('f_gateway').value;
+                record.adquirente = document.getElementById('f_adquirente').value;
+                record.nsu = document.getElementById('f_nsu').value;
+                record.tid = document.getElementById('f_tid').value;
+                record.valor = parseFloat(document.getElementById('f_valor').value);
+                record.status = "APPROVED";
+            } else if (currentCollection === 'repasses') {
+                record.eventoNome = document.getElementById('f_eventoNome').value;
+                record.produtor = document.getElementById('f_produtor').value;
+                record.valor = parseFloat(document.getElementById('f_valor').value);
+                record.contaDestino = document.getElementById('f_contaDestino').value;
+                record.status = document.getElementById('f_status').value;
             }
 
             try {
-                const res = await fetch(`/api/db/${currentCollection}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                const url = editId ? `/api/db/${currentCollection}/${editId}` : `/api/db/${currentCollection}`;
+                const method = editId ? 'PUT' : 'POST';
+
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(record)
                 });
 
                 if (res.ok) {
-                    closeAddModal();
+                    closeModal();
                     fetchStats();
                     loadCollectionData();
                 } else {
-                    alert("Erro ao gravar dados.");
+                    alert("Erro ao gravar dados no banco.");
                 }
             } catch (err) {
                 console.error(err);
             }
+        }
+
+        // 9. Export Data (JSON / CSV)
+        function exportData(format) {
+            window.open(`/api/db/export/${currentCollection}?format=${format}`, '_blank');
+        }
+
+        // 10. Seed Full Database Demo
+        async function seedDatabase() {
+            if (!confirm("Deseja repovoar o banco de dados com todos os dados padrão do ApexERP?")) return;
+            try {
+                const res = await fetch('/api/db/seed', { method: 'POST' });
+                if (res.ok) {
+                    alert("✅ Banco de dados preenchido com sucesso!");
+                    fetchStats();
+                    loadCollectionData();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // 11. Raw JSON View
+        async function loadRawJsonView() {
+            try {
+                const res = await fetch('/api/db/stats/overview');
+                const stats = await res.json();
+                const resTickets = await fetch('/api/db/tickets');
+                const tickets = await resTickets.json();
+                const jsonDoc = {
+                    database_status: "CONNECTED",
+                    storage_engine: "json_store",
+                    metadata: stats,
+                    sample_collection_tickets: tickets
+                };
+                document.getElementById('codeConsoleArea').textContent = JSON.stringify(jsonDoc, null, 2);
+            } catch (err) {
+                document.getElementById('codeConsoleArea').textContent = "Erro ao carregar JSON.";
+            }
+        }
+
+        function copyRawJson() {
+            const text = document.getElementById('codeConsoleArea').textContent;
+            navigator.clipboard.writeText(text);
+            alert("JSON copiado para a área de transferência!");
         }
     </script>
 </body>

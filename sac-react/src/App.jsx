@@ -398,6 +398,12 @@ function App() {
                 <div className="menu-item-left"><i className="fa-solid fa-headset" style={{ color: 'var(--primary-blue)' }}></i> Atendimento / SAC</div>
                 <span className="badge-sidebar badge-blue">Novo</span>
               </a>
+
+              {/* BANCO DE DADOS MENU ITEM */}
+              <a className={`menu-item ${activePanel === 'database' ? 'active' : ''}`} onClick={() => { setActivePanel('database'); }} style={{ borderLeft: '3px solid #38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.05)', color: '#ffffff', marginTop: '4px' }}>
+                <div className="menu-item-left"><i className="fa-solid fa-database" style={{ color: '#38bdf8' }}></i> Banco de Dados</div>
+                <span className="badge-sidebar" style={{ backgroundColor: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8' }}>DB</span>
+              </a>
             </div>
           </div>
           
@@ -1088,6 +1094,16 @@ function App() {
               <iframe 
                 src={getIframeSrc()} 
                 style={{ width: '100%', height: 'calc(100vh - 120px)', border: 'none', borderRadius: '8px', backgroundColor: '#ffffff' }}
+              ></iframe>
+            </div>
+          )}
+
+          {/* PANEL F: INTEGRATED DATABASE CONSOLE */}
+          {activePanel === 'database' && (
+            <div style={{ height: '100%' }}>
+              <iframe 
+                src="/db-admin" 
+                style={{ width: '100%', height: 'calc(100vh - 120px)', border: 'none', borderRadius: '8px', backgroundColor: '#0b0f19' }}
               ></iframe>
             </div>
           )}
