@@ -5,6 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
+    "db:migrate": "node migrate.js",
+    "db:migrate:postgres": "node migrate.js",
+    "db:migrate:mysql": "node migrate_mysql.js",
     "build": "npm install && cd sac-react && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,6 +22,8 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "firebase-admin": "^14.1.0",
-    "groq-sdk": "^1.3.0"
+    "groq-sdk": "^1.3.0",
+    "mysql2": "^3.24.2",
+    "pg": "^8.23.0"
   }
 }
