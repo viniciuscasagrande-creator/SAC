@@ -7,10 +7,10 @@
 
 [[redirects]]
   from = "/financeiro/*"
-  to = "/financeiro-dist/:splat"
+  to = "/sac-react/dist/:splat"
   status = 200
 
 [[redirects]]
   from = "/financeiro"
-  to = "/financeiro-dist/index.html"
+  to = "/sac-react/dist/index.html"
   status = 200

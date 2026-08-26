@@ -1346,9 +1346,27 @@
                     <a class="menu-item" id="menuTodosEventos">
                         <div class="menu-item-left"><i class="fa-regular fa-calendar-days"></i> Todos os Eventos</div>
                     </a>
-                    <a class="menu-item" id="menuFinanceiroFull">
+                    
+                    <!-- ACCORDION: FINANCEIRO -->
+                    <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">19</span>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transition: transform 0.2s;"></i>
+                        </div>
                     </a>
+                    <div class="submenu-container" id="submenuFinanceiro">
+                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-cubes me-1"></i> Hub Financeiro</a>
+                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-vault me-1"></i> Saldo Consolidado</a>
+                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitações de Repasse</a>
+                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar me-1"></i> Antecipações</a>
+                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-file-invoice me-1"></i> Extrato Detalhado</a>
+                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-receipt me-1"></i> Despesas</a>
+                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns me-1"></i> Contas Bancárias</a>
+                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature me-1"></i> Borderô</a>
+                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-1"></i> Negociações</a>
+                    </div>
+                    
                     <a class="menu-item" id="menuNovoEvento">
                         <div class="menu-item-left"><i class="fa-solid fa-plus-circle"></i> Novo Evento</div>
                     </a>
@@ -1918,26 +1936,666 @@
                 </div>
             </div>
 
-            <!-- 5. PANEL FINANCEIRO COMPLETO (EXACT COPY OF REFERENCIA-PDT-FINSN_CONTABIL / FINANCEIROPDTNOVO.WEB.APP) -->
-            <div id="panelFinanceiroFullContent" class="d-none">
+            <!-- 5. PANEL FIN HUB (HUB FINANCEIRO) -->
+            <div id="panelFinHub" class="d-none">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
-                        <h2>Módulo Financeiro & Contábil DiskIngressos</h2>
-                        <p>Gestão de caixa, DRE, conciliação, repasses, antecipações e controle fiscal (Conforme financeiropdtnovo.web.app).</p>
+                        <h2>Hub Financeiro</h2>
+                        <p>Visão geral de operações de caixa, liquidações, saldos e simuladores.</p>
                     </div>
                     <div class="header-buttons d-flex gap-2">
-                        <a href="/financeiro" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 fw-semibold">
-                            <i class="fa-solid fa-up-right-from-square"></i> Abrir em Nova Aba
-                        </a>
-                        <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 fw-semibold" style="background:#0284c7;" onclick="const f=document.getElementById('frameFinanceiroApp'); if(f) f.src = f.src;">
-                            <i class="fa-solid fa-arrows-rotate"></i> Recarregar App
-                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> Exportar CSV</button>
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))"><i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitar Repasse</button>
                     </div>
                 </div>
 
-                <!-- DIRECT EMBEDDED COMPLETE FINANCIAL APP -->
-                <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 10px; background:#0f172a;">
-                    <iframe id="frameFinanceiroApp" src="financeiro-dist/index.html" style="width: 100%; height: calc(100vh - 150px); min-height: 780px; border: none; background:#ffffff;"></iframe>
+                <!-- 4 KPI SUMMARY CARDS -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchPanel('finSaldo', document.getElementById('subFinSaldo'))">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Saldo Disponível (D+0)</div>
+                            <h3 class="fw-bold text-success mt-1">R$ 248,96</h3>
+                            <span class="text-muted fs-11"><i class="fa-solid fa-circle-check text-success me-1"></i> Liberado para transferência</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchPanel('finSaldo', document.getElementById('subFinSaldo'))">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">A Receber Previsto (D+30)</div>
+                            <h3 class="fw-bold text-primary mt-1">R$ 367.550,00</h3>
+                            <span class="text-muted fs-11"><i class="fa-solid fa-clock text-primary me-1"></i> Cartões de crédito parcelados</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Repasses Programados</div>
+                            <h3 class="fw-bold text-danger mt-1">R$ 152.500,00</h3>
+                            <span class="text-muted fs-11"><i class="fa-solid fa-calendar me-1"></i> Próximos 7 dias</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchPanel('finAntecipacoes', document.getElementById('subFinAntecipacoes'))">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Taxa Média Gateways</div>
+                            <h3 class="fw-bold text-dark mt-1">2.14%</h3>
+                            <span class="text-success fs-11"><i class="fa-solid fa-arrow-trend-down me-1"></i> Stone & Adyen Banking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK NAVIGATION GRID -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finSaldo', document.getElementById('subFinSaldo'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(2,132,199,0.1); color:#0284c7; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-vault"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Saldo Consolidado</h6>
+                                    <span class="text-muted fs-11">Extratos e posições de caixa</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Consulte saldos em custódia, valores em garantia e conciliação por adquirente.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(16,185,129,0.1); color:#10b981; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-money-bill-transfer"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Solicitações de Repasse</h6>
+                                    <span class="text-muted fs-11">Transferências bancárias</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Solicite transferências via PIX/TED com aprovação em tempo real.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finAntecipacoes', document.getElementById('subFinAntecipacoes'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(245,158,11,0.1); color:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Antecipações</h6>
+                                    <span class="text-muted fs-11">Simulador de recebíveis</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Simule e antecipe vendas de cartão com taxa competitiva de 3.5%.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finExtrato', document.getElementById('subFinExtrato'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(99,102,241,0.1); color:#6366f1; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-file-invoice"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Extrato Detalhado</h6>
+                                    <span class="text-muted fs-11">Movimentações diárias</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Histórico completo de entradas, taxas retidas, estornos e comissões de PDV.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finBordero', document.getElementById('subFinBordero'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(236,72,153,0.1); color:#ec4899; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-file-signature"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Borderô</h6>
+                                    <span class="text-muted fs-11">Demonstrativo oficial</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Fechamento financeiro de eventos com assinatura digital no Autêntique.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-4 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finNegociacoes', document.getElementById('subFinNegociacoes'))" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div style="width:42px; height:42px; border-radius:8px; background:rgba(14,165,233,0.1); color:#0ea5e9; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                                    <i class="fa-solid fa-scale-balanced"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark">Negociações & DRE</h6>
+                                    <span class="text-muted fs-11">Resultado gerencial</span>
+                                </div>
+                            </div>
+                            <p class="text-muted fs-12 mb-0">Demonstração de resultados, patrocínios e divisão de receitas por lote.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.1 PANEL FIN SALDO (SALDO CONSOLIDADO) -->
+            <div id="panelFinSaldo" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Saldo Consolidado</h2>
+                        <p>Visão geral de saldos disponíveis, retenções de garantia e conciliação por evento.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> Exportar</button>
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))"><i class="fa-solid fa-paper-plane me-1"></i> Solicitar Payout</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Saldo Disponível (D+0)</div>
+                            <h3 class="fw-bold text-success mt-1">R$ 248,96</h3>
+                            <span class="text-muted fs-11">Liberado para transferência imediata</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Saldo em Liquidação</div>
+                            <h3 class="fw-bold text-primary mt-1">R$ 142.380,00</h3>
+                            <span class="text-muted fs-11">A liquidar pela adquirente Stone</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Garantia Retida</div>
+                            <h3 class="fw-bold text-warning mt-1">R$ 15.000,00</h3>
+                            <span class="text-muted fs-11">Eventos futuros em cartaz</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted text-uppercase fs-10 fw-bold">Total Acumulado</div>
+                            <h3 class="fw-bold text-dark mt-1">R$ 157.628,96</h3>
+                            <span class="text-muted fs-11">Posição financeira geral</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold text-dark mb-3">Saldos por Evento</h6>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Evento</th>
+                                    <th>Receita Bruta</th>
+                                    <th>Taxas Plataforma</th>
+                                    <th>Repasses Já Feitos</th>
+                                    <th>Saldo Restante</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#3130</td>
+                                    <td class="fw-bold">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</td>
+                                    <td>R$ 119.894,00</td>
+                                    <td class="text-danger">- R$ 17.984,10</td>
+                                    <td class="text-muted">R$ 90.000,00</td>
+                                    <td class="fw-bold text-success">R$ 11.909,90</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#3131</td>
+                                    <td class="fw-bold">ROUPA NOVA 40 ANOS - TEATRO POSITIVO</td>
+                                    <td>R$ 214.850,00</td>
+                                    <td class="text-danger">- R$ 32.227,50</td>
+                                    <td class="text-muted">R$ 150.000,00</td>
+                                    <td class="fw-bold text-success">R$ 32.622,50</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#3132</td>
+                                    <td class="fw-bold">STAND UP COMEDY - DIOGO ALMEIDA</td>
+                                    <td>R$ 48.900,00</td>
+                                    <td class="text-danger">- R$ 7.335,00</td>
+                                    <td class="text-muted">R$ 40.000,00</td>
+                                    <td class="fw-bold text-success">R$ 1.565,00</td>
+                                    <td><span class="badge bg-secondary text-white">Encerrado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.2 PANEL FIN REPASSE (SOLICITAÇÕES DE REPASSE) -->
+            <div id="panelFinRepasse" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Solicitações de Repasse</h2>
+                        <p>Transfira seu saldo disponível para sua conta bancária via PIX ou TED.</p>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted fs-10 text-uppercase fw-bold">Saldo Disponível</div>
+                            <h4 class="fw-bold text-success mt-1">R$ 248,96</h4>
+                            <span class="fs-10 text-muted">Liberado para transferência</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted fs-10 text-uppercase fw-bold">Valor Bloqueado</div>
+                            <h4 class="fw-bold text-dark mt-1">R$ 0,00</h4>
+                            <span class="fs-10 text-muted">Eventos em andamento</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted fs-10 text-uppercase fw-bold">Próximo Payout</div>
+                            <h4 class="fw-bold text-primary mt-1">08/07/2026</h4>
+                            <span class="fs-10 text-muted">Repasse automático programado</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted fs-10 text-uppercase fw-bold">Solicitações Pendentes</div>
+                            <h4 class="fw-bold text-warning mt-1">1</h4>
+                            <span class="fs-10 text-muted">Sob análise financeira</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white mb-4">
+                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-money-bill-transfer text-primary me-2"></i> Solicitar Novo Repasse Bancário</h6>
+                    <form onsubmit="submitRequestPayout(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Selecione o Evento</label>
+                                <select class="form-select fs-12" id="payEvento">
+                                    <option>TWELVE BEERS VITÓRIA | 1ª EDIÇÃO (R$ 248,96 Disponível)</option>
+                                    <option>ROUPA NOVA 40 ANOS - TEATRO POSITIVO (R$ 32.622,50)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Valor a Transferir (R$)</label>
+                                <input type="number" id="payValor" class="form-control fs-12" value="248.96" step="0.01">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Chave PIX ou Conta Destino</label>
+                                <input type="text" id="payChavePix" class="form-control fs-12" value="12.345.678/0001-99 (Banco Inter - Ag 0001 / CC 19283-4)">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary" style="background:#0284c7;"><i class="fa-solid fa-paper-plane me-1"></i> Confirmar Solicitação de Repasse</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold text-dark mb-3">Histórico de Repasses</h6>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Protocolo</th>
+                                    <th>Data</th>
+                                    <th>Evento</th>
+                                    <th>Valor</th>
+                                    <th>Tipo</th>
+                                    <th>Conta / Chave</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#REP-8841</td>
+                                    <td>24/08/2026</td>
+                                    <td>TWELVE BEERS VITÓRIA</td>
+                                    <td class="fw-bold text-success">R$ 25.000,00</td>
+                                    <td>PIX</td>
+                                    <td>12.345.678/0001-99</td>
+                                    <td><span class="badge bg-success text-white">Pago</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#REP-8842</td>
+                                    <td>25/08/2026</td>
+                                    <td>ROUPA NOVA 40 ANOS</td>
+                                    <td class="fw-bold text-warning">R$ 248,96</td>
+                                    <td>PIX</td>
+                                    <td>12.345.678/0001-99</td>
+                                    <td><span class="badge bg-warning text-dark">Em Análise</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.3 PANEL FIN ANTECIPACOES (SIMULADOR DE RECEBÍVEIS) -->
+            <div id="panelFinAntecipacoes" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Simulador & Antecipações</h2>
+                        <p>Antecipe suas vendas no cartão de crédito a prazo com taxa especial de 3.5% ao mês.</p>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-6">
+                        <div class="card p-4 border shadow-sm bg-white">
+                            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-calculator text-primary me-2"></i> Simulador de Antecipação (D+0)</h5>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fs-12 fw-bold text-muted">Valor Bruto a Antecipar (R$)</label>
+                                <input type="number" id="inputAntecipaBruto" class="form-control form-control-lg fw-bold" value="50000" oninput="calcAntecipacao()">
+                            </div>
+
+                            <div class="p-3 bg-light rounded mb-3" style="font-size:0.85rem;">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">(-) Taxa DiskIngressos (15%):</span>
+                                    <strong class="text-danger" id="lblTaxaDisk">- R$ 7.500,00</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">(-) Taxa de Antecipação (3.5% a.m.):</span>
+                                    <strong class="text-danger" id="lblTaxaAntecipa">- R$ 1.750,00</strong>
+                                </div>
+                                <hr class="my-2">
+                                <div class="d-flex justify-content-between fs-5 fw-bold text-success">
+                                    <span>(=) Valor Líquido a Receber:</span>
+                                    <span id="lblValorLiquidoAntecipa">R$ 40.750,00</span>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success w-100 py-2 fw-semibold" onclick="alert('Solicitação de antecipação de R$ ' + document.getElementById('inputAntecipaBruto').value + ' enviada para análise de crédito!')">
+                                <i class="fa-solid fa-bolt me-1"></i> Confirmar & Solicitar Antecipação Imediata
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card p-4 border shadow-sm bg-white h-100">
+                            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-circle-info text-info me-2"></i> Vantagens da Antecipação Disk</h5>
+                            <ul class="list-unstyled fs-12 text-muted d-flex flex-column gap-2 mb-4">
+                                <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Liquidação em D+0:</strong> Dinheiro na sua conta em até 2 horas após aprovação.</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Sem Burocracia:</strong> Garantia lastreada diretamente nos ingressos vendidos.</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Taxa Competitiva:</strong> Apenas 3.5% a.m. proporcional ao prazo de resgate.</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Fluxo de Caixa Garantido:</strong> Pague fornecedores, artistas e estrutura sem recorrer a empréstimos bancários caros.</li>
+                            </ul>
+                            <div class="alert alert-info fs-11 m-0">
+                                <i class="fa-solid fa-shield-halved me-1"></i> Suas operações são asseguradas por contrato digital com custódia regulada pelo Banco Central.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.4 PANEL FIN EXTRATO (EXTRATO DETALHADO) -->
+            <div id="panelFinExtrato" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Extrato Detalhado</h2>
+                        <p>Acompanhamento analítico de todos os lançamentos financeiros, taxas e estornos.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> CSV</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('pdf')"><i class="fa-solid fa-file-pdf me-1"></i> PDF</button>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white">
+                    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+                        <input type="text" class="form-control form-control-sm" style="max-width:300px;" placeholder="Buscar transação, pedido, cliente...">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-primary" style="background:#0284c7;">Todos</button>
+                            <button class="btn btn-outline-secondary">Entradas</button>
+                            <button class="btn btn-outline-secondary">Repasses</button>
+                            <button class="btn btn-outline-secondary">Estornos</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Tipo</th>
+                                    <th>Descrição / Evento</th>
+                                    <th>Canal</th>
+                                    <th>Bruto</th>
+                                    <th>Taxa</th>
+                                    <th>Líquido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>26/08/2026 09:30</td>
+                                    <td><span class="badge bg-success text-white">Venda</span></td>
+                                    <td>Ingresso VIP - Roupa Nova 40 Anos</td>
+                                    <td>PIX Adyen</td>
+                                    <td class="fw-bold text-dark">R$ 380,00</td>
+                                    <td class="text-danger">- R$ 57,00</td>
+                                    <td class="fw-bold text-success">R$ 323,00</td>
+                                </tr>
+                                <tr>
+                                    <td>26/08/2026 08:45</td>
+                                    <td><span class="badge bg-success text-white">Venda</span></td>
+                                    <td>Ingresso Pista - Twelve Beers Vitória</td>
+                                    <td>Cartão Stone (3x)</td>
+                                    <td class="fw-bold text-dark">R$ 150,00</td>
+                                    <td class="text-danger">- R$ 22,50</td>
+                                    <td class="fw-bold text-success">R$ 127,50</td>
+                                </tr>
+                                <tr>
+                                    <td>25/08/2026 17:20</td>
+                                    <td><span class="badge bg-danger text-white">Repasse</span></td>
+                                    <td>Transferência PIX - Produtora Solicitado</td>
+                                    <td>Banco Inter</td>
+                                    <td class="fw-bold text-danger">- R$ 25.000,00</td>
+                                    <td>R$ 0,00</td>
+                                    <td class="fw-bold text-danger">- R$ 25.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td>25/08/2026 14:10</td>
+                                    <td><span class="badge bg-warning text-dark">Estorno</span></td>
+                                    <td>Reembolso Pedido #154231 - Arrependimento</td>
+                                    <td>Stone Cielo</td>
+                                    <td class="fw-bold text-danger">- R$ 580,00</td>
+                                    <td>R$ 0,00</td>
+                                    <td class="fw-bold text-danger">- R$ 580,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.5 PANEL FIN DESPESAS -->
+            <div id="panelFinDespesas" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Despesas & Tarifas Operacionais</h2>
+                        <p>Consolidação de custos com processamento de pagamento, antifraude e taxas administrativas.</p>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white">
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Fornecedor / Gateway</th>
+                                <th>Volume Faturado</th>
+                                <th>Taxa / Alíquota</th>
+                                <th>Total Retido</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">Taxa de Processamento Cartão de Crédito</td>
+                                <td>Stone Pagamentos</td>
+                                <td>R$ 384.200,00</td>
+                                <td>2,49% + R$ 0,40</td>
+                                <td class="fw-bold text-danger">R$ 9.566,58</td>
+                                <td><span class="badge bg-success text-white">Liquidado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Taxa de Processamento PIX</td>
+                                <td>Adyen Banking</td>
+                                <td>R$ 145.800,00</td>
+                                <td>0,99%</td>
+                                <td class="fw-bold text-danger">R$ 1.443,42</td>
+                                <td><span class="badge bg-success text-white">Liquidado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Serviço de Análise Antifraude</td>
+                                <td>ClearSale Total</td>
+                                <td>820 pedidos</td>
+                                <td>R$ 1,20 / pedido</td>
+                                <td class="fw-bold text-danger">R$ 984,00</td>
+                                <td><span class="badge bg-primary text-white">Faturado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5.6 PANEL FIN CONTAS (CONTAS BANCÁRIAS) -->
+            <div id="panelFinContas" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Contas Bancárias</h2>
+                        <p>Contas e chaves PIX cadastradas para repasses e liquidações automáticas.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="alert('Cadastrar nova conta bancária...')"><i class="fa-solid fa-plus me-1"></i> Nova Conta</button>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-success text-white">Principal (Padrão)</span>
+                                <span class="text-muted fs-11"><i class="fa-solid fa-circle-check text-success"></i> Validada</span>
+                            </div>
+                            <h5 class="fw-bold text-dark m-0">Banco Inter S.A. (077)</h5>
+                            <div class="text-muted fs-12 mt-1">Agência: 0001 | Conta Corrente: 19283-4</div>
+                            <div class="text-muted fs-12">Titular: DISKINGRESSOS PRODUCOES LTDA</div>
+                            <div class="text-muted fs-12">CNPJ / Chave PIX: 12.345.678/0001-99</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-secondary text-white">Secundária</span>
+                                <span class="text-muted fs-11"><i class="fa-solid fa-circle-check text-success"></i> Validada</span>
+                            </div>
+                            <h5 class="fw-bold text-dark m-0">Stone Pagamentos (197)</h5>
+                            <div class="text-muted fs-12 mt-1">Agência: 0001 | Conta Pagamento: 84920-1</div>
+                            <div class="text-muted fs-12">Titular: DISKINGRESSOS PRODUCOES LTDA</div>
+                            <div class="text-muted fs-12">Chave PIX: financeiro@diskingressos.com.br</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.7 PANEL FIN BORDERÔ -->
+            <div id="panelFinBordero" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Demonstrativo Financeiro (Borderô)</h2>
+                        <p>Fechamento contábil e prestação de contas com assinatura digital integrada.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('pdf')"><i class="fa-solid fa-file-pdf me-1"></i> Baixar PDF</button>
+                        <button class="btn btn-success btn-sm" onclick="alert('Documento enviado para assinatura digital no Autêntique!')"><i class="fa-solid fa-signature me-1"></i> Assinar via Autêntique</button>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                        <div>
+                            <h5 class="fw-bold text-dark m-0">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h5>
+                            <span class="text-muted fs-11">Data do Evento: 22/08/2026 | Local: Jardim da Penha - Vitória/ES</span>
+                        </div>
+                        <span class="badge bg-primary fs-12 px-3 py-2">Fechamento Final</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="fw-bold">1. RECEITA BRUTA DE INGRESSOS (446 Ingressos Emitidos)</span>
+                                <strong class="text-dark">R$ 71.976,20</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-2 border-bottom text-danger">
+                                <span>2. TAXAS DE PLATAFORMA DISKINGRESSOS (15%)</span>
+                                <strong>- R$ 9.388,20</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-2 border-bottom text-danger">
+                                <span>3. CUSTOS DE PROCESSAMENTO CARTÃO / GATEWAYS</span>
+                                <strong>- R$ 1.542,00</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-3 fs-5 fw-bold text-success">
+                                <span>(=) VALOR LÍQUIDO FINAL A REPASSAR AO PRODUTOR</span>
+                                <span>R$ 61.046,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5.8 PANEL FIN NEGOCIACOES (DRE & NEGOCIAÇÕES) -->
+            <div id="panelFinNegociacoes" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Negociações & DRE Gerencial</h2>
+                        <p>Contratos de patrocínio, margem de contribuição e resultado líquido do evento.</p>
+                    </div>
+                </div>
+
+                <div class="card p-4 border shadow-sm bg-white">
+                    <h5 class="fw-bold mb-3 text-dark">Demonstração do Resultado do Exercício (DRE)</h5>
+                    <table class="coupon-table">
+                        <thead>
+                            <tr>
+                                <th>Conta / Descrição</th>
+                                <th>Valor Realizado (R$)</th>
+                                <th>% da Receita</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">(+) Receita de Ingressos e Taxas</td>
+                                <td class="fw-bold text-success">R$ 119.894,00</td>
+                                <td>100.0%</td>
+                                <td><span class="badge bg-success text-white">Conciliado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">(+) Patrocínios & Apoios Comerciais</td>
+                                <td class="fw-bold text-success">R$ 35.000,00</td>
+                                <td>29.2%</td>
+                                <td><span class="badge bg-success text-white">Faturado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">(-) Deduções e Custos de Gateways</td>
+                                <td class="fw-bold text-danger">- R$ 17.984,10</td>
+                                <td>15.0%</td>
+                                <td><span class="badge bg-primary text-white">Auditado</span></td>
+                            </tr>
+                            <tr class="table-active">
+                                <td class="fw-bold fs-6">(=) Lucro Líquido Operacional do Evento</td>
+                                <td class="fw-bold text-success fs-6">R$ 136.909,90</td>
+                                <td class="fw-bold text-success fs-6">114.2%</td>
+                                <td><span class="badge bg-success text-white font-weight-bold">Aprovado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -3532,7 +4190,21 @@
             const menuDadosProdutora = document.getElementById("menuDadosProdutora");
             const menuStatusFaciais = document.getElementById("menuStatusFaciais");
             const menuTodosEventos = document.getElementById("menuTodosEventos");
-            const menuFinanceiroFull = document.getElementById("menuFinanceiroFull");
+            
+            // Accordion Financeiro
+            const menuFinanceiro = document.getElementById("menuFinanceiro");
+            const submenuFinanceiro = document.getElementById("submenuFinanceiro");
+            const arrowFinanceiro = document.getElementById("arrowFinanceiro");
+            const subFinHub = document.getElementById("subFinHub");
+            const subFinSaldo = document.getElementById("subFinSaldo");
+            const subFinRepasse = document.getElementById("subFinRepasse");
+            const subFinAntecipacoes = document.getElementById("subFinAntecipacoes");
+            const subFinExtrato = document.getElementById("subFinExtrato");
+            const subFinDespesas = document.getElementById("subFinDespesas");
+            const subFinContas = document.getElementById("subFinContas");
+            const subFinBordero = document.getElementById("subFinBordero");
+            const subFinNegociacoes = document.getElementById("subFinNegociacoes");
+
             const menuNovoEvento = document.getElementById("menuNovoEvento");
             const menuTerminaisPos = document.getElementById("menuTerminaisPos");
             const menuMensagens = document.getElementById("menuMensagens");
@@ -3553,13 +4225,24 @@
                 dadosProdutora: document.getElementById("panelDadosProdutoraContent"),
                 statusFaciais: document.getElementById("panelStatusFaciaisContent"),
                 todosEventos: document.getElementById("panelTodosEventosContent"),
-                financeiroFull: document.getElementById("panelFinanceiroFullContent"),
                 novoEvento: document.getElementById("panelNovoEventoContent"),
                 terminaisPos: document.getElementById("panelTerminaisPosContent"),
                 mensagens: document.getElementById("panelMensagensContent"),
                 gerenciarAcessos: document.getElementById("panelGerenciarAcessosContent"),
                 administracao: document.getElementById("panelAdministracaoContent"),
                 clubeRuaMusica: document.getElementById("panelClubeRuaMusicaContent"),
+                
+                // Native Lightweight Financial Panels
+                finHub: document.getElementById("panelFinHub"),
+                finSaldo: document.getElementById("panelFinSaldo"),
+                finRepasse: document.getElementById("panelFinRepasse"),
+                finAntecipacoes: document.getElementById("panelFinAntecipacoes"),
+                finExtrato: document.getElementById("panelFinExtrato"),
+                finDespesas: document.getElementById("panelFinDespesas"),
+                finContas: document.getElementById("panelFinContas"),
+                finBordero: document.getElementById("panelFinBordero"),
+                finNegociacoes: document.getElementById("panelFinNegociacoes"),
+
                 coupons: document.getElementById("panelCouponsContent"),
                 estorno: document.getElementById("panelEstornoContent"),
                 sac: document.getElementById("panelSacContent"),
@@ -3603,38 +4286,49 @@
                 // Auto-load dynamic data for specific panels
                 if (panelKey === 'ingressos') loadIngressosData();
                 if (panelKey === 'participantes') loadClientesData();
+                if (panelKey === 'finAntecipacoes') calcAntecipacao();
             };
 
-            // Global Sub-tab Switchers
-            window.switchFinTab = function(tab, el) {
-                const tabs = {
-                    hub: document.getElementById("finTabHub"),
-                    saldo: document.getElementById("finTabHub"),
-                    repasse: document.getElementById("finTabRepasse"),
-                    antecipacoes: document.getElementById("finTabHub"),
-                    extrato: document.getElementById("panelFluxoCaixaContent"),
-                    despesas: document.getElementById("panelDespesasContent"),
-                    contas: document.getElementById("finTabHub"),
-                    bordero: document.getElementById("finTabBordero"),
-                    negociacoes: document.getElementById("panelReceitasContent")
-                };
-                document.querySelectorAll(".sub-nav-item").forEach(i => i.classList.remove("active"));
-                if (el) el.classList.add("active");
+            // Global Antecipação Calculator
+            window.calcAntecipacao = function() {
+                const bruto = parseFloat(document.getElementById("inputAntecipaBruto")?.value || 0);
+                const taxaDisk = bruto * 0.15;
+                const taxaAntecipa = bruto * 0.035;
+                const liquido = Math.max(0, bruto - taxaDisk - taxaAntecipa);
                 
-                ['finTabHub', 'finTabRepasse', 'finTabBordero'].forEach(id => {
-                    const t = document.getElementById(id);
-                    if (t) t.classList.add("d-none");
-                });
-
-                if (tab === 'hub' || tab === 'saldo' || tab === 'antecipacoes' || tab === 'contas') {
-                    document.getElementById("finTabHub")?.classList.remove("d-none");
-                } else if (tab === 'repasse') {
-                    document.getElementById("finTabRepasse")?.classList.remove("d-none");
-                } else if (tab === 'bordero') {
-                    document.getElementById("finTabBordero")?.classList.remove("d-none");
-                }
+                const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                if (document.getElementById("lblTaxaDisk")) document.getElementById("lblTaxaDisk").textContent = "- " + fmt(taxaDisk);
+                if (document.getElementById("lblTaxaAntecipa")) document.getElementById("lblTaxaAntecipa").textContent = "- " + fmt(taxaAntecipa);
+                if (document.getElementById("lblValorLiquidoAntecipa")) document.getElementById("lblValorLiquidoAntecipa").textContent = fmt(liquido);
             };
 
+            // Accordion Toggle for Financeiro
+            if (menuFinanceiro) {
+                menuFinanceiro.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const isExpanded = submenuFinanceiro.classList.toggle("show");
+                    if (arrowFinanceiro) {
+                        arrowFinanceiro.style.transform = isExpanded ? "rotate(90deg)" : "rotate(0deg)";
+                    }
+                    if (isExpanded) {
+                        switchPanel('finHub', menuFinanceiro);
+                        if (subFinHub) subFinHub.classList.add('active');
+                    }
+                });
+            }
+
+            // Submenu Bindings
+            if (subFinHub) subFinHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finHub', subFinHub); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinSaldo) subFinSaldo.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finSaldo', subFinSaldo); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinRepasse) subFinRepasse.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finRepasse', subFinRepasse); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinAntecipacoes) subFinAntecipacoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finAntecipacoes', subFinAntecipacoes); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinExtrato) subFinExtrato.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finExtrato', subFinExtrato); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinDespesas) subFinDespesas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finDespesas', subFinDespesas); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinContas) subFinContas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finContas', subFinContas); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinBordero) subFinBordero.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finBordero', subFinBordero); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+            if (subFinNegociacoes) subFinNegociacoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finNegociacoes', subFinNegociacoes); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+
+            // Admin Sub-tab Switcher
             window.switchAdminTab = function(tab, el) {
                 document.querySelectorAll(".sub-nav-item").forEach(i => i.classList.remove("active"));
                 if (el) el.classList.add("active");
@@ -3652,12 +4346,11 @@
                 }
             };
 
-            // Menu Bindings
+            // Main Menu Bindings
             if (menuDashboard) menuDashboard.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuDashboard); });
             if (menuDadosProdutora) menuDadosProdutora.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dadosProdutora', menuDadosProdutora); });
             if (menuStatusFaciais) menuStatusFaciais.addEventListener("click", (e) => { e.preventDefault(); switchPanel('statusFaciais', menuStatusFaciais); });
             if (menuTodosEventos) menuTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('todosEventos', menuTodosEventos); });
-            if (menuFinanceiroFull) menuFinanceiroFull.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiroFull', menuFinanceiroFull); });
             if (menuNovoEvento) menuNovoEvento.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
             if (menuTerminaisPos) menuTerminaisPos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('terminaisPos', menuTerminaisPos); });
             if (menuMensagens) menuMensagens.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mensagens', menuMensagens); });
@@ -3669,7 +4362,13 @@
             if (menuDbConsole) menuDbConsole.addEventListener("click", (e) => { e.preventDefault(); switchPanel('db', menuDbConsole); });
 
             if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
-            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", (e) => { e.preventDefault(); switchPanel('financeiroFull', menuFinanceiroFull); switchFinTab('repasse', null); });
+            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", (e) => { 
+                e.preventDefault(); 
+                if (submenuFinanceiro) submenuFinanceiro.classList.add('show');
+                if (arrowFinanceiro) arrowFinanceiro.style.transform = 'rotate(90deg)';
+                switchPanel('finRepasse', subFinRepasse);
+                if (menuFinanceiro) menuFinanceiro.classList.add('active');
+            });
             if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
 
             // Layout Toggle Function (Grid vs Table)
