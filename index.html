@@ -7799,6 +7799,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
     <!-- Navigation interaction script -->
     <script>
+
         document.addEventListener("DOMContentLoaded", () => {
             // Sidebar menu items
             const menuDashboard = document.getElementById("menuDashboard");
@@ -7854,6 +7855,10 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
             // Panels Map
             const panels = {
+                estorno: document.getElementById("panelEstornoContent"),
+                sacContent: document.getElementById("panelSacContent"),
+                sacHub: document.getElementById("panelSacContent"),
+
                 dashboard: document.getElementById("panelDashboardContent"),
                 dadosProdutora: document.getElementById("panelDadosProdutoraContent"),
                 todosEventos: document.getElementById("panelTodosEventosContent"),
@@ -7984,6 +7989,437 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             // Database of Events with Full Metrics & Breakdown
             window.currentEventId = "3130";
             window.eventosDB = {
+    "1760": {
+        "id": "1760",
+        "name": "SEM PARAR - EXPERIENCIA MUSICA E NATUREZA",
+        "local": "Parque Jaime Lerner - Curitiba/PR",
+        "cidade": "Curitiba/PR",
+        "localidade": "Parque Jaime Lerner",
+        "data": "30/06/2027 às 10:00h",
+        "status": "Ativo",
+        "banner": "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80",
+        "receitaBruta": "R$ 0,00",
+        "receitaLiquida": "R$ 0,00",
+        "taxasPlataforma": "- R$ 0,00",
+        "taxasGateways": "- R$ 0,00",
+        "repassesEfetuados": "- R$ 0,00",
+        "saldoRepasse": "R$ 0,00",
+        "repassesJaPagos": "R$ 0,00",
+        "ingressosVendidos": "0",
+        "ingressosDisponiveis": "832",
+        "cortesias": "584",
+        "ticketMedio": "R$ 0,00",
+        "ocupacao": "70.2%",
+        "pixel": {
+            "id": "392182049182390",
+            "nome": "Pixel Música & Natureza",
+            "status": "Ativo",
+            "capiStatus": "Conectado (Servidor CAPI)",
+            "matchQuality": "9.0/10 (Excelente)",
+            "datasetId": "ds_semparar_2027",
+            "tokenCapi": "EAAGNOk92ZAApX893634xProdutor",
+            "pageViews": "1.240",
+            "viewContent": "890",
+            "initiateCheckout": "210",
+            "addPaymentInfo": "150",
+            "purchase": "0",
+            "receitaPixel": "R$ 0,00",
+            "roas": "0.0x",
+            "cpa": "R$ 0,00",
+            "ultimoDisparo": "Hoje, há 5 min"
+        },
+        "lotes": [
+            {
+                "nome": "INGRESSO SOCIAL GRATUITO",
+                "preco": "R$ 0,00",
+                "total": 1000,
+                "vendidos": 0,
+                "disp": 832,
+                "prog": 70,
+                "status": "Aberto",
+                "badge": "bg-success"
+            }
+        ],
+        "pagamentos": {
+            "pix": "80%",
+            "credito": "15%",
+            "debito": "5%",
+            "pdv": "0%"
+        },
+        "compradores": [],
+        "portaria": {
+            "presentes": 0,
+            "faltam": 0,
+            "percentual": "0.0%",
+            "pico": "10:00h"
+        }
+    },
+    "3571": {
+        "id": "3571",
+        "name": "IRON MAIDEN SYMPHONIC",
+        "local": "Ópera de Arame - Curitiba/PR",
+        "cidade": "Curitiba/PR",
+        "localidade": "Ópera de Arame",
+        "data": "14/03/2027 às 19:00h",
+        "status": "Ativo",
+        "banner": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+        "receitaBruta": "R$ 2.180,00",
+        "receitaLiquida": "R$ 1.853,00",
+        "taxasPlataforma": "- R$ 327,00",
+        "taxasGateways": "- R$ 42,00",
+        "repassesEfetuados": "- R$ 0,00",
+        "saldoRepasse": "R$ 1.853,00",
+        "repassesJaPagos": "R$ 0,00",
+        "ingressosVendidos": "10",
+        "ingressosDisponiveis": "1596",
+        "cortesias": "0",
+        "ticketMedio": "R$ 218,00",
+        "ocupacao": "0.6%",
+        "pixel": {
+            "id": "918273645019283",
+            "nome": "Pixel Iron Maiden Symphonic",
+            "status": "Ativo",
+            "capiStatus": "Conectado (Servidor CAPI)",
+            "matchQuality": "9.6/10 (Excelente)",
+            "datasetId": "ds_ironmaiden_2027",
+            "tokenCapi": "EAAGNOk92ZAApX893571xProdutor",
+            "pageViews": "4.890",
+            "viewContent": "2.140",
+            "initiateCheckout": "410",
+            "addPaymentInfo": "280",
+            "purchase": "10",
+            "receitaPixel": "R$ 2.180,00",
+            "roas": "6.4x",
+            "cpa": "R$ 14,20",
+            "ultimoDisparo": "Hoje, há 2 min"
+        },
+        "lotes": [
+            {
+                "nome": "PLATEIA PREMIUM (INTEIRA)",
+                "preco": "R$ 280,00",
+                "total": 500,
+                "vendidos": 6,
+                "disp": 494,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            },
+            {
+                "nome": "PLATEIA PREMIUM (MEIA / PROMO)",
+                "preco": "R$ 140,00",
+                "total": 500,
+                "vendidos": 4,
+                "disp": 496,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            },
+            {
+                "nome": "CAMAROTE VIP",
+                "preco": "R$ 350,00",
+                "total": 200,
+                "vendidos": 0,
+                "disp": 200,
+                "prog": 0,
+                "status": "Aberto",
+                "badge": "bg-success"
+            }
+        ],
+        "pagamentos": {
+            "pix": "60%",
+            "credito": "40%",
+            "debito": "0%",
+            "pdv": "0%"
+        },
+        "compradores": [
+            {
+                "nome": "Mariana Duarte",
+                "cpf": "391.***.***-77",
+                "email": "mariana@gmail.com",
+                "lote": "PLATEIA PREMIUM",
+                "valor": "R$ 280,00",
+                "pgto": "Cartão (3x)",
+                "status": "Pago",
+                "voucher": "IM-35701"
+            },
+            {
+                "nome": "Eduardo Martins",
+                "cpf": "882.***.***-12",
+                "email": "edu.martins@hotmail.com",
+                "lote": "PLATEIA MEIA",
+                "valor": "R$ 140,00",
+                "pgto": "PIX",
+                "status": "Pago",
+                "voucher": "IM-35702"
+            }
+        ],
+        "portaria": {
+            "presentes": 0,
+            "faltam": 10,
+            "percentual": "0.0% (Aguardando abertura)",
+            "pico": "19:00h"
+        }
+    },
+    "3634": {
+        "id": "1760",
+        "name": "SEM PARAR - EXPERIENCIA MUSICA E NATUREZA",
+        "local": "Parque Jaime Lerner - Curitiba/PR",
+        "cidade": "Curitiba/PR",
+        "localidade": "Parque Jaime Lerner",
+        "data": "30/06/2027 às 10:00h",
+        "status": "Ativo",
+        "banner": "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80",
+        "receitaBruta": "R$ 0,00",
+        "receitaLiquida": "R$ 0,00",
+        "taxasPlataforma": "- R$ 0,00",
+        "taxasGateways": "- R$ 0,00",
+        "repassesEfetuados": "- R$ 0,00",
+        "saldoRepasse": "R$ 0,00",
+        "repassesJaPagos": "R$ 0,00",
+        "ingressosVendidos": "0",
+        "ingressosDisponiveis": "832",
+        "cortesias": "584",
+        "ticketMedio": "R$ 0,00",
+        "ocupacao": "70.2%",
+        "pixel": {
+            "id": "392182049182390",
+            "nome": "Pixel Música & Natureza",
+            "status": "Ativo",
+            "capiStatus": "Conectado (Servidor CAPI)",
+            "matchQuality": "9.0/10 (Excelente)",
+            "datasetId": "ds_semparar_2027",
+            "tokenCapi": "EAAGNOk92ZAApX893634xProdutor",
+            "pageViews": "1.240",
+            "viewContent": "890",
+            "initiateCheckout": "210",
+            "addPaymentInfo": "150",
+            "purchase": "0",
+            "receitaPixel": "R$ 0,00",
+            "roas": "0.0x",
+            "cpa": "R$ 0,00",
+            "ultimoDisparo": "Hoje, há 5 min"
+        },
+        "lotes": [
+            {
+                "nome": "INGRESSO SOCIAL GRATUITO",
+                "preco": "R$ 0,00",
+                "total": 1000,
+                "vendidos": 0,
+                "disp": 832,
+                "prog": 70,
+                "status": "Aberto",
+                "badge": "bg-success"
+            },
+            {
+                "nome": "CORTESIA PARCEIRO",
+                "preco": "R$ 0,00",
+                "total": 600,
+                "vendidos": 0,
+                "disp": 584,
+                "prog": 97,
+                "status": "Aberto",
+                "badge": "bg-success"
+            }
+        ],
+        "pagamentos": {
+            "pix": "80%",
+            "credito": "15%",
+            "debito": "5%",
+            "pdv": "0%"
+        },
+        "compradores": [
+            {
+                "nome": "Marcos Vinicius",
+                "cpf": "124.***.***-89",
+                "email": "marcos.v@gmail.com",
+                "lote": "INGRESSO SOCIAL",
+                "valor": "R$ 0,00",
+                "pgto": "Gratuito",
+                "status": "Confirmado",
+                "voucher": "SP-99101"
+            }
+        ],
+        "portaria": {
+            "presentes": 0,
+            "faltam": 0,
+            "percentual": "0.0% (Aguardando abertura)",
+            "pico": "10:00h"
+        }
+    },
+    "3713": {
+        "id": "3713",
+        "name": "29ª Conferência Estadual Espírita (13/03)",
+        "local": "Teatro Positivo - Curitiba/PR",
+        "cidade": "Curitiba/PR",
+        "localidade": "Teatro Positivo - Grande Auditório",
+        "data": "13/03/2027 às 08:00h",
+        "status": "Ativo",
+        "banner": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80",
+        "receitaBruta": "R$ 605,00",
+        "receitaLiquida": "R$ 514,25",
+        "taxasPlataforma": "- R$ 90,75",
+        "taxasGateways": "- R$ 12,10",
+        "repassesEfetuados": "- R$ 0,00",
+        "saldoRepasse": "R$ 514,25",
+        "repassesJaPagos": "R$ 0,00",
+        "ingressosVendidos": "13",
+        "ingressosDisponiveis": "2587",
+        "cortesias": "0",
+        "ticketMedio": "R$ 46,54",
+        "ocupacao": "0.5%",
+        "pixel": {
+            "id": "892341209384721",
+            "nome": "Pixel Principal Produtora (Global)",
+            "status": "Ativo",
+            "capiStatus": "Conectado (Servidor CAPI)",
+            "matchQuality": "9.5/10 (Excelente)",
+            "datasetId": "ds_meta_exemplo_prod",
+            "tokenCapi": "EAAGNOk92ZAApX893713xProdutor",
+            "pageViews": "3.410",
+            "viewContent": "1.720",
+            "initiateCheckout": "390",
+            "addPaymentInfo": "240",
+            "purchase": "13",
+            "receitaPixel": "R$ 605,00",
+            "roas": "8.2x",
+            "cpa": "R$ 8,50",
+            "ultimoDisparo": "Hoje, há 8 min"
+        },
+        "lotes": [
+            {
+                "nome": "INGRESSO SÁBADO 13/03 (INTEIRA)",
+                "preco": "R$ 50,00",
+                "total": 1300,
+                "vendidos": 9,
+                "disp": 1291,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            },
+            {
+                "nome": "INGRESSO SÁBADO 13/03 (MEIA)",
+                "preco": "R$ 25,00",
+                "total": 1300,
+                "vendidos": 4,
+                "disp": 1296,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            }
+        ],
+        "pagamentos": {
+            "pix": "70%",
+            "credito": "30%",
+            "debito": "0%",
+            "pdv": "0%"
+        },
+        "compradores": [
+            {
+                "nome": "Beatriz Alencar",
+                "cpf": "661.***.***-33",
+                "email": "beatriz.alencar@ufpr.br",
+                "lote": "INGRESSO SÁBADO MEIA",
+                "valor": "R$ 25,00",
+                "pgto": "PIX",
+                "status": "Pago",
+                "voucher": "CF-37131"
+            }
+        ],
+        "portaria": {
+            "presentes": 0,
+            "faltam": 13,
+            "percentual": "0.0% (Aguardando abertura)",
+            "pico": "08:00h"
+        }
+    },
+    "3714": {
+        "id": "3714",
+        "name": "29ª Conferência Estadual Espírita (14/03)",
+        "local": "Teatro Positivo - Curitiba/PR",
+        "cidade": "Curitiba/PR",
+        "localidade": "Teatro Positivo - Grande Auditório",
+        "data": "14/03/2027 às 08:00h",
+        "status": "Ativo",
+        "banner": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80",
+        "receitaBruta": "R$ 540,00",
+        "receitaLiquida": "R$ 459,00",
+        "taxasPlataforma": "- R$ 81,00",
+        "taxasGateways": "- R$ 10,80",
+        "repassesEfetuados": "- R$ 0,00",
+        "saldoRepasse": "R$ 459,00",
+        "repassesJaPagos": "R$ 0,00",
+        "ingressosVendidos": "12",
+        "ingressosDisponiveis": "2188",
+        "cortesias": "0",
+        "ticketMedio": "R$ 45,00",
+        "ocupacao": "0.5%",
+        "pixel": {
+            "id": "772183904128471",
+            "nome": "Pixel 29ª Conferência Espírita",
+            "status": "Ativo",
+            "capiStatus": "Conectado (Servidor CAPI)",
+            "matchQuality": "9.3/10 (Excelente)",
+            "datasetId": "ds_conferencia_2027",
+            "tokenCapi": "EAAGNOk92ZAApX893714xProdutor",
+            "pageViews": "3.120",
+            "viewContent": "1.540",
+            "initiateCheckout": "320",
+            "addPaymentInfo": "210",
+            "purchase": "12",
+            "receitaPixel": "R$ 540,00",
+            "roas": "7.1x",
+            "cpa": "R$ 9,80",
+            "ultimoDisparo": "Hoje, há 14 min"
+        },
+        "lotes": [
+            {
+                "nome": "INGRESSO DOMINGO 14/03 (INTEIRA)",
+                "preco": "R$ 50,00",
+                "total": 1200,
+                "vendidos": 8,
+                "disp": 1192,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            },
+            {
+                "nome": "INGRESSO DOMINGO 14/03 (MEIA)",
+                "preco": "R$ 25,00",
+                "total": 1000,
+                "vendidos": 4,
+                "disp": 996,
+                "prog": 1,
+                "status": "Aberto",
+                "badge": "bg-success"
+            }
+        ],
+        "pagamentos": {
+            "pix": "75%",
+            "credito": "25%",
+            "debito": "0%",
+            "pdv": "0%"
+        },
+        "compradores": [
+            {
+                "nome": "Camila Nogueira",
+                "cpf": "445.***.***-20",
+                "email": "camila.nog@hotmail.com",
+                "lote": "INGRESSO DOMINGO",
+                "valor": "R$ 50,00",
+                "pgto": "PIX",
+                "status": "Pago",
+                "voucher": "CF-37141"
+            }
+        ],
+        "portaria": {
+            "presentes": 0,
+            "faltam": 12,
+            "percentual": "0.0% (Aguardando abertura)",
+            "pico": "08:00h"
+        }
+    }
+,
+
                 "3130": {
                     id: "3130",
                     name: "TWELVE BEERS VITÓRIA | 1ª EDIÇÃO",
@@ -10103,6 +10539,156 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
                 renderProducerPixelsTable();
                 renderEventsPixelMatrix();
+
+            // ==========================================
+            // SAC WORKSTATION FUNCTIONS & DATA
+            // ==========================================
+            window.SAC_TICKETS_DATA = {
+                'TKT-9842': {
+                    id: '9842',
+                    customer: 'Mariana Duarte',
+                    email: 'mariana@gmail.com',
+                    phone: '(41) 99876-5544',
+                    event: 'Iron Maiden Symphonic (#3571)',
+                    orderId: '#158942',
+                    value: 'R$ 218,00',
+                    sla: 'SLA: 45 min restantes',
+                    slaBadgeClass: 'bg-danger text-white',
+                    channel: 'WhatsApp',
+                    subject: 'Solicitação de Estorno / Desistência (Art. 49 CDC)',
+                    status: 'Em Aberto'
+                },
+                'TKT-9841': {
+                    id: '9841',
+                    customer: 'Rodrigo Santos',
+                    email: 'rodrigo.santos@outlook.com',
+                    phone: '(41) 98452-1100',
+                    event: 'Sem Parar - Exp. Música (#1760)',
+                    orderId: '#158941',
+                    value: 'R$ 0,00',
+                    sla: 'SLA: 2h úteis restantes',
+                    slaBadgeClass: 'bg-info text-white',
+                    channel: 'E-mail',
+                    subject: 'Não recebi o PDF do voucher por e-mail',
+                    status: 'Em Análise N1'
+                },
+                'TKT-9840': {
+                    id: '9840',
+                    customer: 'Camila Nogueira',
+                    email: 'camila.nog@hotmail.com',
+                    phone: '(41) 99122-3344',
+                    event: '29ª Conferência Espírita (#3714)',
+                    orderId: '#158940',
+                    value: 'R$ 54,00',
+                    sla: 'SLA: 6h úteis restantes',
+                    slaBadgeClass: 'bg-secondary text-white',
+                    channel: 'WhatsApp',
+                    subject: 'Troca de titularidade do ingresso',
+                    status: 'Em Atendimento'
+                },
+                'TKT-9839': {
+                    id: '9839',
+                    customer: 'Lucas Ferreira',
+                    email: 'lucas.f@gmail.com',
+                    phone: '(11) 97102-9988',
+                    event: 'Iron Maiden Symphonic (#3571)',
+                    orderId: '#158939',
+                    value: 'R$ 436,00',
+                    sla: 'SLA: 1h restante',
+                    slaBadgeClass: 'bg-danger text-white',
+                    channel: 'Portal Web',
+                    subject: 'PIX pago com comprovante aguardando liberação',
+                    status: 'Em Aberto'
+                },
+                'TKT-9838': {
+                    id: '9838',
+                    customer: 'Beatriz Alencar',
+                    email: 'beatriz.alencar@ufpr.br',
+                    phone: '(41) 99654-7711',
+                    event: '29ª Conferência Espírita (#3713)',
+                    orderId: '#158938',
+                    value: 'R$ 46,50',
+                    sla: 'SLA: Concluído',
+                    slaBadgeClass: 'bg-success text-white',
+                    channel: 'E-mail',
+                    subject: 'Validação de carteirinha de estudante DNE',
+                    status: 'Resolvido'
+                }
+            };
+
+            window.selectSacTicket = function(ticketKey, trElement) {
+                const data = window.SAC_TICKETS_DATA[ticketKey] || window.SAC_TICKETS_DATA['TKT-9842'];
+
+                if (trElement) {
+                    document.querySelectorAll('#sacTicketsTableBody tr').forEach(r => r.classList.remove('bg-blue-50/40', 'table-active'));
+                    trElement.classList.add('bg-blue-50/40');
+                }
+
+                const idEl = document.getElementById('sacSelTicketId');
+                if (idEl) idEl.textContent = '#' + data.id;
+
+                const custEl = document.getElementById('sacSelCustomerName');
+                if (custEl) custEl.textContent = data.customer;
+
+                const slaEl = document.getElementById('sacSelSlaBadge');
+                if (slaEl) {
+                    slaEl.textContent = data.sla;
+                    slaEl.className = 'badge ' + data.slaBadgeClass;
+                }
+
+                const evtEl = document.getElementById('sacSelEventName');
+                if (evtEl) evtEl.textContent = data.event;
+
+                const orderEl = document.getElementById('sacSelOrderId');
+                if (orderEl) orderEl.textContent = data.orderId;
+            };
+
+            window.filterSacCategory = function(cat) {
+                const btnAll = document.getElementById('btnSacFilterAll');
+                const btnCrit = document.getElementById('btnSacFilterCrit');
+                const btnRef = document.getElementById('btnSacFilterRefund');
+                const btnAcc = document.getElementById('btnSacFilterAccess');
+
+                [btnAll, btnCrit, btnRef, btnAcc].forEach(b => {
+                    if (b) {
+                        b.classList.remove('fw-bold', 'border');
+                        b.style.background = 'transparent';
+                        b.style.color = '#334155';
+                        b.style.borderColor = 'transparent';
+                    }
+                });
+
+                const activeBtn = cat === 'all' ? btnAll : cat === 'crit' ? btnCrit : cat === 'refund' ? btnRef : btnAcc;
+                if (activeBtn) {
+                    activeBtn.classList.add('fw-bold', 'border');
+                    activeBtn.style.background = '#ebf5ff';
+                    activeBtn.style.borderColor = '#38bdf8';
+                    activeBtn.style.color = '#0284c7';
+                }
+
+                const rows = document.querySelectorAll('#sacTicketsTableBody tr');
+                rows.forEach((row, i) => {
+                    if (cat === 'all') {
+                        row.style.display = '';
+                    } else if (cat === 'crit') {
+                        row.style.display = (i === 0 || i === 3) ? '' : 'none';
+                    } else if (cat === 'refund') {
+                        row.style.display = (i === 0 || i === 3) ? '' : 'none';
+                    } else if (cat === 'access') {
+                        row.style.display = (i === 1 || i === 2 || i === 4) ? '' : 'none';
+                    }
+                });
+            };
+
+            window.filterSacTickets = function(q) {
+                const query = (q || '').toLowerCase();
+                const rows = document.querySelectorAll('#sacTicketsTableBody tr');
+                rows.forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(query) ? '' : 'none';
+                });
+            };
+
                 bootstrap.Modal.getInstance(document.getElementById("modalNovoPixelBiblioteca"))?.hide();
                 alert(`✅ Pixel "${nome}" (${pixelId}) adicionado com sucesso à Biblioteca do Produtor!`);
             };
@@ -10390,7 +10976,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             renderProducerPixelsTable();
             renderEventsPixelMatrix();
         });
-    </script>
+    
+</script>
 
     <!-- MODAL DETALHES DO ESTORNO -->
     <div class="modal fade" id="modalRefundDetails" tabindex="-1" aria-labelledby="modalRefundDetailsLabel" aria-hidden="true">
@@ -11822,656 +12409,5 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
     <!-- ==================================================== -->
     <!-- SCRIPTS CORE: NAVEGAÇÃO, DETALHES DE EVENTOS & PIXEL META -->
     <!-- ==================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // BASE DE DADOS MOCK DE EVENTOS
-        const EVENTS_DATA = {
-            '3634': {
-                id: '1760',
-                name: 'SEM PARAR - EXPERIENCIA MUSICA E NATUREZA',
-                location: 'Parque Jaime Lerner - Curitiba/PR',
-                date: '30/06/2027 às 10:00h',
-                city: 'Curitiba/PR',
-                status: 'Ativo',
-                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80',
-                saldo: 'R$ 0,00',
-                repasses: 'R$ 0,00',
-                receitaBruta: 'R$ 0,00',
-                vendas: 0,
-                disponivel: 832,
-                cortesia: 584,
-                ocupacao: '70.2%',
-                pixelId: '392182049182390',
-                pixelName: 'Pixel Música & Natureza',
-                datasetId: 'ds_semparar_2027',
-                pageView: 1240,
-                viewContent: 890,
-                addToCart: 412,
-                initiateCheckout: 210,
-                purchase: 0,
-                cpa: 'R$ 0,00'
-            },
-            '1760': {
-                id: '1760',
-                name: 'SEM PARAR - EXPERIENCIA MUSICA E NATUREZA',
-                location: 'Parque Jaime Lerner - Curitiba/PR',
-                date: '30/06/2027 às 10:00h',
-                city: 'Curitiba/PR',
-                status: 'Ativo',
-                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80',
-                saldo: 'R$ 0,00',
-                repasses: 'R$ 0,00',
-                receitaBruta: 'R$ 0,00',
-                vendas: 0,
-                disponivel: 832,
-                cortesia: 584,
-                ocupacao: '70.2%',
-                pixelId: '392182049182390',
-                pixelName: 'Pixel Música & Natureza',
-                datasetId: 'ds_semparar_2027',
-                pageView: 1240,
-                viewContent: 890,
-                addToCart: 412,
-                initiateCheckout: 210,
-                purchase: 0,
-                cpa: 'R$ 0,00'
-            },
-            '3571': {
-                id: '3571',
-                name: 'IRON MAIDEN SYMPHONIC',
-                location: 'Ópera de Arame - Curitiba/PR',
-                date: '14/03/2027 às 19:00h',
-                city: 'Curitiba/PR',
-                status: 'Ativo',
-                image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-                saldo: 'R$ 2.180,00',
-                repasses: 'R$ 0,00',
-                receitaBruta: 'R$ 2.180,00',
-                vendas: 10,
-                disponivel: 1596,
-                cortesia: 0,
-                ocupacao: '0.6%',
-                pixelId: '918273645019283',
-                pixelName: 'Pixel Iron Maiden Symphonic',
-                datasetId: 'ds_ironmaiden_2027',
-                pageView: 4890,
-                viewContent: 2140,
-                addToCart: 820,
-                initiateCheckout: 410,
-                purchase: 10,
-                cpa: 'R$ 14,20'
-            },
-            '3714': {
-                id: '3714',
-                name: '29ª Conferência Espírita (14/03)',
-                location: 'Teatro Positivo - Curitiba/PR',
-                date: '14/03/2027 às 08:00h',
-                city: 'Curitiba/PR',
-                status: 'Ativo',
-                image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80',
-                saldo: 'R$ 540,00',
-                repasses: 'R$ 0,00',
-                receitaBruta: 'R$ 540,00',
-                vendas: 12,
-                disponivel: 2188,
-                cortesia: 0,
-                ocupacao: '0.5%',
-                pixelId: '772183904128471',
-                pixelName: 'Pixel 29ª Conferência',
-                datasetId: 'ds_conferencia_2027',
-                pageView: 3120,
-                viewContent: 1540,
-                addToCart: 620,
-                initiateCheckout: 320,
-                purchase: 12,
-                cpa: 'R$ 9,80'
-            },
-            '3713': {
-                id: '3713',
-                name: '29ª Conferência Espírita (13/03)',
-                location: 'Teatro Positivo - Curitiba/PR',
-                date: '13/03/2027 às 08:00h',
-                city: 'Curitiba/PR',
-                status: 'Ativo',
-                image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80',
-                saldo: 'R$ 605,00',
-                repasses: 'R$ 0,00',
-                receitaBruta: 'R$ 605,00',
-                vendas: 13,
-                disponivel: 2587,
-                cortesia: 0,
-                ocupacao: '0.5%',
-                pixelId: '892341209384721',
-                pixelName: 'Pixel Principal Produtora (Global)',
-                datasetId: 'ds_meta_exemplo_prod',
-                pageView: 3410,
-                viewContent: 1720,
-                addToCart: 710,
-                initiateCheckout: 390,
-                purchase: 13,
-                cpa: 'R$ 8,50'
-            }
-        };
-
-        const PRODUCER_PIXELS_LIBRARY = [
-            { id: "892341209384721", name: "Pixel Principal (Global Padrão)", platform: "Meta", datasetId: "ds_meta_exemplo_prod", isDefault: true },
-            { id: "918273645019283", name: "Pixel Festivais & Rock 2026", platform: "Meta", datasetId: "ds_festivais_rock", isDefault: false },
-            { id: "772183904128471", name: "Pixel Conferências & Teatros", platform: "Meta", datasetId: "ds_conferencias", isDefault: false },
-            { id: "392182049182390", name: "Pixel Música & Parques", platform: "Meta", datasetId: "ds_musica_natureza", isDefault: false }
-        ];
-
-        // 1. FUNÇÃO PARA ALTERNAR PAINÉIS
-        function switchPanel(panelKey, menuElement) {
-            // Ocultar todos os painéis conhecidos
-            const allPanels = [
-                'panelDashboardContent',
-                'panelDadosProdutoraContent',
-                'panelTodosEventosContent',
-                'panelDetalhesEventoContent',
-                'panelTerminaisPosContent',
-                'panelFinHubContent',
-                'panelFinSaldo',
-                'panelFinRepasse',
-                'panelFinAntecipacoes',
-                'panelFinExtrato',
-                'panelFinDespesas',
-                'panelFinContas',
-                'panelFinBordero',
-                'panelFinNegociacoes',
-                'panelMktConsolidado',
-                'panelMktCampanhas',
-                'panelMktAnalytics',
-                'panelMktPixelGraficos',
-                'panelMktUtm',
-                'panelMktCupons',
-                'panelMktPromoters',
-                'panelMktCombos',
-                'panelMktPixels',
-                'panelRmkCarrinhos',
-                'panelRmkDisparos',
-                'panelRmkCRM',
-                'panelRmkMetricas'
-            ];
-
-            allPanels.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.classList.add('d-none');
-                }
-            });
-
-            // Mapeamento de chave para ID de painel
-            const map = {
-                'dashboard': 'panelDashboardContent',
-                'dadosProdutora': 'panelDadosProdutoraContent',
-                'todosEventos': 'panelTodosEventosContent',
-                'detalhesEvento': 'panelDetalhesEventoContent',
-                'terminaisPos': 'panelTerminaisPosContent',
-                'estorno': 'panelEstornoContent',
-                'panelEstornoContent': 'panelEstornoContent',
-                'sacContent': 'panelSacContent',
-                'sacHub': 'panelSacContent',
-                'panelSacContent': 'panelSacContent',
-                'finHub': 'panelFinHubContent',
-                'finSaldo': 'panelFinSaldo',
-                'finRepasse': 'panelFinRepasse',
-                'finAntecipacoes': 'panelFinAntecipacoes',
-                'finExtrato': 'panelFinExtrato',
-                'finDespesas': 'panelFinDespesas',
-                'finContas': 'panelFinContas',
-                'finBordero': 'panelFinBordero',
-                'finNegociacoes': 'panelFinNegociacoes'
-            };
-
-            const targetId = map[panelKey] || panelKey;
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) {
-                targetEl.classList.remove('d-none');
-            }
-
-            // Atualizar classes ativas no menu
-            document.querySelectorAll('.sidebar .menu-item, .sidebar .submenu-item').forEach(el => el.classList.remove('active'));
-            if (menuElement) {
-                menuElement.classList.add('active');
-            }
-
-            // Scroll container para o topo
-            const mainContainer = document.querySelector('.main-content') || window;
-            if (mainContainer.scrollTo) {
-                mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        // 2. FUNÇÃO PARA ABRIR DETALHES DE UM EVENTO
-        function openEventDetails(eventId) {
-            window.currentEventId = eventId;
-            const evt = EVENTS_DATA[eventId] || EVENTS_DATA['3634'];
-
-            // Atualizar campos da tela de detalhes
-            const badgeId = document.getElementById('evtBadgeId');
-            if (badgeId) badgeId.textContent = '#' + (evt.id || eventId);
-
-            const badgeStatus = document.getElementById('evtBadgeStatus');
-            if (badgeStatus) badgeStatus.textContent = evt.status || 'Ativo';
-
-            const titleName = document.getElementById('evtTitleName');
-            if (titleName) titleName.textContent = evt.name || 'Evento';
-
-            const subtitleDetails = document.getElementById('evtSubtitleDetails');
-            if (subtitleDetails) subtitleDetails.innerHTML = `<i class="fa-solid fa-location-dot me-1 text-danger"></i> ${evt.location || ''} | <i class="fa-regular fa-calendar me-1 text-primary"></i> ${evt.date || ''}`;
-
-            const bannerImg = document.getElementById('evtBannerImg');
-            if (bannerImg && evt.image) bannerImg.src = evt.image;
-
-            const cityTag = document.getElementById('evtCityTag');
-            if (cityTag) cityTag.textContent = evt.city || 'Curitiba/PR';
-
-            const infoDate = document.getElementById('evtInfoDate');
-            if (infoDate) infoDate.textContent = evt.date || '';
-
-            const infoPlace = document.getElementById('evtInfoPlace');
-            if (infoPlace) infoPlace.textContent = evt.location || '';
-
-            const infoCity = document.getElementById('evtInfoCity');
-            if (infoCity) infoCity.textContent = evt.city || '';
-
-            const quickSaldo = document.getElementById('evtQuickSaldo');
-            if (quickSaldo) quickSaldo.textContent = evt.saldo || 'R$ 0,00';
-
-            const quickRepasses = document.getElementById('evtQuickRepasses');
-            if (quickRepasses) quickRepasses.textContent = evt.repasses || 'R$ 0,00';
-
-            const kpiBruto = document.getElementById('evtKpiBruto');
-            if (kpiBruto) kpiBruto.textContent = evt.receitaBruta || 'R$ 0,00';
-
-            // Alternar para o painel de detalhes do evento
-            switchPanel('panelDetalhesEventoContent');
-        }
-
-        // 3. FUNÇÃO PARA ABRIR MODAL DO PIXEL FACEBOOK / META
-        function openEventFacebookPixelModal(eventId) {
-            window.currentEventId = eventId;
-            const evt = EVENTS_DATA[eventId] || EVENTS_DATA['3634'];
-
-            const modalEventName = document.getElementById('pxModalEventName');
-            if (modalEventName) modalEventName.textContent = evt.name || 'Evento';
-
-            const modalEventId = document.getElementById('pxModalEventId');
-            if (modalEventId) modalEventId.textContent = '#' + (evt.id || eventId);
-
-            const hiddenEventId = document.getElementById('pxModalHiddenEventId');
-            if (hiddenEventId) hiddenEventId.value = eventId;
-
-            const pixelIdInput = document.getElementById('pxModalPixelId');
-            if (pixelIdInput) pixelIdInput.value = evt.pixelId || '892341209384721';
-
-            const datasetInput = document.getElementById('pxModalDatasetId');
-            if (datasetInput) datasetInput.value = evt.datasetId || 'ds_meta_exemplo_prod';
-
-            // Preencher funil com dados do evento
-            const pvEl = document.getElementById('pxModalPageView');
-            if (pvEl) pvEl.textContent = (evt.pageView || 0).toLocaleString();
-
-            const vcEl = document.getElementById('pxModalViewContent');
-            if (vcEl) vcEl.textContent = (evt.viewContent || 0).toLocaleString();
-
-            const atcEl = document.getElementById('pxModalAddToCart');
-            if (atcEl) atcEl.textContent = (evt.addToCart || 0).toLocaleString();
-
-            const icEl = document.getElementById('pxModalInitiateCheckout');
-            if (icEl) icEl.textContent = (evt.initiateCheckout || 0).toLocaleString();
-
-            const purEl = document.getElementById('pxModalPurchase');
-            if (purEl) purEl.textContent = (evt.purchase || 0).toLocaleString();
-
-            const cpaEl = document.getElementById('pxModalCpa');
-            if (cpaEl) cpaEl.textContent = evt.cpa || 'R$ 0,00';
-
-            // Preencher dropdown da biblioteca
-            const dropdown = document.getElementById('pxModalSelectLibrary');
-            if (dropdown) {
-                dropdown.innerHTML = PRODUCER_PIXELS_LIBRARY.map(p => `
-                    <option value="${p.id}" ${p.id === evt.pixelId ? 'selected' : ''}>
-                        ${p.name} (${p.id}) ${p.isDefault ? '⭐ Padrão' : ''}
-                    </option>
-                `).join('');
-            }
-
-            // Exibir modal usando Bootstrap
-            const modalEl = document.getElementById('modalConfigurarPixelEvento');
-            if (modalEl) {
-                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                modal.show();
-            }
-        }
-
-        // 4. TESTAR DISPARO DE EVENTO CAPI
-        function testEventPixelDispatch() {
-            const btn = document.getElementById('btnTestPixelDispatch');
-            const resultBox = document.getElementById('pixelTestResultBox');
-            const output = document.getElementById('pixelTestJsonOutput');
-
-            if (btn) {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Disparando CAPI...';
-            }
-
-            setTimeout(() => {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Disparar Novamente';
-                }
-
-                if (resultBox && output) {
-                    resultBox.classList.remove('d-none');
-                    output.textContent = JSON.stringify({
-                        "status": "success",
-                        "events_received": 1,
-                        "messages": [],
-                        "fbtrace_id": "A" + Math.random().toString(36).substring(2, 12).toUpperCase(),
-                        "event_name": "Purchase",
-                        "event_time": Math.floor(Date.now() / 1000),
-                        "deduplication_mode": "FBP_FBC_HASH",
-                        "capi_latency_ms": 48
-                    }, null, 2);
-                }
-            }, 700);
-        }
-
-        // 5. SELEÇÃO DE MODO PIXEL
-        function onPixelModeChange(mode) {
-            const boxLib = document.getElementById('boxPixelLibrarySelect');
-            const inputPixelId = document.getElementById('pxModalPixelId');
-            const inputDatasetId = document.getElementById('pxModalDatasetId');
-
-            if (mode === 'inherit') {
-                if (boxLib) boxLib.classList.add('d-none');
-                const def = PRODUCER_PIXELS_LIBRARY.find(p => p.isDefault) || PRODUCER_PIXELS_LIBRARY[0];
-                if (inputPixelId) inputPixelId.value = def.id;
-                if (inputDatasetId) inputDatasetId.value = def.datasetId;
-            } else if (mode === 'library') {
-                if (boxLib) boxLib.classList.remove('d-none');
-            } else if (mode === 'custom') {
-                if (boxLib) boxLib.classList.add('d-none');
-            }
-        }
-
-        function onSelectProducerPixelFromDropdown(pixelId) {
-            const px = PRODUCER_PIXELS_LIBRARY.find(p => p.id === pixelId);
-            if (px) {
-                const inputPixelId = document.getElementById('pxModalPixelId');
-                const inputDatasetId = document.getElementById('pxModalDatasetId');
-                if (inputPixelId) inputPixelId.value = px.id;
-                if (inputDatasetId) inputDatasetId.value = px.datasetId;
-            }
-        }
-
-        // 6. SALVAR CONFIGURAÇÃO DO PIXEL
-        function saveEventPixelConfig(e) {
-            if (e) e.preventDefault();
-            const eventId = document.getElementById('pxModalHiddenEventId')?.value || window.currentEventId;
-            const newPixelId = document.getElementById('pxModalPixelId')?.value;
-
-            if (EVENTS_DATA[eventId] && newPixelId) {
-                EVENTS_DATA[eventId].pixelId = newPixelId;
-            }
-
-            alert('✅ Configuração de Pixel e Meta Conversions API (CAPI) salva com sucesso para este evento!');
-            const modalEl = document.getElementById('modalConfigurarPixelEvento');
-            if (modalEl) {
-                const modal = bootstrap.Modal.getInstance(modalEl);
-                if (modal) modal.hide();
-            }
-        }
-
-        // 7. ABRIR MODAL GENÉRICO POR ID
-        function openModalById(modalId) {
-            const el = document.getElementById(modalId);
-            if (el) {
-                const modal = bootstrap.Modal.getOrCreateInstance(el);
-                modal.show();
-            }
-        }
-
-        // 8. FILTRAR EVENTOS
-        function filterEventsByStatus(status) {
-            console.log("Filtro aplicado:", status);
-        }
-
-        // 9. TOGGLE DE SUBMENUS ACCORDION
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggleSubmenu = (menuId, subId) => {
-                const menu = document.getElementById(menuId);
-                const submenu = document.getElementById(subId);
-                if (menu && submenu) {
-                    menu.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        submenu.classList.toggle('show');
-                    });
-                }
-            };
-
-            toggleSubmenu('menuFinanceiro', 'submenuFinanceiro');
-            toggleSubmenu('menuMarketing', 'submenuMarketing');
-            toggleSubmenu('menuRemarketing', 'submenuRemarketing');
-        });
-
-        // 10. SAC WORKSTATION FUNCTIONS & DATA
-        const SAC_TICKETS_DATA = {
-            'TKT-9842': {
-                id: '9842',
-                customer: 'Mariana Duarte',
-                email: 'mariana@gmail.com',
-                phone: '(41) 99876-5544',
-                event: 'Iron Maiden Symphonic (#3571)',
-                orderId: '#158942',
-                value: 'R$ 218,00',
-                sla: 'SLA: 45 min restantes',
-                slaBadgeClass: 'bg-danger text-white',
-                channel: 'WhatsApp',
-                subject: 'Solicitação de Estorno / Desistência (Art. 49 CDC)',
-                status: 'Em Aberto'
-            },
-            'TKT-9841': {
-                id: '9841',
-                customer: 'Rodrigo Santos',
-                email: 'rodrigo.santos@outlook.com',
-                phone: '(41) 98452-1100',
-                event: 'Sem Parar - Exp. Música (#1760)',
-                orderId: '#158941',
-                value: 'R$ 0,00',
-                sla: 'SLA: 2h úteis restantes',
-                slaBadgeClass: 'bg-info text-white',
-                channel: 'E-mail',
-                subject: 'Não recebi o PDF do voucher por e-mail',
-                status: 'Em Análise N1'
-            },
-            'TKT-9840': {
-                id: '9840',
-                customer: 'Camila Nogueira',
-                email: 'camila.nog@hotmail.com',
-                phone: '(41) 99122-3344',
-                event: '29ª Conferência Espírita (#3714)',
-                orderId: '#158940',
-                value: 'R$ 54,00',
-                sla: 'SLA: 6h úteis restantes',
-                slaBadgeClass: 'bg-secondary text-white',
-                channel: 'WhatsApp',
-                subject: 'Troca de titularidade do ingresso',
-                status: 'Em Atendimento'
-            },
-            'TKT-9839': {
-                id: '9839',
-                customer: 'Lucas Ferreira',
-                email: 'lucas.f@gmail.com',
-                phone: '(11) 97102-9988',
-                event: 'Iron Maiden Symphonic (#3571)',
-                orderId: '#158939',
-                value: 'R$ 436,00',
-                sla: 'SLA: 1h restante',
-                slaBadgeClass: 'bg-danger text-white',
-                channel: 'Portal Web',
-                subject: 'PIX pago com comprovante aguardando liberação',
-                status: 'Em Aberto'
-            },
-            'TKT-9838': {
-                id: '9838',
-                customer: 'Beatriz Alencar',
-                email: 'beatriz.alencar@ufpr.br',
-                phone: '(41) 99654-7711',
-                event: '29ª Conferência Espírita (#3713)',
-                orderId: '#158938',
-                value: 'R$ 46,50',
-                sla: 'SLA: Concluído',
-                slaBadgeClass: 'bg-success text-white',
-                channel: 'E-mail',
-                subject: 'Validação de carteirinha de estudante DNE',
-                status: 'Resolvido'
-            }
-        };
-
-        function selectSacTicket(ticketKey, trElement) {
-            const data = SAC_TICKETS_DATA[ticketKey] || SAC_TICKETS_DATA['TKT-9842'];
-
-            if (trElement) {
-                document.querySelectorAll('#sacTicketsTableBody tr').forEach(r => r.classList.remove('bg-blue-50/40', 'table-active'));
-                trElement.classList.add('bg-blue-50/40');
-            }
-
-            const idEl = document.getElementById('sacSelTicketId');
-            if (idEl) idEl.textContent = '#' + data.id;
-
-            const custEl = document.getElementById('sacSelCustomerName');
-            if (custEl) custEl.textContent = data.customer;
-
-            const slaEl = document.getElementById('sacSelSlaBadge');
-            if (slaEl) {
-                slaEl.textContent = data.sla;
-                slaEl.className = 'badge ' + data.slaBadgeClass;
-            }
-
-            const evtEl = document.getElementById('sacSelEventName');
-            if (evtEl) evtEl.textContent = data.event;
-
-            const orderEl = document.getElementById('sacSelOrderId');
-            if (orderEl) orderEl.textContent = data.orderId;
-        }
-
-        function filterSacCategory(cat) {
-            const btnAll = document.getElementById('btnSacFilterAll');
-            const btnCrit = document.getElementById('btnSacFilterCrit');
-            const btnRef = document.getElementById('btnSacFilterRefund');
-            const btnAcc = document.getElementById('btnSacFilterAccess');
-
-            [btnAll, btnCrit, btnRef, btnAcc].forEach(b => {
-                if (b) {
-                    b.classList.remove('fw-bold', 'border');
-                    b.style.background = 'transparent';
-                    b.style.color = '#334155';
-                    b.style.borderColor = 'transparent';
-                }
-            });
-
-            const activeBtn = cat === 'all' ? btnAll : cat === 'crit' ? btnCrit : cat === 'refund' ? btnRef : btnAcc;
-            if (activeBtn) {
-                activeBtn.classList.add('fw-bold', 'border');
-                activeBtn.style.background = '#ebf5ff';
-                activeBtn.style.borderColor = '#38bdf8';
-                activeBtn.style.color = '#0284c7';
-            }
-
-            const rows = document.querySelectorAll('#sacTicketsTableBody tr');
-            rows.forEach((row, i) => {
-                if (cat === 'all') {
-                    row.style.display = '';
-                } else if (cat === 'crit') {
-                    row.style.display = (i === 0 || i === 3) ? '' : 'none';
-                } else if (cat === 'refund') {
-                    row.style.display = (i === 0 || i === 3) ? '' : 'none';
-                } else if (cat === 'access') {
-                    row.style.display = (i === 1 || i === 2 || i === 4) ? '' : 'none';
-                }
-            });
-        }
-
-        function filterSacTickets(q) {
-            const query = (q || '').toLowerCase();
-            const rows = document.querySelectorAll('#sacTicketsTableBody tr');
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(query) ? '' : 'none';
-            });
-        }
-    </script>
-
-    <!-- MODAL: NOVO CHAMADO SAC -->
-    <div class="modal fade" id="modalNovoChamadoSac" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg" style="border-radius: 10px; overflow: hidden;">
-                <div class="modal-header text-white p-3" style="background:#0284c7;">
-                    <h5 class="modal-title fs-6 fw-bold mb-0"><i class="fa-solid fa-headset me-2"></i> Abrir Novo Chamado de Atendimento</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <form onsubmit="event.preventDefault(); alert('✅ Novo chamado aberto com sucesso! Protocolo #TKT-' + Math.floor(1000 + Math.random() * 9000)); bootstrap.Modal.getInstance(document.getElementById('modalNovoChamadoSac')).hide();">
-                    <div class="modal-body p-3 bg-light fs-12">
-                        <div class="mb-2">
-                            <label class="form-label fs-11 fw-bold text-muted mb-1">Nome do Cliente *</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Ex: Fernanda Lima" required>
-                        </div>
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">E-mail *</label>
-                                <input type="email" class="form-control form-control-sm" placeholder="cliente@email.com" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">WhatsApp / Telefone *</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="(41) 99999-8888" required>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label fs-11 fw-bold text-muted mb-1">Evento Relacionado *</label>
-                            <select class="form-select form-select-sm" required>
-                                <option value="">Selecione o evento...</option>
-                                <option value="3571">Iron Maiden Symphonic (#3571)</option>
-                                <option value="3634">Sem Parar - Experiência Música (#1760)</option>
-                                <option value="3714">29ª Conferência Espírita - 14/03 (#3714)</option>
-                                <option value="3713">29ª Conferência Espírita - 13/03 (#3713)</option>
-                            </select>
-                        </div>
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">Categoria *</label>
-                                <select class="form-select form-select-sm" required>
-                                    <option value="estorno">Estorno / Reembolso (CDC)</option>
-                                    <option value="reenvio">Reenvio de Ingresso / PDF</option>
-                                    <option value="troca">Troca de Titularidade</option>
-                                    <option value="pix">Dúvida / Pagamento PIX</option>
-                                    <option value="meia">Comprovação Meia Entrada</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">Prioridade / SLA *</label>
-                                <select class="form-select form-select-sm" required>
-                                    <option value="alta">Alta (SLA 2h - Crítico)</option>
-                                    <option value="media" selected>Média (SLA 8h)</option>
-                                    <option value="baixa">Baixa (SLA 24h)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label fs-11 fw-bold text-muted mb-1">Descrição do Chamado *</label>
-                            <textarea class="form-control form-control-sm" rows="3" placeholder="Descreva a solicitação ou relato do cliente..." required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-light py-2">
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7;">
-                            <i class="fa-solid fa-check me-1"></i> Abrir Chamado
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
