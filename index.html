@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,27 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        }
+
+        body, button, input, select, textarea, p, span, h1, h2, h3, h4, h5, h6, table, th, td, a {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* GUARANTEE FONTAWESOME FONT FAMILY NEVER OVERRIDDEN */
+        .fa, .fas, .fa-solid {
+            font-family: "Font Awesome 6 Free" !important;
+            font-weight: 900 !important;
+            display: inline-block;
+        }
+        .far, .fa-regular {
+            font-family: "Font Awesome 6 Free" !important;
+            font-weight: 400 !important;
+            display: inline-block;
+        }
+        .fab, .fa-brands {
+            font-family: "Font Awesome 6 Brands" !important;
+            font-weight: 400 !important;
+            display: inline-block;
         }
 
         body {
@@ -7045,14 +7065,13 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
     <script>
 
 // Toggle Expandable Menu Accordion
+// ROCK SOLID ACCORDION TOGGLE
 function toggleMenuAccordion(menuElId, submenuContainerId) {
     const menuEl = document.getElementById(menuElId);
     const subContainer = document.getElementById(submenuContainerId);
     if (!subContainer) return;
 
-    const isCurrentlyShown = subContainer.classList.contains("show");
-    
-    if (isCurrentlyShown) {
+    if (subContainer.classList.contains("show")) {
         subContainer.classList.remove("show");
         if (menuEl) menuEl.classList.remove("expanded");
     } else {
@@ -9790,6 +9809,25 @@ window.renderEventsPixelMatrix = renderEventsPixelMatrix;
 // ==========================================
 // DOM READY INITIALIZATION
 // ==========================================
+// ==========================================
+// EXPOSE ALL FUNCTIONS GLOBALLY TO WINDOW
+// ==========================================
+window.toggleMenuAccordion = toggleMenuAccordion;
+window.switchPanel = switchPanel;
+window.openEventDetails = openEventDetails;
+window.switchEvtSubTab = switchEvtSubTab;
+window.resolveEventPixel = resolveEventPixel;
+if (typeof openEventFacebookPixelModal === 'function') window.openEventFacebookPixelModal = openEventFacebookPixelModal;
+if (typeof renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix = renderEventsPixelMatrix;
+if (typeof renderProducerPixelsTable === 'function') window.renderProducerPixelsTable = renderProducerPixelsTable;
+if (typeof renderAcessosTable === 'function') window.renderAcessosTable = renderAcessosTable;
+if (typeof selectSacTicket === 'function') window.selectSacTicket = selectSacTicket;
+if (typeof filterSacCategory === 'function') window.filterSacCategory = filterSacCategory;
+if (typeof filterSacTickets === 'function') window.filterSacTickets = filterSacTickets;
+
+// ==========================================
+// DOM READY INITIALIZATION
+// ==========================================
 document.addEventListener("DOMContentLoaded", function() {
     // Menu listeners
     const menuMap = [
@@ -9833,30 +9871,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Accordions
-    const menuFinanceiro = document.getElementById("menuFinanceiro");
-    const submenuFinanceiro = document.getElementById("submenuFinanceiro");
-    const arrowFinanceiro = document.getElementById("arrowFinanceiro");
-    // accordion handled by toggleMenuAccordion);
-
-
-
-
-// ==========================================
-// EXPOSE ALL FUNCTIONS GLOBALLY TO WINDOW
-// ==========================================
-window.switchPanel = switchPanel;
-window.openEventDetails = openEventDetails;
-window.switchEvtSubTab = switchEvtSubTab;
-window.resolveEventPixel = resolveEventPixel;
-if (typeof openEventFacebookPixelModal === 'function') window.openEventFacebookPixelModal = openEventFacebookPixelModal;
-if (typeof renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix = renderEventsPixelMatrix;
-if (typeof renderProducerPixelsTable === 'function') window.renderProducerPixelsTable = renderProducerPixelsTable;
-if (typeof renderAcessosTable === 'function') window.renderAcessosTable = renderAcessosTable;
-if (typeof selectSacTicket === 'function') window.selectSacTicket = selectSacTicket;
-if (typeof filterSacCategory === 'function') window.filterSacCategory = filterSacCategory;
-if (typeof filterSacTickets === 'function') window.filterSacTickets = filterSacTickets;
-
+    // Safe table initializations
+    try { if (typeof window.renderAcessosTable === 'function') window.renderAcessosTable(); } catch(e) { console.warn(e); }
+    try { if (typeof window.renderProducerPixelsTable === 'function') window.renderProducerPixelsTable(); } catch(e) { console.warn(e); }
+    try { if (typeof window.renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix(); } catch(e) { console.warn(e); }
+});
 
 </script>
 
