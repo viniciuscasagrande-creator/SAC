@@ -2321,7 +2321,10 @@
                                         <i class="fa-regular fa-calendar text-secondary"></i>
                                         <span>30/06/2027 10:00</span>
                                     </div>
-                                    <div class="footer-actions d-flex align-items-center">
+                                    <div class="footer-actions d-flex align-items-center gap-2">
+                                        <button class="btn btn-sm btn-outline-primary py-0.5 px-2 d-inline-flex align-items-center gap-1" style="font-size:0.68rem; border-radius:4px; font-weight:600;" onclick="event.stopPropagation(); openEventFacebookPixelModal('3634')" title="Configurar Pixel Meta">
+                                            <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                        </button>
                                         <i class="fa-regular fa-pen-to-square" title="Editar Evento" onclick="event.stopPropagation(); openEventDetails('3634')"></i>
                                         <i class="fa-solid fa-layer-group" title="Lotes & Detalhes" onclick="event.stopPropagation(); openEventDetails('3634')"></i>
                                     </div>
@@ -2380,7 +2383,10 @@
                                         <i class="fa-regular fa-calendar text-secondary"></i>
                                         <span>14/03/2027 19:00</span>
                                     </div>
-                                    <div class="footer-actions d-flex align-items-center">
+                                    <div class="footer-actions d-flex align-items-center gap-2">
+                                        <button class="btn btn-sm btn-outline-primary py-0.5 px-2 d-inline-flex align-items-center gap-1" style="font-size:0.68rem; border-radius:4px; font-weight:600;" onclick="event.stopPropagation(); openEventFacebookPixelModal('3571')" title="Configurar Pixel Meta">
+                                            <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                        </button>
                                         <i class="fa-regular fa-pen-to-square" title="Editar Evento" onclick="event.stopPropagation(); openEventDetails('3571')"></i>
                                         <i class="fa-solid fa-layer-group" title="Lotes & Detalhes" onclick="event.stopPropagation(); openEventDetails('3571')"></i>
                                     </div>
@@ -2444,7 +2450,10 @@
                                         <i class="fa-regular fa-calendar text-secondary"></i>
                                         <span>14/03/2027 08:00</span>
                                     </div>
-                                    <div class="footer-actions d-flex align-items-center">
+                                    <div class="footer-actions d-flex align-items-center gap-2">
+                                        <button class="btn btn-sm btn-outline-primary py-0.5 px-2 d-inline-flex align-items-center gap-1" style="font-size:0.68rem; border-radius:4px; font-weight:600;" onclick="event.stopPropagation(); openEventFacebookPixelModal('3714')" title="Configurar Pixel Meta">
+                                            <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                        </button>
                                         <i class="fa-regular fa-pen-to-square" title="Editar Evento" onclick="event.stopPropagation(); openEventDetails('3714')"></i>
                                         <i class="fa-solid fa-layer-group" title="Lotes & Detalhes" onclick="event.stopPropagation(); openEventDetails('3714')"></i>
                                     </div>
@@ -2508,7 +2517,10 @@
                                         <i class="fa-regular fa-calendar text-secondary"></i>
                                         <span>13/03/2027 08:00</span>
                                     </div>
-                                    <div class="footer-actions d-flex align-items-center">
+                                    <div class="footer-actions d-flex align-items-center gap-2">
+                                        <button class="btn btn-sm btn-outline-primary py-0.5 px-2 d-inline-flex align-items-center gap-1" style="font-size:0.68rem; border-radius:4px; font-weight:600;" onclick="event.stopPropagation(); openEventFacebookPixelModal('3713')" title="Configurar Pixel Meta">
+                                            <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                        </button>
                                         <i class="fa-regular fa-pen-to-square" title="Editar Evento" onclick="event.stopPropagation(); openEventDetails('3713')"></i>
                                         <i class="fa-solid fa-layer-group" title="Lotes & Detalhes" onclick="event.stopPropagation(); openEventDetails('3713')"></i>
                                     </div>
@@ -11505,55 +11517,436 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
         </div>
     </div>
     <!-- ==================================================== -->
-    <!-- MODAL: CONFIRMAR IMPACTO DE ALTERAÇÃO DE PIXEL -->
+    <!-- SCRIPTS CORE: NAVEGAÇÃO, DETALHES DE EVENTOS & PIXEL META -->
     <!-- ==================================================== -->
-    <div class="modal fade" id="modalConfirmarImpactoPixel" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-3">
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-triangle-exclamation text-warning fs-5"></i>
-                        <h5 class="modal-title fs-6 fw-bold mb-0">Confirmar Alteração de Rastreamento</h5>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-4 bg-white">
-                    <p class="fs-12 text-muted mb-3">
-                        Você está alterando o Pixel/Tag de rastreamento utilizado por este evento:
-                    </p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // BASE DE DADOS MOCK DE EVENTOS
+        const EVENTS_DATA = {
+            '3634': {
+                id: '1760',
+                name: 'SEM PARAR - EXPERIENCIA MUSICA E NATUREZA',
+                location: 'Parque Jaime Lerner - Curitiba/PR',
+                date: '30/06/2027 às 10:00h',
+                city: 'Curitiba/PR',
+                status: 'Ativo',
+                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80',
+                saldo: 'R$ 0,00',
+                repasses: 'R$ 0,00',
+                receitaBruta: 'R$ 0,00',
+                vendas: 0,
+                disponivel: 832,
+                cortesia: 584,
+                ocupacao: '70.2%',
+                pixelId: '392182049182390',
+                pixelName: 'Pixel Música & Natureza',
+                datasetId: 'ds_semparar_2027',
+                pageView: 1240,
+                viewContent: 890,
+                addToCart: 412,
+                initiateCheckout: 210,
+                purchase: 0,
+                cpa: 'R$ 0,00'
+            },
+            '1760': {
+                id: '1760',
+                name: 'SEM PARAR - EXPERIENCIA MUSICA E NATUREZA',
+                location: 'Parque Jaime Lerner - Curitiba/PR',
+                date: '30/06/2027 às 10:00h',
+                city: 'Curitiba/PR',
+                status: 'Ativo',
+                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80',
+                saldo: 'R$ 0,00',
+                repasses: 'R$ 0,00',
+                receitaBruta: 'R$ 0,00',
+                vendas: 0,
+                disponivel: 832,
+                cortesia: 584,
+                ocupacao: '70.2%',
+                pixelId: '392182049182390',
+                pixelName: 'Pixel Música & Natureza',
+                datasetId: 'ds_semparar_2027',
+                pageView: 1240,
+                viewContent: 890,
+                addToCart: 412,
+                initiateCheckout: 210,
+                purchase: 0,
+                cpa: 'R$ 0,00'
+            },
+            '3571': {
+                id: '3571',
+                name: 'IRON MAIDEN SYMPHONIC',
+                location: 'Ópera de Arame - Curitiba/PR',
+                date: '14/03/2027 às 19:00h',
+                city: 'Curitiba/PR',
+                status: 'Ativo',
+                image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+                saldo: 'R$ 2.180,00',
+                repasses: 'R$ 0,00',
+                receitaBruta: 'R$ 2.180,00',
+                vendas: 10,
+                disponivel: 1596,
+                cortesia: 0,
+                ocupacao: '0.6%',
+                pixelId: '918273645019283',
+                pixelName: 'Pixel Iron Maiden Symphonic',
+                datasetId: 'ds_ironmaiden_2027',
+                pageView: 4890,
+                viewContent: 2140,
+                addToCart: 820,
+                initiateCheckout: 410,
+                purchase: 10,
+                cpa: 'R$ 14,20'
+            },
+            '3714': {
+                id: '3714',
+                name: '29ª Conferência Espírita (14/03)',
+                location: 'Teatro Positivo - Curitiba/PR',
+                date: '14/03/2027 às 08:00h',
+                city: 'Curitiba/PR',
+                status: 'Ativo',
+                image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80',
+                saldo: 'R$ 540,00',
+                repasses: 'R$ 0,00',
+                receitaBruta: 'R$ 540,00',
+                vendas: 12,
+                disponivel: 2188,
+                cortesia: 0,
+                ocupacao: '0.5%',
+                pixelId: '772183904128471',
+                pixelName: 'Pixel 29ª Conferência',
+                datasetId: 'ds_conferencia_2027',
+                pageView: 3120,
+                viewContent: 1540,
+                addToCart: 620,
+                initiateCheckout: 320,
+                purchase: 12,
+                cpa: 'R$ 9,80'
+            },
+            '3713': {
+                id: '3713',
+                name: '29ª Conferência Espírita (13/03)',
+                location: 'Teatro Positivo - Curitiba/PR',
+                date: '13/03/2027 às 08:00h',
+                city: 'Curitiba/PR',
+                status: 'Ativo',
+                image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80',
+                saldo: 'R$ 605,00',
+                repasses: 'R$ 0,00',
+                receitaBruta: 'R$ 605,00',
+                vendas: 13,
+                disponivel: 2587,
+                cortesia: 0,
+                ocupacao: '0.5%',
+                pixelId: '892341209384721',
+                pixelName: 'Pixel Principal Produtora (Global)',
+                datasetId: 'ds_meta_exemplo_prod',
+                pageView: 3410,
+                viewContent: 1720,
+                addToCart: 710,
+                initiateCheckout: 390,
+                purchase: 13,
+                cpa: 'R$ 8,50'
+            }
+        };
 
-                    <div class="p-3 bg-light rounded border mb-3 fs-12">
-                        <div class="mb-2">
-                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Evento:</span>
-                            <strong class="text-dark" id="confirmModalEventName">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</strong>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Pixel Anterior:</span>
-                            <code class="text-secondary" id="confirmModalPrevPixel">Pixel Principal (892341209384721)</code>
-                        </div>
-                        <div>
-                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Novo Pixel / Configuração:</span>
-                            <code class="text-success fw-bold" id="confirmModalNewPixel">Pixel Festivais & Cerveja (918273645019283)</code>
-                        </div>
-                    </div>
+        const PRODUCER_PIXELS_LIBRARY = [
+            { id: "892341209384721", name: "Pixel Principal (Global Padrão)", platform: "Meta", datasetId: "ds_meta_exemplo_prod", isDefault: true },
+            { id: "918273645019283", name: "Pixel Festivais & Rock 2026", platform: "Meta", datasetId: "ds_festivais_rock", isDefault: false },
+            { id: "772183904128471", name: "Pixel Conferências & Teatros", platform: "Meta", datasetId: "ds_conferencias", isDefault: false },
+            { id: "392182049182390", name: "Pixel Música & Parques", platform: "Meta", datasetId: "ds_musica_natureza", isDefault: false }
+        ];
 
-                    <div class="alert alert-info p-2 fs-11 mb-0">
-                        <strong><i class="fa-solid fa-circle-info me-1"></i> Esta alteração passará a valer imediatamente para:</strong>
-                        <ul class="mb-0 mt-1 ps-3">
-                            <li>Página pública do evento (PageView)</li>
-                            <li>Seleção de ingressos & lotes (ViewContent / AddToCart)</li>
-                            <li>Checkout e pagamento (InitiateCheckout / AddPaymentInfo)</li>
-                            <li>Compra aprovada com confirmação real (Purchase & CAPI Server)</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="modal-footer bg-light py-2">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7;" id="btnExecutePixelChange">
-                        <i class="fa-solid fa-check me-1"></i> Confirmar Alteração
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+        // 1. FUNÇÃO PARA ALTERNAR PAINÉIS
+        function switchPanel(panelKey, menuElement) {
+            // Ocultar todos os painéis conhecidos
+            const allPanels = [
+                'panelDashboardContent',
+                'panelDadosProdutoraContent',
+                'panelTodosEventosContent',
+                'panelDetalhesEventoContent',
+                'panelTerminaisPosContent',
+                'panelFinHubContent',
+                'panelFinSaldo',
+                'panelFinRepasse',
+                'panelFinAntecipacoes',
+                'panelFinExtrato',
+                'panelFinDespesas',
+                'panelFinContas',
+                'panelFinBordero',
+                'panelFinNegociacoes',
+                'panelMktConsolidado',
+                'panelMktCampanhas',
+                'panelMktAnalytics',
+                'panelMktPixelGraficos',
+                'panelMktUtm',
+                'panelMktCupons',
+                'panelMktPromoters',
+                'panelMktCombos',
+                'panelMktPixels',
+                'panelRmkCarrinhos',
+                'panelRmkDisparos',
+                'panelRmkCRM',
+                'panelRmkMetricas'
+            ];
+
+            allPanels.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('d-none');
+                }
+            });
+
+            // Mapeamento de chave para ID de painel
+            const map = {
+                'dashboard': 'panelDashboardContent',
+                'dadosProdutora': 'panelDadosProdutoraContent',
+                'todosEventos': 'panelTodosEventosContent',
+                'detalhesEvento': 'panelDetalhesEventoContent',
+                'terminaisPos': 'panelTerminaisPosContent',
+                'finHub': 'panelFinHubContent',
+                'finSaldo': 'panelFinSaldo',
+                'finRepasse': 'panelFinRepasse',
+                'finAntecipacoes': 'panelFinAntecipacoes',
+                'finExtrato': 'panelFinExtrato',
+                'finDespesas': 'panelFinDespesas',
+                'finContas': 'panelFinContas',
+                'finBordero': 'panelFinBordero',
+                'finNegociacoes': 'panelFinNegociacoes'
+            };
+
+            const targetId = map[panelKey] || panelKey;
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.classList.remove('d-none');
+            }
+
+            // Atualizar classes ativas no menu
+            document.querySelectorAll('.sidebar .menu-item, .sidebar .submenu-item').forEach(el => el.classList.remove('active'));
+            if (menuElement) {
+                menuElement.classList.add('active');
+            }
+
+            // Scroll container para o topo
+            const mainContainer = document.querySelector('.main-content') || window;
+            if (mainContainer.scrollTo) {
+                mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // 2. FUNÇÃO PARA ABRIR DETALHES DE UM EVENTO
+        function openEventDetails(eventId) {
+            window.currentEventId = eventId;
+            const evt = EVENTS_DATA[eventId] || EVENTS_DATA['3634'];
+
+            // Atualizar campos da tela de detalhes
+            const badgeId = document.getElementById('evtBadgeId');
+            if (badgeId) badgeId.textContent = '#' + (evt.id || eventId);
+
+            const badgeStatus = document.getElementById('evtBadgeStatus');
+            if (badgeStatus) badgeStatus.textContent = evt.status || 'Ativo';
+
+            const titleName = document.getElementById('evtTitleName');
+            if (titleName) titleName.textContent = evt.name || 'Evento';
+
+            const subtitleDetails = document.getElementById('evtSubtitleDetails');
+            if (subtitleDetails) subtitleDetails.innerHTML = `<i class="fa-solid fa-location-dot me-1 text-danger"></i> ${evt.location || ''} | <i class="fa-regular fa-calendar me-1 text-primary"></i> ${evt.date || ''}`;
+
+            const bannerImg = document.getElementById('evtBannerImg');
+            if (bannerImg && evt.image) bannerImg.src = evt.image;
+
+            const cityTag = document.getElementById('evtCityTag');
+            if (cityTag) cityTag.textContent = evt.city || 'Curitiba/PR';
+
+            const infoDate = document.getElementById('evtInfoDate');
+            if (infoDate) infoDate.textContent = evt.date || '';
+
+            const infoPlace = document.getElementById('evtInfoPlace');
+            if (infoPlace) infoPlace.textContent = evt.location || '';
+
+            const infoCity = document.getElementById('evtInfoCity');
+            if (infoCity) infoCity.textContent = evt.city || '';
+
+            const quickSaldo = document.getElementById('evtQuickSaldo');
+            if (quickSaldo) quickSaldo.textContent = evt.saldo || 'R$ 0,00';
+
+            const quickRepasses = document.getElementById('evtQuickRepasses');
+            if (quickRepasses) quickRepasses.textContent = evt.repasses || 'R$ 0,00';
+
+            const kpiBruto = document.getElementById('evtKpiBruto');
+            if (kpiBruto) kpiBruto.textContent = evt.receitaBruta || 'R$ 0,00';
+
+            // Alternar para o painel de detalhes do evento
+            switchPanel('panelDetalhesEventoContent');
+        }
+
+        // 3. FUNÇÃO PARA ABRIR MODAL DO PIXEL FACEBOOK / META
+        function openEventFacebookPixelModal(eventId) {
+            window.currentEventId = eventId;
+            const evt = EVENTS_DATA[eventId] || EVENTS_DATA['3634'];
+
+            const modalEventName = document.getElementById('pxModalEventName');
+            if (modalEventName) modalEventName.textContent = evt.name || 'Evento';
+
+            const modalEventId = document.getElementById('pxModalEventId');
+            if (modalEventId) modalEventId.textContent = '#' + (evt.id || eventId);
+
+            const hiddenEventId = document.getElementById('pxModalHiddenEventId');
+            if (hiddenEventId) hiddenEventId.value = eventId;
+
+            const pixelIdInput = document.getElementById('pxModalPixelId');
+            if (pixelIdInput) pixelIdInput.value = evt.pixelId || '892341209384721';
+
+            const datasetInput = document.getElementById('pxModalDatasetId');
+            if (datasetInput) datasetInput.value = evt.datasetId || 'ds_meta_exemplo_prod';
+
+            // Preencher funil com dados do evento
+            const pvEl = document.getElementById('pxModalPageView');
+            if (pvEl) pvEl.textContent = (evt.pageView || 0).toLocaleString();
+
+            const vcEl = document.getElementById('pxModalViewContent');
+            if (vcEl) vcEl.textContent = (evt.viewContent || 0).toLocaleString();
+
+            const atcEl = document.getElementById('pxModalAddToCart');
+            if (atcEl) atcEl.textContent = (evt.addToCart || 0).toLocaleString();
+
+            const icEl = document.getElementById('pxModalInitiateCheckout');
+            if (icEl) icEl.textContent = (evt.initiateCheckout || 0).toLocaleString();
+
+            const purEl = document.getElementById('pxModalPurchase');
+            if (purEl) purEl.textContent = (evt.purchase || 0).toLocaleString();
+
+            const cpaEl = document.getElementById('pxModalCpa');
+            if (cpaEl) cpaEl.textContent = evt.cpa || 'R$ 0,00';
+
+            // Preencher dropdown da biblioteca
+            const dropdown = document.getElementById('pxModalSelectLibrary');
+            if (dropdown) {
+                dropdown.innerHTML = PRODUCER_PIXELS_LIBRARY.map(p => `
+                    <option value="${p.id}" ${p.id === evt.pixelId ? 'selected' : ''}>
+                        ${p.name} (${p.id}) ${p.isDefault ? '⭐ Padrão' : ''}
+                    </option>
+                `).join('');
+            }
+
+            // Exibir modal usando Bootstrap
+            const modalEl = document.getElementById('modalConfigurarPixelEvento');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                modal.show();
+            }
+        }
+
+        // 4. TESTAR DISPARO DE EVENTO CAPI
+        function testEventPixelDispatch() {
+            const btn = document.getElementById('btnTestPixelDispatch');
+            const resultBox = document.getElementById('pixelTestResultBox');
+            const output = document.getElementById('pixelTestJsonOutput');
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Disparando CAPI...';
+            }
+
+            setTimeout(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Disparar Novamente';
+                }
+
+                if (resultBox && output) {
+                    resultBox.classList.remove('d-none');
+                    output.textContent = JSON.stringify({
+                        "status": "success",
+                        "events_received": 1,
+                        "messages": [],
+                        "fbtrace_id": "A" + Math.random().toString(36).substring(2, 12).toUpperCase(),
+                        "event_name": "Purchase",
+                        "event_time": Math.floor(Date.now() / 1000),
+                        "deduplication_mode": "FBP_FBC_HASH",
+                        "capi_latency_ms": 48
+                    }, null, 2);
+                }
+            }, 700);
+        }
+
+        // 5. SELEÇÃO DE MODO PIXEL
+        function onPixelModeChange(mode) {
+            const boxLib = document.getElementById('boxPixelLibrarySelect');
+            const inputPixelId = document.getElementById('pxModalPixelId');
+            const inputDatasetId = document.getElementById('pxModalDatasetId');
+
+            if (mode === 'inherit') {
+                if (boxLib) boxLib.classList.add('d-none');
+                const def = PRODUCER_PIXELS_LIBRARY.find(p => p.isDefault) || PRODUCER_PIXELS_LIBRARY[0];
+                if (inputPixelId) inputPixelId.value = def.id;
+                if (inputDatasetId) inputDatasetId.value = def.datasetId;
+            } else if (mode === 'library') {
+                if (boxLib) boxLib.classList.remove('d-none');
+            } else if (mode === 'custom') {
+                if (boxLib) boxLib.classList.add('d-none');
+            }
+        }
+
+        function onSelectProducerPixelFromDropdown(pixelId) {
+            const px = PRODUCER_PIXELS_LIBRARY.find(p => p.id === pixelId);
+            if (px) {
+                const inputPixelId = document.getElementById('pxModalPixelId');
+                const inputDatasetId = document.getElementById('pxModalDatasetId');
+                if (inputPixelId) inputPixelId.value = px.id;
+                if (inputDatasetId) inputDatasetId.value = px.datasetId;
+            }
+        }
+
+        // 6. SALVAR CONFIGURAÇÃO DO PIXEL
+        function saveEventPixelConfig(e) {
+            if (e) e.preventDefault();
+            const eventId = document.getElementById('pxModalHiddenEventId')?.value || window.currentEventId;
+            const newPixelId = document.getElementById('pxModalPixelId')?.value;
+
+            if (EVENTS_DATA[eventId] && newPixelId) {
+                EVENTS_DATA[eventId].pixelId = newPixelId;
+            }
+
+            alert('✅ Configuração de Pixel e Meta Conversions API (CAPI) salva com sucesso para este evento!');
+            const modalEl = document.getElementById('modalConfigurarPixelEvento');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+            }
+        }
+
+        // 7. ABRIR MODAL GENÉRICO POR ID
+        function openModalById(modalId) {
+            const el = document.getElementById(modalId);
+            if (el) {
+                const modal = bootstrap.Modal.getOrCreateInstance(el);
+                modal.show();
+            }
+        }
+
+        // 8. FILTRAR EVENTOS
+        function filterEventsByStatus(status) {
+            console.log("Filtro aplicado:", status);
+        }
+
+        // 9. TOGGLE DE SUBMENUS ACCORDION
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleSubmenu = (menuId, subId) => {
+                const menu = document.getElementById(menuId);
+                const submenu = document.getElementById(subId);
+                if (menu && submenu) {
+                    menu.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        submenu.classList.toggle('show');
+                    });
+                }
+            };
+
+            toggleSubmenu('menuFinanceiro', 'submenuFinanceiro');
+            toggleSubmenu('menuMarketing', 'submenuMarketing');
+            toggleSubmenu('menuRemarketing', 'submenuRemarketing');
+        });
+    </script>
+</body>
 </html>

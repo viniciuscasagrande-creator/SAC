@@ -76,13 +76,23 @@ export function EventCard({ event, onOpenDetails }) {
         </div>
 
         {/* Card Footer */}
-        <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 mt-2">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+        <div className="flex items-center justify-between border-t border-slate-100 pt-2 mt-2">
+          <div className="flex items-center gap-1 text-[11px] text-slate-500">
             <Calendar className="w-3.5 h-3.5 text-slate-400" />
             <span>{event.date}</span>
           </div>
 
-          <div className="flex items-center gap-2.5 text-slate-500">
+          <div className="flex items-center gap-2 text-slate-500">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                alert(`Configurações de Pixel Facebook / Meta CAPI para o evento: ${event.name} (#${event.id})`);
+              }}
+              className="text-[10px] font-bold text-sky-600 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2 py-0.5 rounded transition-colors flex items-center gap-1 cursor-pointer"
+              title="Configurar Pixel Meta"
+            >
+              <span>Pixel Meta</span>
+            </button>
             <Edit3 
               className="w-3.5 h-3.5 hover:text-slate-900 transition-colors cursor-pointer" 
               onClick={(e) => {
