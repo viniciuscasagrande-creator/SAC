@@ -2,15 +2,11 @@ import React from 'react';
 import {
   LayoutDashboard,
   Building2,
-  ScanFace,
   Ticket,
   Wallet,
-  FileText,
   CreditCard,
   Send,
-  Lock,
   Shield,
-  Menu,
   ArrowRightLeft
 } from 'lucide-react';
 
@@ -21,15 +17,11 @@ export function Sidebar({
   const navigation = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'producer', label: 'Dados da Produtora', icon: Building2 },
-    { id: 'facial', label: 'Status Faciais', icon: ScanFace },
     { id: 'events', label: 'Todos os Eventos', icon: Ticket },
     { id: 'finance', label: 'Financeiro', icon: Wallet },
-    { id: 'new_event', label: 'Novo Evento', icon: FileText },
     { id: 'pos', label: 'Terminais POS', icon: CreditCard },
     { id: 'messages', label: 'Mensagens', icon: Send },
-    { id: 'access', label: 'Gerenciar Acessos', icon: Lock },
-    { id: 'admin', label: 'Administração', icon: Shield },
-    { id: 'music_club', label: 'Clube Rua da Musica', icon: Menu }
+    { id: 'admin', label: 'Administração', icon: Shield }
   ];
 
   return (
