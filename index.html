@@ -1334,6 +1334,12 @@
             <div class="sidebar-top">
                 <div class="menu-section-header">MÓDULO FINANCEIRO</div>
                 <div class="sidebar-menu">
+                    <!-- EVENTOS -->
+                    <a class="menu-item" id="menuTodosEventos" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-regular fa-calendar-days text-info"></i> Todos os Eventos</div>
+                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
+                    </a>
+
                     <!-- ACCORDION: FINANCEIRO (ACTIVE & EXPANDED BY DEFAULT) -->
                     <a class="menu-item active" id="menuFinanceiro" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet text-primary"></i> Financeiro</div>
@@ -1837,29 +1843,28 @@
                     <div class="row g-3 mt-1">
                         <!-- Event 1: EXPERIENCIA MUSICA E NATUREZA -->
                         <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white">
+                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3634')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
                                 <div class="d-flex gap-3">
                                     <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
                                         <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">3634</span>
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3634</span>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="fw-bold text-dark mb-1">Experiencia Música e Natureza - Agosto</h6>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1"></i> Parque Jaime Lerner</div>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h6 class="fw-bold text-dark mb-1">Experiência Música e Natureza - Agosto</h6>
+                                            <span class="badge bg-success text-white">Ativo</span>
+                                        </div>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Parque Jaime Lerner - Curitiba/PR</div>
                                         <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
                                             <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>16.248,00</strong></div>
                                             <div><span class="d-block text-muted fs-10">Vendas</span><strong>836</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>1164</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>1.164</strong></div>
                                             <div><span class="d-block text-muted fs-10">Cortesia</span><strong>0</strong></div>
                                             <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">41.8%</strong></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 10:00</span>
-                                            <div>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalLotes')"><i class="fa-solid fa-gear"></i></button>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalPaginaEvento')"><i class="fa-solid fa-layer-group"></i></button>
-                                            </div>
+                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1868,15 +1873,18 @@
 
                         <!-- Event 2: TWELVE BEERS VITORIA -->
                         <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white">
+                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3130')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
                                 <div class="d-flex gap-3">
                                     <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
                                         <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">3130</span>
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3130</span>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="fw-bold text-dark mb-1">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h6>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1"></i> Jardim da Penha / Praia de Canto</div>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h6 class="fw-bold text-dark mb-1">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h6>
+                                            <span class="badge bg-success text-white">Ativo</span>
+                                        </div>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Jardim da Penha / Praia do Canto - Vitória/ES</div>
                                         <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
                                             <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>119.894,00</strong></div>
                                             <div><span class="d-block text-muted fs-10">Vendas</span><strong>302</strong></div>
@@ -1886,10 +1894,355 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 11:00</span>
-                                            <div>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalLotes')"><i class="fa-solid fa-gear"></i></button>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-light py-0 px-1 text-muted" onclick="openModalById('modalPaginaEvento')"><i class="fa-solid fa-layer-group"></i></button>
+                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event 3: ROUPA NOVA 40 ANOS -->
+                        <div class="col-lg-6">
+                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3131')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                                <div class="d-flex gap-3">
+                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
+                                        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3131</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h6 class="fw-bold text-dark mb-1">Roupa Nova 40 Anos - Teatro Positivo</h6>
+                                            <span class="badge bg-success text-white">Ativo</span>
+                                        </div>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Teatro Positivo - Curitiba/PR</div>
+                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
+                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>214.850,00</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>1.420</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>380</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>30</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">78.8%</strong></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
+                                            <span><i class="fa-regular fa-calendar me-1"></i> 14/09/2026 21:00</span>
+                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event 4: STAND UP DIOGO ALMEIDA -->
+                        <div class="col-lg-6">
+                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3132')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                                <div class="d-flex gap-3">
+                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
+                                        <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
+                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3132</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h6 class="fw-bold text-dark mb-1">Stand Up Comedy - Diogo Almeida</h6>
+                                            <span class="badge bg-secondary text-white">Quase Esgotado</span>
+                                        </div>
+                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Teatro Guaíra - Curitiba/PR</div>
+                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
+                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>48.900,00</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>650</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>50</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>10</strong></div>
+                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">92.8%</strong></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
+                                            <span><i class="fa-regular fa-calendar me-1"></i> 28/08/2026 20:00</span>
+                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4.1 PAINEL COMPLETO DE DETALHES DO EVENTO (WORKSTATION DETALHES.PHP / V2.0.0) -->
+            <div id="panelDetalhesEventoContent" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2" onclick="switchPanel('todosEventos', document.getElementById('menuTodosEventos'))">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Voltar aos Eventos
+                            </button>
+                            <span class="badge bg-primary fs-12 fw-bold" id="evtBadgeId">#3130</span>
+                            <span class="badge bg-success fs-12 fw-bold" id="evtBadgeStatus">Ativo</span>
+                        </div>
+                        <h2 id="evtTitleName" class="fw-bold m-0 text-dark">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h2>
+                        <p id="evtSubtitleDetails" class="text-muted fs-12 m-0 mt-1"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Jardim da Penha / Praia do Canto - Vitória/ES | <i class="fa-regular fa-calendar me-1 text-primary"></i> 22/08/2026 às 11:00h</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2 align-items-center">
+                        <button class="btn btn-outline-primary btn-sm fw-semibold" onclick="alert('Link oficial copiado para a área de transferência: https://diskingressos.com.br/evento/' + window.currentEventId)">
+                            <i class="fa-solid fa-share-nodes me-1"></i> Compartilhar Link
+                        </button>
+                        <button class="btn btn-success btn-sm fw-semibold" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))">
+                            <i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitar Repasse
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN EVENT WORKSTATION CONTAINER -->
+                <div class="row g-3">
+                    <!-- LEFT COLUMN: BANNER & COUNTDOWN -->
+                    <div class="col-lg-3">
+                        <div class="card border shadow-sm bg-white overflow-hidden mb-3">
+                            <div style="height: 180px; width: 100%; position: relative; background:#0f172a;">
+                                <img id="evtBannerImg" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" style="width:100%; height:100%; object-fit:cover;">
+                                <div class="position-absolute bottom-0 start-0 w-100 p-2" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color:#fff;">
+                                    <span class="badge bg-dark" id="evtCityTag">Vitória/ES</span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <div class="p-2 bg-light rounded text-center mb-3">
+                                    <span class="fs-10 text-uppercase fw-bold text-muted d-block">Status da Contagem</span>
+                                    <h5 class="fw-bold text-primary m-0 mt-1" id="evtCountdownClock"><i class="fa-regular fa-clock me-1"></i> Em Vendas</h5>
+                                </div>
+
+                                <ul class="list-unstyled fs-12 text-muted d-flex flex-column gap-2 mb-3">
+                                    <li><i class="fa-solid fa-calendar-check text-primary me-2"></i> <strong class="text-dark">Data:</strong> <span id="evtInfoDate">22/08/2026</span></li>
+                                    <li><i class="fa-solid fa-map-pin text-danger me-2"></i> <strong class="text-dark">Local:</strong> <span id="evtInfoPlace">Área de Eventos</span></li>
+                                    <li><i class="fa-solid fa-building text-info me-2"></i> <strong class="text-dark">Cidade:</strong> <span id="evtInfoCity">Vitória/ES</span></li>
+                                    <li><i class="fa-solid fa-id-badge text-warning me-2"></i> <strong class="text-dark">Produtora:</strong> <span>DiskIngressos Prod.</span></li>
+                                </ul>
+
+                                <button class="btn btn-outline-dark btn-sm w-100 py-2 fw-semibold" onclick="openModalById('modalCreateEvent')">
+                                    <i class="fa-solid fa-edit me-1"></i> Editar Dados do Evento
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- QUICK EVENT FINANCIAL CARD -->
+                        <div class="card p-3 border shadow-sm bg-white">
+                            <div class="text-muted fs-10 text-uppercase fw-bold">Saldo Disponível do Evento</div>
+                            <h3 class="fw-bold text-success mt-1" id="evtQuickSaldo">R$ 11.909,90</h3>
+                            <span class="text-muted fs-11">Repasses já pagos: <strong id="evtQuickRepasses">R$ 90.000,00</strong></span>
+                            <button class="btn btn-sm btn-primary w-100 mt-3" style="background:#0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))">
+                                <i class="fa-solid fa-arrow-right me-1"></i> Payout Imediato
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: MULTI-TAB WORKSTATION -->
+                    <div class="col-lg-9">
+                        <!-- 4 EVENT KPI CARDS -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3 col-6">
+                                <div class="card p-3 border shadow-sm bg-white">
+                                    <div class="text-muted fs-10 text-uppercase fw-bold">Receita Bruta Total</div>
+                                    <h4 class="fw-bold text-dark mt-1" id="evtKpiBruto">R$ 119.894,00</h4>
+                                    <span class="fs-10 text-success"><i class="fa-solid fa-arrow-trend-up"></i> 100% conciliado</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="card p-3 border shadow-sm bg-white">
+                                    <div class="text-muted fs-10 text-uppercase fw-bold">Receita Líquida</div>
+                                    <h4 class="fw-bold text-success mt-1" id="evtKpiLiquido">R$ 101.909,90</h4>
+                                    <span class="fs-10 text-muted">Após taxas Disk (15%)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="card p-3 border shadow-sm bg-white">
+                                    <div class="text-muted fs-10 text-uppercase fw-bold">Ingressos Vendidos</div>
+                                    <h4 class="fw-bold text-primary mt-1" id="evtKpiVendidos">302</h4>
+                                    <span class="fs-10 text-muted">Ocupação: <strong class="text-success" id="evtKpiOcupacao">48.4%</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="card p-3 border shadow-sm bg-white">
+                                    <div class="text-muted fs-10 text-uppercase fw-bold">Ticket Médio</div>
+                                    <h4 class="fw-bold text-dark mt-1" id="evtKpiTicketMedio">R$ 396,99</h4>
+                                    <span class="fs-10 text-muted" id="evtKpiCortesias">6 cortesias emitidas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TABS NAVIGATION -->
+                        <div class="card border shadow-sm bg-white">
+                            <div class="card-header bg-white border-bottom p-0">
+                                <ul class="nav nav-tabs border-0 px-3 pt-2" id="eventDetailTabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active fw-semibold" id="tabLinkEvtLotes" onclick="switchEvtSubTab('lotes', this)" style="cursor:pointer;"><i class="fa-solid fa-layer-group me-1 text-primary"></i> Lotes & Ingressos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold text-muted" id="tabLinkEvtFinanceiro" onclick="switchEvtSubTab('financeiro', this)" style="cursor:pointer;"><i class="fa-solid fa-file-invoice-dollar me-1 text-success"></i> Financeiro & DRE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold text-muted" id="tabLinkEvtCompradores" onclick="switchEvtSubTab('compradores', this)" style="cursor:pointer;"><i class="fa-solid fa-users me-1 text-info"></i> Compradores</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold text-muted" id="tabLinkEvtGraficos" onclick="switchEvtSubTab('graficos', this)" style="cursor:pointer;"><i class="fa-solid fa-chart-pie me-1 text-warning"></i> Formas de Pagamento</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold text-muted" id="tabLinkEvtPortaria" onclick="switchEvtSubTab('portaria', this)" style="cursor:pointer;"><i class="fa-solid fa-id-card-clip me-1 text-danger"></i> Portaria & Check-in</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body p-4">
+                                <!-- SUB-TAB 1: LOTES & INGRESSOS -->
+                                <div id="evtSubTabLotes">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold m-0 text-dark">Lotes, Setores & Disponibilidade em Tempo Real</h6>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="openModalById('modalLotes')"><i class="fa-solid fa-plus me-1"></i> Configurar Lotes</button>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="coupon-table" id="tableEvtLotes">
+                                            <thead>
+                                                <tr>
+                                                    <th>Setor / Lote</th>
+                                                    <th>Preço Unitário</th>
+                                                    <th>Capacidade</th>
+                                                    <th>Vendidos</th>
+                                                    <th>Disponíveis</th>
+                                                    <th>Progresso</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyEvtLotes">
+                                                <!-- Populated dynamically by JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- SUB-TAB 2: FINANCEIRO & DRE DO EVENTO -->
+                                <div id="evtSubTabFinanceiro" class="d-none">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold m-0 text-dark">Demonstrativo de Resultado do Evento (Borderô)</h6>
+                                        <button class="btn btn-sm btn-success" onclick="alert('Documento oficial enviado para assinatura Autêntique!')"><i class="fa-solid fa-signature me-1"></i> Assinar Borderô Oficial</button>
+                                    </div>
+                                    <table class="coupon-table">
+                                        <thead>
+                                            <tr><th>Linha Contábil / Descrição</th><th>Valor</th><th>% do Total</th><th>Status</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold">(+) Receita Bruta de Ingressos Vendidos</td>
+                                                <td class="fw-bold text-success" id="evtDreBruto">R$ 119.894,00</td>
+                                                <td>100.0%</td>
+                                                <td><span class="badge bg-success text-white">Conciliado</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">(-) Taxa de Plataforma DiskIngressos (15%)</td>
+                                                <td class="fw-bold text-danger" id="evtDreTaxaDisk">- R$ 17.984,10</td>
+                                                <td>15.0%</td>
+                                                <td><span class="badge bg-primary text-white">Retido</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">(-) Taxas de Processamento Gateways & Antifraude</td>
+                                                <td class="fw-bold text-danger" id="evtDreTaxaGateways">- R$ 1.542,00</td>
+                                                <td>1.3%</td>
+                                                <td><span class="badge bg-primary text-white">Liquidado</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">(-) Repasses Já Efetuados ao Produtor</td>
+                                                <td class="fw-bold text-muted" id="evtDreRepasses">- R$ 90.000,00</td>
+                                                <td>75.1%</td>
+                                                <td><span class="badge bg-success text-white">Pago via PIX</span></td>
+                                            </tr>
+                                            <tr class="table-active fs-6 fw-bold">
+                                                <td class="text-success">(=) Saldo Restante a Repassar ao Produtor</td>
+                                                <td class="text-success" id="evtDreSaldoRestante">R$ 11.909,90</td>
+                                                <td class="text-success">9.9%</td>
+                                                <td><span class="badge bg-success text-white">Disponível D+0</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- SUB-TAB 3: COMPRADORES -->
+                                <div id="evtSubTabCompradores" class="d-none">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <input type="text" class="form-control form-control-sm" style="max-width:300px;" placeholder="Buscar comprador, CPF ou pedido...">
+                                        <button class="btn btn-sm btn-outline-secondary" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> Exportar Lista</button>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="coupon-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome do Comprador</th>
+                                                    <th>CPF</th>
+                                                    <th>E-mail</th>
+                                                    <th>Lote / Setor</th>
+                                                    <th>Valor</th>
+                                                    <th>Pagamento</th>
+                                                    <th>Status</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyEvtCompradores">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- SUB-TAB 4: FORMAS DE PAGAMENTO -->
+                                <div id="evtSubTabGraficos" class="d-none">
+                                    <h6 class="fw-bold text-dark mb-3">Distribuição por Forma de Pagamento & Canais</h6>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="p-3 bg-light rounded">
+                                                <div class="d-flex justify-content-between mb-2"><span><i class="fa-brands fa-pix text-success me-2"></i> PIX Instantâneo</span><strong id="evtPgtoPix">58%</strong></div>
+                                                <div class="progress mb-3" style="height:8px;"><div class="progress-bar bg-success" id="evtBarPix" style="width:58%;"></div></div>
+                                                
+                                                <div class="d-flex justify-content-between mb-2"><span><i class="fa-regular fa-credit-card text-primary me-2"></i> Cartão de Crédito</span><strong id="evtPgtoCredito">34%</strong></div>
+                                                <div class="progress mb-3" style="height:8px;"><div class="progress-bar bg-primary" id="evtBarCredito" style="width:34%;"></div></div>
+
+                                                <div class="d-flex justify-content-between mb-2"><span><i class="fa-solid fa-credit-card text-info me-2"></i> Cartão de Débito</span><strong id="evtPgtoDebito">5%</strong></div>
+                                                <div class="progress mb-3" style="height:8px;"><div class="progress-bar bg-info" id="evtBarDebito" style="width:5%;"></div></div>
+
+                                                <div class="d-flex justify-content-between mb-2"><span><i class="fa-solid fa-shop text-warning me-2"></i> Bilheteria Física / PDV</span><strong id="evtPgtoPdv">3%</strong></div>
+                                                <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" id="evtBarPdv" style="width:3%;"></div></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="p-3 border rounded bg-white h-100">
+                                                <h6 class="fw-bold text-dark mb-2"><i class="fa-solid fa-shield-halved text-success me-2"></i> Antifraude & Aprovação</h6>
+                                                <ul class="list-unstyled fs-12 text-muted d-flex flex-column gap-2 mb-0">
+                                                    <li><strong>Taxa de Aprovação:</strong> 98.4% (ClearSale Total)</li>
+                                                    <li><strong>Chargebacks / Contestações:</strong> 0.0%</li>
+                                                    <li><strong>Tempo Médio de Confirmação PIX:</strong> 4 segundos</li>
+                                                    <li><strong>Vendas Online (Web / App):</strong> 97.0%</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SUB-TAB 5: PORTARIA & CHECK-IN -->
+                                <div id="evtSubTabPortaria" class="d-none">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold m-0 text-dark">Validação Facial & Leitura de Ingressos (Portaria)</h6>
+                                        <button class="btn btn-sm btn-primary" onclick="alert('Abrindo console de validação de portaria...')"><i class="fa-solid fa-qrcode me-1"></i> Abrir Leitor Portaria</button>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-light text-center">
+                                                <div class="text-muted fs-10 text-uppercase fw-bold">Público Presente</div>
+                                                <h2 class="fw-bold text-success mt-1" id="evtPortariaPresentes">245</h2>
+                                                <span class="fs-11 text-muted" id="evtPortariaPercentual">81.1% do total vendido</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-light text-center">
+                                                <div class="text-muted fs-10 text-uppercase fw-bold">Faltam Entrar</div>
+                                                <h2 class="fw-bold text-warning mt-1" id="evtPortariaRestantes">57</h2>
+                                                <span class="fs-11 text-muted">Aguardando na portaria</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-light text-center">
+                                                <div class="text-muted fs-10 text-uppercase fw-bold">Horário de Pico</div>
+                                                <h3 class="fw-bold text-primary mt-1" id="evtPortariaPico">12:30h</h3>
+                                                <span class="fs-11 text-muted">Maior fluxo de entrada</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2099,27 +2452,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#3130</td>
-                                    <td class="fw-bold">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</td>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3130')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3130</span></td>
+                                    <td class="fw-bold text-primary"><i class="fa-solid fa-arrow-up-right-from-square me-1 fs-11"></i> TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</td>
                                     <td>R$ 119.894,00</td>
                                     <td class="text-danger">- R$ 17.984,10</td>
                                     <td class="text-muted">R$ 90.000,00</td>
                                     <td class="fw-bold text-success">R$ 11.909,90</td>
                                     <td><span class="badge bg-success text-white">Ativo</span></td>
                                 </tr>
-                                <tr>
-                                    <td>#3131</td>
-                                    <td class="fw-bold">ROUPA NOVA 40 ANOS - TEATRO POSITIVO</td>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3131')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3131</span></td>
+                                    <td class="fw-bold text-primary"><i class="fa-solid fa-arrow-up-right-from-square me-1 fs-11"></i> ROUPA NOVA 40 ANOS - TEATRO POSITIVO</td>
                                     <td>R$ 214.850,00</td>
                                     <td class="text-danger">- R$ 32.227,50</td>
                                     <td class="text-muted">R$ 150.000,00</td>
                                     <td class="fw-bold text-success">R$ 32.622,50</td>
                                     <td><span class="badge bg-success text-white">Ativo</span></td>
                                 </tr>
-                                <tr>
-                                    <td>#3132</td>
-                                    <td class="fw-bold">STAND UP COMEDY - DIOGO ALMEIDA</td>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3132')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3132</span></td>
+                                    <td class="fw-bold text-primary"><i class="fa-solid fa-arrow-up-right-from-square me-1 fs-11"></i> STAND UP COMEDY - DIOGO ALMEIDA</td>
                                     <td>R$ 48.900,00</td>
                                     <td class="text-danger">- R$ 7.335,00</td>
                                     <td class="text-muted">R$ 40.000,00</td>
@@ -4194,9 +4547,9 @@
                 mensagens: document.getElementById("panelMensagensContent"),
                 gerenciarAcessos: document.getElementById("panelGerenciarAcessosContent"),
                 administracao: document.getElementById("panelAdministracaoContent"),
-                clubeRuaMusica: document.getElementById("panelClubeRuaMusicaContent"),
-                
-                // Native Lightweight Financial Panels
+                // Native Lightweight Financial & Event Panels
+                todosEventos: document.getElementById("panelTodosEventosContent"),
+                detalhesEvento: document.getElementById("panelDetalhesEventoContent"),
                 finHub: document.getElementById("panelFinHub"),
                 finSaldo: document.getElementById("panelFinSaldo"),
                 finRepasse: document.getElementById("panelFinRepasse"),
@@ -4264,6 +4617,275 @@
                 if (document.getElementById("lblTaxaDisk")) document.getElementById("lblTaxaDisk").textContent = "- " + fmt(taxaDisk);
                 if (document.getElementById("lblTaxaAntecipa")) document.getElementById("lblTaxaAntecipa").textContent = "- " + fmt(taxaAntecipa);
                 if (document.getElementById("lblValorLiquidoAntecipa")) document.getElementById("lblValorLiquidoAntecipa").textContent = fmt(liquido);
+            };
+
+            // Database of Events with Full Metrics & Breakdown
+            window.currentEventId = "3130";
+            window.eventosDB = {
+                "3130": {
+                    id: "3130",
+                    name: "TWELVE BEERS VITÓRIA | 1ª EDIÇÃO",
+                    local: "Jardim da Penha / Praia do Canto - Vitória/ES",
+                    cidade: "Vitória/ES",
+                    localidade: "Área de Eventos Jardim da Penha",
+                    data: "22/08/2026 às 11:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 119.894,00",
+                    receitaLiquida: "R$ 101.909,90",
+                    taxasPlataforma: "- R$ 17.984,10",
+                    taxasGateways: "- R$ 1.542,00",
+                    repassesEfetuados: "- R$ 90.000,00",
+                    saldoRepasse: "R$ 11.909,90",
+                    repassesJaPagos: "R$ 90.000,00",
+                    ingressosVendidos: "302",
+                    ingressosDisponiveis: "334",
+                    cortesias: "6",
+                    ticketMedio: "R$ 396,99",
+                    ocupacao: "48.4%",
+                    lotes: [
+                        { nome: "1º LOTE - PISTA", preco: "R$ 150,00", total: 200, vendidos: 200, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" },
+                        { nome: "2º LOTE - PISTA", preco: "R$ 180,00", total: 200, vendidos: 62, disp: 138, prog: 31, status: "Aberto", badge: "bg-success" },
+                        { nome: "1º LOTE - ÁREA VIP OPEN BAR", preco: "R$ 380,00", total: 150, vendidos: 40, disp: 100, prog: 26, status: "Aberto", badge: "bg-success" },
+                        { nome: "CAMAROTE EXECUTIVO (10 PESSOAS)", preco: "R$ 2.500,00", total: 10, vendidos: 0, disp: 8, prog: 0, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "58%", credito: "34%", debito: "5%", pdv: "3%" },
+                    compradores: [
+                        { nome: "Carlos Eduardo Silva", cpf: "123.***.***-01", email: "carlos.silva@gmail.com", lote: "1º LOTE - PISTA", valor: "R$ 150,00", pgto: "PIX", status: "Pago", voucher: "DK-99214" },
+                        { nome: "Mariana Costa Ramos", cpf: "987.***.***-44", email: "mariana.ramos@outlook.com", lote: "ÁREA VIP OPEN BAR", valor: "R$ 380,00", pgto: "Cartão (3x)", status: "Pago", voucher: "DK-99215" },
+                        { nome: "Felipe Albuquerque", cpf: "456.***.***-77", email: "felipe.alb@hotmail.com", lote: "1º LOTE - PISTA", valor: "R$ 150,00", pgto: "PIX", status: "Pago", voucher: "DK-99216" },
+                        { nome: "Bruna Zanetti", cpf: "741.***.***-89", email: "bruna.zanetti@gmail.com", lote: "ÁREA VIP OPEN BAR", valor: "R$ 380,00", pgto: "PIX", status: "Pago", voucher: "DK-99217" }
+                    ],
+                    portaria: { presentes: 245, faltam: 57, percentual: "81.1% do total vendido", pico: "12:30h" }
+                },
+                "3634": {
+                    id: "3634",
+                    name: "Experiência Música e Natureza - Agosto",
+                    local: "Parque Jaime Lerner - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Bosque das Araucárias",
+                    data: "22/08/2026 às 10:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 16.248,00",
+                    receitaLiquida: "R$ 13.810,80",
+                    taxasPlataforma: "- R$ 2.437,20",
+                    taxasGateways: "- R$ 340,00",
+                    repassesEfetuados: "- R$ 10.000,00",
+                    saldoRepasse: "R$ 3.810,80",
+                    repassesJaPagos: "R$ 10.000,00",
+                    ingressosVendidos: "836",
+                    ingressosDisponiveis: "1.164",
+                    cortesias: "0",
+                    ticketMedio: "R$ 19,43",
+                    ocupacao: "41.8%",
+                    lotes: [
+                        { nome: "INGRESSO SOCIAL + 1KG ALIMENTO", preco: "R$ 15,00", total: 1000, vendidos: 520, disp: 480, prog: 52, status: "Aberto", badge: "bg-success" },
+                        { nome: "INTEIRA PROMOCIONAL", preco: "R$ 30,00", total: 1000, vendidos: 316, disp: 684, prog: 31, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "72%", credito: "20%", debito: "5%", pdv: "3%" },
+                    compradores: [
+                        { nome: "Lucas Mendes", cpf: "331.***.***-12", email: "lucas.mendes@gmail.com", lote: "INGRESSO SOCIAL", valor: "R$ 15,00", pgto: "PIX", status: "Pago", voucher: "DK-10101" },
+                        { nome: "Camila Ribeiro", cpf: "654.***.***-98", email: "camila.rib@gmail.com", lote: "INTEIRA PROMOCIONAL", valor: "R$ 30,00", pgto: "PIX", status: "Pago", voucher: "DK-10102" }
+                    ],
+                    portaria: { presentes: 680, faltam: 156, percentual: "81.3% do total vendido", pico: "11:00h" }
+                },
+                "3131": {
+                    id: "3131",
+                    name: "Roupa Nova 40 Anos - Teatro Positivo",
+                    local: "Teatro Positivo - Grande Auditório - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Teatro Positivo",
+                    data: "14/09/2026 às 21:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 214.850,00",
+                    receitaLiquida: "R$ 182.622,50",
+                    taxasPlataforma: "- R$ 32.227,50",
+                    taxasGateways: "- R$ 2.890,00",
+                    repassesEfetuados: "- R$ 150.000,00",
+                    saldoRepasse: "R$ 32.622,50",
+                    repassesJaPagos: "R$ 150.000,00",
+                    ingressosVendidos: "1.420",
+                    ingressosDisponiveis: "380",
+                    cortesias: "30",
+                    ticketMedio: "R$ 151,30",
+                    ocupacao: "78.8%",
+                    lotes: [
+                        { nome: "PLATEIA PREMIUM (FILAS A-E)", preco: "R$ 280,00", total: 400, vendidos: 400, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" },
+                        { nome: "PLATEIA CENTRAL (FILAS F-N)", preco: "R$ 220,00", total: 600, vendidos: 580, disp: 20, prog: 96, status: "Aberto", badge: "bg-success" },
+                        { nome: "PLATEIA SUPERIOR / BALCÃO", preco: "R$ 140,00", total: 800, vendidos: 440, disp: 360, prog: 55, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "48%", credito: "45%", debito: "4%", pdv: "3%" },
+                    compradores: [
+                        { nome: "Rodrigo Silveira", cpf: "552.***.***-33", email: "rodrigo.silv@globo.com", lote: "PLATEIA PREMIUM", valor: "R$ 280,00", pgto: "Cartão (6x)", status: "Pago", voucher: "DK-88301" },
+                        { nome: "Patricia Goulart", cpf: "771.***.***-64", email: "patricia.g@terra.com.br", lote: "PLATEIA CENTRAL", valor: "R$ 220,00", pgto: "PIX", status: "Pago", voucher: "DK-88302" }
+                    ],
+                    portaria: { presentes: 0, faltam: 1420, percentual: "0.0% (Aguardando abertura)", pico: "Aguardando" }
+                },
+                "3132": {
+                    id: "3132",
+                    name: "Stand Up Comedy - Diogo Almeida",
+                    local: "Teatro Guaíra - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Guairão",
+                    data: "28/08/2026 às 20:00h",
+                    status: "Encerrado",
+                    banner: "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 48.900,00",
+                    receitaLiquida: "R$ 41.565,00",
+                    taxasPlataforma: "- R$ 7.335,00",
+                    taxasGateways: "- R$ 720,00",
+                    repassesEfetuados: "- R$ 40.000,00",
+                    saldoRepasse: "R$ 1.565,00",
+                    repassesJaPagos: "R$ 40.000,00",
+                    ingressosVendidos: "650",
+                    ingressosDisponiveis: "50",
+                    cortesias: "10",
+                    ticketMedio: "R$ 75,23",
+                    ocupacao: "92.8%",
+                    lotes: [
+                        { nome: "PLATEIA BAIXA INTEIRA", preco: "R$ 90,00", total: 350, vendidos: 340, disp: 10, prog: 97, status: "Aberto", badge: "bg-success" },
+                        { nome: "PLATEIA BAIXA MEIA / SOLIDÁRIO", preco: "R$ 45,00", total: 350, vendidos: 310, disp: 40, prog: 88, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "65%", credito: "30%", debito: "3%", pdv: "2%" },
+                    compradores: [
+                        { nome: "Vanessa Martins", cpf: "889.***.***-11", email: "vanessa.m@gmail.com", lote: "PLATEIA BAIXA MEIA", valor: "R$ 45,00", pgto: "PIX", status: "Pago", voucher: "DK-77192" }
+                    ],
+                    portaria: { presentes: 642, faltam: 8, percentual: "98.7% do total vendido", pico: "19:45h" }
+                }
+            };
+
+            window.openEventDetails = function(eventId) {
+                window.currentEventId = eventId;
+                const evt = window.eventosDB[eventId] || window.eventosDB["3130"];
+                
+                // Set Header Info
+                const badgeId = document.getElementById("evtBadgeId");
+                const badgeStatus = document.getElementById("evtBadgeStatus");
+                const titleName = document.getElementById("evtTitleName");
+                const subtitle = document.getElementById("evtSubtitleDetails");
+                const bannerImg = document.getElementById("evtBannerImg");
+                const cityTag = document.getElementById("evtCityTag");
+                const infoDate = document.getElementById("evtInfoDate");
+                const infoPlace = document.getElementById("evtInfoPlace");
+                const infoCity = document.getElementById("evtInfoCity");
+                const quickSaldo = document.getElementById("evtQuickSaldo");
+                const quickRepasses = document.getElementById("evtQuickRepasses");
+                
+                if (badgeId) badgeId.textContent = "#" + evt.id;
+                if (badgeStatus) badgeStatus.textContent = evt.status;
+                if (titleName) titleName.textContent = evt.name;
+                if (subtitle) subtitle.innerHTML = `<i class="fa-solid fa-location-dot me-1 text-danger"></i> ${evt.local} | <i class="fa-regular fa-calendar me-1 text-primary"></i> ${evt.data}`;
+                if (bannerImg) bannerImg.src = evt.banner;
+                if (cityTag) cityTag.textContent = evt.cidade;
+                if (infoDate) infoDate.textContent = evt.data;
+                if (infoPlace) infoPlace.textContent = evt.localidade;
+                if (infoCity) infoCity.textContent = evt.cidade;
+                if (quickSaldo) quickSaldo.textContent = evt.saldoRepasse;
+                if (quickRepasses) quickRepasses.textContent = evt.repassesJaPagos;
+
+                // Set KPIs
+                if (document.getElementById("evtKpiBruto")) document.getElementById("evtKpiBruto").textContent = evt.receitaBruta;
+                if (document.getElementById("evtKpiLiquido")) document.getElementById("evtKpiLiquido").textContent = evt.receitaLiquida;
+                if (document.getElementById("evtKpiVendidos")) document.getElementById("evtKpiVendidos").textContent = evt.ingressosVendidos;
+                if (document.getElementById("evtKpiOcupacao")) document.getElementById("evtKpiOcupacao").textContent = evt.ocupacao;
+                if (document.getElementById("evtKpiTicketMedio")) document.getElementById("evtKpiTicketMedio").textContent = evt.ticketMedio;
+                if (document.getElementById("evtKpiCortesias")) document.getElementById("evtKpiCortesias").textContent = evt.cortesias + " cortesias emitidas";
+
+                // Set DRE
+                if (document.getElementById("evtDreBruto")) document.getElementById("evtDreBruto").textContent = evt.receitaBruta;
+                if (document.getElementById("evtDreTaxaDisk")) document.getElementById("evtDreTaxaDisk").textContent = evt.taxasPlataforma;
+                if (document.getElementById("evtDreTaxaGateways")) document.getElementById("evtDreTaxaGateways").textContent = evt.taxasGateways;
+                if (document.getElementById("evtDreRepasses")) document.getElementById("evtDreRepasses").textContent = evt.repassesEfetuados;
+                if (document.getElementById("evtDreSaldoRestante")) document.getElementById("evtDreSaldoRestante").textContent = evt.saldoRepasse;
+
+                // Set Lotes
+                const tbodyLotes = document.getElementById("tbodyEvtLotes");
+                if (tbodyLotes) {
+                    tbodyLotes.innerHTML = evt.lotes.map(l => `
+                        <tr>
+                            <td class="fw-bold text-dark">${l.nome}</td>
+                            <td class="fw-bold text-primary">${l.preco}</td>
+                            <td>${l.total}</td>
+                            <td class="fw-bold text-success">${l.vendidos}</td>
+                            <td>${l.disp}</td>
+                            <td style="width: 140px;">
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" style="width: ${l.prog}%;"></div>
+                                </div>
+                                <span class="fs-10 text-muted">${l.prog}%</span>
+                            </td>
+                            <td><span class="badge ${l.badge} text-white">${l.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Set Compradores
+                const tbodyComp = document.getElementById("tbodyEvtCompradores");
+                if (tbodyComp) {
+                    tbodyComp.innerHTML = evt.compradores.map(c => `
+                        <tr>
+                            <td class="fw-bold text-dark"><i class="fa-solid fa-user-circle me-1 text-primary"></i> ${c.nome}</td>
+                            <td class="text-muted">${c.cpf}</td>
+                            <td class="text-muted">${c.email}</td>
+                            <td><span class="badge bg-light text-dark border">${c.lote}</span></td>
+                            <td class="fw-bold text-success">${c.valor}</td>
+                            <td><span class="badge bg-info text-white">${c.pgto}</span></td>
+                            <td><span class="badge bg-success text-white">${c.status}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="alert('Voucher ${c.voucher} reenviado com sucesso para ${c.email}')"><i class="fa-solid fa-paper-plane me-1"></i> Reenviar</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Set Pagamentos
+                if (document.getElementById("evtPgtoPix")) document.getElementById("evtPgtoPix").textContent = evt.pagamentos.pix;
+                if (document.getElementById("evtBarPix")) document.getElementById("evtBarPix").style.width = evt.pagamentos.pix;
+                if (document.getElementById("evtPgtoCredito")) document.getElementById("evtPgtoCredito").textContent = evt.pagamentos.credito;
+                if (document.getElementById("evtBarCredito")) document.getElementById("evtBarCredito").style.width = evt.pagamentos.credito;
+                if (document.getElementById("evtPgtoDebito")) document.getElementById("evtPgtoDebito").textContent = evt.pagamentos.debito;
+                if (document.getElementById("evtBarDebito")) document.getElementById("evtBarDebito").style.width = evt.pagamentos.debito;
+                if (document.getElementById("evtPgtoPdv")) document.getElementById("evtPgtoPdv").textContent = evt.pagamentos.pdv;
+                if (document.getElementById("evtBarPdv")) document.getElementById("evtBarPdv").style.width = evt.pagamentos.pdv;
+
+                // Set Portaria
+                if (document.getElementById("evtPortariaPresentes")) document.getElementById("evtPortariaPresentes").textContent = evt.portaria.presentes;
+                if (document.getElementById("evtPortariaRestantes")) document.getElementById("evtPortariaRestantes").textContent = evt.portaria.faltam;
+                if (document.getElementById("evtPortariaPercentual")) document.getElementById("evtPortariaPercentual").textContent = evt.portaria.percentual;
+                if (document.getElementById("evtPortariaPico")) document.getElementById("evtPortariaPico").textContent = evt.portaria.pico;
+
+                // Switch Panel
+                switchPanel('detalhesEvento', document.getElementById('menuTodosEventos'));
+                switchEvtSubTab('lotes', document.getElementById('tabLinkEvtLotes'));
+            };
+
+            window.switchEvtSubTab = function(subTabKey, linkEl) {
+                document.querySelectorAll("#eventDetailTabs .nav-link").forEach(l => {
+                    l.classList.remove("active", "text-dark");
+                    l.classList.add("text-muted");
+                });
+                if (linkEl) {
+                    linkEl.classList.add("active", "text-dark");
+                    linkEl.classList.remove("text-muted");
+                }
+
+                const subTabs = {
+                    lotes: document.getElementById("evtSubTabLotes"),
+                    financeiro: document.getElementById("evtSubTabFinanceiro"),
+                    compradores: document.getElementById("evtSubTabCompradores"),
+                    graficos: document.getElementById("evtSubTabGraficos"),
+                    portaria: document.getElementById("evtSubTabPortaria")
+                };
+
+                Object.values(subTabs).forEach(tab => {
+                    if (tab) tab.classList.add("d-none");
+                });
+
+                if (subTabs[subTabKey]) {
+                    subTabs[subTabKey].classList.remove("d-none");
+                }
             };
 
             // Accordion Toggle for Financeiro
