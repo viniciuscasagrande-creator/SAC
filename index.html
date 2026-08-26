@@ -708,6 +708,21 @@
             border-color: #e2e8f0 #e2e8f0 #fff !important;
             font-weight: 700;
         }
+    
+        .submenu-item i {
+            width: 14px;
+            font-size: 0.78rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-right: 8px;
+            transition: color 0.15s;
+        }
+        .submenu-item:hover i {
+            color: #ffffff;
+        }
+        .submenu-item.active i {
+            color: #38bdf8;
+        }
     </style>
 </head>
 <body>
@@ -752,69 +767,69 @@
                 <div class="sidebar-menu">
                     <!-- DASHBOARD -->
                     <a class="menu-item" id="menuDashboard" style="cursor: pointer;" onclick="switchPanel('dashboard', this)">
-                        <i class="fa-solid fa-chart-column"></i>
+                        <i class="fa-solid fa-gauge-high"></i>
                         <span>Dashboard</span>
                     </a>
 
                     <!-- DADOS DA PRODUTORA -->
                     <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;" onclick="switchPanel('dadosProdutora', this)">
-                        <i class="fa-solid fa-building"></i>
+                        <i class="fa-solid fa-building-user"></i>
                         <span>Dados da Produtora</span>
                     </a>
 
                     <!-- TODOS OS EVENTOS -->
                     <a class="menu-item active" id="menuTodosEventos" style="cursor: pointer;" onclick="switchPanel('todosEventos', this)">
-                        <i class="fa-solid fa-ticket-simple"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
                         <span>Todos os Eventos</span>
                     </a>
 
                     <!-- FINANCEIRO -->
                     <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
-                        <i class="fa-solid fa-wallet"></i>
+                        <i class="fa-solid fa-vault"></i>
                         <span>Financeiro</span>
                     </a>
                     <div class="submenu-container" id="submenuFinanceiro">
-                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-cubes me-2 text-primary"></i> Hub Financeiro</a>
-                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-vault me-2 text-success"></i> Saldo Consolidado</a>
-                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer me-2 text-info"></i> Solicitações de Repasse</a>
-                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar me-2 text-warning"></i> Antecipações</a>
-                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-file-invoice me-2 text-primary"></i> Extrato Detalhado</a>
-                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-receipt me-2 text-danger"></i> Despesas</a>
-                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns me-2 text-info"></i> Contas Bancárias</a>
-                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature me-2 text-secondary"></i> Borderô</a>
-                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-2 text-warning"></i> Negociações & DRE</a>
+                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-chart-line"></i> Hub Financeiro</a>
+                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-wallet"></i> Saldo Consolidado</a>
+                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
+                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
+                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-receipt"></i> Extrato Detalhado</a>
+                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-calculator"></i> Despesas</a>
+                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
+                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature"></i> Borderô</a>
+                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced"></i> Negociações & DRE</a>
                     </div>
 
                     <!-- TERMINAIS POS -->
                     <a class="menu-item" id="menuTerminaisPos" style="cursor: pointer;" onclick="switchPanel('terminaisPos', this)">
-                        <i class="fa-regular fa-credit-card"></i>
+                        <i class="fa-solid fa-credit-card"></i>
                         <span>Terminais POS</span>
                     </a>
 
                     <!-- MENSAGENS -->
                     <a class="menu-item" id="menuMensagens" style="cursor: pointer;" onclick="alert('Central de Mensagens e Notificações')">
-                        <i class="fa-regular fa-paper-plane"></i>
+                        <i class="fa-solid fa-comments"></i>
                         <span>Mensagens</span>
                     </a>
 
                     <!-- ADMINISTRAÇÃO -->
-                    <a class="menu-item" id="menuAdministracao" style="cursor: pointer;" onclick="alert('Módulo de Administração')">
-                        <i class="fa-solid fa-shield-halved"></i>
+                    <a class="menu-item" id="menuAdministracao" style="cursor: pointer;" onclick="switchPanel('gerenciarAcessos', this)">
+                        <i class="fa-solid fa-user-shield"></i>
                         <span>Administração</span>
                     </a>
 
                     <!-- ESTORNOS -->
                     <a class="menu-item" id="menuEstorno" style="cursor: pointer;" onclick="switchPanel('panelEstornoContent', this)">
-                        <i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i>
+                        <i class="fa-solid fa-rotate-left"></i>
                         <span>Estornos</span>
-                        <span class="badge ms-auto" style="background: rgba(249,115,22,0.18); color: #ea580c; font-size:0.62rem;">ERP</span>
+                        <span class="badge ms-auto" style="background: rgba(255,255,255,0.1); color: #cbd5e1; font-size:0.62rem;">ERP</span>
                     </a>
 
                     <!-- ATENDIMENTO / SAC -->
                     <a class="menu-item" id="menuSacHub" style="cursor: pointer;" onclick="switchPanel('sacContent', this)">
-                        <i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i>
+                        <i class="fa-solid fa-headset"></i>
                         <span>Atendimento / SAC</span>
-                        <span class="badge ms-auto" style="background: rgba(2,132,199,0.18); color: #0284c7; font-size:0.62rem;">Novo</span>
+                        <span class="badge ms-auto" style="background: rgba(255,255,255,0.1); color: #cbd5e1; font-size:0.62rem;">SAC</span>
                     </a>
 
                     <!-- ACCORDION: MARKETING -->
@@ -823,15 +838,15 @@
                         <span>Marketing</span>
                     </a>
                     <div class="submenu-container" id="submenuMarketing">
-                        <a class="submenu-item" id="subMktVisaoGeral"><i class="fa-solid fa-chart-pie me-2 text-success"></i> Visão Geral Consolidada</a>
-                        <a class="submenu-item" id="subMktCampanhas"><i class="fa-solid fa-bullseye me-2 text-warning"></i> Campanhas Marketing Básica</a>
-                        <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-line me-2 text-primary"></i> Gráficos Analytics (GA4)</a>
-                        <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Gráficos Pixel & Conversão</a>
-                        <a class="submenu-item" id="subMktUtm"><i class="fa-solid fa-qrcode me-2 text-success"></i> Configurar UTMs & QR Codes</a>
-                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-ticket-simple me-2 text-warning"></i> Cupons de Desconto</a>
-                        <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-link me-2 text-info"></i> Links & Promoters</a>
-                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-tags me-2 text-primary"></i> Combos & Ofertas</a>
-                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders me-2 text-secondary"></i> Pixels & Matriz de Rastreamento</a>
+                        <a class="submenu-item" id="subMktVisaoGeral"><i class="fa-solid fa-chart-pie"></i> Visão Geral Consolidada</a>
+                        <a class="submenu-item" id="subMktCampanhas"><i class="fa-solid fa-bullseye"></i> Campanhas Marketing</a>
+                        <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-area"></i> Analytics (GA4)</a>
+                        <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs"></i> Pixel & Conversão</a>
+                        <a class="submenu-item" id="subMktUtm"><i class="fa-solid fa-qrcode"></i> UTMs & QR Codes</a>
+                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-tags"></i> Cupons de Desconto</a>
+                        <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-share-nodes"></i> Links & Promoters</a>
+                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-boxes-stacked"></i> Combos & Ofertas</a>
+                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders"></i> Pixels & Tracking</a>
                     </div>
 
                     <!-- ACCORDION: REMARKETING -->
@@ -840,14 +855,13 @@
                         <span>Remarketing</span>
                     </a>
                     <div class="submenu-container" id="submenuRemarketing">
-                        <a class="submenu-item" id="subRmkCarrinhos"><i class="fa-solid fa-cart-arrow-down me-2 text-danger"></i> Carrinhos Abandonados</a>
-                        <a class="submenu-item" id="subRmkDisparos"><i class="fa-brands fa-whatsapp me-2 text-success"></i> Disparos WhatsApp/E-mail</a>
-                        <a class="submenu-item" id="subRmkCRM"><i class="fa-solid fa-users-gear me-2 text-primary"></i> Segmentação & CRM</a>
-                        <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-chart-pie me-2 text-warning"></i> Métricas & ROI</a>
+                        <a class="submenu-item" id="subRmkCarrinhos"><i class="fa-solid fa-cart-arrow-down"></i> Carrinhos Abandonados</a>
+                        <a class="submenu-item" id="subRmkDisparos"><i class="fa-solid fa-paper-plane"></i> Disparos WhatsApp/E-mail</a>
+                        <a class="submenu-item" id="subRmkCRM"><i class="fa-solid fa-users-gear"></i> Segmentação & CRM</a>
+                        <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-arrow-trend-up"></i> Métricas & ROI</a>
                     </div>
                 </div>
             </div>
-            
             <div class="sidebar-footer p-2">
                 <button class="btn btn-sm btn-outline-secondary w-100 mb-1" style="font-size:0.75rem; border-color: rgba(255,255,255,0.1); color:#cbd5e1;" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-plus me-1"></i> Criar Evento</button>
                 <button class="btn btn-sm btn-primary w-100" style="font-size:0.75rem; background:#0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))"><i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitar Repasse</button>
