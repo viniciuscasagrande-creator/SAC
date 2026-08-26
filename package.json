@@ -7,9 +7,7 @@
     "start": "node server.js",
     "db:migrate": "node migrate.js",
     "db:migrate:postgres": "node migrate.js",
-    "db:migrate:mysql": "node migrate_mysql.js",
-    "build": "npm install && cd sac-react && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd sac-react && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
