@@ -1918,142 +1918,26 @@
                 </div>
             </div>
 
-            <!-- 5. PANEL FINANCEIRO COMPLETO (VIDEO /finance WITH SUB-SIDEBAR) -->
+            <!-- 5. PANEL FINANCEIRO COMPLETO (EXACT COPY OF REFERENCIA-PDT-FINSN_CONTABIL / FINANCEIROPDTNOVO.WEB.APP) -->
             <div id="panelFinanceiroFullContent" class="d-none">
-                <div class="sub-layout-container">
-                    <!-- SUB-SIDEBAR -->
-                    <aside class="sub-nav-sidebar">
-                        <div class="sub-nav-header">Navegação Financeira</div>
-                        <a class="sub-nav-item active" onclick="switchFinTab('hub', this)"><i class="fa-solid fa-cubes"></i> Hub Financeiro</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('saldo', this)"><i class="fa-solid fa-vault"></i> Saldo Consolidado</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('repasse', this)"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('antecipacoes', this)"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('extrato', this)"><i class="fa-solid fa-file-invoice"></i> Extrato Detalhado</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('despesas', this)"><i class="fa-solid fa-receipt"></i> Despesas</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('contas', this)"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('bordero', this)"><i class="fa-solid fa-file-signature"></i> Borderô</a>
-                        <a class="sub-nav-item" onclick="switchFinTab('negociacoes', this)"><i class="fa-solid fa-scale-balanced"></i> Negociações</a>
-                    </aside>
-
-                    <!-- SUB MAIN CONTENT -->
-                    <div class="sub-main-content">
-                        <!-- FIN SUB: HUB FINANCEIRO -->
-                        <div id="finTabHub">
-                            <div class="dashboard-header mb-3">
-                                <div class="dashboard-title-box">
-                                    <h2>Hub Financeiro</h2>
-                                    <p>Operações de caixa, liquidações e simuladores avançados.</p>
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('saldo', null)">
-                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-vault text-primary me-2"></i> Saldo Consolidado</h6>
-                                        <p class="text-muted fs-11 m-0">Saldo geral acumulado e exportações rápidas.</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('repasse', null)">
-                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-money-bill-transfer text-success me-2"></i> Solicitar Repasse</h6>
-                                        <p class="text-muted fs-11 m-0">Solicite a transferência para sua conta bancária.</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="switchFinTab('antecipacoes', null)">
-                                        <h6 class="fw-bold text-dark"><i class="fa-solid fa-hand-holding-dollar text-warning me-2"></i> Antecipações</h6>
-                                        <p class="text-muted fs-11 m-0">Antecipe o recebimento de vendas a prazo.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FIN SUB: REPASSES -->
-                        <div id="finTabRepasse" class="d-none">
-                            <div class="dashboard-header mb-3">
-                                <h2>Solicitações de Repasse</h2>
-                            </div>
-                            <div class="row g-3 mb-4">
-                                <div class="col-md-3">
-                                    <div class="card p-3 border shadow-sm bg-white">
-                                        <div class="text-muted fs-10 text-uppercase fw-bold">Saldo Disponível</div>
-                                        <h4 class="fw-bold text-success mt-1">R$ 248,96</h4>
-                                        <span class="fs-10 text-muted">Liberado para transferência</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3 border shadow-sm bg-white">
-                                        <div class="text-muted fs-10 text-uppercase fw-bold">Valor Bloqueado</div>
-                                        <h4 class="fw-bold text-dark mt-1">R$ 0,00</h4>
-                                        <span class="fs-10 text-muted">Eventos em andamento</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3 border shadow-sm bg-white">
-                                        <div class="text-muted fs-10 text-uppercase fw-bold">Próximo Payout</div>
-                                        <h4 class="fw-bold text-primary mt-1">08/07/2026</h4>
-                                        <span class="fs-10 text-muted">Repasse automático</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3 border shadow-sm bg-white">
-                                        <div class="text-muted fs-10 text-uppercase fw-bold">Solicitações Pendentes</div>
-                                        <h4 class="fw-bold text-warning mt-1">1</h4>
-                                        <span class="fs-10 text-muted">Sob análise financeira</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card p-4 border shadow-sm bg-white">
-                                <h6 class="fw-bold mb-3 text-dark">Solicitar Novo Repasse Bancário</h6>
-                                <form onsubmit="submitRequestPayout(event)">
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label fs-12 fw-bold text-muted">Selecione os Eventos</label>
-                                            <select class="form-select fs-12" id="payEvento">
-                                                <option>Festival X 2026 (R$ 1.850,00 Disponível)</option>
-                                                <option>Rodeio Nacional de Curitiba (R$ 3.200,00)</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label fs-12 fw-bold text-muted">Valor a Transferir (R$)</label>
-                                            <input type="number" id="payValor" class="form-control fs-12" value="248.96" step="0.01">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label fs-12 fw-bold text-muted">Chave PIX ou Conta Destino</label>
-                                            <input type="text" id="payChavePix" class="form-control fs-12" value="12.345.678/0001-99">
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-primary" style="background:#0284c7;"><i class="fa-solid fa-paper-plane me-1"></i> Confirmar Solicitação de Repasse</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- FIN SUB: BORDERÔ -->
-                        <div id="finTabBordero" class="d-none">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h4 class="fw-bold m-0 text-dark">Demonstrativo Financeiro (Borderô)</h4>
-                                    <span class="text-muted fs-11">Evento: Rock concert com Luciano Reis - 18/06/2026</span>
-                                </div>
-                                <button class="btn btn-success" onclick="alert('Documento enviado para assinatura digital no Autêntique!')"><i class="fa-solid fa-signature"></i> Assinar via Autêntique</button>
-                            </div>
-                            <div class="card p-4 border shadow-sm bg-white">
-                                <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
-                                    <span class="fw-bold">1. RECEITA BRUTA DE VENDAS (446 un.)</span>
-                                    <strong class="text-dark">R$ 71.976,20</strong>
-                                </div>
-                                <div class="d-flex justify-content-between border-bottom pb-2 mb-2 text-danger">
-                                    <span>2. TAXAS E RETENÇÕES OPERACIONAIS (15% Disk + Gateways)</span>
-                                    <strong>- R$ 9.388,20</strong>
-                                </div>
-                                <div class="d-flex justify-content-between pt-2 fs-5 fw-bold text-success">
-                                    <span>3. VALOR LÍQUIDO A REPASSAR AO PRODUTOR</span>
-                                    <strong>R$ 62.588,00</strong>
-                                </div>
-                            </div>
-                        </div>
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Módulo Financeiro & Contábil DiskIngressos</h2>
+                        <p>Gestão de caixa, DRE, conciliação, repasses, antecipações e controle fiscal (Conforme financeiropdtnovo.web.app).</p>
                     </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <a href="/financeiro" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 fw-semibold">
+                            <i class="fa-solid fa-up-right-from-square"></i> Abrir em Nova Aba
+                        </a>
+                        <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 fw-semibold" style="background:#0284c7;" onclick="const f=document.getElementById('frameFinanceiroApp'); if(f) f.src = f.src;">
+                            <i class="fa-solid fa-arrows-rotate"></i> Recarregar App
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DIRECT EMBEDDED COMPLETE FINANCIAL APP -->
+                <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 10px; background:#0f172a;">
+                    <iframe id="frameFinanceiroApp" src="financeiro-dist/index.html" style="width: 100%; height: calc(100vh - 150px); min-height: 780px; border: none; background:#ffffff;"></iframe>
                 </div>
             </div>
 
