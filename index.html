@@ -18,18 +18,18 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-    <!-- Visual Styles to EXACTLY recreate the DiskIngressos screenshot -->
+    <!-- Visual Styles to EXACTLY recreate the DiskIngressos screenshot with Clean & Compact Typography -->
     <style>
         :root {
             --bg-header: #1e222a;
             --bg-sidebar: #222731;
-            --bg-body: #f3f4f6;
+            --bg-body: #f8fafc;
             --primary-orange: #ff5722;
             --primary-green: #10b981;
             --primary-blue: #0284c7;
-            --border-color: #e5e7eb;
-            --text-dark: #111827;
-            --text-muted: #6b7280;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
         }
 
         * {
@@ -42,20 +42,113 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-dark);
+            font-size: 12.5px;
+            line-height: 1.4;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* GLOBAL COMPACT TYPOGRAPHY & UTILITIES */
+        h1, h2, h3, h4, h5, h6 {
+            letter-spacing: -0.02em;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        
+        h1 { font-size: 1.25rem !important; }
+        h2 { font-size: 1.15rem !important; }
+        h3 { font-size: 0.98rem !important; }
+        h4 { font-size: 0.88rem !important; }
+        h5 { font-size: 0.80rem !important; }
+
+        .card {
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03) !important;
+            background-color: #ffffff;
+        }
+
+        .btn {
+            font-size: 0.76rem !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-weight: 500 !important;
+            line-height: 1.35 !important;
+        }
+
+        .btn-sm {
+            font-size: 0.72rem !important;
+            padding: 3px 8px !important;
+            border-radius: 5px !important;
+        }
+
+        .form-control, .form-select {
+            font-size: 0.78rem !important;
+            padding: 4px 9px !important;
+            border-radius: 6px !important;
+            border-color: #cbd5e1 !important;
+            min-height: 30px !important;
+            height: 30px !important;
+        }
+        
+        textarea.form-control {
+            height: auto !important;
+            min-height: 60px !important;
+        }
+
+        .form-label {
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            color: #475569 !important;
+            margin-bottom: 3px !important;
+        }
+
+        .table {
+            font-size: 0.76rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .table th {
+            font-size: 0.65rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            font-weight: 600 !important;
+            color: #64748b !important;
+            padding: 6px 10px !important;
+            background-color: #f8fafc !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+
+        .table td {
+            padding: 6px 10px !important;
+            vertical-align: middle !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+        }
+
+        .badge {
+            font-size: 0.66rem !important;
+            padding: 2px 6px !important;
+            font-weight: 600 !important;
+            border-radius: 4px !important;
+        }
+
+        .fs-10 { font-size: 0.62rem !important; }
+        .fs-11 { font-size: 0.68rem !important; }
+        .fs-12 { font-size: 0.75rem !important; }
+        .fs-13 { font-size: 0.80rem !important; }
+        .fs-14 { font-size: 0.86rem !important; }
 
         /* HEADER */
         .main-header {
             background-color: #1e222a;
-            height: 60px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
+            padding: 0 20px;
             color: #ffffff;
             z-index: 100;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -70,7 +163,7 @@
         }
 
         .di-logo-styled {
-            font-size: 1.55rem;
+            font-size: 1.35rem;
             font-weight: 900;
             font-style: italic;
             color: #ffffff;
@@ -80,7 +173,7 @@
         }
 
         .brand-text-styled {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.3px;
@@ -88,25 +181,26 @@
 
         .header-center {
             flex: 1;
-            max-width: 480px;
+            max-width: 440px;
             position: relative;
         }
 
         .header-search {
             width: 100%;
+            height: 32px;
             background-color: #2b313d;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 7px 38px 7px 38px;
+            border-radius: 16px;
+            padding: 4px 34px;
             color: #ffffff;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             outline: none;
             transition: all 0.2s;
         }
 
         .header-search::placeholder {
             color: #9ca3af;
-            font-size: 0.82rem;
+            font-size: 0.76rem;
         }
 
         .header-search:focus {
@@ -116,20 +210,20 @@
 
         .search-icon-left {
             position: absolute;
-            left: 14px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
         }
 
         .search-icon-right {
             position: absolute;
-            right: 14px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
         }
 
@@ -142,13 +236,13 @@
         .profile-pill {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
         }
 
         .profile-avatar-circle {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background-color: #4b5563;
             color: #ffffff;
@@ -156,13 +250,13 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             position: relative;
         }
 
         .status-dot-green {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: #10b981;
             border-radius: 50%;
             position: absolute;
@@ -173,7 +267,7 @@
 
         .profile-email {
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: #e5e7eb;
         }
 
@@ -187,13 +281,13 @@
 
         /* SIDEBAR */
         .sidebar {
-            width: 250px;
+            width: 230px;
             background-color: #222731;
             color: #cbd5e1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 16px 0;
+            padding: 12px 0;
             flex-shrink: 0;
             overflow-y: auto;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -203,18 +297,18 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px 14px 16px;
+            padding: 0 14px 10px 14px;
         }
 
         .sidebar-nav-title {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
         }
 
         .sidebar-toggle-btn {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: #2b313d;
             border: none;
@@ -222,7 +316,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.70rem;
             cursor: pointer;
             transition: background 0.2s;
         }
@@ -232,40 +326,40 @@
         }
 
         .menu-section-header {
-            font-size: 0.65rem;
+            font-size: 0.60rem;
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 0.8px;
-            color: #6b7280;
-            padding: 8px 16px 6px 16px;
+            letter-spacing: 0.6px;
+            color: #64748b;
+            padding: 6px 14px 4px 14px;
         }
 
         .sidebar-menu {
             display: flex;
             flex-direction: column;
             gap: 2px;
-            padding: 0 10px;
+            padding: 0 8px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 9px 12px;
-            border-radius: 6px;
-            color: #9ca3af;
+            gap: 10px;
+            padding: 7px 10px;
+            border-radius: 5px;
+            color: #94a3b8;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 500;
             transition: all 0.15s ease-in-out;
             cursor: pointer;
         }
 
         .menu-item i {
-            width: 18px;
-            font-size: 0.95rem;
+            width: 16px;
+            font-size: 0.85rem;
             text-align: center;
-            color: #9ca3af;
+            color: #94a3b8;
         }
 
         .menu-item:hover {
@@ -285,26 +379,27 @@
             color: #ffffff;
         }
 
-        /* CARD HORIZONTAL EXACT */
+        /* CARD HORIZONTAL CLEAN & COMPACT */
         .event-card-exact {
             background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-direction: row;
-            min-height: 240px;
+            min-height: 200px;
             height: 100%;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
         }
         .event-card-exact:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
         }
 
         .event-card-image-box {
             width: 38%;
-            min-width: 170px;
+            min-width: 150px;
             position: relative;
             background-color: #0f172a;
             overflow: hidden;
@@ -317,49 +412,49 @@
 
         .event-id-tag {
             position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(0, 0, 0, 0.8);
+            bottom: 6px;
+            left: 6px;
+            background: rgba(0, 0, 0, 0.82);
             color: #ffffff;
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+            padding: 1.5px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.4px;
         }
 
         .event-card-content {
             width: 62%;
-            padding: 16px 20px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .event-card-title {
-            font-size: 0.95rem;
+            font-size: 0.84rem;
             font-weight: 700;
-            color: #111827;
+            color: #0f172a;
             text-transform: uppercase;
-            line-height: 1.3;
-            margin-bottom: 4px;
+            line-height: 1.25;
+            margin-bottom: 2px;
             letter-spacing: -0.2px;
         }
 
         .event-card-location {
-            font-size: 0.78rem;
-            color: #6b7280;
+            font-size: 0.72rem;
+            color: #64748b;
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-bottom: 18px;
+            gap: 4px;
+            margin-bottom: 12px;
         }
 
         .event-metrics-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
 
         .event-metric-col {
@@ -368,43 +463,47 @@
         }
 
         .event-metric-col .metric-label {
-            font-size: 0.65rem;
-            color: #6b7280;
-            margin-bottom: 2px;
+            font-size: 0.60rem;
+            color: #64748b;
+            margin-bottom: 1px;
             white-space: nowrap;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .event-metric-col .metric-value {
-            font-size: 0.92rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            color: #111827;
+            color: #0f172a;
             line-height: 1.2;
         }
 
         .event-metric-col .metric-bar {
-            width: 26px;
+            width: 22px;
             height: 2px;
             border-radius: 1px;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         .event-card-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.75rem;
-            color: #6b7280;
-            padding-top: 10px;
-            border-top: 1px solid #f3f4f6;
+            font-size: 0.70rem;
+            color: #64748b;
+            padding-top: 8px;
+            border-top: 1px solid #f1f5f9;
         }
 
         .event-card-footer .footer-actions i {
-            color: #6b7280;
-            font-size: 0.85rem;
+            color: #64748b;
+            font-size: 0.78rem;
             cursor: pointer;
-            margin-left: 10px;
+            margin-left: 8px;
             transition: color 0.15s;
         }
+        .event-card-footer .footer-actions i:hover {
+            color: #0f172a;
         }
 
         #menuEstorno.active {
@@ -2128,42 +2227,43 @@
             </div>
 
             <!-- 4. PANEL TODOS OS EVENTOS (MATCHING SCREENSHOT 1:1) -->
-            <div id="panelTodosEventosContent" class="p-4" style="background:#f3f4f6; min-height: 100vh;">
+            <!-- 4. PANEL TODOS OS EVENTOS (MATCHING SCREENSHOT 1:1 WITH CLEAN COMPACT LOOK) -->
+            <div id="panelTodosEventosContent" class="p-3 p-md-4" style="background:#f8fafc; min-height: 100vh;">
                 <!-- TOP HEADER & CONTROLS -->
-                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                    <h2 class="fw-bold text-dark m-0" style="font-size: 1.6rem; letter-spacing: -0.5px;">Eventos</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h2 class="fw-bold text-dark m-0" style="font-size: 1.25rem; letter-spacing: -0.4px;">Eventos</h2>
                     
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <button class="btn btn-white border shadow-sm px-3 py-2 fw-medium d-flex align-items-center gap-2" style="background:#fff; color:#374151; border-radius:8px; font-size:0.85rem;" onclick="openModalById('modalCompararEventos')">
-                            <i class="fa-solid fa-code-compare text-secondary"></i> Comparar
+                    <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                        <button class="btn btn-white border shadow-xs px-2.5 py-1.5 fw-medium d-flex align-items-center gap-1.5" style="background:#fff; color:#374151; border-radius:6px; font-size:0.75rem; border-color:#e2e8f0;" onclick="openModalById('modalCompararEventos')">
+                            <i class="fa-solid fa-code-compare text-secondary" style="font-size:0.72rem;"></i> Comparar
                         </button>
-                        <button class="btn btn-white border shadow-sm px-3 py-2 fw-medium d-flex align-items-center gap-2" style="background:#fff; color:#374151; border-radius:8px; font-size:0.85rem;">
-                            <i class="fa-solid fa-table-columns text-secondary"></i> Horizontal <i class="fa-solid fa-angle-down text-muted" style="font-size:0.75rem;"></i>
+                        <button class="btn btn-white border shadow-xs px-2.5 py-1.5 fw-medium d-flex align-items-center gap-1.5" style="background:#fff; color:#374151; border-radius:6px; font-size:0.75rem; border-color:#e2e8f0;">
+                            <i class="fa-solid fa-table-columns text-secondary" style="font-size:0.72rem;"></i> Horizontal <i class="fa-solid fa-angle-down text-muted" style="font-size:0.65rem;"></i>
                         </button>
                         
-                        <div class="d-inline-flex rounded-3 border bg-white p-1 gap-1" style="border-radius: 8px !important; border-color:#e5e7eb !important;">
-                            <button class="btn btn-sm px-3 py-1 fw-medium text-dark border-0" style="font-size:0.82rem; background:transparent;" onclick="filterEventsByStatus('ativos')">
-                                <i class="fa-regular fa-star text-dark me-1"></i> Ativos
+                        <div class="d-inline-flex rounded-2 border bg-white p-0.5 gap-0.5" style="border-color:#e2e8f0 !important;">
+                            <button class="btn btn-sm px-2.5 py-1 fw-medium text-dark border-0" style="font-size:0.74rem; background:transparent;" onclick="filterEventsByStatus('ativos')">
+                                <i class="fa-regular fa-star text-dark me-1" style="font-size:0.7rem;"></i> Ativos
                             </button>
-                            <button class="btn btn-sm px-3 py-1 fw-medium text-dark border-0" style="font-size:0.82rem; background:transparent;" onclick="filterEventsByStatus('inativos')">
-                                <i class="fa-regular fa-calendar-xmark text-dark me-1"></i> Inativos
+                            <button class="btn btn-sm px-2.5 py-1 fw-medium text-dark border-0" style="font-size:0.74rem; background:transparent;" onclick="filterEventsByStatus('inativos')">
+                                <i class="fa-regular fa-calendar-xmark text-dark me-1" style="font-size:0.7rem;"></i> Inativos
                             </button>
-                            <button class="btn btn-sm px-3 py-1 fw-bold border" style="font-size:0.82rem; background:#ebf5ff; border-color:#38bdf8 !important; color:#0284c7 !important; border-radius:6px;" onclick="filterEventsByStatus('todos')">
-                                <i class="fa-regular fa-calendar-days text-primary me-1"></i> Todos
+                            <button class="btn btn-sm px-2.5 py-1 fw-bold border" style="font-size:0.74rem; background:#ebf5ff; border-color:#38bdf8 !important; color:#0284c7 !important; border-radius:4px;" onclick="filterEventsByStatus('todos')">
+                                <i class="fa-regular fa-calendar-days text-primary me-1" style="font-size:0.7rem;"></i> Todos
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2-COLUMN GRID OF EVENTS (MATCHING SCREENSHOT) -->
-                <div class="row g-4" id="eventsCardsContainer">
+                <div class="row g-3" id="eventsCardsContainer">
                     <!-- CARD 1: SEM PARAR - EXPERIENCIA MUSICA E NATUREZA -->
                     <div class="col-xl-6 col-12">
                         <div class="event-card-exact cursor-pointer" onclick="openEventDetails('3634')">
                             <div class="event-card-image-box">
                                 <img src="https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80" alt="Parque Jaime Lerner">
-                                <div style="position: absolute; bottom: 32px; left: 10px; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.8); font-size: 0.72rem; font-style: italic; line-height: 1.1;">Música e natureza<br><span style="font-weight:bold; font-style:normal;">fazendo arte.</span></div>
-                                <div style="position: absolute; bottom: 32px; right: 10px; color: #fff; font-size: 0.65rem; font-weight: bold; text-align: right; text-shadow: 0 1px 4px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 4px;">
+                                <div style="position: absolute; bottom: 28px; left: 8px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 0.65rem; font-style: italic; line-height: 1.1;">Música e natureza<br><span style="font-weight:bold; font-style:normal;">fazendo arte.</span></div>
+                                <div style="position: absolute; bottom: 28px; right: 8px; color: #fff; font-size: 0.60rem; font-weight: bold; text-align: right; text-shadow: 0 1px 3px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 3px;">
                                     <i class="fa-regular fa-circle-dot"></i> Parque<br>Jaime<br>Lerner
                                 </div>
                                 <span class="event-id-tag">1760</span>
@@ -2223,8 +2323,8 @@
                         <div class="event-card-exact cursor-pointer" onclick="openEventDetails('3571')">
                             <div class="event-card-image-box">
                                 <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Iron Maiden Symphonic">
-                                <div style="position: absolute; top: 8px; left: 8px; right: 8px; color: #f59e0b; text-align: center; font-weight: 900; font-size: 0.85rem; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">IRON MAIDEN SYMPHONIC<br><span style="font-size:0.65rem; color:#fff;">THE BEAST EXPERIENCE</span></div>
-                                <div style="position: absolute; bottom: 30px; left: 10px; color: #fff; font-size: 0.65rem; font-weight: bold; text-shadow: 0 1px 4px rgba(0,0,0,0.9);">14 DE MARÇO • CURITIBA<br><span style="font-size:0.58rem; color:#cbd5e1;">DOMINGO - 19H • ÓPERA DE ARAME</span></div>
+                                <div style="position: absolute; top: 6px; left: 6px; right: 6px; color: #f59e0b; text-align: center; font-weight: 900; font-size: 0.78rem; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">IRON MAIDEN SYMPHONIC<br><span style="font-size:0.58rem; color:#fff;">THE BEAST EXPERIENCE</span></div>
+                                <div style="position: absolute; bottom: 26px; left: 8px; color: #fff; font-size: 0.58rem; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">14 DE MARÇO • CURITIBA<br><span style="font-size:0.52rem; color:#cbd5e1;">DOMINGO - 19H • ÓPERA DE ARAME</span></div>
                                 <span class="event-id-tag">3571</span>
                             </div>
                             <div class="event-card-content">
@@ -2281,12 +2381,12 @@
                     <div class="col-xl-6 col-12">
                         <div class="event-card-exact cursor-pointer" onclick="openEventDetails('3714')">
                             <div class="event-card-image-box" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">
-                                <div style="padding: 10px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-                                    <div style="font-size: 0.65rem; font-weight: bold; background: #ea580c; display: inline-block; padding: 1px 5px; border-radius: 3px;">29ª Conferência Estadual Espírita</div>
-                                    <div style="font-size: 0.85rem; font-weight: bold; margin-top: 4px; font-style: italic;">O Espiritismo<br>Luz em nossas vidas.</div>
-                                    <div style="font-size: 0.6rem; margin-top: 15px;">13 e 14 MARÇO • TEATRO POSITIVO</div>
+                                <div style="padding: 8px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                                    <div style="font-size: 0.58rem; font-weight: bold; background: #ea580c; display: inline-block; padding: 1px 4px; border-radius: 2px;">29ª Conferência Estadual Espírita</div>
+                                    <div style="font-size: 0.76rem; font-weight: bold; margin-top: 3px; font-style: italic;">O Espiritismo<br>Luz em nossas vidas.</div>
+                                    <div style="font-size: 0.55rem; margin-top: 10px;">13 e 14 MARÇO • TEATRO POSITIVO</div>
                                 </div>
-                                <div class="d-flex gap-1 position-absolute" style="bottom: 8px; left: 8px;">
+                                <div class="d-flex gap-1 position-absolute" style="bottom: 6px; left: 6px;">
                                     <span class="event-id-tag position-static">3714</span>
                                     <span class="event-id-tag position-static" style="background: rgba(2,132,199,0.85);">3459</span>
                                 </div>
@@ -2345,12 +2445,12 @@
                     <div class="col-xl-6 col-12">
                         <div class="event-card-exact cursor-pointer" onclick="openEventDetails('3713')">
                             <div class="event-card-image-box" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">
-                                <div style="padding: 10px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-                                    <div style="font-size: 0.65rem; font-weight: bold; background: #ea580c; display: inline-block; padding: 1px 5px; border-radius: 3px;">29ª Conferência Estadual Espírita</div>
-                                    <div style="font-size: 0.85rem; font-weight: bold; margin-top: 4px; font-style: italic;">O Espiritismo<br>Luz em nossas vidas.</div>
-                                    <div style="font-size: 0.6rem; margin-top: 15px;">13 e 14 MARÇO • TEATRO POSITIVO</div>
+                                <div style="padding: 8px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                                    <div style="font-size: 0.58rem; font-weight: bold; background: #ea580c; display: inline-block; padding: 1px 4px; border-radius: 2px;">29ª Conferência Estadual Espírita</div>
+                                    <div style="font-size: 0.76rem; font-weight: bold; margin-top: 3px; font-style: italic;">O Espiritismo<br>Luz em nossas vidas.</div>
+                                    <div style="font-size: 0.55rem; margin-top: 10px;">13 e 14 MARÇO • TEATRO POSITIVO</div>
                                 </div>
-                                <div class="d-flex gap-1 position-absolute" style="bottom: 8px; left: 8px;">
+                                <div class="d-flex gap-1 position-absolute" style="bottom: 6px; left: 6px;">
                                     <span class="event-id-tag position-static">3713</span>
                                     <span class="event-id-tag position-static" style="background: rgba(2,132,199,0.85);">3459</span>
                                 </div>
