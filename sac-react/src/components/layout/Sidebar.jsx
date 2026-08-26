@@ -7,6 +7,8 @@ import {
   CreditCard,
   Send,
   Shield,
+  RotateCcw,
+  Headset,
   ArrowRightLeft
 } from 'lucide-react';
 
@@ -21,7 +23,9 @@ export function Sidebar({
     { id: 'finance', label: 'Financeiro', icon: Wallet },
     { id: 'pos', label: 'Terminais POS', icon: CreditCard },
     { id: 'messages', label: 'Mensagens', icon: Send },
-    { id: 'admin', label: 'Administração', icon: Shield }
+    { id: 'admin', label: 'Administração', icon: Shield },
+    { id: 'refunds', label: 'Estornos', icon: RotateCcw, badge: 'ERP', badgeColor: 'bg-orange-600/20 text-orange-400 border border-orange-500/30' },
+    { id: 'sac', label: 'Atendimento / SAC', icon: Headset, badge: 'Novo', badgeColor: 'bg-sky-600/20 text-sky-400 border border-sky-500/30' }
   ];
 
   return (
@@ -48,14 +52,21 @@ export function Sidebar({
               <button
                 key={item.id}
                 onClick={() => onSelectTab?.(item.id)}
-                className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-md text-xs font-medium transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-2.5 py-2 rounded-md text-xs font-medium transition-all cursor-pointer ${
                   isActive
                     ? 'bg-[#313745] text-white font-semibold'
                     : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                <span>{item.label}</span>
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${item.badgeColor || 'bg-slate-700 text-white'}`}>
+                    {item.badge}
+                  </span>
+                )}
               </button>
             );
           })}
