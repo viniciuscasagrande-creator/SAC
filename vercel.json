@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/financeiro/:path*",
+      "destination": "/sac-react/dist/:path*"
+    },
+    {
+      "source": "/financeiro",
+      "destination": "/sac-react/dist/index.html"
+    },
+    {
+      "source": "/sac-react/dist/:path*",
+      "destination": "/sac-react/dist/:path*"
+    },
+    {
+      "source": "/limitless/:path*",
+      "destination": "/limitless/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
+        }
+      ]
+    }
+  ]
+}
