@@ -18,25 +18,25 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-    <!-- Visual Styles to EXACTLY recreate the DiskIngressos Painel de Controle & Cupons screenshots -->
+    <!-- Visual Styles to EXACTLY recreate the DiskIngressos screenshot -->
     <style>
         :root {
-            --bg-header: #1e2530;
-            --bg-sidebar: #242b38;
-            --bg-body: #f1f3f7;
+            --bg-header: #1e222a;
+            --bg-sidebar: #222731;
+            --bg-body: #f3f4f6;
             --primary-orange: #ff5722;
             --primary-green: #10b981;
             --primary-blue: #0284c7;
-            --border-color: #e2e8f0;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
+            --border-color: #e5e7eb;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
@@ -50,65 +50,54 @@
 
         /* HEADER */
         .main-header {
-            background-color: var(--bg-header);
-            height: 64px;
+            background-color: #1e222a;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
             color: #ffffff;
             z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .header-left {
+        .header-logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .di-logo-box {
-            background-color: #0284c7;
+            gap: 6px;
+            text-decoration: none;
             color: #ffffff;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.3rem;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
         }
 
-        .di-logo-box span {
-            font-size: 0.7rem;
-            color: #fbbf24;
-            position: absolute;
-            bottom: 3px;
-            right: 4px;
+        .di-logo-styled {
+            font-size: 1.55rem;
+            font-weight: 900;
+            font-style: italic;
+            color: #ffffff;
+            letter-spacing: -1px;
+            line-height: 1;
+            font-family: sans-serif;
         }
 
-        .brand-text {
-            font-weight: 800;
+        .brand-text-styled {
             font-size: 1.15rem;
-            letter-spacing: -0.5px;
+            font-weight: 700;
             color: #ffffff;
+            letter-spacing: -0.3px;
         }
 
         .header-center {
             flex: 1;
-            max-width: 540px;
+            max-width: 480px;
             position: relative;
         }
 
         .header-search {
             width: 100%;
-            background-color: #2a3444;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
-            padding: 9px 18px 9px 42px;
+            background-color: #2b313d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 7px 38px 7px 38px;
             color: #ffffff;
             font-size: 0.85rem;
             outline: none;
@@ -116,79 +105,76 @@
         }
 
         .header-search::placeholder {
-            color: #94a3b8;
+            color: #9ca3af;
+            font-size: 0.82rem;
         }
 
         .header-search:focus {
-            background-color: #334155;
-            border-color: #0284c7;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25);
+            background-color: #333a48;
+            border-color: #4b5563;
         }
 
-        .search-icon-header {
+        .search-icon-left {
             position: absolute;
-            left: 16px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: #9ca3af;
+            font-size: 0.85rem;
+        }
+
+        .search-icon-right {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.85rem;
+            cursor: pointer;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .profile-pill {
             display: flex;
             align-items: center;
             gap: 10px;
-            background-color: rgba(255, 255, 255, 0.06);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.82rem;
             cursor: pointer;
-            transition: background-color 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .profile-pill:hover {
-            background-color: rgba(255, 255, 255, 0.12);
-        }
-
-        .profile-avatar {
+        .profile-avatar-circle {
             width: 32px;
             height: 32px;
             border-radius: 50%;
+            background-color: #4b5563;
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 700;
+            font-size: 0.78rem;
             position: relative;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-            border: 1.5px solid rgba(255, 255, 255, 0.15);
         }
 
-        .profile-avatar svg {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-
-        .status-dot {
+        .status-dot-green {
             width: 8px;
             height: 8px;
             background-color: #10b981;
             border-radius: 50%;
             position: absolute;
-            bottom: -1px;
-            right: -1px;
-            border: 1.5px solid var(--bg-header);
+            bottom: 0px;
+            right: 0px;
+            border: 1.5px solid #1e222a;
         }
 
         .profile-email {
-            font-weight: 600;
-            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #e5e7eb;
         }
 
         /* BODY LAYOUT */
@@ -201,8 +187,8 @@
 
         /* SIDEBAR */
         .sidebar {
-            width: 320px;
-            background-color: var(--bg-sidebar);
+            width: 250px;
+            background-color: #222731;
             color: #cbd5e1;
             display: flex;
             flex-direction: column;
@@ -210,55 +196,215 @@
             padding: 16px 0;
             flex-shrink: 0;
             overflow-y: auto;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px 14px 16px;
+        }
+
+        .sidebar-nav-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .sidebar-toggle-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2b313d;
+            border: none;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar-toggle-btn:hover {
+            background: #374151;
+            color: #fff;
+        }
+
+        .menu-section-header {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: #6b7280;
+            padding: 8px 16px 6px 16px;
         }
 
         .sidebar-menu {
             display: flex;
             flex-direction: column;
-            gap: 3px;
-            padding: 0 12px;
-        }
-
-        .menu-section-header {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #94a3b8;
-            padding: 12px 12px 6px 12px;
+            gap: 2px;
+            padding: 0 10px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px 14px;
-            border-radius: 8px;
-            color: #cbd5e1;
+            gap: 12px;
+            padding: 9px 12px;
+            border-radius: 6px;
+            color: #9ca3af;
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
+            font-weight: 500;
+            transition: all 0.15s ease-in-out;
             cursor: pointer;
         }
 
         .menu-item i {
-            width: 20px;
+            width: 18px;
             font-size: 0.95rem;
-            margin-right: 8px;
+            text-align: center;
+            color: #9ca3af;
         }
 
         .menu-item:hover {
-            background-color: rgba(255, 255, 255, 0.06);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+        .menu-item:hover i {
             color: #ffffff;
         }
 
         .menu-item.active {
-            background-color: #334155;
+            background-color: #313745;
             color: #ffffff;
             font-weight: 600;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .menu-item.active i {
+            color: #ffffff;
+        }
+
+        /* CARD HORIZONTAL EXACT */
+        .event-card-exact {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            min-height: 240px;
+            height: 100%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .event-card-exact:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .event-card-image-box {
+            width: 38%;
+            min-width: 170px;
+            position: relative;
+            background-color: #0f172a;
+            overflow: hidden;
+        }
+        .event-card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-id-tag {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .event-card-content {
+            width: 62%;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #111827;
+            text-transform: uppercase;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .event-card-location {
+            font-size: 0.78rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 18px;
+        }
+
+        .event-metrics-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .event-metric-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-metric-col .metric-label {
+            font-size: 0.65rem;
+            color: #6b7280;
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .event-metric-col .metric-value {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.2;
+        }
+
+        .event-metric-col .metric-bar {
+            width: 26px;
+            height: 2px;
+            border-radius: 1px;
+            margin-top: 4px;
+        }
+
+        .event-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6b7280;
+            padding-top: 10px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .event-card-footer .footer-actions i {
+            color: #6b7280;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: color 0.15s;
+        }
         }
 
         #menuEstorno.active {
@@ -1323,47 +1469,23 @@
     <!-- 1. MAIN GLOBAL HEADER -->
     <header class="main-header">
         <div class="header-left">
-            <div class="di-logo-box">
-                D<span>i</span>
-            </div>
-            <div class="brand-text">DiskIngressos</div>
+            <a href="#" class="header-logo-container" onclick="return false;">
+                <span class="di-logo-styled">Di</span>
+                <span class="brand-text-styled">Diskingressos</span>
+            </a>
         </div>
         
         <div class="header-center">
-            <i class="fa-solid fa-magnifying-glass search-icon-header"></i>
-            <input type="text" class="header-search" placeholder="Pesquisa global (eventos, participantes...)">
+            <i class="fa-solid fa-magnifying-glass search-icon-left"></i>
+            <input type="text" class="header-search" placeholder="Buscar eventos...">
+            <i class="fa-solid fa-sliders search-icon-right" title="Filtros"></i>
         </div>
         
         <div class="header-right">
             <div class="profile-pill">
-                <div class="profile-avatar">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="bgGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#1e3a8a" />
-                                <stop offset="100%" stop-color="#3b82f6" />
-                            </linearGradient>
-                            <linearGradient id="skinGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#f5d0c5" />
-                                <stop offset="100%" stop-color="#e2a997" />
-                            </linearGradient>
-                            <linearGradient id="suitGradMale" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#0f172a" />
-                                <stop offset="100%" stop-color="#1e293b" />
-                            </linearGradient>
-                        </defs>
-                        <circle cx="32" cy="32" r="32" fill="url(#bgGradMale)" />
-                        <path d="M12 56 C12 44 20 38 32 38 C44 38 52 44 52 56 Z" fill="url(#suitGradMale)" />
-                        <polygon points="32,42 27,38 37,38" fill="#ffffff" />
-                        <polygon points="32,40 29,54 32,58 35,54" fill="#ef4444" />
-                        <rect x="27" y="30" width="10" height="10" rx="3" fill="url(#skinGradMale)" />
-                        <path d="M20 22 C20 14 24 12 32 12 C40 12 44 14 44 22 C44 30 40 34 32 34 C24 34 20 30 20 22 Z" fill="url(#skinGradMale)" />
-                        <circle cx="19" cy="22" r="2.5" fill="url(#skinGradMale)" />
-                        <circle cx="45" cy="22" r="2.5" fill="url(#skinGradMale)" />
-                        <path d="M19 20 C18 13 24 9 32 9 C40 9 46 13 45 20 C43 14 39 11 32 11 C25 11 21 14 19 20 Z" fill="#1c1917" />
-                        <path d="M21 24 C21 31 26 34 32 34 C38 34 43 31 43 24 C43 26 38 32 32 32 C26 32 21 26 21 24 Z" fill="#1c1917" opacity="0.35" />
-                    </svg>
-                    <span class="status-dot"></span>
+                <div class="profile-avatar-circle">
+                    VI
+                    <span class="status-dot-green"></span>
                 </div>
                 <div class="profile-email">vinicius.casagrande@diskingressos.com.br</div>
             </div>
@@ -1376,31 +1498,40 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
+                <div class="sidebar-header-row">
+                    <span class="sidebar-nav-title">Navegação</span>
+                    <button class="sidebar-toggle-btn" title="Alternar navegação"><i class="fa-solid fa-right-left"></i></button>
+                </div>
                 <div class="menu-section-header">MENU PRINCIPAL</div>
                 <div class="sidebar-menu">
-                    <!-- EVENTOS -->
-                    <a class="menu-item active" id="menuTodosEventos" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-ticket text-primary"></i> Todos os Eventos</div>
-                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
-                    </a>
-
                     <!-- DASHBOARD -->
-                    <a class="menu-item" id="menuDashboard" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-info"></i> Dashboard</div>
+                    <a class="menu-item" id="menuDashboard" style="cursor: pointer;" onclick="switchPanel('dashboard', this)">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <span>Dashboard</span>
                     </a>
 
                     <!-- DADOS DA PRODUTORA -->
-                    <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-regular fa-building text-warning"></i> Dados da Produtora</div>
+                    <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;" onclick="switchPanel('dadosProdutora', this)">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Dados da Produtora</span>
                     </a>
 
-                    <!-- ACCORDION: FINANCEIRO -->
+                    <!-- STATUS FACIAIS -->
+                    <a class="menu-item" id="menuStatusFaciais" style="cursor: pointer;" onclick="alert('Status do Reconhecimento Facial')">
+                        <i class="fa-solid fa-expand"></i>
+                        <span>Status Faciais</span>
+                    </a>
+
+                    <!-- TODOS OS EVENTOS -->
+                    <a class="menu-item active" id="menuTodosEventos" style="cursor: pointer;" onclick="switchPanel('todosEventos', this)">
+                        <i class="fa-solid fa-ticket-simple"></i>
+                        <span>Todos os Eventos</span>
+                    </a>
+
+                    <!-- FINANCEIRO -->
                     <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-wallet text-primary"></i> Financeiro</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">9</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
-                        </div>
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Financeiro</span>
                     </a>
                     <div class="submenu-container" id="submenuFinanceiro">
                         <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-cubes me-2 text-primary"></i> Hub Financeiro</a>
@@ -1414,13 +1545,46 @@
                         <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-2 text-warning"></i> Negociações & DRE</a>
                     </div>
 
+                    <!-- NOVO EVENTO -->
+                    <a class="menu-item" id="menuNovoEvento" style="cursor: pointer;" onclick="switchPanel('novoEvento', this)">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Novo Evento</span>
+                    </a>
+
+                    <!-- TERMINAIS POS -->
+                    <a class="menu-item" id="menuTerminaisPos" style="cursor: pointer;" onclick="switchPanel('terminaisPos', this)">
+                        <i class="fa-regular fa-credit-card"></i>
+                        <span>Terminais POS</span>
+                    </a>
+
+                    <!-- MENSAGENS -->
+                    <a class="menu-item" id="menuMensagens" style="cursor: pointer;" onclick="alert('Central de Mensagens e Notificações')">
+                        <i class="fa-regular fa-paper-plane"></i>
+                        <span>Mensagens</span>
+                    </a>
+
+                    <!-- GERENCIAR ACESSOS -->
+                    <a class="menu-item" id="menuGerenciarAcessos" style="cursor: pointer;" onclick="switchPanel('gerenciarAcessos', this)">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Gerenciar Acessos</span>
+                    </a>
+
+                    <!-- ADMINISTRAÇÃO -->
+                    <a class="menu-item" id="menuAdministracao" style="cursor: pointer;" onclick="alert('Módulo de Administração')">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Administração</span>
+                    </a>
+
+                    <!-- CLUBE RUA DA MUSICA -->
+                    <a class="menu-item" id="menuClubeRua" style="cursor: pointer;" onclick="alert('Clube Rua da Música')">
+                        <i class="fa-solid fa-bars"></i>
+                        <span>Clube Rua da Musica</span>
+                    </a>
+
                     <!-- ACCORDION: MARKETING -->
                     <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
-                        <div class="menu-item-left"><i class="fa-solid fa-bullhorn" style="color: #ec4899;"></i> Marketing</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">9</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowMarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
-                        </div>
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Marketing</span>
                     </a>
                     <div class="submenu-container" id="submenuMarketing">
                         <a class="submenu-item" id="subMktVisaoGeral"><i class="fa-solid fa-chart-pie me-2 text-success"></i> Visão Geral Consolidada</a>
@@ -1436,11 +1600,8 @@
 
                     <!-- ACCORDION: REMARKETING -->
                     <a class="menu-item" id="menuRemarketing" style="cursor: pointer; margin-top: 4px;">
-                        <div class="menu-item-left"><i class="fa-solid fa-arrows-rotate" style="color: #8b5cf6;"></i> Remarketing</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#8b5cf6; color:#fff; font-weight:700;">4</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowRemarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
-                        </div>
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>Remarketing</span>
                     </a>
                     <div class="submenu-container" id="submenuRemarketing">
                         <a class="submenu-item" id="subRmkCarrinhos"><i class="fa-solid fa-cart-arrow-down me-2 text-danger"></i> Carrinhos Abandonados</a>
@@ -1448,38 +1609,12 @@
                         <a class="submenu-item" id="subRmkCRM"><i class="fa-solid fa-users-gear me-2 text-primary"></i> Segmentação & CRM</a>
                         <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-chart-pie me-2 text-warning"></i> Métricas & ROI</a>
                     </div>
-                    
-                    <!-- OPERACIONAL & SISTEMA (MODELO PDT NOVO) -->
-                    <div class="menu-section-header mt-3">OPERACIONAL & SISTEMA</div>
-
-                    <!-- TERMINAIS POS -->
-                    <a class="menu-item" id="menuTerminaisPos" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-credit-card" style="color:#0c83ff;"></i> Terminais POS</div>
-                        <span class="badge-sidebar" style="background:#0c83ff; color:#fff; font-weight:700;">633</span>
-                    </a>
-
-                    <!-- GERENCIAR ACESSOS -->
-                    <a class="menu-item" id="menuGerenciarAcessos" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-user-shield" style="color:#f59e0b;"></i> Gerenciar Acessos</div>
-                    </a>
-
-                    <!-- ESTORNOS -->
-                    <a class="menu-item" id="menuEstorno" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
-                        <span class="badge-sidebar badge-orange">ERP</span>
-                    </a>
-
-                    <!-- ATENDIMENTO / SAC -->
-                    <a class="menu-item" id="menuSacHub" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
-                        <span class="badge-sidebar badge-blue">Novo</span>
-                    </a>
                 </div>
             </div>
             
-            <div class="sidebar-footer">
-                <button class="btn-sidebar-footer btn-create-event" id="btnSidebarCreateEvent"><i class="fa-solid fa-plus"></i> Criar Evento</button>
-                <button class="btn-sidebar-footer btn-request-payout" id="btnSidebarRequestPayout"><i class="fa-solid fa-money-bill-transfer"></i> Solicitar Repasse</button>
+            <div class="sidebar-footer p-2">
+                <button class="btn btn-sm btn-outline-secondary w-100 mb-1" style="font-size:0.75rem; border-color: rgba(255,255,255,0.1); color:#cbd5e1;" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-plus me-1"></i> Criar Evento</button>
+                <button class="btn btn-sm btn-primary w-100" style="font-size:0.75rem; background:#0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))"><i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitar Repasse</button>
             </div>
         </aside>
 
