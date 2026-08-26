@@ -6020,42 +6020,87 @@
             <div id="panelMktPixels" class="d-none">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
-                        <h2>Pixels & Tags de Conversão</h2>
-                        <p>Integre tags de rastreamento do Meta (Facebook), Google Ads, GA4 e TikTok para mensurar suas conversões.</p>
+                        <div class="d-flex align-items-center gap-2">
+                            <h2>Pixels, Tags & Matriz de Rastreamento</h2>
+                            <span class="badge bg-primary fs-11">Herança + Sobrescrita por Evento</span>
+                        </div>
+                        <p>Gerencie a Biblioteca de Pixels do Produtor e configure a vinculação exclusiva ou herdada para cada evento.</p>
                     </div>
                     <div class="header-buttons d-flex gap-2">
-                        <button class="btn btn-outline-primary btn-sm" onclick="alert('Evento de teste disparado com sucesso no Meta Pixel e GA4!');"><i class="fa-solid fa-vial me-1"></i> Disparar Teste</button>
+                        <button class="btn btn-outline-primary btn-sm fw-semibold" onclick="openModalNovoPixelBiblioteca()">
+                            <i class="fa-solid fa-plus me-1"></i> Novo Pixel na Biblioteca
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="alert('Disparo global de diagnóstico executado com sucesso!');">
+                            <i class="fa-solid fa-vial me-1"></i> Teste Global
+                        </button>
                     </div>
                 </div>
 
-                <div class="row g-3 mb-4">
-                    <!-- META PIXEL & CAPI -->
-                    <div class="col-md-6">
-                        <div class="card p-3 border shadow-sm bg-white h-100">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="fa-brands fa-facebook text-primary fs-20"></i>
-                                    <h6 class="fw-bold m-0 text-dark">Meta Pixel & Conversions API (CAPI)</h6>
-                                </div>
-                                <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Conectado</span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">Pixel ID do Facebook</label>
-                                <input type="text" class="form-control form-control-sm" value="892341209384721">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">Token de Acesso Conversions API (CAPI)</label>
-                                <input type="password" class="form-control form-control-sm" value="EAAQZB1...98214jhsa7">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fs-11 fw-bold text-muted mb-1">Test Event Code (Opcional)</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="TEST78912">
-                            </div>
-                            <button class="btn btn-primary btn-sm w-100" style="background:#0284c7;" onclick="alert('Configurações do Meta Pixel salvas com sucesso!');"><i class="fa-solid fa-save me-1"></i> Salvar Meta Pixel</button>
+                <!-- NÍVEL 1: BIBLIOTECA DE PIXELS DO PRODUTOR -->
+                <div class="card p-3 border shadow-sm bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="fw-bold text-dark m-0 fs-13"><i class="fa-solid fa-layer-group text-primary me-2"></i> Nível 1 — Biblioteca de Pixels do Produtor</h6>
+                            <span class="fs-11 text-muted">Cadastre seus Pixels uma única vez para vincular ou definir como padrão global de herança.</span>
                         </div>
+                        <button class="btn btn-primary btn-sm py-1 px-3 fs-11 fw-semibold" style="background:#0284c7;" onclick="openModalNovoPixelBiblioteca()">
+                            <i class="fa-solid fa-plus me-1"></i> Cadastrar Novo Pixel
+                        </button>
                     </div>
 
-                    <!-- GOOGLE ANALYTICS 4 & TAG MANAGER -->
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle fs-12 mb-0" id="tableProducerPixels">
+                            <thead class="table-light text-muted fs-11 text-uppercase">
+                                <tr>
+                                    <th>Nome do Pixel</th>
+                                    <th>Plataforma</th>
+                                    <th>Pixel ID / Dataset</th>
+                                    <th>CAPI (Servidor)</th>
+                                    <th>Escopo Padrão</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyProducerPixels">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- NÍVEL 3: MATRIZ DE VINCULAÇÃO & AUDITORIA DE PIXELS POR EVENTO -->
+                <div class="card p-3 border shadow-sm bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="fw-bold text-dark m-0 fs-13"><i class="fa-solid fa-network-wired text-success me-2"></i> Nível 3 — Auditoria & Matriz de Vinculação por Evento</h6>
+                            <span class="fs-11 text-muted">Acompanhe qual Pixel Meta está ativo em cada evento (Herdado do Produtor vs Específico do Evento).</span>
+                        </div>
+                        <span class="badge bg-light text-dark border fs-11"><i class="fa-solid fa-shield-check text-success me-1"></i> 100% Deduplicado</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle fs-12 mb-0">
+                            <thead class="table-light text-muted fs-11 text-uppercase">
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Modo de Resolução</th>
+                                    <th>Pixel Vinculado</th>
+                                    <th>Pixel ID Ativo</th>
+                                    <th>Funil Ativo</th>
+                                    <th>Match (EMQ)</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Configurar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEventsPixelMatrix">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- OUTRAS PLATAFORMAS (GA4 & GTM) -->
+                <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <div class="card p-3 border shadow-sm bg-white h-100">
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -6080,16 +6125,45 @@
                             <button class="btn btn-primary btn-sm w-100" style="background:#0284c7;" onclick="alert('Configurações do Google salvas com sucesso!');"><i class="fa-solid fa-save me-1"></i> Salvar Google Tags</button>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa-brands fa-tiktok text-dark fs-20"></i>
+                                    <h6 class="fw-bold m-0 text-dark">TikTok Pixel & Events API</h6>
+                                </div>
+                                <span class="badge bg-secondary text-white">Disponível</span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">TikTok Pixel ID</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="Ex: C891283019842">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">TikTok Events API Access Token</label>
+                                <input type="password" class="form-control form-control-sm" placeholder="Insira o Access Token TikTok">
+                            </div>
+                            <button class="btn btn-outline-dark btn-sm w-100" onclick="alert('Configurações do TikTok Pixel salvas!');"><i class="fa-solid fa-save me-1"></i> Salvar TikTok Pixel</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- EVENTOS RASTREADOS -->
+                <!-- FLUXO E REGRAS DE PRIORIDADE -->
                 <div class="card p-3 border shadow-sm bg-white">
-                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-bolt text-warning me-2"></i> Eventos Padrão Transmitidos Automaticamente</h6>
-                    <div class="row g-2 text-muted fs-12">
-                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ PageView:</strong> Ao acessar qualquer página do evento</div>
-                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ ViewContent:</strong> Ao selecionar o lote/setor</div>
-                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ InitiateCheckout:</strong> Ao iniciar preenchimento de compra</div>
-                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ Purchase:</strong> Ao confirmar pagamento (com valor R$)</div>
+                    <h6 class="fw-bold mb-2 text-dark fs-12"><i class="fa-solid fa-circle-nodes text-primary me-2"></i> Motor de Prioridade & Rastreamento Oficial da DiskIngressos</h6>
+                    <div class="row g-2 text-muted fs-11">
+                        <div class="col-md-4 p-2 bg-light rounded border">
+                            <strong class="text-primary d-block mb-1">1º Prioridade: Pixel Específico</strong>
+                            Se o evento tiver um Pixel próprio selecionado na biblioteca ou configurado individualmente, ele será utilizado com exclusividade.
+                        </div>
+                        <div class="col-md-4 p-2 bg-light rounded border">
+                            <strong class="text-success d-block mb-1">2º Herança: Pixel Padrão do Produtor</strong>
+                            Caso o evento esteja configurado em modo de herança, o sistema busca automaticamente o Pixel padrão registrado na Biblioteca do Produtor.
+                        </div>
+                        <div class="col-md-4 p-2 bg-light rounded border">
+                            <strong class="text-dark d-block mb-1">3º Deduplicação Browser + CAPI</strong>
+                            Todos os eventos de compra (Purchase) possuem `event_id` idêntico no front-end e back-end, garantindo 100% de precisão sem contagem dupla.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -8596,13 +8670,324 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             };
 
             // ====================================================
-            // FACEBOOK / META PIXEL POR EVENTO (MODAL & CONTROLLER)
+            // NÍVEL 1: BIBLIOTECA DE PIXELS DO PRODUTOR
             // ====================================================
+            window.producerPixelsDB = [
+                {
+                    id: "px-lib-01",
+                    nome: "Pixel Principal Produtora (Padrão Global)",
+                    pixelId: "892341209384721",
+                    platform: "Meta",
+                    datasetId: "ds_meta_global_prod",
+                    tokenCapi: "EAAGNOk92ZAApX89GlobalProdutor",
+                    isDefault: true,
+                    status: "Ativo",
+                    matchQuality: "9.3/10"
+                },
+                {
+                    id: "px-lib-02",
+                    nome: "Pixel Festivais & Cerveja (Twelve Beers)",
+                    pixelId: "918273645019283",
+                    platform: "Meta",
+                    datasetId: "ds_meta_3130_prod",
+                    tokenCapi: "EAAGNOk92ZAApX893130xProdutor",
+                    isDefault: false,
+                    status: "Ativo",
+                    matchQuality: "9.2/10"
+                },
+                {
+                    id: "px-lib-03",
+                    nome: "Pixel Experiência Música e Natureza",
+                    pixelId: "849204918239012",
+                    platform: "Meta",
+                    datasetId: "ds_meta_3634_prod",
+                    tokenCapi: "EAAGNOk92ZAApX893634xProdutor",
+                    isDefault: false,
+                    status: "Ativo",
+                    matchQuality: "9.1/10"
+                },
+                {
+                    id: "px-lib-04",
+                    nome: "Pixel MPB & Shows Teatrais (Roupa Nova)",
+                    pixelId: "772183904128471",
+                    platform: "Meta",
+                    datasetId: "ds_meta_3131_prod",
+                    tokenCapi: "EAAGNOk92ZAApX893131xProdutor",
+                    isDefault: false,
+                    status: "Ativo",
+                    matchQuality: "9.4/10"
+                },
+                {
+                    id: "px-lib-05",
+                    nome: "Pixel Stand Up & Comédia (Diogo Almeida)",
+                    pixelId: "661829304918234",
+                    platform: "Meta",
+                    datasetId: "ds_meta_3132_prod",
+                    tokenCapi: "EAAGNOk92ZAApX893132xProdutor",
+                    isDefault: false,
+                    status: "Ativo",
+                    matchQuality: "8.7/10"
+                }
+            ];
+
+            // Renderizar Tabela da Biblioteca de Pixels do Produtor (Nível 1)
+            window.renderProducerPixelsTable = function() {
+                const tbody = document.getElementById("tbodyProducerPixels");
+                if (!tbody) return;
+
+                let html = "";
+                window.producerPixelsDB.forEach(px => {
+                    const isDef = px.isDefault;
+                    html += `
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center ${px.platform === 'Meta' ? 'bg-primary text-white' : 'bg-dark text-white'}" style="width:28px; height:28px; font-size:12px;">
+                                        <i class="${px.platform === 'Meta' ? 'fa-brands fa-facebook' : (px.platform === 'Google' ? 'fa-brands fa-google' : 'fa-brands fa-tiktok')}"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-dark">${px.nome}</strong>
+                                        <div class="text-muted fs-10">${px.platform} Pixel</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge ${px.platform === 'Meta' ? 'bg-primary' : 'bg-secondary'}">${px.platform}</span></td>
+                            <td><code class="font-monospace fw-bold">${px.pixelId}</code></td>
+                            <td>
+                                <span class="badge ${px.tokenCapi ? 'bg-success text-white' : 'bg-secondary text-white'}">
+                                    <i class="fa-solid fa-server me-1"></i> ${px.tokenCapi ? 'CAPI Ativo' : 'Browser Only'}
+                                </span>
+                            </td>
+                            <td>
+                                ${isDef ? '<span class="badge bg-success text-white"><i class="fa-solid fa-star me-1"></i> Padrão do Produtor</span>' : '<span class="text-muted fs-11">Secundário</span>'}
+                            </td>
+                            <td><span class="badge bg-success text-white">● Ativo</span></td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm">
+                                    ${!isDef ? `<button class="btn btn-outline-primary py-0 px-2 fs-11" onclick="setProducerDefaultPixel('${px.id}')" title="Definir como Padrão"><i class="fa-regular fa-star me-1"></i> Tornar Padrão</button>` : ''}
+                                    <button class="btn btn-outline-danger py-0 px-2 fs-11" onclick="deleteProducerPixel('${px.id}')" title="Excluir"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            };
+
+            // Motor de Resolução de Rastreamento (Priority Engine)
+            window.resolveEventPixel = function(eventId) {
+                const evt = window.eventosDB[eventId] || window.eventosDB["3130"];
+                const defaultProducerPixel = window.producerPixelsDB.find(p => p.isDefault) || window.producerPixelsDB[0];
+
+                if (evt.pixelMode === 'inherit') {
+                    return {
+                        mode: 'inherit',
+                        pixelId: defaultProducerPixel.pixelId,
+                        pixelName: defaultProducerPixel.nome + " (Padrão)",
+                        datasetId: defaultProducerPixel.datasetId,
+                        tokenCapi: defaultProducerPixel.tokenCapi,
+                        matchQuality: defaultProducerPixel.matchQuality,
+                        status: defaultProducerPixel.status
+                    };
+                } else {
+                    const px = evt.pixel || defaultProducerPixel;
+                    return {
+                        mode: evt.pixelMode || 'specific',
+                        pixelId: px.id || px.pixelId,
+                        pixelName: px.nome || ("Pixel Específico - " + evt.name),
+                        datasetId: px.datasetId,
+                        tokenCapi: px.tokenCapi,
+                        matchQuality: px.matchQuality || "9.2/10",
+                        status: px.status || "Ativo"
+                    };
+                }
+            };
+
+            // Renderizar Matriz de Vinculação & Auditoria de Pixels por Evento (Nível 3)
+            window.renderEventsPixelMatrix = function() {
+                const tbody = document.getElementById("tbodyEventsPixelMatrix");
+                if (!tbody) return;
+
+                let html = "";
+                Object.keys(window.eventosDB).forEach(evtKey => {
+                    const evt = window.eventosDB[evtKey];
+                    const resolution = window.resolveEventPixel(evt.id);
+                    const isInherited = resolution.mode === 'inherit';
+
+                    html += `
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-dark">#${evt.id}</span>
+                                    <div>
+                                        <strong class="text-dark">${evt.name}</strong>
+                                        <div class="text-muted fs-10">${evt.local}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge ${isInherited ? 'bg-info text-dark' : 'bg-primary text-white'}">
+                                    <i class="fa-solid ${isInherited ? 'fa-code-merge' : 'fa-fingerprint'} me-1"></i>
+                                    ${isInherited ? 'Herdado do Produtor' : 'Específico do Evento'}
+                                </span>
+                            </td>
+                            <td><strong class="text-dark">${resolution.pixelName}</strong></td>
+                            <td><code class="font-monospace text-primary fw-bold">${resolution.pixelId}</code></td>
+                            <td>
+                                <span class="badge bg-light text-success border fs-10">6 Eventos Ativos</span>
+                            </td>
+                            <td><strong class="text-success">${resolution.matchQuality}</strong></td>
+                            <td><span class="badge bg-success text-white">● Ativo & Deduplicado</span></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="openEventFacebookPixelModal('${evt.id}')">
+                                    <i class="fa-brands fa-facebook me-1"></i> Configurar Pixel
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            };
+
+            // Handlers para Biblioteca de Pixels do Produtor
+            window.openModalNovoPixelBiblioteca = function() {
+                document.getElementById("newLibPixelName").value = "";
+                document.getElementById("newLibPixelId").value = "";
+                document.getElementById("newLibDatasetId").value = "";
+                document.getElementById("newLibTokenCapi").value = "";
+                document.getElementById("newLibIsDefault").checked = false;
+                openModalById("modalNovoPixelBiblioteca");
+            };
+
+            window.saveNovoPixelBiblioteca = function(e) {
+                e.preventDefault();
+                const nome = document.getElementById("newLibPixelName")?.value.trim();
+                const platform = document.getElementById("newLibPixelPlatform")?.value || "Meta";
+                const pixelId = document.getElementById("newLibPixelId")?.value.trim();
+                const datasetId = document.getElementById("newLibDatasetId")?.value.trim() || ("ds_" + pixelId);
+                const tokenCapi = document.getElementById("newLibTokenCapi")?.value.trim() || "";
+                const isDefault = document.getElementById("newLibIsDefault")?.checked || false;
+
+                if (!nome || !pixelId) return;
+
+                if (isDefault) {
+                    window.producerPixelsDB.forEach(p => p.isDefault = false);
+                }
+
+                window.producerPixelsDB.push({
+                    id: "px-lib-" + Date.now(),
+                    nome: nome,
+                    platform: platform,
+                    pixelId: pixelId,
+                    datasetId: datasetId,
+                    tokenCapi: tokenCapi,
+                    isDefault: isDefault,
+                    status: "Ativo",
+                    matchQuality: "9.0/10"
+                });
+
+                renderProducerPixelsTable();
+                renderEventsPixelMatrix();
+                bootstrap.Modal.getInstance(document.getElementById("modalNovoPixelBiblioteca"))?.hide();
+                alert(`✅ Pixel "${nome}" (${pixelId}) adicionado com sucesso à Biblioteca do Produtor!`);
+            };
+
+            window.setProducerDefaultPixel = function(pixelId) {
+                window.producerPixelsDB.forEach(p => {
+                    p.isDefault = (p.id === pixelId);
+                });
+                renderProducerPixelsTable();
+                renderEventsPixelMatrix();
+                alert(`✅ Pixel padrão da produtora atualizado com sucesso!`);
+            };
+
+            window.deleteProducerPixel = function(pixelId) {
+                const px = window.producerPixelsDB.find(p => p.id === pixelId);
+                if (!px) return;
+                if (px.isDefault) {
+                    alert(`Não é possível excluir o Pixel padrão. Defina outro Pixel como padrão antes de excluir este.`);
+                    return;
+                }
+                if (confirm(`Deseja remover o Pixel "${px.nome}" da biblioteca?`)) {
+                    window.producerPixelsDB = window.producerPixelsDB.filter(p => p.id !== pixelId);
+                    renderProducerPixelsTable();
+                    renderEventsPixelMatrix();
+                    alert(`Pixel removido com sucesso.`);
+                }
+            };
+
+            // ====================================================
+            // NÍVEL 2: FACEBOOK / META PIXEL POR EVENTO (MODAL & CONTROLLER)
+            // ====================================================
+            window.onPixelModeChange = function(mode) {
+                const boxLib = document.getElementById("boxPixelLibrarySelect");
+                const pxIdInput = document.getElementById("pxModalPixelId");
+                const datasetInput = document.getElementById("pxModalDatasetId");
+                const capiInput = document.getElementById("pxModalTokenCapi");
+                const defaultPixel = window.producerPixelsDB.find(p => p.isDefault) || window.producerPixelsDB[0];
+
+                if (mode === 'inherit') {
+                    if (boxLib) boxLib.classList.add("d-none");
+                    if (pxIdInput) {
+                        pxIdInput.value = defaultPixel.pixelId;
+                        pxIdInput.readOnly = true;
+                    }
+                    if (datasetInput) {
+                        datasetInput.value = defaultPixel.datasetId;
+                        datasetInput.readOnly = true;
+                    }
+                    if (capiInput) {
+                        capiInput.value = defaultPixel.tokenCapi;
+                        capiInput.readOnly = true;
+                    }
+                    document.getElementById("pxModalPixelIdDisplay").textContent = defaultPixel.pixelId;
+                    document.getElementById("pxModalResolutionBadge").textContent = "Herdado do Produtor";
+                    document.getElementById("pxModalResolutionBadge").className = "badge bg-info text-dark fs-10";
+                } else if (mode === 'library') {
+                    if (boxLib) boxLib.classList.remove("d-none");
+                    const selectedLibId = document.getElementById("pxModalSelectLibrary")?.value;
+                    const selectedPixel = window.producerPixelsDB.find(p => p.id === selectedLibId) || defaultPixel;
+                    if (pxIdInput) {
+                        pxIdInput.value = selectedPixel.pixelId;
+                        pxIdInput.readOnly = true;
+                    }
+                    if (datasetInput) {
+                        datasetInput.value = selectedPixel.datasetId;
+                        datasetInput.readOnly = true;
+                    }
+                    if (capiInput) {
+                        capiInput.value = selectedPixel.tokenCapi;
+                        capiInput.readOnly = true;
+                    }
+                    document.getElementById("pxModalPixelIdDisplay").textContent = selectedPixel.pixelId;
+                    document.getElementById("pxModalResolutionBadge").textContent = "Biblioteca do Produtor";
+                    document.getElementById("pxModalResolutionBadge").className = "badge bg-primary text-white fs-10";
+                } else if (mode === 'custom') {
+                    if (boxLib) boxLib.classList.add("d-none");
+                    if (pxIdInput) pxIdInput.readOnly = false;
+                    if (datasetInput) datasetInput.readOnly = false;
+                    if (capiInput) capiInput.readOnly = false;
+                    document.getElementById("pxModalResolutionBadge").textContent = "Específico / Customizado";
+                    document.getElementById("pxModalResolutionBadge").className = "badge bg-warning text-dark fs-10";
+                }
+            };
+
+            window.onSelectProducerPixelFromDropdown = function(pixelId) {
+                const px = window.producerPixelsDB.find(p => p.id === pixelId);
+                if (!px) return;
+                document.getElementById("pxModalPixelId").value = px.pixelId;
+                document.getElementById("pxModalDatasetId").value = px.datasetId;
+                document.getElementById("pxModalTokenCapi").value = px.tokenCapi;
+                document.getElementById("pxModalPixelIdDisplay").textContent = px.pixelId;
+            };
+
             window.openEventFacebookPixelModal = function(eventId, eventName) {
                 const id = eventId || window.currentEventId || "3130";
                 const evt = window.eventosDB[id] || window.eventosDB["3130"];
+                const defaultPixel = window.producerPixelsDB.find(p => p.isDefault) || window.producerPixelsDB[0];
+
                 const px = evt.pixel || {
-                    id: "849204918239012",
+                    id: defaultPixel.pixelId,
                     nome: "Pixel Meta - " + evt.name,
                     status: "Ativo",
                     capiStatus: "Conectado (Servidor CAPI)",
@@ -8620,7 +9005,18 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     ultimoDisparo: "Hoje, há 2 min"
                 };
 
-                // Fill Modal Elements
+                // Populate Library Select Dropdown
+                const sel = document.getElementById("pxModalSelectLibrary");
+                if (sel) {
+                    let optHtml = "";
+                    window.producerPixelsDB.forEach(p => {
+                        const isMatch = (p.pixelId === px.id);
+                        optHtml += `<option value="${p.id}" ${isMatch ? 'selected' : ''}>${p.nome} (${p.pixelId}) ${p.isDefault ? '★ Padrão' : ''}</option>`;
+                    });
+                    sel.innerHTML = optHtml;
+                }
+
+                // Fill Modal Header & Summary
                 const elEvtId = document.getElementById("pxModalEventId");
                 const elEvtName = document.getElementById("pxModalEventName");
                 const elEvtPlace = document.getElementById("pxModalEventPlace");
@@ -8636,17 +9032,33 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 if (elPxIdDisp) elPxIdDisp.textContent = px.id;
                 if (elDatasetId) elDatasetId.value = px.datasetId || ("ds_meta_" + evt.id + "_prod");
                 if (elTokenCapi) elTokenCapi.value = px.tokenCapi || ("EAAGNOk92ZAApX89" + evt.id);
+
+                const inheritDesc = document.getElementById("pxInheritDesc");
+                if (inheritDesc) inheritDesc.textContent = `Usa automaticamente o Pixel padrão cadastrado na biblioteca da produtora (${defaultPixel.nome} - ID: ${defaultPixel.pixelId}).`;
+
+                // Set Active Mode Radio
+                const currentMode = evt.pixelMode || 'library';
+                if (currentMode === 'inherit') {
+                    document.getElementById("pxModeInherit").checked = true;
+                    onPixelModeChange('inherit');
+                } else if (currentMode === 'custom') {
+                    document.getElementById("pxModeCustom").checked = true;
+                    onPixelModeChange('custom');
+                } else {
+                    document.getElementById("pxModeLibrary").checked = true;
+                    onPixelModeChange('library');
+                }
                 
-                if (document.getElementById("pxModalPageView")) document.getElementById("pxModalPageView").textContent = px.pageViews;
-                if (document.getElementById("pxModalViewContent")) document.getElementById("pxModalViewContent").textContent = px.viewContent;
-                if (document.getElementById("pxModalInitiateCheckout")) document.getElementById("pxModalInitiateCheckout").textContent = px.initiateCheckout;
-                if (document.getElementById("pxModalAddPaymentInfo")) document.getElementById("pxModalAddPaymentInfo").textContent = px.addPaymentInfo;
-                if (document.getElementById("pxModalPurchase")) document.getElementById("pxModalPurchase").textContent = px.purchase;
-                if (document.getElementById("pxModalRevenue")) document.getElementById("pxModalRevenue").textContent = px.receitaPixel;
-                if (document.getElementById("pxModalRoas")) document.getElementById("pxModalRoas").textContent = px.roas;
-                if (document.getElementById("pxModalCpa")) document.getElementById("pxModalCpa").textContent = px.cpa;
-                if (document.getElementById("pxModalMatchQuality")) document.getElementById("pxModalMatchQuality").textContent = px.matchQuality;
-                if (document.getElementById("pxModalLastDispatch")) document.getElementById("pxModalLastDispatch").textContent = px.ultimoDisparo;
+                if (document.getElementById("pxModalPageView")) document.getElementById("pxModalPageView").textContent = px.pageViews || "12.450";
+                if (document.getElementById("pxModalViewContent")) document.getElementById("pxModalViewContent").textContent = px.viewContent || "7.890";
+                if (document.getElementById("pxModalInitiateCheckout")) document.getElementById("pxModalInitiateCheckout").textContent = px.initiateCheckout || "2.150";
+                if (document.getElementById("pxModalAddPaymentInfo")) document.getElementById("pxModalAddPaymentInfo").textContent = px.addPaymentInfo || "1.320";
+                if (document.getElementById("pxModalPurchase")) document.getElementById("pxModalPurchase").textContent = px.purchase || (evt.ingressosVendidos || "302");
+                if (document.getElementById("pxModalRevenue")) document.getElementById("pxModalRevenue").textContent = px.receitaPixel || evt.receitaBruta;
+                if (document.getElementById("pxModalRoas")) document.getElementById("pxModalRoas").textContent = px.roas || "5.8x";
+                if (document.getElementById("pxModalCpa")) document.getElementById("pxModalCpa").textContent = px.cpa || "R$ 4,10";
+                if (document.getElementById("pxModalMatchQuality")) document.getElementById("pxModalMatchQuality").textContent = px.matchQuality || "9.2/10";
+                if (document.getElementById("pxModalLastDispatch")) document.getElementById("pxModalLastDispatch").textContent = px.ultimoDisparo || "Hoje, há 1 min";
 
                 // Hidden field for saving
                 const hiddenEvt = document.getElementById("pxModalHiddenEventId");
@@ -8682,7 +9094,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
                 setTimeout(() => {
                     btn.disabled = false;
-                    btn.innerHTML = `<i class="fa-solid fa-vial me-1"></i> Testar Disparo ao Vivo (Meta Test Events)`;
+                    btn.innerHTML = `<i class="fa-solid fa-play me-1"></i> Disparar Evento de Teste`;
                     resultBox.classList.remove("d-none");
                     const evtId = document.getElementById("pxModalHiddenEventId")?.value || "3130";
                     const pxId = document.getElementById("pxModalPixelId")?.value || "849204918239012";
@@ -8718,11 +9130,13 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             window.saveEventPixelConfig = function(e) {
                 e.preventDefault();
                 const evtId = document.getElementById("pxModalHiddenEventId")?.value;
+                const mode = document.querySelector('input[name="radioPixelMode"]:checked')?.value || 'library';
                 const newPixelId = document.getElementById("pxModalPixelId")?.value.trim();
                 const newDatasetId = document.getElementById("pxModalDatasetId")?.value.trim();
                 const newTokenCapi = document.getElementById("pxModalTokenCapi")?.value.trim();
 
                 if (window.eventosDB[evtId]) {
+                    window.eventosDB[evtId].pixelMode = mode;
                     if (!window.eventosDB[evtId].pixel) {
                         window.eventosDB[evtId].pixel = {};
                     }
@@ -8731,12 +9145,15 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     window.eventosDB[evtId].pixel.tokenCapi = newTokenCapi;
                 }
 
-                alert(`✅ Configurações do Meta Pixel salvas com sucesso para o evento #${evtId}!`);
+                renderEventsPixelMatrix();
+                alert(`✅ Vinculação do Meta Pixel salva com sucesso para o evento #${evtId} (Modo: ${mode === 'inherit' ? 'Herdado do Produtor' : (mode === 'library' ? 'Biblioteca' : 'Customizado')})!`);
                 bootstrap.Modal.getInstance(document.getElementById("modalEventFacebookPixel"))?.hide();
             };
 
-            // Renderizar tabela de acessos na inicialização
+            // Renderizar tabelas na inicialização
             renderAcessosTable();
+            renderProducerPixelsTable();
+            renderEventsPixelMatrix();
         });
     </script>
 
@@ -9866,7 +10283,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                             <h5 class="modal-title fs-6 fw-bold mb-0">Meta Pixel & Conversions API (CAPI)</h5>
                             <div class="d-flex align-items-center gap-2 mt-1">
                                 <span class="badge bg-dark fs-10" id="pxModalEventId">#3130</span>
-                                <span class="badge bg-success fs-10"><i class="fa-solid fa-circle-check me-1"></i> Pixel Conectado & Ativo</span>
+                                <span class="badge bg-success fs-10" id="pxModalBadgeStatus"><i class="fa-solid fa-circle-check me-1"></i> Pixel Conectado & Ativo</span>
+                                <span class="badge bg-light text-dark fs-10" id="pxModalResolutionBadge">Específico do Evento</span>
                             </div>
                         </div>
                     </div>
@@ -9884,7 +10302,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                                 <div class="fs-11 text-muted mt-1" id="pxModalEventPlace"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Vitória/ES</div>
                             </div>
                             <div class="text-md-end">
-                                <span class="fs-10 text-uppercase fw-bold text-muted d-block">Meta Pixel ID</span>
+                                <span class="fs-10 text-uppercase fw-bold text-muted d-block">Meta Pixel ID Ativo</span>
                                 <div class="d-flex align-items-center gap-2 mt-1">
                                     <span class="font-monospace fw-bold text-primary fs-6" id="pxModalPixelIdDisplay">918273645019283</span>
                                     <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="copyEventPixelId()" title="Copiar Pixel ID">
@@ -9989,12 +10407,50 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                         </div>
                     </div>
 
-                    <!-- CONFIGURAÇÕES DO PIXEL PARA O EVENTO -->
+                    <!-- CONFIGURAÇÕES DE ESCOPO: HERANÇA VS BIBLIOTECA VS CUSTOM -->
                     <div class="card p-3 border shadow-sm bg-white">
-                        <h6 class="fw-bold text-dark mb-2 fs-12"><i class="fa-solid fa-sliders text-secondary me-2"></i> Credenciais & Configurações do Pixel deste Evento</h6>
+                        <h6 class="fw-bold text-dark mb-2 fs-12"><i class="fa-solid fa-sliders text-primary me-2"></i> Configuração de Escopo & Vinculação do Pixel</h6>
+                        
+                        <!-- SELETOR DE ESCOPO -->
+                        <div class="d-flex flex-column gap-2 mb-3">
+                            <div class="form-check p-2 border rounded bg-light">
+                                <input class="form-check-input ms-0 me-2" type="radio" name="radioPixelMode" id="pxModeInherit" value="inherit" onchange="onPixelModeChange('inherit')">
+                                <label class="form-check-label fw-bold fs-12 cursor-pointer" for="pxModeInherit">
+                                    <i class="fa-solid fa-code-merge text-success me-1"></i> Herdar Pixel Padrão do Produtor
+                                    <span class="d-block text-muted fs-11 fw-normal" id="pxInheritDesc">Usa automaticamente o Pixel padrão cadastrado na biblioteca da produtora (ID: 892341209384721).</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-check p-2 border rounded bg-light">
+                                <input class="form-check-input ms-0 me-2" type="radio" name="radioPixelMode" id="pxModeLibrary" value="library" checked onchange="onPixelModeChange('library')">
+                                <label class="form-check-label fw-bold fs-12 cursor-pointer" for="pxModeLibrary">
+                                    <i class="fa-solid fa-book-bookmark text-primary me-1"></i> Selecionar da Biblioteca de Pixels do Produtor
+                                    <span class="d-block text-muted fs-11 fw-normal">Vincule um Pixel existente já cadastrado na conta da produtora.</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check p-2 border rounded bg-light">
+                                <input class="form-check-input ms-0 me-2" type="radio" name="radioPixelMode" id="pxModeCustom" value="custom" onchange="onPixelModeChange('custom')">
+                                <label class="form-check-label fw-bold fs-12 cursor-pointer" for="pxModeCustom">
+                                    <i class="fa-solid fa-fingerprint text-warning me-1"></i> Utilizar Pixel Específico / Customizado Exclusivo
+                                    <span class="d-block text-muted fs-11 fw-normal">Insira manualmente um Pixel ID e Token CAPI exclusivo para este evento.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- SELETOR DA BIBLIOTECA -->
+                        <div id="boxPixelLibrarySelect" class="mb-3">
+                            <label class="form-label fs-11 fw-bold text-muted mb-1">Selecionar Pixel da Biblioteca</label>
+                            <select class="form-select form-select-sm fw-bold" id="pxModalSelectLibrary" onchange="onSelectProducerPixelFromDropdown(this.value)">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </select>
+                        </div>
+
                         <form onsubmit="saveEventPixelConfig(event)">
                             <input type="hidden" id="pxModalHiddenEventId" value="3130">
-                            <div class="row g-2">
+                            
+                            <!-- CAMPOS DE CREDENCIAIS -->
+                            <div class="row g-2 mb-3">
                                 <div class="col-md-4">
                                     <label class="form-label fs-11 fw-bold text-muted mb-1">Pixel ID do Facebook *</label>
                                     <input type="text" class="form-control form-control-sm font-monospace fw-bold" id="pxModalPixelId" required>
@@ -10007,11 +10463,56 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                                     <label class="form-label fs-11 fw-bold text-muted mb-1">Access Token CAPI (Servidor)</label>
                                     <input type="password" class="form-control form-control-sm font-monospace" id="pxModalTokenCapi">
                                 </div>
-                                <div class="col-12 text-end mt-2">
-                                    <button type="submit" class="btn btn-success btn-sm px-3 fw-bold">
-                                        <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Pixel do Evento
-                                    </button>
+                            </div>
+
+                            <!-- EVENTOS RASTREADOS NO FUNIL (CHECKLIST) -->
+                            <div class="p-2 border rounded bg-light mb-3">
+                                <span class="fs-11 fw-bold text-dark d-block mb-2"><i class="fa-solid fa-list-check text-primary me-1"></i> Eventos Rastreados no Funil de Vendas:</span>
+                                <div class="row g-2 fs-11">
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtPageView" checked>
+                                            <label class="form-check-label" for="chkEvtPageView">PageView (Visualização)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtViewContent" checked>
+                                            <label class="form-check-label" for="chkEvtViewContent">ViewContent (Lotes)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtAddToCart" checked>
+                                            <label class="form-check-label" for="chkEvtAddToCart">AddToCart (Ingressos)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtInitiateCheckout" checked>
+                                            <label class="form-check-label" for="chkEvtInitiateCheckout">InitiateCheckout</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtAddPaymentInfo" checked>
+                                            <label class="form-check-label" for="chkEvtAddPaymentInfo">AddPaymentInfo</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="chkEvtPurchase" checked>
+                                            <label class="form-check-label text-success fw-bold" for="chkEvtPurchase">Purchase (Confirmado)</label>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <span class="fs-10 text-muted"><i class="fa-solid fa-lock text-success me-1"></i> Disparos validados com deduplicação CAPI ativa.</span>
+                                <button type="submit" class="btn btn-success btn-sm px-4 fw-bold">
+                                    <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Vinculação no Evento
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -10021,6 +10522,65 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 <div class="modal-footer bg-light py-2">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: CADASTRAR NOVO PIXEL NA BIBLIOTECA DO PRODUTOR -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalNovoPixelBiblioteca" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0284c7, #0369a1); padding: 16px 20px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-layer-group fs-5"></i>
+                        <h5 class="modal-title fs-6 fw-bold mb-0">Cadastrar Pixel na Biblioteca</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form onsubmit="saveNovoPixelBiblioteca(event)">
+                    <div class="modal-body p-3 bg-light">
+                        <div class="mb-2">
+                            <label class="form-label fs-11 fw-bold text-muted mb-1">Nome Identificador do Pixel *</label>
+                            <input type="text" class="form-control form-control-sm" id="newLibPixelName" placeholder="Ex: Pixel Festivais & Rock 2026" required>
+                        </div>
+                        <div class="row g-2 mb-2">
+                            <div class="col-6">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Plataforma *</label>
+                                <select class="form-select form-select-sm" id="newLibPixelPlatform" required>
+                                    <option value="Meta">Meta / Facebook</option>
+                                    <option value="Google">Google Ads / GA4</option>
+                                    <option value="TikTok">TikTok Ads</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Pixel ID *</label>
+                                <input type="text" class="form-control form-control-sm font-monospace fw-bold" id="newLibPixelId" placeholder="Ex: 892341209384721" required>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fs-11 fw-bold text-muted mb-1">Dataset ID (Meta Business)</label>
+                            <input type="text" class="form-control form-control-sm font-monospace" id="newLibDatasetId" placeholder="ds_meta_exemplo_prod">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-11 fw-bold text-muted mb-1">Access Token CAPI (Servidor)</label>
+                            <input type="password" class="form-control form-control-sm font-monospace" id="newLibTokenCapi" placeholder="EAAGNO...">
+                        </div>
+                        <div class="form-check form-switch p-2 border rounded bg-white">
+                            <input class="form-check-input ms-0 me-2" type="checkbox" id="newLibIsDefault">
+                            <label class="form-check-label fs-11 fw-bold cursor-pointer" for="newLibIsDefault">
+                                Definir como Pixel Padrão da Produtora (Herança Global)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light py-2">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7;">
+                            <i class="fa-solid fa-check me-1"></i> Salvar na Biblioteca
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
