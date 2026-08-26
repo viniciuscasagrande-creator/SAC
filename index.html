@@ -3175,52 +3175,290 @@
             </div>
 
             <!-- 7. PANEL TERMINAIS POS (VIDEO /pos) -->
+            <!-- 7. PANEL TERMINAIS POS (MODELO PDT NOVO) -->
             <div id="panelTerminaisPosContent" class="d-none">
-                <div class="dashboard-header">
+                <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
                         <h2>Terminais POS</h2>
-                        <p>Gerenciamento de máquinas de cartão, bilheterias físicas e PDVs autorizados.</p>
+                        <p>Gerenciamento de máquinas de cartão, bilheterias físicas, totens ATM e PDVs autorizados.</p>
                     </div>
-                    <div class="header-buttons">
-                        <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Adicionar nova máquina POS...')"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="alert('Exportando lista de terminais POS...');"><i class="fa-solid fa-file-csv me-1 text-success"></i> Exportar CSV</button>
+                        <button class="btn btn-primary btn-sm px-3" style="background:#0c83ff; border-color:#0c83ff;" onclick="openModalById('modalAddPos')">
+                            <i class="fa-solid fa-plus me-1"></i> <span class="fw-bold">Adicionar Terminal</span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="card p-3 border shadow-sm bg-white mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <input type="text" class="form-control form-control-sm" style="max-width:350px;" placeholder="Buscar por serial, nome, PDV...">
+                <!-- QUICK STATS BAR -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Total de Terminais</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-dark mb-0">633</h4>
+                                <span class="badge bg-primary text-white">Cadastrados</span>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Terminais Habilitados</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-success mb-0">582</h4>
+                                <span class="badge bg-success text-white">Online / Ativos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">PDVs Vinculados</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-info mb-0">48</h4>
+                                <span class="badge bg-info text-white">Locais de Venda</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Vendas Físicas Hoje</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-primary mb-0">R$ 18.420</h4>
+                                <span class="badge bg-light text-primary border border-primary">D+0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN POS CARD / GRID -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <!-- FILTER HEADER & APP TABS (MODELO PDT NOVO) -->
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                        <div class="input-group input-group-sm" style="max-width:380px;">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                            <input type="text" id="posFilterSearch" class="form-control border-start-0" placeholder="Buscar por serial, nome, PDV ou tipo..." oninput="filterPosTable()">
+                        </div>
+
+                        <!-- CHIPS DE TIPO DE TERMINAL -->
+                        <div class="d-flex gap-1 flex-wrap" id="posTypeChips">
+                            <button class="btn btn-sm btn-primary py-1 px-2 fs-11 active pos-type-btn" data-type="all" onclick="filterPosByType('all', this)" style="background:#0c83ff; border-color:#0c83ff;">Todos (633)</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="PagSeguro" onclick="filterPosByType('PagSeguro', this)">PagSeguro</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="Phone" onclick="filterPosByType('Phone', this)">Phone</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="Tablet" onclick="filterPosByType('Tablet', this)">Tablet</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="POS v2" onclick="filterPosByType('POS v2', this)">POS v2</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="DiskBar" onclick="filterPosByType('DiskBar', this)">DiskBar</button>
+                            <button class="btn btn-sm btn-outline-secondary py-1 px-2 fs-11 pos-type-btn" data-type="ATM" onclick="filterPosByType('ATM', this)">ATM Totem</button>
+                        </div>
+                    </div>
+
+                    <!-- TABELA DE TERMINAIS POS (ESTILO PDT NOVO) -->
                     <div class="table-responsive">
-                        <table class="coupon-table">
+                        <table class="coupon-table" id="posTable">
                             <thead>
                                 <tr>
-                                    <th>Serial</th>
-                                    <th>Nome</th>
-                                    <th>Habilit.</th>
-                                    <th>Tipo</th>
-                                    <th>PDV</th>
-                                    <th>Ações</th>
+                                    <th style="width:160px;">Serial</th>
+                                    <th>Nome do Terminal</th>
+                                    <th style="width:130px;">Habilitação</th>
+                                    <th style="width:150px;">Tipo</th>
+                                    <th>Ponto de Venda (PDV)</th>
+                                    <th style="width:110px;" class="text-end">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><td>0170420830</td><td class="fw-bold">0170420830 - PAX A930</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>-</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>024343980394614</td><td class="fw-bold">Samsung SM-A065M</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Disk Ingressos</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>032462872848285</td><td class="fw-bold">antigo</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>-</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>047214141256314</td><td class="fw-bold">Samsung SM-A065M</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Disk Ingressos</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>061383944317395</td><td class="fw-bold">Samsung SM-X216B</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Bilheteria Mundo Pixar</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>1170217552</td><td class="fw-bold">TERMINAL DEBUG [DEV]</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Diskingressos - Curitiba</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td>1170338222</td><td class="fw-bold">PAX A930</td><td><span class="badge bg-success text-white">Habilitado</span></td><td>PagSeguro</td><td>Galo Veio Bar PDV PRODUTOR</td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                            <tbody id="posTableBody">
+                                <tr data-serial="0170420830" data-type="PagSeguro">
+                                    <td><code class="fw-bold text-dark">0170420830</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">0170420830 - PAX A930</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)" title="Editar nome"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro" selected>PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="text-muted">-</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('0170420830', '0170420830 - PAX A930')" title="Configurações"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('0170420830', '0170420830 - PAX A930')" title="Mais Ações"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="024343980394614" data-type="Phone">
+                                    <td><code class="fw-bold text-dark">024343980394614</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">Samsung SM-A065M [Bilheteria 01]</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro">PagSeguro</option>
+                                            <option value="Phone" selected>Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="fw-bold text-primary">Diskingressos - Curitiba</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('024343980394614', 'Samsung SM-A065M')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('024343980394614', 'Samsung SM-A065M')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="061383944317395" data-type="Tablet">
+                                    <td><code class="fw-bold text-dark">061383944317395</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">Samsung SM-X216B [Portaria VIP]</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro">PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet" selected>Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="fw-bold text-primary">Bilheteria Mundo Pixar</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('061383944317395', 'Samsung SM-X216B')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('061383944317395', 'Samsung SM-X216B')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="1170217552" data-type="POS v2">
+                                    <td><code class="fw-bold text-dark">1170217552</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">TERMINAL SMART POS [DEV]</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro">PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2" selected>POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="fw-bold text-primary">Diskingressos - Curitiba</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('1170217552', 'TERMINAL SMART POS')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('1170217552', 'TERMINAL SMART POS')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="1170338222" data-type="DiskBar">
+                                    <td><code class="fw-bold text-dark">1170338222</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">PAX A930 - Bar Principal</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro">PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar" selected>DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="fw-bold text-primary">Galo Veio Bar PDV PRODUTOR</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('1170338222', 'PAX A930 - Bar Principal')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('1170338222', 'PAX A930 - Bar Principal')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="ATM-TOTEM-04" data-type="ATM">
+                                    <td><code class="fw-bold text-dark">ATM-TOTEM-04</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">Totem Autoatendimento Entrada 02</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-success py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Habilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro">PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM" selected>ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="fw-bold text-primary">Shopping Mueller Totem</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('ATM-TOTEM-04', 'Totem Autoatendimento')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('ATM-TOTEM-04', 'Totem Autoatendimento')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
+
+                                <tr data-serial="032462872848285" data-type="PagSeguro">
+                                    <td><code class="fw-bold text-dark">032462872848285</code></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="pos-name-label fw-bold">Gertec MP20 [Reserva Técnica]</span>
+                                            <button class="btn btn-link btn-sm text-muted p-0 ms-1" onclick="editPosName(this)"><i class="fa-solid fa-pencil fs-11"></i></button>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-secondary py-0 px-2 fs-11 pos-toggle-btn" onclick="togglePosStatus(this)">Desabilitado</button></td>
+                                    <td>
+                                        <select class="form-select form-select-sm fs-11 py-0" style="height:28px;">
+                                            <option value="PagSeguro" selected>PagSeguro</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="POS v2">POS v2</option>
+                                            <option value="DiskBar">DiskBar</option>
+                                            <option value="ATM">ATM</option>
+                                        </select>
+                                    </td>
+                                    <td><span class="text-muted">-</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11" onclick="openPosConfigModal('032462872848285', 'Gertec MP20')"><i class="fa-solid fa-sliders"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="openPosActionsModal('032462872848285', 'Gertec MP20')"><i class="fa-solid fa-list"></i></button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-2">
-                        <span>Exibindo 1 a 20 de 633 registros</span>
+
+                    <!-- PAGINATION (MODELO PDT NOVO) -->
+                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-3 pt-2 border-top">
+                        <span>Exibindo <strong>1 a 7</strong> de <strong>633</strong> registros</span>
                         <div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Anterior</button>
-                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7;">1</button>
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">2</button>
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">3</button>
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Próximo</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" disabled>Anterior</button>
+                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0c83ff; border-color:#0c83ff;">1</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" onclick="alert('Carregando página 2...')">2</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" onclick="alert('Carregando página 3...')">3</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" onclick="alert('Carregando próxima página...')">Próximo</button>
                         </div>
                     </div>
                 </div>
@@ -7259,6 +7497,130 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 });
             };
 
+            // ============================================
+            // TERMINAIS POS LOGIC (MODELO PDT NOVO)
+            // ============================================
+            window.currentPosSerial = '';
+            window.currentPosName = '';
+
+            window.filterPosTable = function() {
+                const query = document.getElementById("posFilterSearch")?.value.toLowerCase().trim() || "";
+                const rows = document.querySelectorAll("#posTableBody tr");
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? "" : "none";
+                });
+            };
+
+            window.filterPosByType = function(type, btnEl) {
+                document.querySelectorAll(".pos-type-btn").forEach(b => {
+                    b.classList.remove("active", "btn-primary");
+                    b.classList.add("btn-outline-secondary");
+                    b.style.backgroundColor = "";
+                    b.style.borderColor = "";
+                });
+                if (btnEl) {
+                    btnEl.classList.add("active", "btn-primary");
+                    btnEl.classList.remove("btn-outline-secondary");
+                    btnEl.style.backgroundColor = "#0c83ff";
+                    btnEl.style.borderColor = "#0c83ff";
+                }
+                const rows = document.querySelectorAll("#posTableBody tr");
+                rows.forEach(row => {
+                    const rowType = row.getAttribute("data-type") || "";
+                    if (type === 'all' || rowType === type) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            };
+
+            window.togglePosStatus = function(btnEl) {
+                if (btnEl.classList.contains("btn-success")) {
+                    btnEl.classList.remove("btn-success");
+                    btnEl.classList.add("btn-secondary");
+                    btnEl.textContent = "Desabilitado";
+                } else {
+                    btnEl.classList.remove("btn-secondary");
+                    btnEl.classList.add("btn-success");
+                    btnEl.textContent = "Habilitado";
+                }
+            };
+
+            window.editPosName = function(btnEl) {
+                const label = btnEl.parentElement.querySelector(".pos-name-label");
+                const currentName = label ? label.textContent.trim() : "";
+                const newName = prompt("Editar nome do terminal POS:", currentName);
+                if (newName && newName.trim() && label) {
+                    label.textContent = newName.trim();
+                }
+            };
+
+            window.openPosConfigModal = function(serial, name) {
+                window.currentPosSerial = serial;
+                window.currentPosName = name;
+                const title = document.getElementById("posConfigModalTitle");
+                if (title) title.textContent = `${serial} - ${name}`;
+                openModalById('modalPosConfig');
+            };
+
+            window.filterPosConfigCards = function() {
+                const q = document.getElementById("posConfSearchInput")?.value.toLowerCase().trim() || "";
+                const cards = document.querySelectorAll(".pos-conf-card");
+                cards.forEach(card => {
+                    const title = card.getAttribute("data-title")?.toLowerCase() || "";
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = (title.includes(q) || text.includes(q)) ? "" : "none";
+                });
+            };
+
+            window.filterPosConfigByApp = function(app, btnEl) {
+                document.querySelectorAll(".pos-app-tab").forEach(b => {
+                    b.classList.remove("active", "btn-primary");
+                    b.classList.add("btn-outline-secondary");
+                    b.style.backgroundColor = "";
+                });
+                if (btnEl) {
+                    btnEl.classList.add("active", "btn-primary");
+                    btnEl.classList.remove("btn-outline-secondary");
+                    btnEl.style.backgroundColor = "#0c83ff";
+                }
+                const cards = document.querySelectorAll(".pos-conf-card");
+                cards.forEach(card => {
+                    const apps = card.getAttribute("data-app") || "";
+                    if (app === 'all' || apps.includes(app)) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            };
+
+            window.openPosActionsModal = function(serial, name) {
+                window.currentPosSerial = serial;
+                window.currentPosName = name;
+                const title = document.getElementById("posActionsModalTitle");
+                if (title) title.textContent = serial;
+                openModalById('modalPosActions');
+            };
+
+            window.openPosAreasModal = function(serial, name) {
+                window.currentPosSerial = serial;
+                window.currentPosName = name;
+                const title = document.getElementById("posAreasModalTitle");
+                if (title) title.textContent = `${serial} - ${name}`;
+                openModalById('modalPosAreas');
+            };
+
+            window.openPosCloneModal = function(serial, name) {
+                window.currentPosSerial = serial;
+                window.currentPosName = name;
+                const dest = document.getElementById("posCloneDestination");
+                if (dest) dest.value = `${serial} - ${name}`;
+                openModalById('modalPosClone');
+            };
+
             window.dispararCampanhaRemarketing = function() {
                 alert("🚀 Campanha de Remarketing disparada com sucesso para 47 clientes com carrinho abandonado!");
             };
@@ -8345,6 +8707,335 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODALS DO MÓDULO TERMINAIS POS (MODELO PDT NOVO) -->
+    <!-- ==================================================== -->
+
+    <!-- MODAL 1: ADICIONAR TERMINAL POS -->
+    <div class="modal fade" id="modalAddPos" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-credit-card text-primary me-2"></i> Cadastrar Novo Terminal POS</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="event.preventDefault(); alert('Terminal POS cadastrado e pronto para pareamento!'); bootstrap.Modal.getInstance(document.getElementById('modalAddPos')).hide();">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Número de Série (Serial) *</label>
+                                <input type="text" class="form-control fw-bold font-monospace" placeholder="Ex: 0170420830 ou SUNMI-V2-01" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome do Terminal *</label>
+                                <input type="text" class="form-control fs-12" placeholder="Ex: PAX A930 [Bilheteria Principal]" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Tipo de Terminal *</label>
+                                <select class="form-select fs-12" required>
+                                    <option value="PagSeguro">PagSeguro Smart</option>
+                                    <option value="Phone">Phone (Android)</option>
+                                    <option value="Tablet">Tablet</option>
+                                    <option value="POS v2">POS v2</option>
+                                    <option value="DiskBar">DiskBar (Consumo)</option>
+                                    <option value="ATM">ATM (Totem Autoatendimento)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Status Inicial *</label>
+                                <select class="form-select fs-12">
+                                    <option value="1">Habilitado</option>
+                                    <option value="0">Desabilitado</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Ponto de Venda (PDV Vinculado)</label>
+                                <select class="form-select fs-12">
+                                    <option value="">-- Selecionar PDV --</option>
+                                    <option value="Diskingressos - Curitiba">Diskingressos - Curitiba</option>
+                                    <option value="Bilheteria Mundo Pixar">Bilheteria Mundo Pixar</option>
+                                    <option value="Galo Veio Bar PDV PRODUTOR">Galo Veio Bar PDV PRODUTOR</option>
+                                    <option value="Shopping Mueller Totem">Shopping Mueller Totem</option>
+                                    <option value="Portaria Principal">Portaria Principal</option>
+                                </select>
+                            </div>
+                            <div class="col-12 text-end mt-3">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-semibold" style="background:#0c83ff; border-color:#0c83ff;">
+                                    <i class="fa-solid fa-check me-1"></i> Salvar Terminal
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CONFIGURAÇÕES DO TERMINAL (MODELO PDT NOVO) -->
+    <div class="modal fade" id="modalPosConfig" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-sliders text-info me-2"></i> Configurações do Terminal: <span id="posConfigModalTitle" class="text-primary font-monospace">0170420830</span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- SEARCH & APP TABS (MODELO PDT NOVO) -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-5">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                                <input type="text" id="posConfSearchInput" class="form-control border-start-0" placeholder="Buscar parâmetros de configuração..." oninput="filterPosConfigCards()">
+                            </div>
+                        </div>
+                        <div class="col-md-7 text-md-end">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-primary btn-sm py-1 px-3 fs-12 pos-app-tab active" data-app="all" onclick="filterPosConfigByApp('all', this)" style="background:#0c83ff;">Todos</button>
+                                <button class="btn btn-outline-secondary btn-sm py-1 px-3 fs-12 pos-app-tab" data-app="POS" onclick="filterPosConfigByApp('POS', this)">POS</button>
+                                <button class="btn btn-outline-secondary btn-sm py-1 px-3 fs-12 pos-app-tab" data-app="POS v2" onclick="filterPosConfigByApp('POS v2', this)">POS v2</button>
+                                <button class="btn btn-outline-secondary btn-sm py-1 px-3 fs-12 pos-app-tab" data-app="DiskBar" onclick="filterPosConfigByApp('DiskBar', this)">DiskBar</button>
+                                <button class="btn btn-outline-secondary btn-sm py-1 px-3 fs-12 pos-app-tab" data-app="ATM" onclick="filterPosConfigByApp('ATM', this)">ATM</button>
+                                <button class="btn btn-outline-secondary btn-sm py-1 px-3 fs-12 pos-app-tab" data-app="POS+ATM" onclick="filterPosConfigByApp('POS+ATM', this)">POS+ATM</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARDS DE CONFIGURAÇÕES -->
+                    <div class="row g-3" id="posConfigCardsContainer">
+                        
+                        <div class="col-md-4 pos-conf-card" data-app="POS,POS v2,POS+ATM" data-title="Permitir Sangria de Caixa">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">Permitir Sangria de Caixa</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Habilita o operador a realizar retiradas parciais de dinheiro em espécie durante o turno.</p>
+                                <span class="badge bg-light text-primary border align-self-start fs-10">App: POS / POS v2</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pos-conf-card" data-app="POS,POS v2,DiskBar,ATM" data-title="Impressão Automática de Comprovante">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">Impressão Automática</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Imprime a via do cliente automaticamente após a confirmação do pagamento TEF/PIX.</p>
+                                <span class="badge bg-light text-success border align-self-start fs-10">App: Todos</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pos-conf-card" data-app="POS,POS v2,POS+ATM" data-title="Validação Facial Integrada">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">Validação Facial no Acesso</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Ativa a câmera frontal para conferência biométrica facial instantânea do titular do ingresso.</p>
+                                <span class="badge bg-light text-info border align-self-start fs-10">App: Portaria & Validação</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pos-conf-card" data-app="POS,DiskBar,ATM,POS v2" data-title="Aceitar Pagamento PIX Dinâmico">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">PIX Dinâmico na Tela</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Gera QR Code PIX exclusivo para cada venda com conciliação automática em menos de 2 segundos.</p>
+                                <span class="badge bg-light text-primary border align-self-start fs-10">App: POS / ATM / Bar</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pos-conf-card" data-app="POS,POS v2,DiskBar" data-title="Modo Offline com Sincronização em Fila">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">Modo Offline (Contingência)</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Permite continuar validando e vendendo mesmo sem sinal de internet, sincronizando ao reconectar.</p>
+                                <span class="badge bg-light text-warning border align-self-start fs-10">App: Contingência</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pos-conf-card" data-app="POS,POS v2" data-title="Exigir Senha de Supervisor para Cancelamento">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="fw-bold text-dark mb-0 fs-12">Trava de Cancelamento</h6>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <p class="fs-11 text-muted mb-2">Exige autenticação de senha ou biometria de supervisor para estornos ou cancelamento de item.</p>
+                                <span class="badge bg-light text-danger border align-self-start fs-10">App: Segurança</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0c83ff; border-color:#0c83ff;" onclick="alert('Parâmetros do terminal salvos com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPosConfig')).hide();">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Configurações
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: MENU DE AÇÕES DO TERMINAL (SWEETALERT / MODAL PDT NOVO) -->
+    <div class="modal fade" id="modalPosActions" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white py-2">
+                    <h6 class="modal-title fs-12 fw-bold"><i class="fa-solid fa-list text-primary me-2"></i> Ações: <span id="posActionsModalTitle" class="font-monospace">Terminal</span></h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-3 d-flex flex-column gap-2">
+                    <button class="btn btn-light text-start border fs-12 py-2" onclick="bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); openPosConfigModal(window.currentPosSerial, window.currentPosName);">
+                        <i class="fa-solid fa-sliders text-primary me-2"></i> Configurações do Terminal
+                    </button>
+                    <button class="btn btn-light text-start border fs-12 py-2" onclick="bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); openPosAreasModal(window.currentPosSerial, window.currentPosName);">
+                        <i class="fa-solid fa-map-pin text-info me-2"></i> Áreas de Validação
+                    </button>
+                    <button class="btn btn-light text-start border fs-12 py-2" onclick="if(confirm('Liberar acessos do terminal? Isso removerá logins de outros terminais nos últimos 30 minutos.')){ alert('Acessos liberados com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); }">
+                        <i class="fa-solid fa-right-from-bracket text-warning me-2"></i> Liberar Acessos (30 min)
+                    </button>
+                    <button class="btn btn-light text-start border fs-12 py-2" onclick="if(confirm('Redefinir permissões padrão do terminal?')){ alert('Permissões redefinidas com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); }">
+                        <i class="fa-solid fa-arrows-rotate text-secondary me-2"></i> Redefinir Permissões
+                    </button>
+                    <button class="btn btn-light text-start border fs-12 py-2" onclick="bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); openPosCloneModal(window.currentPosSerial, window.currentPosName);">
+                        <i class="fa-solid fa-clone text-success me-2"></i> Clonar Configurações
+                    </button>
+                    <hr class="my-1">
+                    <button class="btn btn-light text-start border fs-12 py-2 text-danger" onclick="if(confirm('Deseja realmente excluir este terminal?')){ alert('Terminal excluído!'); bootstrap.Modal.getInstance(document.getElementById('modalPosActions')).hide(); }">
+                        <i class="fa-solid fa-trash me-2"></i> Excluir Terminal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: ÁREAS DE VALIDAÇÃO (MODELO PDT NOVO) -->
+    <div class="modal fade" id="modalPosAreas" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-map-pin text-info me-2"></i> Áreas de Validação: <span id="posAreasModalTitle" class="text-primary font-monospace">Terminal</span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0" placeholder="Buscar eventos (ID, Nome, Local, Cidade)...">
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <span class="fs-12 text-muted">Selecione as catracas e setores liberados para este POS</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive border rounded">
+                        <table class="coupon-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px;"><input type="checkbox" checked></th>
+                                    <th>ID</th>
+                                    <th>Evento</th>
+                                    <th>Local / Espaço</th>
+                                    <th>Setores Liberados</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td><strong>#3131</strong></td>
+                                    <td class="fw-bold">Roupa Nova 40 Anos</td>
+                                    <td>Teatro Positivo</td>
+                                    <td><span class="badge bg-primary text-white">Todos os Setores</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td><strong>#3130</strong></td>
+                                    <td class="fw-bold">Twelve Beers Vitória</td>
+                                    <td>Privilège Vitória</td>
+                                    <td><span class="badge bg-info text-white">Pista + Camarote VIP</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td><strong>#3132</strong></td>
+                                    <td class="fw-bold">Stand Up Diogo Almeida</td>
+                                    <td>Teatro Positivo</td>
+                                    <td><span class="badge bg-primary text-white">Todos os Setores</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td><strong>#3634</strong></td>
+                                    <td class="fw-bold">Música e Natureza</td>
+                                    <td>Parque Jaime Lerner</td>
+                                    <td><span class="badge bg-success text-white">Entrada Geral</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0c83ff; border-color:#0c83ff;" onclick="alert('Áreas de validação salvas com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPosAreas')).hide();">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Áreas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: CLONAR CONFIGURAÇÕES (MODELO PDT NOVO) -->
+    <div class="modal fade" id="modalPosClone" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-clone text-success me-2"></i> Clonar Configurações de Terminal</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="fs-12 text-muted mb-3">Copie integralmente todos os parâmetros, regras de sangria e permissões de um terminal modelo já configurado.</p>
+                    <div class="mb-3">
+                        <label class="form-label fs-12 fw-bold text-muted">Terminal Origem (Modelo)</label>
+                        <select class="form-select fs-12">
+                            <option value="0170420830">0170420830 - PAX A930 (Bilheteria Padrão)</option>
+                            <option value="024343980394614">024343980394614 - Samsung SM-A065M</option>
+                            <option value="061383944317395">061383944317395 - Samsung SM-X216B (Portaria VIP)</option>
+                            <option value="1170217552">1170217552 - TERMINAL SMART POS [DEV]</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fs-12 fw-bold text-muted">Terminal Destino</label>
+                        <input type="text" class="form-control fw-bold font-monospace bg-light" id="posCloneDestination" readonly value="Terminal Destino">
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success btn-sm px-4 fw-bold" onclick="alert('Configurações clonadas com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPosClone')).hide();">
+                            <i class="fa-solid fa-check me-1"></i> Confirmar Clonagem
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
