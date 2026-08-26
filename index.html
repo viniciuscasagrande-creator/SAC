@@ -1404,14 +1404,56 @@
                         <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-chart-pie me-2 text-warning"></i> Métricas & ROI</a>
                     </div>
                     
-                    <!-- SPECIAL SYSTEM MODULES -->
-                    <a class="menu-item" id="menuEstorno" style="margin-top: 10px;">
+                    <!-- OPERACIONAL & SISTEMA (MODELO PDT NOVO) -->
+                    <div class="menu-section-header mt-3">OPERACIONAL & SISTEMA</div>
+
+                    <!-- TERMINAIS POS -->
+                    <a class="menu-item" id="menuTerminaisPos" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-credit-card" style="color:#0c83ff;"></i> Terminais POS</div>
+                        <span class="badge-sidebar" style="background:#0c83ff; color:#fff; font-weight:700;">633</span>
+                    </a>
+
+                    <!-- MENSAGENS -->
+                    <a class="menu-item" id="menuMensagens" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-paper-plane" style="color:#10b981;"></i> Mensagens</div>
+                    </a>
+
+                    <!-- STATUS FACIAIS -->
+                    <a class="menu-item" id="menuStatusFaciais" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-id-badge" style="color:#06b6d4;"></i> Status Faciais</div>
+                        <span class="badge-sidebar" style="background:#06b6d4; color:#fff; font-weight:700;">3.6k</span>
+                    </a>
+
+                    <!-- GERENCIAR ACESSOS -->
+                    <a class="menu-item" id="menuGerenciarAcessos" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-user-shield" style="color:#f59e0b;"></i> Gerenciar Acessos</div>
+                    </a>
+
+                    <!-- ADMINISTRAÇÃO -->
+                    <a class="menu-item" id="menuAdministracao" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-sliders" style="color:#64748b;"></i> Administração</div>
+                    </a>
+
+                    <!-- CLUBE RUA DA MÚSICA -->
+                    <a class="menu-item" id="menuClubeRuaMusica" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-music" style="color:#8b5cf6;"></i> Clube Rua da Música</div>
+                    </a>
+
+                    <!-- ESTORNOS -->
+                    <a class="menu-item" id="menuEstorno" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
                         <span class="badge-sidebar badge-orange">ERP</span>
                     </a>
-                    <a class="menu-item" id="menuSacHub">
+
+                    <!-- ATENDIMENTO / SAC -->
+                    <a class="menu-item" id="menuSacHub" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
+                    </a>
+
+                    <!-- CONSOLE BANCO DE DADOS -->
+                    <a class="menu-item" id="menuDbConsole" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-database" style="color:#6366f1;"></i> Console DB</div>
                     </a>
                 </div>
             </div>
@@ -8076,10 +8118,17 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 }
             }
 
-            document.getElementById("btnStep1Next").addEventListener("click", () => showStep(2));
-            document.getElementById("btnStep2Back").addEventListener("click", () => showStep(1));
-            document.getElementById("btnStep2Next").addEventListener("click", () => showStep(3));
-            document.getElementById("btnStep3Back").addEventListener("click", () => showStep(2));
+            const btnStep1Next = document.getElementById("btnStep1Next");
+            const btnStep2Back = document.getElementById("btnStep2Back");
+            const btnStep2Next = document.getElementById("btnStep2Next");
+            const btnStep3Back = document.getElementById("btnStep3Back");
+            const btnWizardReset = document.getElementById("btnWizardReset");
+
+            if (btnStep1Next) btnStep1Next.addEventListener("click", () => showStep(2));
+            if (btnStep2Back) btnStep2Back.addEventListener("click", () => showStep(1));
+            if (btnStep2Next) btnStep2Next.addEventListener("click", () => showStep(3));
+            if (btnStep3Back) btnStep3Back.addEventListener("click", () => showStep(2));
+            if (btnWizardReset) btnWizardReset.addEventListener("click", () => showStep(1));
 
             // PagSeguro UI event bindings
             const radioGateways = document.getElementsByName("gatewayDestino");
@@ -8123,11 +8172,13 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 }
             }
 
-            radioGateways.forEach(radio => {
-                radio.addEventListener("change", (e) => {
-                    updateGatewayUI(e.target.value);
+            if (radioGateways) {
+                radioGateways.forEach(radio => {
+                    radio.addEventListener("change", (e) => {
+                        updateGatewayUI(e.target.value);
+                    });
                 });
-            });
+            }
 
             // Trigger initial UI setup
             updateGatewayUI("pagseguro");
@@ -8137,64 +8188,109 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const simulatedErrorsList = document.getElementById("simulatedErrorsList");
             let errorSimulationActive = false;
 
-            btnSimulateError.addEventListener("click", () => {
-                errorSimulationActive = !errorSimulationActive;
-                if (errorSimulationActive) {
-                    simulatedErrorsList.classList.remove("d-none");
-                    btnSimulateError.innerHTML = '<i class="fa-solid fa-circle-check"></i> Remover Falhas';
-                    btnSimulateError.classList.replace("btn-outline-danger", "btn-outline-success");
-                } else {
-                    simulatedErrorsList.classList.add("d-none");
-                    btnSimulateError.innerHTML = '<i class="fa-solid fa-bug"></i> Simular Falha de Regras';
-                    btnSimulateError.classList.replace("btn-outline-success", "btn-outline-danger");
-                }
-            });
+            if (btnSimulateError) {
+                btnSimulateError.addEventListener("click", () => {
+                    errorSimulationActive = !errorSimulationActive;
+                    if (errorSimulationActive) {
+                        if (simulatedErrorsList) simulatedErrorsList.classList.remove("d-none");
+                        btnSimulateError.innerHTML = '<i class="fa-solid fa-circle-check"></i> Remover Falhas';
+                        btnSimulateError.classList.replace("btn-outline-danger", "btn-outline-success");
+                    } else {
+                        if (simulatedErrorsList) simulatedErrorsList.classList.add("d-none");
+                        btnSimulateError.innerHTML = '<i class="fa-solid fa-bug"></i> Simular Falha de Regras';
+                        btnSimulateError.classList.replace("btn-outline-success", "btn-outline-danger");
+                    }
+                });
+            }
 
             // Confirm estorno loop with loading simulation
             const btnStep3Confirm = document.getElementById("btnStep3Confirm");
             const gatewayLoadingContainer = document.getElementById("gatewayLoadingContainer");
 
-            btnStep3Confirm.addEventListener("click", () => {
-                btnStep3Confirm.disabled = true;
-                gatewayLoadingContainer.classList.remove("d-none");
-                
-                const gStep1 = document.getElementById("gStep1");
-                const gStep2 = document.getElementById("gStep2");
-                const gStep3 = document.getElementById("gStep3");
-                const gStep4 = document.getElementById("gStep4");
-                const gStep5 = document.getElementById("gStep5");
-
-                setTimeout(() => {
-                    gStep1.classList.replace("active", "done");
-                    gStep2.classList.add("active");
+            if (btnStep3Confirm && gatewayLoadingContainer) {
+                btnStep3Confirm.addEventListener("click", () => {
+                    btnStep3Confirm.disabled = true;
+                    gatewayLoadingContainer.classList.remove("d-none");
                     
+                    const gStep1 = document.getElementById("gStep1");
+                    const gStep2 = document.getElementById("gStep2");
+                    const gStep3 = document.getElementById("gStep3");
+                    const gStep4 = document.getElementById("gStep4");
+                    const gStep5 = document.getElementById("gStep5");
+
                     setTimeout(() => {
-                        gStep2.classList.replace("active", "done");
-                        gStep3.classList.add("active");
+                        if (gStep1) gStep1.classList.replace("active", "done");
+                        if (gStep2) gStep2.classList.add("active");
                         
                         setTimeout(() => {
-                            gStep3.classList.replace("active", "done");
-                            gStep4.classList.add("active");
+                            if (gStep2) gStep2.classList.replace("active", "done");
+                            if (gStep3) gStep3.classList.add("active");
                             
                             setTimeout(() => {
-                                gStep4.classList.replace("active", "done");
-                                gStep5.classList.add("active");
+                                if (gStep3) gStep3.classList.replace("active", "done");
+                                if (gStep4) gStep4.classList.add("active");
                                 
                                 setTimeout(() => {
-                                    gStep5.classList.replace("active", "done");
+                                    if (gStep4) gStep4.classList.replace("active", "done");
+                                    if (gStep5) gStep5.classList.add("active");
                                     
-                                    // Reset buttons and move to success step
-                                    btnStep3Confirm.disabled = false;
-                                    gatewayLoadingContainer.classList.add("d-none");
-                                    showStep(4);
+                                    setTimeout(() => {
+                                        if (gStep5) gStep5.classList.replace("active", "done");
+                                        
+                                        // Reset buttons and move to success step
+                                        btnStep3Confirm.disabled = false;
+                                        gatewayLoadingContainer.classList.add("d-none");
+                                        showStep(4);
+                                    }, 800);
                                 }, 800);
                             }, 800);
                         }, 800);
                     }, 800);
-                }, 800);
-            });
+                });
+            }
 
-            document.getElementById("btnWizardReset").addEventListener("click", () => showStep(1));
+            // Deep Link & URL Hash Route Handler on Load
+            try {
+                const currentPath = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+                const currentHash = window.location.hash.replace(/^#+/, '').toLowerCase();
+                const params = new URLSearchParams(window.location.search);
+                const panelParam = (params.get("panel") || "").toLowerCase();
+                const route = panelParam || currentHash || currentPath;
+
+                if (route === 'pos' || route === 'terminais' || route === 'terminais-pos') {
+                    switchPanel('terminaisPos', document.getElementById('menuTerminaisPos'));
+                } else if (route === 'marketing' || route === 'campanhas') {
+                    switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'));
+                } else if (route === 'analytics') {
+                    switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'));
+                } else if (route === 'pixels' || route === 'pixel') {
+                    switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'));
+                } else if (route === 'utm' || route === 'utms') {
+                    switchPanel('mktUtm', document.getElementById('subMktUtm'));
+                } else if (route === 'remarketing' || route === 'carrinhos') {
+                    switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'));
+                } else if (route === 'eventos' || route === 'todos-eventos') {
+                    switchPanel('todosEventos', document.getElementById('menuTodosEventos'));
+                } else if (route === 'financeiro-hub' || route === 'hub') {
+                    switchPanel('finHub', document.getElementById('subFinHub'));
+                } else if (route === 'repasse' || route === 'repasses') {
+                    switchPanel('finRepasse', document.getElementById('subFinRepasse'));
+                } else if (route === 'saldo') {
+                    switchPanel('finSaldo', document.getElementById('subFinSaldo'));
+                } else if (route === 'produtora' || route === 'dados-produtora') {
+                    switchPanel('dadosProdutora', document.getElementById('menuDadosProdutora'));
+                } else if (route === 'faciais' || route === 'status-faciais') {
+                    switchPanel('statusFaciais', document.getElementById('menuStatusFaciais'));
+                } else if (route === 'mensagens') {
+                    switchPanel('mensagens', document.getElementById('menuMensagens'));
+                } else if (route === 'acessos') {
+                    switchPanel('gerenciarAcessos', document.getElementById('menuGerenciarAcessos'));
+                } else if (route === 'administracao') {
+                    switchPanel('administracao', document.getElementById('menuAdministracao'));
+                }
+            } catch (err) {
+                console.warn("Route handler error:", err);
+            }
         });
     </script>
 

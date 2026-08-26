@@ -1,2 +1,4 @@
 /financeiro/*    /sac-react/dist/:splat   200
 /financeiro      /sac-react/dist/index.html 200
+/*               /index.html              200
+
