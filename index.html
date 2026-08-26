@@ -355,13 +355,13 @@
         }
 
         .submenu-container.show {
-            max-height: 500px !important;
+            max-height: 1200px !important;
         }
 
         .submenu-item {
             padding: 8px 12px;
             font-size: 0.8rem;
-            color: #718096;
+            color: #94a3b8;
             text-decoration: none;
             border-radius: 4px;
             transition: all 0.2s;
@@ -370,13 +370,49 @@
 
         .submenu-item:hover {
             color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.03);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .submenu-item.active {
-            color: #ffffff;
+            color: #38bdf8;
             font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(56, 189, 248, 0.12);
+        }
+
+        /* MARKETING TOP PILL TABS */
+        .mkt-tabs-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .mkt-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #475569;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .mkt-tab-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+        .mkt-tab-btn.active {
+            background: #ec4899;
+            color: #ffffff;
+            border-color: #ec4899;
+            box-shadow: 0 2px 6px rgba(236, 72, 153, 0.3);
         }
 
         .sidebar-footer {
@@ -1579,6 +1615,73 @@
                             <div class="d-flex justify-content-between align-items-center mt-1">
                                 <span class="fw-bold text-dark fs-14">46 cortesias</span>
                                 <span class="badge bg-secondary text-white fs-10">4 eventos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MARKETING & PERFORMANCE QUICK ACCESS ROW -->
+                <div class="card p-3 border shadow-sm bg-white mb-3" style="border-left: 4px solid #ec4899 !important;">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                        <div>
+                            <span class="badge bg-danger text-white fs-10 me-1" style="background:#ec4899 !important;">Marketing & Crescimento</span>
+                            <h6 class="fw-bold m-0 text-dark d-inline-block"><i class="fa-solid fa-bullhorn text-danger me-1"></i> Central de Campanhas, Pixel, UTMs e Tráfego</h6>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger py-0 px-2 fs-11" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))">
+                            Ver Todos os Recursos <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </button>
+                    </div>
+                    <div class="row g-2 pt-1">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="p-2 border rounded bg-light cursor-pointer h-100 hover-shadow transition-all" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))" style="cursor: pointer;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:rgba(245,158,11,0.15); color:#d97706; display:flex; align-items:center; justify-content:center; font-size:14px;">
+                                        <i class="fa-solid fa-bullseye"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="fs-12 text-dark d-block">4 Modelos de Campanhas</strong>
+                                        <span class="fs-10 text-muted">Lançamento, Virada de Lote, Combos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="p-2 border rounded bg-light cursor-pointer h-100 hover-shadow transition-all" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))" style="cursor: pointer;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:rgba(2,132,199,0.15); color:#0284c7; display:flex; align-items:center; justify-content:center; font-size:14px;">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="fs-12 text-dark d-block">Gráficos Analytics (GA4)</strong>
+                                        <span class="fs-10 text-muted">48.9k visitas • Funil de Compras</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="p-2 border rounded bg-light cursor-pointer h-100 hover-shadow transition-all" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))" style="cursor: pointer;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:rgba(236,72,153,0.15); color:#ec4899; display:flex; align-items:center; justify-content:center; font-size:14px;">
+                                        <i class="fa-solid fa-crosshairs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="fs-12 text-dark d-block">Gráficos Pixel & CAPI</strong>
+                                        <span class="fs-10 text-muted">Meta Ads • 184k eventos • ROAS 6.8x</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="p-2 border rounded bg-light cursor-pointer h-100 hover-shadow transition-all" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))" style="cursor: pointer;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:rgba(16,185,129,0.15); color:#10b981; display:flex; align-items:center; justify-content:center; font-size:14px;">
+                                        <i class="fa-solid fa-qrcode"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="fs-12 text-dark d-block">Configurar UTMs & QR</strong>
+                                        <span class="fs-10 text-muted">Gerador de links rastreáveis</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -4701,6 +4804,19 @@
                     </div>
                 </div>
 
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Tags</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
+                </div>
+
                 <!-- 4 KPI SUMMARY CARDS -->
                 <div class="row g-2 mb-3">
                     <div class="col-md-3 col-6">
@@ -4944,6 +5060,19 @@
                     </div>
                 </div>
 
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Tags</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
+                </div>
+
                 <!-- 4 KPI CARDS: ANALYTICS -->
                 <div class="row g-2 mb-3">
                     <div class="col-md-3 col-6">
@@ -5154,6 +5283,19 @@
                     </div>
                 </div>
 
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Tags</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
+                </div>
+
                 <!-- 4 KPI CARDS: PIXEL -->
                 <div class="row g-2 mb-3">
                     <div class="col-md-3 col-6">
@@ -5326,6 +5468,19 @@
                         <h2>Configurador de UTMs & Gerador de Links com QR Code</h2>
                         <p>Construa parâmetros UTM padronizados para rastrear vendas de Stories, Influenciadores, Outdoors e Banners impressos.</p>
                     </div>
+                </div>
+
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Tags</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
                 </div>
 
                 <div class="row g-3 mb-4">
