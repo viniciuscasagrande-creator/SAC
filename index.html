@@ -2075,7 +2075,12 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 10:00</span>
-                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                            <div class="d-flex gap-1 align-items-center">
+                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3634');" title="Pixel Facebook do Evento">
+                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
+                                                </button>
+                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2105,7 +2110,12 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 11:00</span>
-                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                            <div class="d-flex gap-1 align-items-center">
+                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3130');" title="Pixel Facebook do Evento">
+                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
+                                                </button>
+                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2135,7 +2145,12 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 14/09/2026 21:00</span>
-                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                            <div class="d-flex gap-1 align-items-center">
+                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3131');" title="Pixel Facebook do Evento">
+                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
+                                                </button>
+                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2165,7 +2180,12 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
                                             <span><i class="fa-regular fa-calendar me-1"></i> 28/08/2026 20:00</span>
-                                            <span class="text-primary fw-semibold"><i class="fa-solid fa-circle-info me-1"></i> Clique para ver tudo</span>
+                                            <div class="d-flex gap-1 align-items-center">
+                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3132');" title="Pixel Facebook do Evento">
+                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
+                                                </button>
+                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2190,7 +2210,10 @@
                         <p id="evtSubtitleDetails" class="text-muted fs-12 m-0 mt-1"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Jardim da Penha / Praia do Canto - Vitória/ES | <i class="fa-regular fa-calendar me-1 text-primary"></i> 22/08/2026 às 11:00h</p>
                     </div>
                     <div class="header-buttons d-flex gap-2 align-items-center">
-                        <button class="btn btn-outline-primary btn-sm fw-semibold" onclick="alert('Link oficial copiado para a área de transferência: https://diskingressos.com.br/evento/' + window.currentEventId)">
+                        <button class="btn btn-outline-primary btn-sm fw-semibold" onclick="openEventFacebookPixelModal(window.currentEventId || '3130')">
+                            <i class="fa-brands fa-facebook text-primary me-1"></i> Pixel Facebook
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm fw-semibold" onclick="alert('Link oficial copiado para a área de transferência: https://diskingressos.com.br/evento/' + window.currentEventId)">
                             <i class="fa-solid fa-share-nodes me-1"></i> Compartilhar Link
                         </button>
                         <button class="btn btn-success btn-sm fw-semibold" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))">
@@ -6727,6 +6750,24 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     cortesias: "6",
                     ticketMedio: "R$ 396,99",
                     ocupacao: "48.4%",
+                    pixel: {
+                        id: "918273645019283",
+                        nome: "Pixel Meta - Twelve Beers Vitória",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.2/10 (Excelente)",
+                        datasetId: "ds_meta_3130_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893130xProdutor",
+                        pageViews: "28.400",
+                        viewContent: "15.320",
+                        initiateCheckout: "4.190",
+                        addPaymentInfo: "2.110",
+                        purchase: "302",
+                        receitaPixel: "R$ 119.894,00",
+                        roas: "6.2x",
+                        cpa: "R$ 4,80",
+                        ultimoDisparo: "Hoje, há 1 min"
+                    },
                     lotes: [
                         { nome: "1º LOTE - PISTA", preco: "R$ 150,00", total: 200, vendidos: 200, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" },
                         { nome: "2º LOTE - PISTA", preco: "R$ 180,00", total: 200, vendidos: 62, disp: 138, prog: 31, status: "Aberto", badge: "bg-success" },
@@ -6763,6 +6804,24 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     cortesias: "0",
                     ticketMedio: "R$ 19,43",
                     ocupacao: "41.8%",
+                    pixel: {
+                        id: "849204918239012",
+                        nome: "Pixel Meta - Música e Natureza",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.1/10 (Excelente)",
+                        datasetId: "ds_meta_3634_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893634xProdutor",
+                        pageViews: "12.450",
+                        viewContent: "7.890",
+                        initiateCheckout: "2.150",
+                        addPaymentInfo: "1.320",
+                        purchase: "836",
+                        receitaPixel: "R$ 16.248,00",
+                        roas: "4.8x",
+                        cpa: "R$ 4,12",
+                        ultimoDisparo: "Hoje, há 4 min"
+                    },
                     lotes: [
                         { nome: "INGRESSO SOCIAL + 1KG ALIMENTO", preco: "R$ 15,00", total: 1000, vendidos: 520, disp: 480, prog: 52, status: "Aberto", badge: "bg-success" },
                         { nome: "INTEIRA PROMOCIONAL", preco: "R$ 30,00", total: 1000, vendidos: 316, disp: 684, prog: 31, status: "Aberto", badge: "bg-success" }
@@ -6795,6 +6854,24 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     cortesias: "30",
                     ticketMedio: "R$ 151,30",
                     ocupacao: "78.8%",
+                    pixel: {
+                        id: "772183904128471",
+                        nome: "Pixel Meta - Roupa Nova 40 Anos",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.4/10 (Excelente)",
+                        datasetId: "ds_meta_3131_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893131xProdutor",
+                        pageViews: "45.200",
+                        viewContent: "31.800",
+                        initiateCheckout: "8.900",
+                        addPaymentInfo: "4.200",
+                        purchase: "1.420",
+                        receitaPixel: "R$ 214.850,00",
+                        roas: "7.8x",
+                        cpa: "R$ 3,15",
+                        ultimoDisparo: "Hoje, há 30 seg"
+                    },
                     lotes: [
                         { nome: "PLATEIA PREMIUM (FILAS A-E)", preco: "R$ 280,00", total: 400, vendidos: 400, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" },
                         { nome: "PLATEIA CENTRAL (FILAS F-N)", preco: "R$ 220,00", total: 600, vendidos: 580, disp: 20, prog: 96, status: "Aberto", badge: "bg-success" },
@@ -6828,6 +6905,24 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     cortesias: "10",
                     ticketMedio: "R$ 75,23",
                     ocupacao: "92.8%",
+                    pixel: {
+                        id: "661829304918234",
+                        nome: "Pixel Meta - Diogo Almeida Guaíra",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "8.7/10 (Excelente)",
+                        datasetId: "ds_meta_3132_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893132xProdutor",
+                        pageViews: "18.900",
+                        viewContent: "11.400",
+                        initiateCheckout: "3.200",
+                        addPaymentInfo: "1.540",
+                        purchase: "650",
+                        receitaPixel: "R$ 48.900,00",
+                        roas: "5.1x",
+                        cpa: "R$ 3,60",
+                        ultimoDisparo: "Hoje, há 12 min"
+                    },
                     lotes: [
                         { nome: "PLATEIA BAIXA INTEIRA", preco: "R$ 90,00", total: 350, vendidos: 340, disp: 10, prog: 97, status: "Aberto", badge: "bg-success" },
                         { nome: "PLATEIA BAIXA MEIA / SOLIDÁRIO", preco: "R$ 45,00", total: 350, vendidos: 310, disp: 40, prog: 88, status: "Aberto", badge: "bg-success" }
@@ -8500,6 +8595,146 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 document.body.removeChild(link);
             };
 
+            // ====================================================
+            // FACEBOOK / META PIXEL POR EVENTO (MODAL & CONTROLLER)
+            // ====================================================
+            window.openEventFacebookPixelModal = function(eventId, eventName) {
+                const id = eventId || window.currentEventId || "3130";
+                const evt = window.eventosDB[id] || window.eventosDB["3130"];
+                const px = evt.pixel || {
+                    id: "849204918239012",
+                    nome: "Pixel Meta - " + evt.name,
+                    status: "Ativo",
+                    capiStatus: "Conectado (Servidor CAPI)",
+                    matchQuality: "9.2/10 (Excelente)",
+                    datasetId: "ds_meta_" + id + "_prod",
+                    tokenCapi: "EAAGNOk92ZAApX89" + id,
+                    pageViews: "14.820",
+                    viewContent: "8.430",
+                    initiateCheckout: "2.890",
+                    addPaymentInfo: "1.650",
+                    purchase: evt.ingressosVendidos || "302",
+                    receitaPixel: evt.receitaBruta || "R$ 119.894,00",
+                    roas: "5.4x",
+                    cpa: "R$ 3,85",
+                    ultimoDisparo: "Hoje, há 2 min"
+                };
+
+                // Fill Modal Elements
+                const elEvtId = document.getElementById("pxModalEventId");
+                const elEvtName = document.getElementById("pxModalEventName");
+                const elEvtPlace = document.getElementById("pxModalEventPlace");
+                const elPxId = document.getElementById("pxModalPixelId");
+                const elPxIdDisp = document.getElementById("pxModalPixelIdDisplay");
+                const elDatasetId = document.getElementById("pxModalDatasetId");
+                const elTokenCapi = document.getElementById("pxModalTokenCapi");
+                
+                if (elEvtId) elEvtId.textContent = "#" + evt.id;
+                if (elEvtName) elEvtName.textContent = evt.name;
+                if (elEvtPlace) elEvtPlace.innerHTML = `<i class="fa-solid fa-location-dot me-1 text-danger"></i> ${evt.local}`;
+                if (elPxId) elPxId.value = px.id;
+                if (elPxIdDisp) elPxIdDisp.textContent = px.id;
+                if (elDatasetId) elDatasetId.value = px.datasetId || ("ds_meta_" + evt.id + "_prod");
+                if (elTokenCapi) elTokenCapi.value = px.tokenCapi || ("EAAGNOk92ZAApX89" + evt.id);
+                
+                if (document.getElementById("pxModalPageView")) document.getElementById("pxModalPageView").textContent = px.pageViews;
+                if (document.getElementById("pxModalViewContent")) document.getElementById("pxModalViewContent").textContent = px.viewContent;
+                if (document.getElementById("pxModalInitiateCheckout")) document.getElementById("pxModalInitiateCheckout").textContent = px.initiateCheckout;
+                if (document.getElementById("pxModalAddPaymentInfo")) document.getElementById("pxModalAddPaymentInfo").textContent = px.addPaymentInfo;
+                if (document.getElementById("pxModalPurchase")) document.getElementById("pxModalPurchase").textContent = px.purchase;
+                if (document.getElementById("pxModalRevenue")) document.getElementById("pxModalRevenue").textContent = px.receitaPixel;
+                if (document.getElementById("pxModalRoas")) document.getElementById("pxModalRoas").textContent = px.roas;
+                if (document.getElementById("pxModalCpa")) document.getElementById("pxModalCpa").textContent = px.cpa;
+                if (document.getElementById("pxModalMatchQuality")) document.getElementById("pxModalMatchQuality").textContent = px.matchQuality;
+                if (document.getElementById("pxModalLastDispatch")) document.getElementById("pxModalLastDispatch").textContent = px.ultimoDisparo;
+
+                // Hidden field for saving
+                const hiddenEvt = document.getElementById("pxModalHiddenEventId");
+                if (hiddenEvt) hiddenEvt.value = evt.id;
+
+                // Reset test container
+                const resultBox = document.getElementById("pixelTestResultBox");
+                if (resultBox) resultBox.classList.add("d-none");
+
+                // Open modal
+                openModalById("modalEventFacebookPixel");
+            };
+
+            window.copyEventPixelId = function() {
+                const pxInput = document.getElementById("pxModalPixelId");
+                if (pxInput) {
+                    navigator.clipboard.writeText(pxInput.value).then(() => {
+                        alert("✅ Pixel ID " + pxInput.value + " copiado para a área de transferência!");
+                    }).catch(() => {
+                        alert("Pixel ID: " + pxInput.value);
+                    });
+                }
+            };
+
+            window.testEventPixelDispatch = function() {
+                const btn = document.getElementById("btnTestPixelDispatch");
+                const resultBox = document.getElementById("pixelTestResultBox");
+                if (!btn || !resultBox) return;
+
+                btn.disabled = true;
+                btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Enviando evento de teste para Meta Graph API...`;
+                resultBox.classList.add("d-none");
+
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-vial me-1"></i> Testar Disparo ao Vivo (Meta Test Events)`;
+                    resultBox.classList.remove("d-none");
+                    const evtId = document.getElementById("pxModalHiddenEventId")?.value || "3130";
+                    const pxId = document.getElementById("pxModalPixelId")?.value || "849204918239012";
+                    const timestamp = new Date().toISOString();
+                    
+                    const out = document.getElementById("pixelTestJsonOutput");
+                    if (out) {
+                        out.textContent = JSON.stringify({
+                            "status": "success",
+                            "http_code": 200,
+                            "meta_api_response": {
+                                "events_received": 1,
+                                "fbtrace_id": "FvK" + Math.random().toString(36).substring(2, 9).toUpperCase(),
+                                "messages": [],
+                                "deduplication_mode": "browser_and_server_match",
+                                "event_name": "Purchase",
+                                "event_time": Math.floor(Date.now() / 1000),
+                                "event_id": "order_test_" + Math.floor(Math.random() * 90000 + 10000),
+                                "pixel_id": pxId,
+                                "event_custom_data": {
+                                    "currency": "BRL",
+                                    "value": 150.00,
+                                    "content_ids": ["#" + evtId],
+                                    "content_type": "product"
+                                }
+                            },
+                            "timestamp": timestamp
+                        }, null, 2);
+                    }
+                }, 900);
+            };
+
+            window.saveEventPixelConfig = function(e) {
+                e.preventDefault();
+                const evtId = document.getElementById("pxModalHiddenEventId")?.value;
+                const newPixelId = document.getElementById("pxModalPixelId")?.value.trim();
+                const newDatasetId = document.getElementById("pxModalDatasetId")?.value.trim();
+                const newTokenCapi = document.getElementById("pxModalTokenCapi")?.value.trim();
+
+                if (window.eventosDB[evtId]) {
+                    if (!window.eventosDB[evtId].pixel) {
+                        window.eventosDB[evtId].pixel = {};
+                    }
+                    window.eventosDB[evtId].pixel.id = newPixelId;
+                    window.eventosDB[evtId].pixel.datasetId = newDatasetId;
+                    window.eventosDB[evtId].pixel.tokenCapi = newTokenCapi;
+                }
+
+                alert(`✅ Configurações do Meta Pixel salvas com sucesso para o evento #${evtId}!`);
+                bootstrap.Modal.getInstance(document.getElementById("modalEventFacebookPixel"))?.hide();
+            };
+
             // Renderizar tabela de acessos na inicialização
             renderAcessosTable();
         });
@@ -9610,6 +9845,181 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                     <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7; border-color:#0284c7;" onclick="alert('Permissões atualizadas com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPermissoesAcesso')).hide();">
                         <i class="fa-solid fa-check me-1"></i> Salvar Permissões
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: FACEBOOK / META PIXEL DO EVENTO SELECIONADO -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalEventFacebookPixel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <!-- MODAL HEADER -->
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #1877f2 0%, #0d65d9 100%); padding: 16px 24px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="bg-white rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                            <i class="fa-brands fa-facebook text-primary fs-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fs-6 fw-bold mb-0">Meta Pixel & Conversions API (CAPI)</h5>
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <span class="badge bg-dark fs-10" id="pxModalEventId">#3130</span>
+                                <span class="badge bg-success fs-10"><i class="fa-solid fa-circle-check me-1"></i> Pixel Conectado & Ativo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- MODAL BODY -->
+                <div class="modal-body p-4 bg-light">
+                    <!-- EVENT IDENTIFIER BANNER -->
+                    <div class="card p-3 border shadow-sm bg-white mb-3">
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                            <div>
+                                <span class="fs-10 text-uppercase fw-bold text-muted">Evento Selecionado</span>
+                                <h5 class="fw-bold text-dark m-0 mt-1" id="pxModalEventName">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h5>
+                                <div class="fs-11 text-muted mt-1" id="pxModalEventPlace"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Vitória/ES</div>
+                            </div>
+                            <div class="text-md-end">
+                                <span class="fs-10 text-uppercase fw-bold text-muted d-block">Meta Pixel ID</span>
+                                <div class="d-flex align-items-center gap-2 mt-1">
+                                    <span class="font-monospace fw-bold text-primary fs-6" id="pxModalPixelIdDisplay">918273645019283</span>
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="copyEventPixelId()" title="Copiar Pixel ID">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4 TOP METRIC CARDS -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3 col-6">
+                            <div class="card p-2 px-3 border shadow-sm bg-white h-100">
+                                <span class="fs-10 text-muted text-uppercase fw-bold">Qualidade Match (EMQ)</span>
+                                <h5 class="fw-bold text-success mt-1 mb-0" id="pxModalMatchQuality">9.2/10</h5>
+                                <span class="fs-10 text-muted">Score Excelente</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card p-2 px-3 border shadow-sm bg-white h-100">
+                                <span class="fs-10 text-muted text-uppercase fw-bold">Deduplicação</span>
+                                <h5 class="fw-bold text-primary mt-1 mb-0">100%</h5>
+                                <span class="fs-10 text-muted">Browser + Servidor</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card p-2 px-3 border shadow-sm bg-white h-100">
+                                <span class="fs-10 text-muted text-uppercase fw-bold">Receita Rastreada</span>
+                                <h5 class="fw-bold text-dark mt-1 mb-0" id="pxModalRevenue">R$ 119.894,00</h5>
+                                <span class="fs-10 text-success fw-semibold">ROAS: <span id="pxModalRoas">6.2x</span></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card p-2 px-3 border shadow-sm bg-white h-100">
+                                <span class="fs-10 text-muted text-uppercase fw-bold">Último Disparo</span>
+                                <h5 class="fw-bold text-dark mt-1 mb-0 fs-12" id="pxModalLastDispatch">Hoje, há 1 min</h5>
+                                <span class="fs-10 text-success"><i class="fa-solid fa-signal me-1"></i> Sinal Saudável</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FUNIL DE EVENTOS DO PIXEL -->
+                    <div class="card p-3 border shadow-sm bg-white mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold text-dark mb-0 fs-12"><i class="fa-solid fa-chart-simple text-primary me-2"></i> Eventos Rastreados pelo Pixel neste Evento</h6>
+                            <span class="badge bg-light text-muted border fs-10">Tempo Real</span>
+                        </div>
+                        <div class="row g-2 text-center">
+                            <div class="col">
+                                <div class="p-2 border rounded bg-light">
+                                    <span class="fs-10 text-muted text-uppercase fw-bold d-block">PageView</span>
+                                    <strong class="fs-13 text-dark" id="pxModalPageView">28.400</strong>
+                                    <span class="d-block fs-10 text-muted">100%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-2 border rounded bg-light">
+                                    <span class="fs-10 text-muted text-uppercase fw-bold d-block">ViewContent</span>
+                                    <strong class="fs-13 text-primary" id="pxModalViewContent">15.320</strong>
+                                    <span class="d-block fs-10 text-muted">53.9%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-2 border rounded bg-light">
+                                    <span class="fs-10 text-muted text-uppercase fw-bold d-block">Checkout</span>
+                                    <strong class="fs-13 text-warning" id="pxModalInitiateCheckout">4.190</strong>
+                                    <span class="d-block fs-10 text-muted">27.3%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-2 border rounded bg-light">
+                                    <span class="fs-10 text-muted text-uppercase fw-bold d-block">PaymentInfo</span>
+                                    <strong class="fs-13 text-info" id="pxModalAddPaymentInfo">2.110</strong>
+                                    <span class="d-block fs-10 text-muted">50.3%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-2 border rounded" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981 !important;">
+                                    <span class="fs-10 text-success text-uppercase fw-bold d-block">Purchase</span>
+                                    <strong class="fs-13 text-success" id="pxModalPurchase">302</strong>
+                                    <span class="d-block fs-10 text-success fw-bold">CPA: <span id="pxModalCpa">R$ 4,80</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TESTE DE DISPARO AO VIVO (TEST EVENTS) -->
+                    <div class="card p-3 border shadow-sm bg-white mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="fw-bold text-dark mb-0 fs-12"><i class="fa-solid fa-vial text-info me-2"></i> Diagnóstico & Teste de Disparo CAPI (Servidor)</h6>
+                            <button class="btn btn-primary btn-sm py-1 px-3 fs-11 fw-semibold" id="btnTestPixelDispatch" onclick="testEventPixelDispatch()" style="background:#1877f2; border-color:#1877f2;">
+                                <i class="fa-solid fa-play me-1"></i> Disparar Evento de Teste
+                            </button>
+                        </div>
+                        <p class="fs-11 text-muted mb-2">Simule o envio imediato de um evento de compra (Purchase) para os servidores da Meta Graph API e valide a resposta.</p>
+                        
+                        <div id="pixelTestResultBox" class="d-none mt-2">
+                            <div class="p-2 bg-dark rounded text-success font-monospace fs-11" style="max-height: 160px; overflow-y: auto;">
+                                <pre id="pixelTestJsonOutput" class="m-0 text-success"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONFIGURAÇÕES DO PIXEL PARA O EVENTO -->
+                    <div class="card p-3 border shadow-sm bg-white">
+                        <h6 class="fw-bold text-dark mb-2 fs-12"><i class="fa-solid fa-sliders text-secondary me-2"></i> Credenciais & Configurações do Pixel deste Evento</h6>
+                        <form onsubmit="saveEventPixelConfig(event)">
+                            <input type="hidden" id="pxModalHiddenEventId" value="3130">
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Pixel ID do Facebook *</label>
+                                    <input type="text" class="form-control form-control-sm font-monospace fw-bold" id="pxModalPixelId" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Dataset ID (Meta Business)</label>
+                                    <input type="text" class="form-control form-control-sm font-monospace" id="pxModalDatasetId">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Access Token CAPI (Servidor)</label>
+                                    <input type="password" class="form-control form-control-sm font-monospace" id="pxModalTokenCapi">
+                                </div>
+                                <div class="col-12 text-end mt-2">
+                                    <button type="submit" class="btn btn-success btn-sm px-3 fw-bold">
+                                        <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Pixel do Evento
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
