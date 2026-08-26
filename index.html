@@ -1410,11 +1410,12 @@
                     <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-bullhorn" style="color: #ec4899;"></i> Marketing</div>
                         <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">8</span>
+                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">9</span>
                             <i class="fa-solid fa-angle-right menu-chevron" id="arrowMarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
                         </div>
                     </a>
                     <div class="submenu-container" id="submenuMarketing">
+                        <a class="submenu-item" id="subMktVisaoGeral"><i class="fa-solid fa-chart-pie me-2 text-success"></i> Visão Geral Consolidada</a>
                         <a class="submenu-item" id="subMktCampanhas"><i class="fa-solid fa-bullseye me-2 text-warning"></i> Campanhas Marketing Básica</a>
                         <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-line me-2 text-primary"></i> Gráficos Analytics (GA4)</a>
                         <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Gráficos Pixel & Conversão</a>
@@ -1422,7 +1423,7 @@
                         <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-ticket-simple me-2 text-warning"></i> Cupons de Desconto</a>
                         <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-link me-2 text-info"></i> Links & Promoters</a>
                         <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-tags me-2 text-primary"></i> Combos & Ofertas</a>
-                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders me-2 text-secondary"></i> Configurar Pixels & Tags</a>
+                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders me-2 text-secondary"></i> Pixels & Matriz de Rastreamento</a>
                     </div>
 
                     <!-- ACCORDION: REMARKETING -->
@@ -2305,6 +2306,9 @@
                                         <a class="nav-link active fw-semibold" id="tabLinkEvtLotes" onclick="switchEvtSubTab('lotes', this)" style="cursor:pointer;"><i class="fa-solid fa-layer-group me-1 text-primary"></i> Lotes & Ingressos</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link fw-semibold text-muted" id="tabLinkEvtMarketing" onclick="switchEvtSubTab('marketing', this)" style="cursor:pointer;"><i class="fa-solid fa-bullhorn me-1 text-danger"></i> Marketing & Analytics</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link fw-semibold text-muted" id="tabLinkEvtFinanceiro" onclick="switchEvtSubTab('financeiro', this)" style="cursor:pointer;"><i class="fa-solid fa-file-invoice-dollar me-1 text-success"></i> Financeiro & DRE</a>
                                     </li>
                                     <li class="nav-item">
@@ -2343,6 +2347,268 @@
                                                 <!-- Populated dynamically by JS -->
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+
+                                <!-- SUB-TAB: MARKETING & ANALYTICS DO EVENTO (HERANÇA + SOBRESCRITA) -->
+                                <div id="evtSubTabMarketing" class="d-none">
+                                    <!-- EVENT MARKETING HEADER & STATUS -->
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 pb-2 border-bottom">
+                                        <div>
+                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                <h6 class="fw-bold m-0 text-dark fs-13"><i class="fa-solid fa-bullhorn text-danger me-2"></i> Marketing, Tracking & Conversões do Evento</h6>
+                                                <span class="badge bg-success text-white fs-10">🟢 Ativo & Monitorado</span>
+                                                <span class="badge bg-light text-dark border fs-10" id="evtMktTopBadgeResolution">Herança Independente</span>
+                                            </div>
+                                            <span class="text-muted fs-11" id="evtMktSubtitleDetails">Festival Curitiba 2026 | ID: #3130 | Período: 22/08/2026</span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-outline-primary btn-sm fs-11 fw-semibold" onclick="openEventFacebookPixelModal(window.currentEventId)">
+                                                <i class="fa-brands fa-facebook me-1"></i> Gerenciar Meta Pixel
+                                            </button>
+                                            <button class="btn btn-outline-secondary btn-sm fs-11" onclick="testEventPixelDispatch()">
+                                                <i class="fa-solid fa-vial me-1"></i> Disparar Teste
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- 5 EVENT-SPECIFIC MARKETING KPIS -->
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <div class="card p-2 px-3 border shadow-sm bg-white text-center">
+                                                <span class="fs-10 text-muted text-uppercase fw-bold">Visualizações</span>
+                                                <h5 class="fw-bold text-dark mt-1 mb-0" id="evtMktKpiViews">28.400</h5>
+                                                <span class="fs-10 text-muted">PageView</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card p-2 px-3 border shadow-sm bg-white text-center">
+                                                <span class="fs-10 text-muted text-uppercase fw-bold">Checkouts</span>
+                                                <h5 class="fw-bold text-warning mt-1 mb-0" id="evtMktKpiCheckouts">4.190</h5>
+                                                <span class="fs-10 text-muted">InitiateCheckout</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card p-2 px-3 border shadow-sm bg-white text-center">
+                                                <span class="fs-10 text-muted text-uppercase fw-bold">Compras (Purchase)</span>
+                                                <h5 class="fw-bold text-success mt-1 mb-0" id="evtMktKpiPurchases">302</h5>
+                                                <span class="fs-10 text-success">Confirmadas</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card p-2 px-3 border shadow-sm bg-white text-center">
+                                                <span class="fs-10 text-muted text-uppercase fw-bold">Receita Rastreada</span>
+                                                <h5 class="fw-bold text-primary mt-1 mb-0" id="evtMktKpiRevenue">R$ 119.894,00</h5>
+                                                <span class="fs-10 text-muted">ROAS: 6.2x</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card p-2 px-3 border shadow-sm bg-white text-center">
+                                                <span class="fs-10 text-muted text-uppercase fw-bold">Taxa Conversão</span>
+                                                <h5 class="fw-bold text-success mt-1 mb-0" id="evtMktKpiConversion">4,6%</h5>
+                                                <span class="fs-10 text-muted">CPA: R$ 4,80</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3 INTEGRAÇÕES COM HERANÇA INDEPENDENTE -->
+                                    <div class="row g-3 mb-3">
+                                        <!-- META (FACEBOOK) PIXEL -->
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-white h-100 position-relative">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <i class="fa-brands fa-facebook text-primary fs-5"></i>
+                                                        <h6 class="fw-bold text-dark m-0 fs-12">Meta (Facebook) Pixel</h6>
+                                                    </div>
+                                                    <span class="badge bg-success text-white fs-10">🟢 Ativo</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <span class="fs-10 text-uppercase fw-bold text-muted d-block">Origem da Configuração</span>
+                                                    <span class="badge bg-primary text-white fs-11 mt-1" id="evtMktMetaOriginBadge">
+                                                        <i class="fa-solid fa-fingerprint me-1"></i> Específico do Evento
+                                                    </span>
+                                                </div>
+                                                <div class="p-2 border rounded bg-light mb-3 fs-11">
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Pixel:</span>
+                                                        <strong class="text-dark" id="evtMktMetaName">Pixel Twelve Beers</strong>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Pixel ID:</span>
+                                                        <code class="font-monospace fw-bold text-primary" id="evtMktMetaId">918273645019283</code>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="text-muted">Deduplicação CAPI:</span>
+                                                        <span class="text-success fw-bold">100% Sincronizado</span>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-outline-primary btn-sm w-100 mt-auto fw-semibold" onclick="openEventFacebookPixelModal(window.currentEventId)">
+                                                    <i class="fa-solid fa-sliders me-1"></i> Configurar Meta Pixel
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- GOOGLE ANALYTICS 4 (GA4) -->
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-white h-100 position-relative">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <i class="fa-brands fa-google text-danger fs-5"></i>
+                                                        <h6 class="fw-bold text-dark m-0 fs-12">Google Analytics 4</h6>
+                                                    </div>
+                                                    <span class="badge bg-success text-white fs-10">🟢 Ativo</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <span class="fs-10 text-uppercase fw-bold text-muted d-block">Origem da Configuração</span>
+                                                    <span class="badge bg-info text-dark fs-11 mt-1" id="evtMktGaOriginBadge">
+                                                        <i class="fa-solid fa-code-merge me-1"></i> Herdado do Produtor
+                                                    </span>
+                                                </div>
+                                                <div class="p-2 border rounded bg-light mb-3 fs-11">
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Propriedade:</span>
+                                                        <strong class="text-dark">DiskIngressos Produtor</strong>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Measurement ID:</span>
+                                                        <code class="font-monospace fw-bold text-danger">G-774921934</code>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="text-muted">Enhanced Measurement:</span>
+                                                        <span class="text-success fw-bold">Ativo (Eventos E-commerce)</span>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-outline-danger btn-sm w-100 mt-auto fw-semibold" onclick="alert('Configurações do Google Analytics 4 salvas para este evento!');">
+                                                    <i class="fa-solid fa-sliders me-1"></i> Configurar GA4
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- GOOGLE TAG MANAGER (GTM) -->
+                                        <div class="col-md-4">
+                                            <div class="card p-3 border shadow-sm bg-white h-100 position-relative">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <i class="fa-solid fa-tags text-primary fs-5"></i>
+                                                        <h6 class="fw-bold text-dark m-0 fs-12">Google Tag Manager (GTM)</h6>
+                                                    </div>
+                                                    <span class="badge bg-success text-white fs-10">🟢 Ativo</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <span class="fs-10 text-uppercase fw-bold text-muted d-block">Origem da Configuração</span>
+                                                    <span class="badge bg-secondary text-white fs-11 mt-1" id="evtMktGtmOriginBadge">
+                                                        <i class="fa-solid fa-building me-1"></i> Global DiskIngressos
+                                                    </span>
+                                                </div>
+                                                <div class="p-2 border rounded bg-light mb-3 fs-11">
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Container:</span>
+                                                        <strong class="text-dark">DiskIngressos Production Hub</strong>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <span class="text-muted">Container ID:</span>
+                                                        <code class="font-monospace fw-bold text-dark">GTM-PRIME01</code>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="text-muted">DataLayer:</span>
+                                                        <span class="text-success fw-bold">dataLayer.push Ativo</span>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-outline-secondary btn-sm w-100 mt-auto fw-semibold" onclick="alert('Configurações do Google Tag Manager salvas!');">
+                                                    <i class="fa-solid fa-sliders me-1"></i> Configurar GTM
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FUNIL DE CONVERSÃO DO EVENTO -->
+                                    <div class="card p-3 border shadow-sm bg-white mb-3">
+                                        <h6 class="fw-bold text-dark mb-3 fs-12"><i class="fa-solid fa-filter text-primary me-2"></i> Funil de Conversão do Evento (Métricas Rastreadas)</h6>
+                                        <div class="row g-2 text-center fs-11">
+                                            <div class="col">
+                                                <div class="p-2 border rounded bg-light">
+                                                    <span class="text-muted text-uppercase fw-bold d-block fs-10">1. Visualização</span>
+                                                    <strong class="fs-13 text-dark" id="evtMktFunnelView">28.400</strong>
+                                                    <span class="d-block text-muted fs-10">100%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="p-2 border rounded bg-light">
+                                                    <span class="text-muted text-uppercase fw-bold d-block fs-10">2. Lotes/Setor</span>
+                                                    <strong class="fs-13 text-primary" id="evtMktFunnelContent">15.320</strong>
+                                                    <span class="d-block text-muted fs-10">53.9%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="p-2 border rounded bg-light">
+                                                    <span class="text-muted text-uppercase fw-bold d-block fs-10">3. Ingressos (Cart)</span>
+                                                    <strong class="fs-13 text-info" id="evtMktFunnelCart">8.900</strong>
+                                                    <span class="d-block text-muted fs-10">31.3%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="p-2 border rounded bg-light">
+                                                    <span class="text-muted text-uppercase fw-bold d-block fs-10">4. Checkout</span>
+                                                    <strong class="fs-13 text-warning" id="evtMktFunnelCheckout">4.190</strong>
+                                                    <span class="d-block text-muted fs-10">14.7%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="p-2 border rounded bg-light">
+                                                    <span class="text-muted text-uppercase fw-bold d-block fs-10">5. Pagamento</span>
+                                                    <strong class="fs-13 text-secondary" id="evtMktFunnelPayment">2.110</strong>
+                                                    <span class="d-block text-muted fs-10">7.4%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="p-2 border rounded" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981 !important;">
+                                                    <span class="text-success text-uppercase fw-bold d-block fs-10">6. Compra Confirmada</span>
+                                                    <strong class="fs-13 text-success" id="evtMktFunnelPurchase">302</strong>
+                                                    <span class="d-block text-success fw-bold fs-10">4,6% Conv.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- LOG DE AUDITORIA DE MARKETING DO EVENTO -->
+                                    <div class="card p-3 border shadow-sm bg-white">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="fw-bold text-dark m-0 fs-12"><i class="fa-solid fa-clock-rotate-left text-secondary me-2"></i> Histórico & Auditoria de Alterações de Marketing</h6>
+                                            <span class="badge bg-light text-muted border fs-10">Rastreabilidade Total</span>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover fs-11 align-middle mb-0">
+                                                <thead class="table-light text-muted fs-10 text-uppercase">
+                                                    <tr>
+                                                        <th>Data / Hora</th>
+                                                        <th>Usuário Responsável</th>
+                                                        <th>Integração</th>
+                                                        <th>Configuração Anterior</th>
+                                                        <th>Nova Configuração</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Hoje, 14:35</td>
+                                                        <td><strong>administrador@produtor.com</strong></td>
+                                                        <td><span class="badge bg-primary">Meta Pixel</span></td>
+                                                        <td><code>Pixel Principal (892341209384721)</code></td>
+                                                        <td><code class="text-success">Pixel Twelve Beers (918273645019283)</code></td>
+                                                        <td><span class="badge bg-success text-white">Salvo & Ativo</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ontem, 09:12</td>
+                                                        <td><strong>marketing@produtor.com</strong></td>
+                                                        <td><span class="badge bg-danger">GA4</span></td>
+                                                        <td><code>Não configurado</code></td>
+                                                        <td><code class="text-info">Herdado do Produtor (G-774921934)</code></td>
+                                                        <td><span class="badge bg-success text-white">Conectado</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -4887,8 +5153,265 @@
             </div>
 
             <!-- ==================================================== -->
-            <!-- 6. MÓDULO MARKETING (8 SUB-PAINÉIS) -->
+            <!-- 6. MÓDULO MARKETING (VISÃO GERAL + 8 SUB-PAINÉIS) -->
             <!-- ==================================================== -->
+
+            <!-- 6.0 PAINEL: MARKETING — VISÃO GERAL CONSOLIDADA DO PRODUTOR -->
+            <div id="panelMktVisaoGeral">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <div class="d-flex align-items-center gap-2">
+                            <h2>Marketing & Analytics — Visão Geral Consolidada</h2>
+                            <span class="badge bg-success fs-11">Painel Executivo</span>
+                        </div>
+                        <p>Visão estratégica e métricas agregadas de todos os eventos ativos da produtora com detalhamento do funil de conversão.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('pdf')">
+                            <i class="fa-regular fa-file-pdf me-1 text-danger"></i> Relatório Executivo (PDF)
+                        </button>
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="openModalNovoPixelBiblioteca()">
+                            <i class="fa-solid fa-layer-group me-1"></i> Biblioteca de Pixels
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container mb-3">
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Matriz</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
+                </div>
+
+                <!-- 6 EXECUTIVE KPI SUMMARY CARDS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Eventos Ativos</span>
+                            <h3 class="fw-bold text-dark mt-1 mb-0">25</h3>
+                            <span class="fs-10 text-success"><i class="fa-solid fa-circle-check me-1"></i> 100% monitorados</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Visualizações</span>
+                            <h3 class="fw-bold text-primary mt-1 mb-0">850.000</h3>
+                            <span class="fs-10 text-muted">PageView Total</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Checkouts</span>
+                            <h3 class="fw-bold text-warning mt-1 mb-0">48.500</h3>
+                            <span class="fs-10 text-muted">Início de compra</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Compras</span>
+                            <h3 class="fw-bold text-success mt-1 mb-0">18.250</h3>
+                            <span class="fs-10 text-success fw-bold">Vendas Aprovadas</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita Rastreada</span>
+                            <h3 class="fw-bold text-dark mt-1 mb-0 fs-5">R$ 2,85 mi</h3>
+                            <span class="fs-10 text-muted">ROAS Médio: 7.4x</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Taxa de Conversão</span>
+                            <h3 class="fw-bold text-success mt-1 mb-0">2,14%</h3>
+                            <span class="fs-10 text-success"><i class="fa-solid fa-arrow-trend-up me-1"></i> +0.4% acima da média</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FUNIL DE CONVERSÃO EXECUTIVO CONSOLIDADO -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark m-0 fs-13"><i class="fa-solid fa-filter text-primary me-2"></i> Funil Geral de Conversão (Todos os Eventos do Produtor)</h6>
+                        <span class="badge bg-light text-dark border fs-10">Consolidado em Tempo Real</span>
+                    </div>
+
+                    <div class="row g-2 text-center fs-11">
+                        <div class="col">
+                            <div class="p-2 border rounded bg-light">
+                                <span class="text-muted text-uppercase fw-bold d-block fs-10">1. Visualização</span>
+                                <strong class="fs-14 text-dark">850.000</strong>
+                                <div class="progress mt-2" style="height: 6px;"><div class="progress-bar bg-dark" style="width: 100%;"></div></div>
+                                <span class="d-block text-muted fs-10 mt-1">100%</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="p-2 border rounded bg-light">
+                                <span class="text-muted text-uppercase fw-bold d-block fs-10">2. Ingresso Selecionado</span>
+                                <strong class="fs-14 text-primary">120.000</strong>
+                                <div class="progress mt-2" style="height: 6px;"><div class="progress-bar bg-primary" style="width: 14.1%;"></div></div>
+                                <span class="d-block text-muted fs-10 mt-1">14.1%</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="p-2 border rounded bg-light">
+                                <span class="text-muted text-uppercase fw-bold d-block fs-10">3. Checkout</span>
+                                <strong class="fs-14 text-warning">48.500</strong>
+                                <div class="progress mt-2" style="height: 6px;"><div class="progress-bar bg-warning" style="width: 5.7%;"></div></div>
+                                <span class="d-block text-muted fs-10 mt-1">5.7%</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="p-2 border rounded bg-light">
+                                <span class="text-muted text-uppercase fw-bold d-block fs-10">4. Pagamento</span>
+                                <strong class="fs-14 text-secondary">25.300</strong>
+                                <div class="progress mt-2" style="height: 6px;"><div class="progress-bar bg-secondary" style="width: 2.9%;"></div></div>
+                                <span class="d-block text-muted fs-10 mt-1">2.9%</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="p-2 border rounded" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981 !important;">
+                                <span class="text-success text-uppercase fw-bold d-block fs-10">5. Compra Aprovada</span>
+                                <strong class="fs-14 text-success">18.250</strong>
+                                <div class="progress mt-2" style="height: 6px;"><div class="progress-bar bg-success" style="width: 2.14%;"></div></div>
+                                <span class="d-block text-success fw-bold fs-10 mt-1">2,14% Conversão</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA: DESEMPENHO E RASTREAMENTO INDIVIDUAL DOS EVENTOS -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="fw-bold text-dark m-0 fs-13"><i class="fa-solid fa-list-check text-success me-2"></i> Performance & Integrações por Evento</h6>
+                            <span class="fs-11 text-muted">Acesse a visão de Marketing individual de cada evento com suas tags e funil exclusivo.</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary fs-11" onclick="switchPanel('todosEventos', document.getElementById('menuTodosEventos'))">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Ver Todos os Eventos
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle fs-12 mb-0">
+                            <thead class="table-light text-muted fs-11 text-uppercase">
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Visualizações</th>
+                                    <th>Checkouts</th>
+                                    <th>Compras</th>
+                                    <th>Receita Rastreada</th>
+                                    <th>Taxa Conv.</th>
+                                    <th>Meta Pixel</th>
+                                    <th>Google GA4</th>
+                                    <th class="text-end">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-dark">#3130</span>
+                                            <div>
+                                                <strong class="text-dark">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</strong>
+                                                <div class="text-muted fs-10">Vitória/ES</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>28.400</td>
+                                    <td>4.190</td>
+                                    <td><strong class="text-success">302</strong></td>
+                                    <td><strong>R$ 119.894,00</strong></td>
+                                    <td><span class="badge bg-success text-white">4,8%</span></td>
+                                    <td><span class="badge bg-primary text-white">Específico</span></td>
+                                    <td><span class="badge bg-info text-dark">Herdado Produtor</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="openEventDetails('3130'); switchEvtSubTab('marketing', document.getElementById('tabLinkEvtMarketing'));">
+                                            <i class="fa-solid fa-bullhorn me-1"></i> Marketing do Evento
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-dark">#3131</span>
+                                            <div>
+                                                <strong class="text-dark">Roupa Nova 40 Anos - Teatro Positivo</strong>
+                                                <div class="text-muted fs-10">Curitiba/PR</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>45.200</td>
+                                    <td>8.900</td>
+                                    <td><strong class="text-success">1.420</strong></td>
+                                    <td><strong>R$ 214.850,00</strong></td>
+                                    <td><span class="badge bg-success text-white">5,2%</span></td>
+                                    <td><span class="badge bg-primary text-white">Específico</span></td>
+                                    <td><span class="badge bg-info text-dark">Herdado Produtor</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="openEventDetails('3131'); switchEvtSubTab('marketing', document.getElementById('tabLinkEvtMarketing'));">
+                                            <i class="fa-solid fa-bullhorn me-1"></i> Marketing do Evento
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-dark">#3634</span>
+                                            <div>
+                                                <strong class="text-dark">Experiência Música e Natureza - Agosto</strong>
+                                                <div class="text-muted fs-10">Curitiba/PR</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>12.450</td>
+                                    <td>2.150</td>
+                                    <td><strong class="text-success">836</strong></td>
+                                    <td><strong>R$ 16.248,00</strong></td>
+                                    <td><span class="badge bg-success text-white">4,1%</span></td>
+                                    <td><span class="badge bg-primary text-white">Específico</span></td>
+                                    <td><span class="badge bg-secondary text-white">Global Disk</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="openEventDetails('3634'); switchEvtSubTab('marketing', document.getElementById('tabLinkEvtMarketing'));">
+                                            <i class="fa-solid fa-bullhorn me-1"></i> Marketing do Evento
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-dark">#3132</span>
+                                            <div>
+                                                <strong class="text-dark">Stand Up Comedy - Diogo Almeida</strong>
+                                                <div class="text-muted fs-10">Curitiba/PR</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>18.900</td>
+                                    <td>3.200</td>
+                                    <td><strong class="text-success">650</strong></td>
+                                    <td><strong>R$ 48.900,00</strong></td>
+                                    <td><span class="badge bg-success text-white">6,8%</span></td>
+                                    <td><span class="badge bg-info text-dark">Herdado Produtor</span></td>
+                                    <td><span class="badge bg-info text-dark">Herdado Produtor</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="openEventDetails('3132'); switchEvtSubTab('marketing', document.getElementById('tabLinkEvtMarketing'));">
+                                            <i class="fa-solid fa-bullhorn me-1"></i> Marketing do Evento
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <!-- 6.1 PAINEL: CAMPANHAS MARKETING BÁSICA (4 MODELOS DE CAMPANHAS) -->
             <div id="panelMktCampanhas" class="d-none">
@@ -4904,6 +5427,7 @@
 
                 <!-- MARKETING SUB-NAV TABS BAR -->
                 <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
                     <button class="mkt-tab-btn active" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
@@ -5160,6 +5684,7 @@
 
                 <!-- MARKETING SUB-NAV TABS BAR -->
                 <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
                     <button class="mkt-tab-btn active" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
@@ -5383,6 +5908,7 @@
 
                 <!-- MARKETING SUB-NAV TABS BAR -->
                 <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
                     <button class="mkt-tab-btn active" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
@@ -5570,6 +6096,7 @@
 
                 <!-- MARKETING SUB-NAV TABS BAR -->
                 <div class="mkt-tabs-container">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
                     <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
@@ -6034,6 +6561,20 @@
                             <i class="fa-solid fa-vial me-1"></i> Teste Global
                         </button>
                     </div>
+                </div>
+
+                <!-- MARKETING SUB-NAV TABS BAR -->
+                <div class="mkt-tabs-container mb-3">
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktVisaoGeral', document.getElementById('subMktVisaoGeral'))"><i class="fa-solid fa-chart-pie text-success"></i> Visão Geral Consolidada</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCampanhas', document.getElementById('subMktCampanhas'))"><i class="fa-solid fa-bullseye text-warning"></i> 4 Modelos de Campanhas</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktAnalytics', document.getElementById('subMktAnalytics'))"><i class="fa-solid fa-chart-line text-primary"></i> Gráficos Analytics (GA4)</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPixelGraficos', document.getElementById('subMktPixelGraficos'))"><i class="fa-solid fa-crosshairs text-danger"></i> Gráficos Pixel & Conversão</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktUtm', document.getElementById('subMktUtm'))"><i class="fa-solid fa-qrcode text-success"></i> Configurar UTMs & QR</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCupons', document.getElementById('subMktCupons'))"><i class="fa-solid fa-ticket-simple text-warning"></i> Cupons</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktPromoters', document.getElementById('subMktPromoters'))"><i class="fa-solid fa-link text-info"></i> Promoters</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('mktCombos', document.getElementById('subMktCombos'))"><i class="fa-solid fa-tags text-primary"></i> Combos</button>
+                    <button class="mkt-tab-btn active" onclick="switchPanel('mktPixels', document.getElementById('subMktPixels'))"><i class="fa-solid fa-sliders text-secondary"></i> Pixels & Matriz</button>
+                    <button class="mkt-tab-btn" onclick="switchPanel('rmkCarrinhos', document.getElementById('subRmkCarrinhos'))"><i class="fa-solid fa-cart-arrow-down text-danger"></i> Remarketing</button>
                 </div>
 
                 <!-- NÍVEL 1: BIBLIOTECA DE PIXELS DO PRODUTOR -->
@@ -6644,6 +7185,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const menuMarketing = document.getElementById("menuMarketing");
             const submenuMarketing = document.getElementById("submenuMarketing");
             const arrowMarketing = document.getElementById("arrowMarketing");
+            const subMktVisaoGeral = document.getElementById("subMktVisaoGeral");
             const subMktCampanhas = document.getElementById("subMktCampanhas");
             const subMktAnalytics = document.getElementById("subMktAnalytics");
             const subMktPixelGraficos = document.getElementById("subMktPixelGraficos");
@@ -6694,6 +7236,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 finNegociacoes: document.getElementById("panelFinNegociacoes"),
 
                 // Marketing Sub-Panels
+                mktVisaoGeral: document.getElementById("panelMktVisaoGeral"),
                 mktCampanhas: document.getElementById("panelMktCampanhas"),
                 mktAnalytics: document.getElementById("panelMktAnalytics"),
                 mktPixelGraficos: document.getElementById("panelMktPixelGraficos"),
@@ -7109,6 +7652,38 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 if (document.getElementById("evtPortariaPercentual")) document.getElementById("evtPortariaPercentual").textContent = evt.portaria.percentual;
                 if (document.getElementById("evtPortariaPico")) document.getElementById("evtPortariaPico").textContent = evt.portaria.pico;
 
+                // Set Event Marketing Sub-Tab Data
+                const resolution = window.resolveEventPixel(evt.id);
+                if (document.getElementById("evtMktSubtitleDetails")) document.getElementById("evtMktSubtitleDetails").textContent = `${evt.name} | ID: #${evt.id} | ${evt.local}`;
+                if (document.getElementById("evtMktKpiViews")) document.getElementById("evtMktKpiViews").textContent = evt.pixel?.pageViews || "18.400";
+                if (document.getElementById("evtMktKpiCheckouts")) document.getElementById("evtMktKpiCheckouts").textContent = evt.pixel?.initiateCheckout || "2.890";
+                if (document.getElementById("evtMktKpiPurchases")) document.getElementById("evtMktKpiPurchases").textContent = evt.pixel?.purchase || evt.ingressosVendidos;
+                if (document.getElementById("evtMktKpiRevenue")) document.getElementById("evtMktKpiRevenue").textContent = evt.pixel?.receitaPixel || evt.receitaBruta;
+                if (document.getElementById("evtMktKpiConversion")) document.getElementById("evtMktKpiConversion").textContent = (evt.pixel?.cpa ? "4.6%" : "3.8%");
+                
+                if (document.getElementById("evtMktMetaName")) document.getElementById("evtMktMetaName").textContent = resolution.pixelName;
+                if (document.getElementById("evtMktMetaId")) document.getElementById("evtMktMetaId").textContent = resolution.pixelId;
+                
+                const metaBadge = document.getElementById("evtMktMetaOriginBadge");
+                if (metaBadge) {
+                    if (resolution.mode === 'inherit') {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-code-merge me-1"></i> Herdado do Produtor`;
+                        metaBadge.className = "badge bg-info text-dark fs-11 mt-1";
+                    } else if (resolution.mode === 'library') {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-book-bookmark me-1"></i> Biblioteca do Produtor`;
+                        metaBadge.className = "badge bg-primary text-white fs-11 mt-1";
+                    } else {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-fingerprint me-1"></i> Específico do Evento`;
+                        metaBadge.className = "badge bg-warning text-dark fs-11 mt-1";
+                    }
+                }
+
+                if (document.getElementById("evtMktFunnelView")) document.getElementById("evtMktFunnelView").textContent = evt.pixel?.pageViews || "18.400";
+                if (document.getElementById("evtMktFunnelContent")) document.getElementById("evtMktFunnelContent").textContent = evt.pixel?.viewContent || "11.200";
+                if (document.getElementById("evtMktFunnelCheckout")) document.getElementById("evtMktFunnelCheckout").textContent = evt.pixel?.initiateCheckout || "2.890";
+                if (document.getElementById("evtMktFunnelPayment")) document.getElementById("evtMktFunnelPayment").textContent = evt.pixel?.addPaymentInfo || "1.450";
+                if (document.getElementById("evtMktFunnelPurchase")) document.getElementById("evtMktFunnelPurchase").textContent = evt.pixel?.purchase || evt.ingressosVendidos;
+
                 // Switch Panel
                 switchPanel('detalhesEvento', document.getElementById('menuTodosEventos'));
                 switchEvtSubTab('lotes', document.getElementById('tabLinkEvtLotes'));
@@ -7126,6 +7701,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
                 const subTabs = {
                     lotes: document.getElementById("evtSubTabLotes"),
+                    marketing: document.getElementById("evtSubTabMarketing"),
                     financeiro: document.getElementById("evtSubTabFinanceiro"),
                     compradores: document.getElementById("evtSubTabCompradores"),
                     graficos: document.getElementById("evtSubTabGraficos"),
@@ -7176,13 +7752,14 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                         submenuMarketing.classList.remove("show");
                         if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
                     } else {
-                        switchPanel('mktCampanhas', subMktCampanhas);
+                        switchPanel('mktVisaoGeral', subMktVisaoGeral);
                         if (menuMarketing) menuMarketing.classList.add('active');
                     }
                 });
             }
 
             // Submenu Bindings: Marketing
+            if (subMktVisaoGeral) subMktVisaoGeral.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktVisaoGeral', subMktVisaoGeral); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktCampanhas) subMktCampanhas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCampanhas', subMktCampanhas); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktAnalytics) subMktAnalytics.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktAnalytics', subMktAnalytics); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktPixelGraficos) subMktPixelGraficos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixelGraficos', subMktPixelGraficos); if (menuMarketing) menuMarketing.classList.add('active'); });
@@ -9146,7 +9723,27 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 }
 
                 renderEventsPixelMatrix();
-                alert(`✅ Vinculação do Meta Pixel salva com sucesso para o evento #${evtId} (Modo: ${mode === 'inherit' ? 'Herdado do Produtor' : (mode === 'library' ? 'Biblioteca' : 'Customizado')})!`);
+
+                // Atualiza também os cards de Marketing do evento se estiver na tela do evento
+                const resolution = window.resolveEventPixel(evtId);
+                if (document.getElementById("evtMktMetaName")) document.getElementById("evtMktMetaName").textContent = resolution.pixelName;
+                if (document.getElementById("evtMktMetaId")) document.getElementById("evtMktMetaId").textContent = resolution.pixelId;
+                
+                const metaBadge = document.getElementById("evtMktMetaOriginBadge");
+                if (metaBadge) {
+                    if (resolution.mode === 'inherit') {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-code-merge me-1"></i> Herdado do Produtor`;
+                        metaBadge.className = "badge bg-info text-dark fs-11 mt-1";
+                    } else if (resolution.mode === 'library') {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-book-bookmark me-1"></i> Biblioteca do Produtor`;
+                        metaBadge.className = "badge bg-primary text-white fs-11 mt-1";
+                    } else {
+                        metaBadge.innerHTML = `<i class="fa-solid fa-fingerprint me-1"></i> Específico do Evento`;
+                        metaBadge.className = "badge bg-warning text-dark fs-11 mt-1";
+                    }
+                }
+
+                alert(`✅ Vinculação do Meta Pixel salva com sucesso para o evento #${evtId}!\nModo Ativo: ${resolution.sourceLabel}\nPixel ID: ${resolution.pixelId}`);
                 bootstrap.Modal.getInstance(document.getElementById("modalEventFacebookPixel"))?.hide();
             };
 
@@ -10581,6 +11178,58 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- ==================================================== -->
+    <!-- MODAL: CONFIRMAR IMPACTO DE ALTERAÇÃO DE PIXEL -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalConfirmarImpactoPixel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white p-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-warning fs-5"></i>
+                        <h5 class="modal-title fs-6 fw-bold mb-0">Confirmar Alteração de Rastreamento</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-white">
+                    <p class="fs-12 text-muted mb-3">
+                        Você está alterando o Pixel/Tag de rastreamento utilizado por este evento:
+                    </p>
+
+                    <div class="p-3 bg-light rounded border mb-3 fs-12">
+                        <div class="mb-2">
+                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Evento:</span>
+                            <strong class="text-dark" id="confirmModalEventName">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</strong>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Pixel Anterior:</span>
+                            <code class="text-secondary" id="confirmModalPrevPixel">Pixel Principal (892341209384721)</code>
+                        </div>
+                        <div>
+                            <span class="text-muted d-block fs-10 text-uppercase fw-bold">Novo Pixel / Configuração:</span>
+                            <code class="text-success fw-bold" id="confirmModalNewPixel">Pixel Festivais & Cerveja (918273645019283)</code>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info p-2 fs-11 mb-0">
+                        <strong><i class="fa-solid fa-circle-info me-1"></i> Esta alteração passará a valer imediatamente para:</strong>
+                        <ul class="mb-0 mt-1 ps-3">
+                            <li>Página pública do evento (PageView)</li>
+                            <li>Seleção de ingressos & lotes (ViewContent / AddToCart)</li>
+                            <li>Checkout e pagamento (InitiateCheckout / AddPaymentInfo)</li>
+                            <li>Compra aprovada com confirmação real (Purchase & CAPI Server)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7;" id="btnExecutePixelChange">
+                        <i class="fa-solid fa-check me-1"></i> Confirmar Alteração
+                    </button>
+                </div>
             </div>
         </div>
     </div>
