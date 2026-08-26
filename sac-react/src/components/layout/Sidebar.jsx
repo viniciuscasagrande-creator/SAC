@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import {
-  LayoutDashboard,
-  Building2,
+  BarChart3,
+  Building,
   CalendarDays,
-  ListCheck,
-  CalendarPlus,
+  Ticket,
+  PlusCircle,
   Layers,
   Wallet,
   LineChart,
-  DollarSign,
+  Banknote,
   ArrowRightLeft,
   HandCoins,
+  FileText,
   Receipt,
-  Calculator,
   Landmark,
   FileSignature,
   Scale,
   CreditCard,
   Headset,
-  MessageSquare,
+  MessagesSquare,
   RotateCcw,
   Megaphone,
   PieChart,
   Target,
-  BarChart3,
+  AreaChart,
   Crosshair,
   QrCode,
   Tags,
@@ -47,7 +47,7 @@ export function Sidebar({
 }) {
   const [openSections, setOpenSections] = useState({
     events: true,
-    finance: false,
+    finance: true,
     sac: false,
     marketing: false,
     remarketing: false,
@@ -77,7 +77,7 @@ export function Sidebar({
         </div>
 
         <nav className="space-y-0.5">
-          {/* DASHBOARD */}
+          {/* 1. DASHBOARD */}
           <button
             onClick={() => onSelectTab?.('dashboard')}
             className={`w-full flex items-center gap-3 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
@@ -86,11 +86,11 @@ export function Sidebar({
                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
             }`}
           >
-            <LayoutDashboard className="w-4 h-4 text-slate-400" />
+            <BarChart3 className="w-4 h-4 text-slate-400" />
             <span>Dashboard</span>
           </button>
 
-          {/* DADOS DA PRODUTORA */}
+          {/* 2. DADOS DA PRODUTORA */}
           <button
             onClick={() => onSelectTab?.('producer')}
             className={`w-full flex items-center gap-3 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
@@ -99,11 +99,11 @@ export function Sidebar({
                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
             }`}
           >
-            <Building2 className="w-4 h-4 text-slate-400" />
+            <Building className="w-4 h-4 text-slate-400" />
             <span>Dados da Produtora</span>
           </button>
 
-          {/* EVENTOS (EXPANSÍVEL) */}
+          {/* 3. EVENTOS (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('events')}
@@ -127,14 +127,14 @@ export function Sidebar({
                     currentTab === 'events' ? 'text-sky-400 font-semibold bg-sky-500/10' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <ListCheck className="w-3.5 h-3.5" />
+                  <Ticket className="w-3.5 h-3.5" />
                   <span>Todos os Eventos</span>
                 </button>
                 <button
                   onClick={() => onSelectTab?.('create-event')}
                   className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors"
                 >
-                  <CalendarPlus className="w-3.5 h-3.5" />
+                  <PlusCircle className="w-3.5 h-3.5" />
                   <span>Novo Evento</span>
                 </button>
                 <button
@@ -148,12 +148,12 @@ export function Sidebar({
             )}
           </div>
 
-          {/* FINANCEIRO (EXPANSÍVEL) */}
+          {/* 4. FINANCEIRO (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('finance')}
               className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
-                currentTab === 'finance'
+                currentTab.startsWith('finance')
                   ? 'bg-[#313745] text-white font-semibold'
                   : 'text-slate-400 hover:bg-white/5 hover:text-white'
               }`}
@@ -171,7 +171,7 @@ export function Sidebar({
                   <span>Hub Financeiro</span>
                 </button>
                 <button onClick={() => onSelectTab?.('finance-balance')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
-                  <DollarSign className="w-3.5 h-3.5" />
+                  <Banknote className="w-3.5 h-3.5" />
                   <span>Saldo Consolidado</span>
                 </button>
                 <button onClick={() => onSelectTab?.('finance-payout')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
@@ -183,11 +183,11 @@ export function Sidebar({
                   <span>Antecipações</span>
                 </button>
                 <button onClick={() => onSelectTab?.('finance-statement')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
-                  <Receipt className="w-3.5 h-3.5" />
+                  <FileText className="w-3.5 h-3.5" />
                   <span>Extrato Detalhado</span>
                 </button>
                 <button onClick={() => onSelectTab?.('finance-expenses')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
-                  <Calculator className="w-3.5 h-3.5" />
+                  <Receipt className="w-3.5 h-3.5" />
                   <span>Despesas</span>
                 </button>
                 <button onClick={() => onSelectTab?.('finance-banks')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
@@ -206,7 +206,7 @@ export function Sidebar({
             )}
           </div>
 
-          {/* TERMINAIS POS */}
+          {/* 5. TERMINAIS POS */}
           <button
             onClick={() => onSelectTab?.('pos')}
             className={`w-full flex items-center gap-3 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
@@ -219,7 +219,7 @@ export function Sidebar({
             <span>Terminais POS</span>
           </button>
 
-          {/* ATENDIMENTO / SAC (EXPANSÍVEL) */}
+          {/* 6. ATENDIMENTO / SAC (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('sac')}
@@ -246,7 +246,7 @@ export function Sidebar({
                     currentTab === 'sac' ? 'text-sky-400 font-semibold bg-sky-500/10' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <MessagesSquare className="w-3.5 h-3.5" />
                   <span>Fila de Chamados</span>
                 </button>
                 <button
@@ -262,7 +262,7 @@ export function Sidebar({
             )}
           </div>
 
-          {/* MARKETING (EXPANSÍVEL) */}
+          {/* 7. MARKETING (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('marketing')}
@@ -282,14 +282,14 @@ export function Sidebar({
               <div className="pl-6 ml-3 border-l border-white/10 space-y-0.5 mt-0.5">
                 <button onClick={() => onSelectTab?.('marketing')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <PieChart className="w-3.5 h-3.5" />
-                  <span>Visão Geral</span>
+                  <span>Visão Geral Consolidada</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-campaigns')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <Target className="w-3.5 h-3.5" />
-                  <span>Campanhas</span>
+                  <span>Campanhas Marketing</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-analytics')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
-                  <BarChart3 className="w-3.5 h-3.5" />
+                  <AreaChart className="w-3.5 h-3.5" />
                   <span>Analytics (GA4)</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-pixel')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
@@ -302,15 +302,15 @@ export function Sidebar({
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-coupons')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <Tags className="w-3.5 h-3.5" />
-                  <span>Cupons</span>
+                  <span>Cupons de Desconto</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-promoters')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <Share2 className="w-3.5 h-3.5" />
-                  <span>Promoters</span>
+                  <span>Links & Promoters</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-combos')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <Boxes className="w-3.5 h-3.5" />
-                  <span>Combos</span>
+                  <span>Combos & Ofertas</span>
                 </button>
                 <button onClick={() => onSelectTab?.('mkt-pixels-matrix')} className="w-full flex items-center gap-2 px-2 py-1 rounded text-[11px] text-slate-400 hover:text-white transition-colors">
                   <Sliders className="w-3.5 h-3.5" />
@@ -320,7 +320,7 @@ export function Sidebar({
             )}
           </div>
 
-          {/* REMARKETING (EXPANSÍVEL) */}
+          {/* 8. REMARKETING (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('remarketing')}
@@ -358,7 +358,7 @@ export function Sidebar({
             )}
           </div>
 
-          {/* ADMINISTRAÇÃO (EXPANSÍVEL) */}
+          {/* 9. ADMINISTRAÇÃO (EXPANSÍVEL) */}
           <div>
             <button
               onClick={() => toggleSection('admin')}

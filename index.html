@@ -840,55 +840,55 @@
                 </div>
                 <div class="menu-section-header">MENU PRINCIPAL</div>
                 <div class="sidebar-menu">
-                    <!-- DASHBOARD -->
+                    <!-- 1. DASHBOARD -->
                     <a class="menu-item" id="menuDashboard" style="cursor: pointer;" onclick="switchPanel('dashboard', this)">
-                        <i class="fa-solid fa-gauge-high"></i>
+                        <i class="fa-solid fa-chart-column"></i>
                         <span>Dashboard</span>
                     </a>
 
-                    <!-- DADOS DA PRODUTORA -->
+                    <!-- 2. DADOS DA PRODUTORA -->
                     <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;" onclick="switchPanel('dadosProdutora', this)">
-                        <i class="fa-solid fa-building-user"></i>
+                        <i class="fa-solid fa-building"></i>
                         <span>Dados da Produtora</span>
                     </a>
 
-                    <!-- EVENTOS (EXPANSÍVEL) -->
+                    <!-- 3. EVENTOS (EXPANSÍVEL) -->
                     <a class="menu-item active expanded" id="menuEventosMain" style="cursor: pointer;" onclick="toggleMenuAccordion('menuEventosMain', 'submenuEventos')">
                         <i class="fa-solid fa-calendar-days"></i>
                         <span>Eventos</span>
                         <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
                     <div class="submenu-container show" id="submenuEventos">
-                        <a class="submenu-item active" id="menuTodosEventos" onclick="switchPanel('todosEventos', this)"><i class="fa-solid fa-list-check"></i> Todos os Eventos</a>
-                        <a class="submenu-item" id="menuSubNovoEvento" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-calendar-plus"></i> Novo Evento</a>
+                        <a class="submenu-item active" id="menuTodosEventos" onclick="switchPanel('todosEventos', this)"><i class="fa-solid fa-ticket"></i> Todos os Eventos</a>
+                        <a class="submenu-item" id="menuSubNovoEvento" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-circle-plus"></i> Novo Evento</a>
                         <a class="submenu-item" id="menuSubLotes" onclick="openModalById('modalLotes')"><i class="fa-solid fa-layer-group"></i> Configurar Lotes</a>
                     </div>
 
-                    <!-- FINANCEIRO (EXPANSÍVEL) -->
+                    <!-- 4. FINANCEIRO (EXPANSÍVEL) -->
                     <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;" onclick="toggleMenuAccordion('menuFinanceiro', 'submenuFinanceiro')">
-                        <i class="fa-solid fa-vault"></i>
+                        <i class="fa-solid fa-wallet"></i>
                         <span>Financeiro</span>
                         <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
                     <div class="submenu-container" id="submenuFinanceiro">
                         <a class="submenu-item" id="subFinHub" onclick="switchPanel('finHub', this)"><i class="fa-solid fa-chart-line"></i> Hub Financeiro</a>
-                        <a class="submenu-item" id="subFinSaldo" onclick="switchPanel('finSaldo', this)"><i class="fa-solid fa-wallet"></i> Saldo Consolidado</a>
+                        <a class="submenu-item" id="subFinSaldo" onclick="switchPanel('finSaldo', this)"><i class="fa-solid fa-money-bill-wave"></i> Saldo Consolidado</a>
                         <a class="submenu-item" id="subFinRepasse" onclick="switchPanel('finRepasse', this)"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
                         <a class="submenu-item" id="subFinAntecipacoes" onclick="switchPanel('finAntecipacoes', this)"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
-                        <a class="submenu-item" id="subFinExtrato" onclick="switchPanel('finExtrato', this)"><i class="fa-solid fa-receipt"></i> Extrato Detalhado</a>
-                        <a class="submenu-item" id="subFinDespesas" onclick="switchPanel('finDespesas', this)"><i class="fa-solid fa-calculator"></i> Despesas</a>
+                        <a class="submenu-item" id="subFinExtrato" onclick="switchPanel('finExtrato', this)"><i class="fa-solid fa-file-invoice"></i> Extrato Detalhado</a>
+                        <a class="submenu-item" id="subFinDespesas" onclick="switchPanel('finDespesas', this)"><i class="fa-solid fa-receipt"></i> Despesas</a>
                         <a class="submenu-item" id="subFinContas" onclick="switchPanel('finContas', this)"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
                         <a class="submenu-item" id="subFinBordero" onclick="switchPanel('finBordero', this)"><i class="fa-solid fa-file-signature"></i> Borderô</a>
                         <a class="submenu-item" id="subFinNegociacoes" onclick="switchPanel('finNegociacoes', this)"><i class="fa-solid fa-scale-balanced"></i> Negociações & DRE</a>
                     </div>
 
-                    <!-- TERMINAIS POS -->
+                    <!-- 5. TERMINAIS POS -->
                     <a class="menu-item" id="menuTerminaisPos" style="cursor: pointer;" onclick="switchPanel('terminaisPos', this)">
                         <i class="fa-solid fa-credit-card"></i>
                         <span>Terminais POS</span>
                     </a>
 
-                    <!-- ATENDIMENTO & SAC (EXPANSÍVEL) -->
+                    <!-- 6. ATENDIMENTO & SAC (EXPANSÍVEL) -->
                     <a class="menu-item" id="menuSacAccordion" style="cursor: pointer;" onclick="toggleMenuAccordion('menuSacAccordion', 'submenuSac')">
                         <i class="fa-solid fa-headset"></i>
                         <span>Atendimento / SAC</span>
@@ -897,10 +897,10 @@
                     </a>
                     <div class="submenu-container" id="submenuSac">
                         <a class="submenu-item" id="menuSacHub" onclick="switchPanel('sacContent', this)"><i class="fa-solid fa-comments"></i> Fila de Chamados</a>
-                        <a class="submenu-item" id="menuEstorno" onclick="switchPanel('panelEstornoContent', this)"><i class="fa-solid fa-rotate-left"></i> Gestão de Estornos</a>
+                        <a class="submenu-item" id="menuEstorno" onclick="switchPanel('panelEstornoContent', this)"><i class="fa-solid fa-arrow-rotate-left"></i> Gestão de Estornos</a>
                     </div>
 
-                    <!-- MARKETING (EXPANSÍVEL) -->
+                    <!-- 7. MARKETING (EXPANSÍVEL) -->
                     <a class="menu-item" id="menuMarketing" style="cursor: pointer;" onclick="toggleMenuAccordion('menuMarketing', 'submenuMarketing')">
                         <i class="fa-solid fa-bullhorn"></i>
                         <span>Marketing</span>
@@ -918,7 +918,7 @@
                         <a class="submenu-item" id="subMktPixels" onclick="switchPanel('mktPixels', this)"><i class="fa-solid fa-sliders"></i> Pixels & Tracking</a>
                     </div>
 
-                    <!-- REMARKETING (EXPANSÍVEL) -->
+                    <!-- 8. REMARKETING (EXPANSÍVEL) -->
                     <a class="menu-item" id="menuRemarketing" style="cursor: pointer;" onclick="toggleMenuAccordion('menuRemarketing', 'submenuRemarketing')">
                         <i class="fa-solid fa-arrows-rotate"></i>
                         <span>Remarketing</span>
@@ -926,20 +926,20 @@
                     </a>
                     <div class="submenu-container" id="submenuRemarketing">
                         <a class="submenu-item" id="subRmkCarrinhos" onclick="switchPanel('rmkCarrinhos', this)"><i class="fa-solid fa-cart-arrow-down"></i> Carrinhos Abandonados</a>
-                        <a class="submenu-item" id="subRmkDisparos" onclick="switchPanel('rmkDisparos', this)"><i class="fa-solid fa-paper-plane"></i> Disparos WhatsApp</a>
+                        <a class="submenu-item" id="subRmkDisparos" onclick="switchPanel('rmkDisparos', this)"><i class="fa-brands fa-whatsapp"></i> Disparos WhatsApp</a>
                         <a class="submenu-item" id="subRmkCRM" onclick="switchPanel('rmkCRM', this)"><i class="fa-solid fa-users-gear"></i> Segmentação CRM</a>
                         <a class="submenu-item" id="subRmkMetricas" onclick="switchPanel('rmkMetricas', this)"><i class="fa-solid fa-arrow-trend-up"></i> Métricas & ROI</a>
                     </div>
 
-                    <!-- ADMINISTRAÇÃO (EXPANSÍVEL) -->
+                    <!-- 9. ADMINISTRAÇÃO (EXPANSÍVEL) -->
                     <a class="menu-item" id="menuAdminAccordion" style="cursor: pointer;" onclick="toggleMenuAccordion('menuAdminAccordion', 'submenuAdmin')">
-                        <i class="fa-solid fa-user-shield"></i>
+                        <i class="fa-solid fa-shield-halved"></i>
                         <span>Administração</span>
                         <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
                     <div class="submenu-container" id="submenuAdmin">
                         <a class="submenu-item" id="subAdminAcessos" onclick="switchPanel('gerenciarAcessos', this)"><i class="fa-solid fa-users"></i> Usuários & Permissões</a>
-                        <a class="submenu-item" id="subAdminLogs" onclick="alert('Histórico de Auditoria & Logs de Acesso')"><i class="fa-solid fa-clipboard-list"></i> Logs de Auditoria</a>
+                        <a class="submenu-item" id="subAdminLogs" onclick="alert('Histórico de Auditoria & Logs de Acesso')"><i class="fa-solid fa-list-check"></i> Logs de Auditoria</a>
                     </div>
                 </div>
             </div>
@@ -7050,8 +7050,9 @@ function toggleMenuAccordion(menuElId, submenuContainerId) {
     const subContainer = document.getElementById(submenuContainerId);
     if (!subContainer) return;
 
-    const isShowing = subContainer.classList.contains("show");
-    if (isShowing) {
+    const isCurrentlyShown = subContainer.classList.contains("show");
+    
+    if (isCurrentlyShown) {
         subContainer.classList.remove("show");
         if (menuEl) menuEl.classList.remove("expanded");
     } else {
@@ -7947,360 +7948,7 @@ window.switchEvtSubTab = switchEvtSubTab;
             };
 
             // Accordion Toggle for Financeiro
-            if (menuFinanceiro) {
-                menuFinanceiro.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const isOpen = submenuFinanceiro && submenuFinanceiro.classList.contains("show");
-                    if (isOpen) {
-                        submenuFinanceiro.classList.remove("show");
-                        if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
-                    } else {
-                        switchPanel('finHub', subFinHub);
-                        if (menuFinanceiro) menuFinanceiro.classList.add('active');
-                    }
-                });
-            }
-
-            // Submenu Bindings
-            if (subFinHub) subFinHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finHub', subFinHub); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinSaldo) subFinSaldo.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finSaldo', subFinSaldo); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinRepasse) subFinRepasse.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finRepasse', subFinRepasse); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinAntecipacoes) subFinAntecipacoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finAntecipacoes', subFinAntecipacoes); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinExtrato) subFinExtrato.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finExtrato', subFinExtrato); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinDespesas) subFinDespesas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finDespesas', subFinDespesas); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinContas) subFinContas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finContas', subFinContas); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinBordero) subFinBordero.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finBordero', subFinBordero); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-            if (subFinNegociacoes) subFinNegociacoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finNegociacoes', subFinNegociacoes); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
-
-            // Accordion Toggle for Marketing
-            if (menuMarketing) {
-                menuMarketing.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const isOpen = submenuMarketing && submenuMarketing.classList.contains("show");
-                    if (isOpen) {
-                        submenuMarketing.classList.remove("show");
-                        if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
-                    } else {
-                        switchPanel('mktVisaoGeral', subMktVisaoGeral);
-                        if (menuMarketing) menuMarketing.classList.add('active');
-                    }
-                });
-            }
-
-            // Submenu Bindings: Marketing
-            if (subMktVisaoGeral) subMktVisaoGeral.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktVisaoGeral', subMktVisaoGeral); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktCampanhas) subMktCampanhas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCampanhas', subMktCampanhas); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktAnalytics) subMktAnalytics.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktAnalytics', subMktAnalytics); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktPixelGraficos) subMktPixelGraficos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixelGraficos', subMktPixelGraficos); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktUtm) subMktUtm.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktUtm', subMktUtm); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktCupons) subMktCupons.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCupons', subMktCupons); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktPromoters) subMktPromoters.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPromoters', subMktPromoters); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktCombos) subMktCombos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCombos', subMktCombos); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktPixels) subMktPixels.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixels', subMktPixels); if (menuMarketing) menuMarketing.classList.add('active'); });
-
-            // Campaign Model Activation Helper
-            window.openCampaignModal = function(modelType, modelTitle) {
-                const titleInput = document.getElementById("campaignModelTitle");
-                const copyArea = document.getElementById("campaignModelCopy");
-                if (titleInput) titleInput.value = modelTitle;
-                
-                if (copyArea) {
-                    if (modelType === 'lancamento') {
-                        copyArea.value = "🚨 LIBERADO! As vendas para Roupa Nova 40 Anos acabam de abrir com Lote Promocional Exclusivo! São apenas 300 ingressos por esse valor. Garanta o seu agora antes que esgote: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=disparo_vip";
-                    } else if (modelType === 'virada_lote') {
-                        copyArea.value = "⏳ ÚLTIMO AVISO: O Lote 1 para Roupa Nova 40 Anos vira hoje às 23h59! Não pague mais caro amanhã. Compre agora no valor atual: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=virada_lote";
-                    } else if (modelType === 'combo_galera') {
-                        copyArea.value = "👥 JUNTE A GALERA! Na compra de 3 ingressos para Roupa Nova 40 Anos, o 4º é POR NOSSA CONTA! Promoção válida até durar o lote do combo: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=combo_4x3";
-                    } else if (modelType === 'flash_promo') {
-                        copyArea.value = "⚡ OFERTA RELÂMPAGO (Válida só hoje)! Use o cupom FLASH15 e ganhe 15% OFF nos ingressos para Roupa Nova 40 Anos. Expira à meia-noite: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=flash_promo&cupom=FLASH15";
-                    }
-                }
-                openModalById('modalActivateCampaignModel');
-            };
-
-            // UTM Builder Function
-            window.buildUtmLink = function() {
-                const base = document.getElementById("utmEvento")?.value || "https://diskingressos.com.br/evento/3131";
-                const src = document.getElementById("utmSource")?.value.trim() || "";
-                const med = document.getElementById("utmMedium")?.value.trim() || "";
-                const cmp = document.getElementById("utmCampaign")?.value.trim() || "";
-                const cnt = document.getElementById("utmContent")?.value.trim() || "";
-                const cpm = document.getElementById("utmCupom")?.value.trim() || "";
-
-                const params = [];
-                if (src) params.push(`utm_source=${encodeURIComponent(src)}`);
-                if (med) params.push(`utm_medium=${encodeURIComponent(med)}`);
-                if (cmp) params.push(`utm_campaign=${encodeURIComponent(cmp)}`);
-                if (cnt) params.push(`utm_content=${encodeURIComponent(cnt)}`);
-                if (cpm) params.push(`cupom=${encodeURIComponent(cpm)}`);
-
-                const finalUrl = params.length > 0 ? `${base}?${params.join("&")}` : base;
-                const resultInput = document.getElementById("utmResultUrl");
-                if (resultInput) resultInput.value = finalUrl;
-            };
-
-            // Accordion Toggle for Remarketing
-            if (menuRemarketing) {
-                menuRemarketing.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const isOpen = submenuRemarketing && submenuRemarketing.classList.contains("show");
-                    if (isOpen) {
-                        submenuRemarketing.classList.remove("show");
-                        if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(0deg)";
-                    } else {
-                        switchPanel('rmkCarrinhos', subRmkCarrinhos);
-                        if (menuRemarketing) menuRemarketing.classList.add('active');
-                    }
-                });
-            }
-
-            // Submenu Bindings: Remarketing
-            if (subRmkCarrinhos) subRmkCarrinhos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkCarrinhos', subRmkCarrinhos); if (menuRemarketing) menuRemarketing.classList.add('active'); });
-            if (subRmkDisparos) subRmkDisparos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkDisparos', subRmkDisparos); if (menuRemarketing) menuRemarketing.classList.add('active'); });
-            if (subRmkCRM) subRmkCRM.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkCRM', subRmkCRM); if (menuRemarketing) menuRemarketing.classList.add('active'); });
-            if (subRmkMetricas) subRmkMetricas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkMetricas', subRmkMetricas); if (menuRemarketing) menuRemarketing.classList.add('active'); });
-
-            // Marketing & Remarketing Helpers
-            window.updateMktPreview = function() {
-                const text = document.getElementById("mktMsgText")?.value || "";
-                const preview = document.getElementById("mktMsgPreviewBox");
-                if (preview) {
-                    let formatted = text
-                        .replace(/{nome}/g, '<strong>Carlos</strong>')
-                        .replace(/{evento}/g, '<strong>Roupa Nova 40 Anos</strong>')
-                        .replace(/{link}/g, '<a href="#" style="color:#0284c7; text-decoration:underline;">diskingressos.com.br/evento/3131</a>')
-                        .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
-                        .replace(/\n/g, '<br>');
-                    preview.innerHTML = formatted;
-                }
-            };
-
-            window.openModalWhatsappRecovery = function(name, phone, event, val) {
-                if (document.getElementById("modalRmkClientName")) document.getElementById("modalRmkClientName").textContent = name;
-                if (document.getElementById("modalRmkClientPhone")) document.getElementById("modalRmkClientPhone").textContent = phone;
-                if (document.getElementById("modalRmkEventName")) document.getElementById("modalRmkEventName").textContent = event;
-                if (document.getElementById("modalRmkEventValue")) document.getElementById("modalRmkEventValue").textContent = val;
-                if (document.getElementById("modalRmkMessageText")) {
-                    document.getElementById("modalRmkMessageText").value = `Olá ${name}! Notamos que você não finalizou seu pedido para ${event} (${val}). Seus ingressos estão reservados por mais 15 minutos! Finalize agora: https://diskingressos.com.br/checkout/recuperar?token=8923489`;
-                }
-                openModalById('modalWhatsappRecovery');
-            };
-
-            // Main Menu Bindings
-            if (menuDashboard) menuDashboard.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dashboard', menuDashboard); });
-            if (menuDadosProdutora) menuDadosProdutora.addEventListener("click", (e) => { e.preventDefault(); switchPanel('dadosProdutora', menuDadosProdutora); });
-            if (menuTodosEventos) menuTodosEventos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('todosEventos', menuTodosEventos); });
-            if (menuNovoEvento) menuNovoEvento.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
-            if (menuTerminaisPos) menuTerminaisPos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('terminaisPos', menuTerminaisPos); });
-            if (menuGerenciarAcessos) menuGerenciarAcessos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('gerenciarAcessos', menuGerenciarAcessos); });
-            if (menuEstorno) menuEstorno.addEventListener("click", (e) => { e.preventDefault(); switchPanel('estorno', menuEstorno); });
-            if (menuSacHub) menuSacHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('sacContent', menuSacHub); });
-
-            if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
-            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", (e) => { 
-                e.preventDefault(); 
-                if (submenuFinanceiro) submenuFinanceiro.classList.add('show');
-                if (arrowFinanceiro) arrowFinanceiro.style.transform = 'rotate(90deg)';
-                switchPanel('finRepasse', subFinRepasse);
-                if (menuFinanceiro) menuFinanceiro.classList.add('active');
-            });
-            if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
-
-            // Layout Toggle Function (Grid vs Table)
-            window.toggleEventsLayout = function() {
-                const grid = document.getElementById("eventsCardsGridView");
-                const table = document.getElementById("eventsTableView");
-                if (!grid || !table) return;
-                const isGridHidden = grid.classList.contains("d-none");
-                if (isGridHidden) {
-                    grid.classList.remove("d-none");
-                    table.classList.add("d-none");
-                } else {
-                    grid.classList.add("d-none");
-                    table.classList.remove("d-none");
-                }
-            };
-
-            // Filter Events by Status (Ativos, Inativos, Todos)
-            window.filterEventsByStatus = function(status) {
-                const btnAtivos = document.getElementById("btnFilterAtivos");
-                const btnInativos = document.getElementById("btnFilterInativos");
-                const btnTodos = document.getElementById("btnFilterTodos");
-                const cards = document.querySelectorAll("#eventsCardsGridView .event-card-portrait");
-
-                [btnAtivos, btnInativos, btnTodos].forEach(btn => {
-                    if (btn) {
-                        btn.className = "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
-                        btn.style.backgroundColor = "#fff";
-                        btn.style.color = "#334155";
-                    }
-                });
-
-                if (status === 'ativos' && btnAtivos) {
-                    btnAtivos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
-                    btnAtivos.style.backgroundColor = "#0284c7";
-                    btnAtivos.style.borderColor = "#0284c7";
-                    btnAtivos.style.color = "#fff";
-                } else if (status === 'inativos' && btnInativos) {
-                    btnInativos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
-                    btnInativos.style.backgroundColor = "#0284c7";
-                    btnInativos.style.borderColor = "#0284c7";
-                    btnInativos.style.color = "#fff";
-                } else if (status === 'todos' && btnTodos) {
-                    btnTodos.className = "btn btn-sm btn-primary d-flex align-items-center gap-1 px-3 py-1 fw-semibold";
-                    btnTodos.style.backgroundColor = "#0284c7";
-                    btnTodos.style.borderColor = "#0284c7";
-                    btnTodos.style.color = "#fff";
-                }
-
-                cards.forEach(card => {
-                    const cardStatus = card.getAttribute("data-status");
-                    if (status === 'todos') {
-                        card.style.display = "flex";
-                    } else if (status === 'ativos' && cardStatus === 'ativo') {
-                        card.style.display = "flex";
-                    } else if (status === 'inativos' && cardStatus === 'inativo') {
-                        card.style.display = "flex";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            };
-
-            // Estorno Menu
-            if (menuEstorno) {
-                menuEstorno.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    switchPanel('estorno', menuEstorno);
-                    const estDash = document.getElementById("estornoDashboardSubView");
-                    const estWiz = document.getElementById("estornoWizardSubView");
-                    const btnWiz = document.getElementById("btnOpenRefundWizard");
-                    const btnBack = document.getElementById("btnBackToEstornoDash");
-                    if (estDash) estDash.classList.remove("d-none");
-                    if (estWiz) estWiz.classList.add("d-none");
-                    if (btnWiz) btnWiz.classList.remove("d-none");
-                    if (btnBack) btnBack.classList.add("d-none");
-                });
-            }
-
-            // Modal openers
-            if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", () => openModalById('modalCreateEvent'));
-            const subNovoEvento = document.getElementById("subNovoEvento"); if (subNovoEvento) subNovoEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalCreateEvent"); });
-            const subLotes = document.getElementById("subLotes"); if (subLotes) subLotes.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalLotes"); });
-            const subPaginaEvento = document.getElementById("subPaginaEvento"); if (subPaginaEvento) subPaginaEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalPaginaEvento"); });
-            if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", () => openModalById('modalRequestPayout'));
-            if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
-
-            // Subviews inside Estorno Panel
-            const estornoDashboardSubView = document.getElementById("estornoDashboardSubView");
-            const estornoWizardSubView = document.getElementById("estornoWizardSubView");
-            const btnOpenRefundWizard = document.getElementById("btnOpenRefundWizard");
-            const btnBackToEstornoDash = document.getElementById("btnBackToEstornoDash");
-
-            if (btnOpenRefundWizard) {
-                btnOpenRefundWizard.addEventListener("click", () => {
-                    if (estornoDashboardSubView) estornoDashboardSubView.classList.add("d-none");
-                    if (estornoWizardSubView) estornoWizardSubView.classList.remove("d-none");
-                    btnOpenRefundWizard.classList.add("d-none");
-                    if (btnBackToEstornoDash) btnBackToEstornoDash.classList.remove("d-none");
-                    showStep(1);
-                });
-            }
-
-            if (btnBackToEstornoDash) {
-                btnBackToEstornoDash.addEventListener("click", () => {
-                    if (estornoDashboardSubView) estornoDashboardSubView.classList.remove("d-none");
-                    if (estornoWizardSubView) estornoWizardSubView.classList.add("d-none");
-                    if (btnOpenRefundWizard) btnOpenRefundWizard.classList.remove("d-none");
-                    btnBackToEstornoDash.classList.add("d-none");
-                });
-            }
-
-            // Dashboard Filter Tabs (Ativos, Inativos, Todos)
-            const filterTabs = document.querySelectorAll(".filter-tabs .filter-tab-btn");
-            const eventCards = document.querySelectorAll(".events-panel .event-card-col");
-            
-            filterTabs.forEach(btn => {
-                btn.addEventListener("click", function() {
-                    filterTabs.forEach(b => b.classList.remove("active"));
-                    this.classList.add("active");
-                    const filter = this.textContent.trim().toLowerCase();
-
-                    eventCards.forEach(card => {
-                        const statusBadge = card.querySelector(".event-card-badge");
-                        const statusText = statusBadge ? statusBadge.textContent.trim().toLowerCase() : "";
-                        
-                        if (filter === "todos") {
-                            card.style.display = "block";
-                        } else if (filter === "ativos" && (statusText.includes("ativo") || statusText.includes("venda"))) {
-                            card.style.display = "block";
-                        } else if (filter === "inativos" && (statusText.includes("inativo") || statusText.includes("encerrado"))) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = (filter === "ativos" && !statusText.includes("inativo")) ? "block" : "none";
-                        }
-                    });
-                });
-            });
-
-            // Global Topbar Search Filter
-            const searchInputs = document.querySelectorAll(".header-search, .events-panel input[type='text']");
-            searchInputs.forEach(input => {
-                input.addEventListener("input", function() {
-                    const query = this.value.toLowerCase().trim();
-                    eventCards.forEach(card => {
-                        const title = card.querySelector(".event-card-title")?.textContent.toLowerCase() || "";
-                        const location = card.querySelector(".event-location")?.textContent.toLowerCase() || "";
-                        if (title.includes(query) || location.includes(query)) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = query === "" ? "block" : "none";
-                        }
-                    });
-                });
-            });
-
-            // Event Card Action Icons
-            document.addEventListener("click", function(e) {
-                if (e.target.closest(".event-footer-icons .fa-gear")) {
-                    openModalById('modalLotes');
-                } else if (e.target.closest(".event-footer-icons .fa-edit")) {
-                    openModalById('modalCreateEvent');
-                } else if (e.target.closest(".event-footer-icons .fa-layer-group")) {
-                    openModalById('modalPaginaEvento');
-                }
-            });
-
-            // Period Selector logic
-            window.changePeriod = function(period) {
-                const lblPeriod = document.getElementById("lblPeriodSelected");
-                const kpis = document.querySelectorAll("#panelEstornoContent .row.g-3 h2");
-                
-                if (lblPeriod) {
-                    if (period === 'hoje') lblPeriod.textContent = "Hoje";
-                    else if (period === '7dias') lblPeriod.textContent = "Últimos 7 dias";
-                    else if (period === 'mes') lblPeriod.textContent = "Mês Atual";
-                }
-                
-                if (kpis && kpis.length >= 4) {
-                    if (period === 'hoje') {
-                        kpis[0].textContent = "38";
-                        kpis[1].textContent = "R$ 18.420,00";
-                        kpis[2].textContent = "R$ 2.763,00";
-                        kpis[3].textContent = "R$ 5.430,00";
-                    } else if (period === '7dias') {
-                        kpis[0].textContent = "145";
-                        kpis[1].textContent = "R$ 85.900,00";
-                        kpis[2].textContent = "R$ 12.885,00";
-                        kpis[3].textContent = "R$ 24.910,00";
-                    } else if (period === 'mes') {
-                        kpis[0].textContent = "582";
-                        kpis[1].textContent = "R$ 342.150,00";
-                        kpis[2].textContent = "R$ 51.322,00";
-                        kpis[3].textContent = "R$ 99.220,00";
-                    }
-                }
-            };
+            // accordion handled by toggleMenuAccordion;
 
             // Export logic
             window.exportData = function(format) {
@@ -10189,41 +9837,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuFinanceiro = document.getElementById("menuFinanceiro");
     const submenuFinanceiro = document.getElementById("submenuFinanceiro");
     const arrowFinanceiro = document.getElementById("arrowFinanceiro");
-    if (menuFinanceiro && submenuFinanceiro) {
-        menuFinanceiro.addEventListener("click", function(e) {
-            e.preventDefault();
-            submenuFinanceiro.classList.toggle("show");
-            if (arrowFinanceiro) arrowFinanceiro.classList.toggle("fa-chevron-up");
-        });
-    }
-
-    const menuMarketing = document.getElementById("menuMarketing");
-    const submenuMarketing = document.getElementById("submenuMarketing");
-    const arrowMarketing = document.getElementById("arrowMarketing");
-    if (menuMarketing && submenuMarketing) {
-        menuMarketing.addEventListener("click", function(e) {
-            e.preventDefault();
-            submenuMarketing.classList.toggle("show");
-            if (arrowMarketing) arrowMarketing.classList.toggle("fa-chevron-up");
-        });
-    }
-
-    const menuRemarketing = document.getElementById("menuRemarketing");
-    const submenuRemarketing = document.getElementById("submenuRemarketing");
-    const arrowRemarketing = document.getElementById("arrowRemarketing");
-    if (menuRemarketing && submenuRemarketing) {
-        menuRemarketing.addEventListener("click", function(e) {
-            e.preventDefault();
-            submenuRemarketing.classList.toggle("show");
-            if (arrowRemarketing) arrowRemarketing.classList.toggle("fa-chevron-up");
-        });
-    }
-
-    // Safe table initializations
-    try { if (typeof window.renderAcessosTable === 'function') window.renderAcessosTable(); } catch(e) { console.warn(e); }
-    try { if (typeof window.renderProducerPixelsTable === 'function') window.renderProducerPixelsTable(); } catch(e) { console.warn(e); }
-    try { if (typeof window.renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix(); } catch(e) { console.warn(e); }
-});
+    // accordion handled by toggleMenuAccordion);
 
 
 
