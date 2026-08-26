@@ -21,15 +21,15 @@
     <!-- Visual Styles to EXACTLY recreate the DiskIngressos Painel de Controle & Cupons screenshots -->
     <style>
         :root {
-            --bg-header: #21252d;
-            --bg-sidebar: #1a1d24;
+            --bg-header: #1e2530;
+            --bg-sidebar: #242b38;
             --bg-body: #f1f3f7;
             --primary-orange: #ff5722;
             --primary-green: #10b981;
-            --primary-blue: #007bff;
-            --border-color: #dee2e6;
-            --text-dark: #212529;
-            --text-muted: #6c757d;
+            --primary-blue: #0284c7;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
         }
 
         * {
@@ -51,60 +51,64 @@
         /* HEADER */
         .main-header {
             background-color: var(--bg-header);
-            height: 60px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 24px;
             color: #ffffff;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .di-logo-box {
-            background-color: var(--primary-orange);
+            background-color: #0284c7;
             color: #ffffff;
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             position: relative;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
         }
 
         .di-logo-box span {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
+            color: #fbbf24;
             position: absolute;
-            bottom: 2px;
-            right: 2px;
+            bottom: 3px;
+            right: 4px;
         }
 
         .brand-text {
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 800;
+            font-size: 1.15rem;
             letter-spacing: -0.5px;
+            color: #ffffff;
         }
 
         .header-center {
             flex: 1;
-            max-width: 500px;
+            max-width: 540px;
             position: relative;
         }
 
         .header-search {
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 20px;
-            padding: 8px 16px 8px 40px;
+            background-color: #2a3444;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 9px 18px 9px 42px;
             color: #ffffff;
             font-size: 0.85rem;
             outline: none;
@@ -112,43 +116,45 @@
         }
 
         .header-search::placeholder {
-            color: #a0aec0;
+            color: #94a3b8;
         }
 
         .header-search:focus {
-            background-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+            background-color: #334155;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25);
         }
 
         .search-icon-header {
             position: absolute;
-            left: 15px;
+            left: 16px;
             top: 50%;
             transform: translateY(-50%);
-            color: #a0aec0;
+            color: #94a3b8;
             font-size: 0.9rem;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .profile-pill {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 4px 12px;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.06);
+            padding: 5px 14px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             cursor: pointer;
             transition: background-color 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .profile-pill:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.12);
         }
 
         .profile-avatar {
@@ -181,8 +187,8 @@
         }
 
         .profile-email {
-            font-weight: 500;
-            color: #cbd5e1;
+            font-weight: 600;
+            color: #e2e8f0;
         }
 
         /* BODY LAYOUT */
@@ -195,43 +201,44 @@
 
         /* SIDEBAR */
         .sidebar {
-            width: 240px;
+            width: 320px;
             background-color: var(--bg-sidebar);
-            color: #a0aec0;
+            color: #cbd5e1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 16px 0;
             flex-shrink: 0;
             overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .sidebar-menu {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            padding: 0 10px;
+            gap: 3px;
+            padding: 0 12px;
         }
 
         .menu-section-header {
-            font-size: 0.65rem;
+            font-size: 0.68rem;
             text-transform: uppercase;
             font-weight: 700;
             letter-spacing: 1px;
-            color: #4a5568;
-            padding: 10px 12px 4px 12px;
+            color: #94a3b8;
+            padding: 12px 12px 6px 12px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 12px;
-            border-radius: 6px;
-            color: #a0aec0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #cbd5e1;
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.2s;
             cursor: pointer;
         }
@@ -243,14 +250,15 @@
         }
 
         .menu-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.06);
             color: #ffffff;
         }
 
         .menu-item.active {
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: #334155;
             color: #ffffff;
             font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         #menuEstorno.active {
@@ -1370,20 +1378,20 @@
             <div class="sidebar-top">
                 <div class="menu-section-header">MENU PRINCIPAL</div>
                 <div class="sidebar-menu">
+                    <!-- EVENTOS -->
+                    <a class="menu-item active" id="menuTodosEventos" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-ticket text-primary"></i> Todos os Eventos</div>
+                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
+                    </a>
+
                     <!-- DASHBOARD -->
-                    <a class="menu-item active" id="menuDashboard" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-primary"></i> Dashboard</div>
+                    <a class="menu-item" id="menuDashboard" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-info"></i> Dashboard</div>
                     </a>
 
                     <!-- DADOS DA PRODUTORA -->
                     <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-regular fa-building text-warning"></i> Dados da Produtora</div>
-                    </a>
-
-                    <!-- EVENTOS -->
-                    <a class="menu-item" id="menuTodosEventos" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-regular fa-calendar-days text-info"></i> Eventos</div>
-                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
                     </a>
 
                     <!-- ACCORDION: FINANCEIRO -->
@@ -1478,7 +1486,7 @@
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
             <!-- 1. PANEL DASHBOARD GERAL CONSOLIDADO DA PRODUTORA -->
-            <div id="panelDashboardContent">
+            <div id="panelDashboardContent" class="d-none">
                 <!-- PRODUCER CORPORATE HEADER -->
                 <div class="card p-3 border shadow-sm bg-white mb-3" style="border-left: 4px solid #0284c7 !important;">
                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -2009,7 +2017,7 @@
             </div>
 
             <!-- 4. PANEL TODOS OS EVENTOS (VIDEO /p/events) -->
-            <div id="panelTodosEventosContent" class="d-none">
+            <div id="panelTodosEventosContent">
                 <div class="dashboard-header">
                     <div class="dashboard-title-box">
                         <h2>Eventos</h2>
@@ -2051,147 +2059,311 @@
                         </div>
                     </div>
 
-                    <!-- FULL VIDEO EVENTS CARDS -->
-                    <div class="row g-3 mt-1">
+                    <!-- FULL HORIZONTAL EVENTS CARDS GRID -->
+                    <div class="d-flex flex-column gap-4 mt-3" id="eventsCardsContainer">
                         <!-- Event 1: EXPERIENCIA MUSICA E NATUREZA -->
-                        <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3634')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                                <div class="d-flex gap-3">
-                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
-                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3634</span>
+                        <article class="card border shadow-sm bg-white overflow-hidden" style="border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow=''">
+                            <div class="d-flex flex-column flex-md-row min-h-260">
+                                <div style="width: 35%; min-width: 240px; position: relative; background: #0f172a; min-height: 220px;">
+                                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                                    <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                        <span class="badge bg-dark fw-bold px-2 py-1 fs-11">#3634</span>
+                                        <span class="badge bg-success fw-bold px-2 py-1 fs-11">Ativo</span>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <h6 class="fw-bold text-dark mb-1">Experiência Música e Natureza - Agosto</h6>
-                                            <span class="badge bg-success text-white">Ativo</span>
-                                        </div>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Parque Jaime Lerner - Curitiba/PR</div>
-                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
-                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>16.248,00</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>836</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>1.164</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>0</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">41.8%</strong></div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
-                                            <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 10:00</span>
-                                            <div class="d-flex gap-1 align-items-center">
-                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3634');" title="Pixel Facebook do Evento">
-                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
-                                                </button>
-                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                </div>
+                                <div class="flex-grow-1 p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+                                            <div>
+                                                <h3 class="fw-bold text-dark mb-1 fs-5" style="letter-spacing: -0.3px;">SEM PARAR - EXPERIÊNCIA MÚSICA E NATUREZA</h3>
+                                                <div class="text-muted fs-12 d-flex align-items-center gap-1 mt-1">
+                                                    <i class="fa-solid fa-location-dot text-danger"></i>
+                                                    <span>Parque Jaime Lerner - Curitiba/PR</span>
+                                                </div>
                                             </div>
+                                            <button class="btn btn-sm btn-outline-primary py-1 px-3 fs-11 fw-bold d-flex align-items-center gap-1" onclick="openEventFacebookPixelModal('3634')" title="Configurar Meta Pixel">
+                                                <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                            </button>
+                                        </div>
+
+                                        <hr class="my-4" style="border-color: #e2e8f0; opacity: 1;">
+
+                                        <!-- 5 METRICS WITH COLORED ACCENT BARS -->
+                                        <div class="row g-3 text-start">
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Total (R$)</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">16.248,00</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #10b981; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Vendas</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">836</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #3b82f6; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Disponível</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">832</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #06b6d4; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Cortesia</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">584</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #94a3b8; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Ocupação</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">70.2%</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #f59e0b; margin-top: 6px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTER -->
+                                    <div class="d-flex justify-content-between align-items-center pt-3 mt-4 border-top" style="border-color: #f1f5f9 !important;">
+                                        <div class="text-muted fs-12 d-flex align-items-center gap-2">
+                                            <i class="fa-regular fa-calendar-check text-primary"></i>
+                                            <span>Dom, 30/06/2027 às 10:00</span>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <button class="btn btn-sm btn-light border py-1 px-2 text-dark fs-12" onclick="openEventDetails('3634')" title="Editar Evento">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary py-1 px-3 fw-semibold fs-11" style="background:#0284c7;" onclick="openEventDetails('3634')">
+                                                <i class="fa-solid fa-sliders me-1"></i> Detalhes & Lotes
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
 
                         <!-- Event 2: TWELVE BEERS VITORIA -->
-                        <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3130')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                                <div class="d-flex gap-3">
-                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
-                                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3130</span>
+                        <article class="card border shadow-sm bg-white overflow-hidden" style="border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow=''">
+                            <div class="d-flex flex-column flex-md-row min-h-260">
+                                <div style="width: 35%; min-width: 240px; position: relative; background: #0f172a; min-height: 220px;">
+                                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                                    <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                        <span class="badge bg-dark fw-bold px-2 py-1 fs-11">#3130</span>
+                                        <span class="badge bg-success fw-bold px-2 py-1 fs-11">Ativo</span>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <h6 class="fw-bold text-dark mb-1">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h6>
-                                            <span class="badge bg-success text-white">Ativo</span>
-                                        </div>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Jardim da Penha / Praia do Canto - Vitória/ES</div>
-                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
-                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>119.894,00</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>302</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>334</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>6</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">48.4%</strong></div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
-                                            <span><i class="fa-regular fa-calendar me-1"></i> 22/08/2026 11:00</span>
-                                            <div class="d-flex gap-1 align-items-center">
-                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3130');" title="Pixel Facebook do Evento">
-                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
-                                                </button>
-                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                </div>
+                                <div class="flex-grow-1 p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+                                            <div>
+                                                <h3 class="fw-bold text-dark mb-1 fs-5" style="letter-spacing: -0.3px;">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</h3>
+                                                <div class="text-muted fs-12 d-flex align-items-center gap-1 mt-1">
+                                                    <i class="fa-solid fa-location-dot text-danger"></i>
+                                                    <span>Jardim da Penha / Praia do Canto - Vitória/ES</span>
+                                                </div>
                                             </div>
+                                            <button class="btn btn-sm btn-outline-primary py-1 px-3 fs-11 fw-bold d-flex align-items-center gap-1" onclick="openEventFacebookPixelModal('3130')" title="Configurar Meta Pixel">
+                                                <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                            </button>
+                                        </div>
+
+                                        <hr class="my-4" style="border-color: #e2e8f0; opacity: 1;">
+
+                                        <!-- 5 METRICS WITH COLORED ACCENT BARS -->
+                                        <div class="row g-3 text-start">
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Total (R$)</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">119.894,00</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #10b981; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Vendas</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">302</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #3b82f6; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Disponível</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">322</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #06b6d4; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Cortesia</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">6</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #94a3b8; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Ocupação</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">48.4%</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #f59e0b; margin-top: 6px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTER -->
+                                    <div class="d-flex justify-content-between align-items-center pt-3 mt-4 border-top" style="border-color: #f1f5f9 !important;">
+                                        <div class="text-muted fs-12 d-flex align-items-center gap-2">
+                                            <i class="fa-regular fa-calendar-check text-primary"></i>
+                                            <span>Sáb, 22/08/2026 às 11:00</span>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <button class="btn btn-sm btn-light border py-1 px-2 text-dark fs-12" onclick="openEventDetails('3130')" title="Editar Evento">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary py-1 px-3 fw-semibold fs-11" style="background:#0284c7;" onclick="openEventDetails('3130')">
+                                                <i class="fa-solid fa-sliders me-1"></i> Detalhes & Lotes
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
 
                         <!-- Event 3: ROUPA NOVA 40 ANOS -->
-                        <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3131')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                                <div class="d-flex gap-3">
-                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
-                                        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3131</span>
+                        <article class="card border shadow-sm bg-white overflow-hidden" style="border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow=''">
+                            <div class="d-flex flex-column flex-md-row min-h-260">
+                                <div style="width: 35%; min-width: 240px; position: relative; background: #0f172a; min-height: 220px;">
+                                    <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                                    <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                        <span class="badge bg-dark fw-bold px-2 py-1 fs-11">#3131</span>
+                                        <span class="badge bg-success fw-bold px-2 py-1 fs-11">Ativo</span>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <h6 class="fw-bold text-dark mb-1">Roupa Nova 40 Anos - Teatro Positivo</h6>
-                                            <span class="badge bg-success text-white">Ativo</span>
-                                        </div>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Teatro Positivo - Curitiba/PR</div>
-                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
-                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>214.850,00</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>1.420</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>380</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>30</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">78.8%</strong></div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
-                                            <span><i class="fa-regular fa-calendar me-1"></i> 14/09/2026 21:00</span>
-                                            <div class="d-flex gap-1 align-items-center">
-                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3131');" title="Pixel Facebook do Evento">
-                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
-                                                </button>
-                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                </div>
+                                <div class="flex-grow-1 p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+                                            <div>
+                                                <h3 class="fw-bold text-dark mb-1 fs-5" style="letter-spacing: -0.3px;">ROUPA NOVA 40 ANOS - TEATRO POSITIVO</h3>
+                                                <div class="text-muted fs-12 d-flex align-items-center gap-1 mt-1">
+                                                    <i class="fa-solid fa-location-dot text-danger"></i>
+                                                    <span>Teatro Positivo - Grande Auditório - Curitiba/PR</span>
+                                                </div>
                                             </div>
+                                            <button class="btn btn-sm btn-outline-primary py-1 px-3 fs-11 fw-bold d-flex align-items-center gap-1" onclick="openEventFacebookPixelModal('3131')" title="Configurar Meta Pixel">
+                                                <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                            </button>
+                                        </div>
+
+                                        <hr class="my-4" style="border-color: #e2e8f0; opacity: 1;">
+
+                                        <!-- 5 METRICS WITH COLORED ACCENT BARS -->
+                                        <div class="row g-3 text-start">
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Total (R$)</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">214.850,00</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #10b981; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Vendas</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">1.420</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #3b82f6; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Disponível</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">380</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #06b6d4; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Cortesia</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">30</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #94a3b8; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Ocupação</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">78.8%</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #f59e0b; margin-top: 6px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTER -->
+                                    <div class="d-flex justify-content-between align-items-center pt-3 mt-4 border-top" style="border-color: #f1f5f9 !important;">
+                                        <div class="text-muted fs-12 d-flex align-items-center gap-2">
+                                            <i class="fa-regular fa-calendar-check text-primary"></i>
+                                            <span>Seg, 14/09/2026 às 21:00</span>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <button class="btn btn-sm btn-light border py-1 px-2 text-dark fs-12" onclick="openEventDetails('3131')" title="Editar Evento">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary py-1 px-3 fw-semibold fs-11" style="background:#0284c7;" onclick="openEventDetails('3131')">
+                                                <i class="fa-solid fa-sliders me-1"></i> Detalhes & Lotes
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
 
                         <!-- Event 4: STAND UP DIOGO ALMEIDA -->
-                        <div class="col-lg-6">
-                            <div class="card p-3 border shadow-sm bg-white cursor-pointer" onclick="openEventDetails('3132')" style="transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                                <div class="d-flex gap-3">
-                                    <div style="width:110px; height:110px; border-radius:6px; overflow:hidden; background:#0f172a; flex-shrink:0; position:relative;">
-                                        <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;">
-                                        <span class="badge bg-dark position-absolute bottom-0 start-0 m-1">#3132</span>
+                        <article class="card border shadow-sm bg-white overflow-hidden" style="border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow=''">
+                            <div class="d-flex flex-column flex-md-row min-h-260">
+                                <div style="width: 35%; min-width: 240px; position: relative; background: #0f172a; min-height: 220px;">
+                                    <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=600&q=80" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                                    <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                        <span class="badge bg-dark fw-bold px-2 py-1 fs-11">#3132</span>
+                                        <span class="badge bg-secondary fw-bold px-2 py-1 fs-11">Encerrado</span>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <h6 class="fw-bold text-dark mb-1">Stand Up Comedy - Diogo Almeida</h6>
-                                            <span class="badge bg-secondary text-white">Quase Esgotado</span>
-                                        </div>
-                                        <div class="text-muted fs-11 mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Teatro Guaíra - Curitiba/PR</div>
-                                        <div class="d-flex justify-content-between text-center bg-light p-2 rounded mb-2" style="font-size:0.75rem;">
-                                            <div><span class="d-block text-muted fs-10">Total (R$)</span><strong>48.900,00</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Vendas</span><strong>650</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Disponível</span><strong>50</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Cortesia</span><strong>10</strong></div>
-                                            <div><span class="d-block text-muted fs-10">Ocupação</span><strong class="text-success">92.8%</strong></div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center fs-11 text-muted">
-                                            <span><i class="fa-regular fa-calendar me-1"></i> 28/08/2026 20:00</span>
-                                            <div class="d-flex gap-1 align-items-center">
-                                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11 fw-semibold" onclick="event.stopPropagation(); openEventFacebookPixelModal('3132');" title="Pixel Facebook do Evento">
-                                                    <i class="fa-brands fa-facebook me-1"></i> Pixel Facebook
-                                                </button>
-                                                <span class="text-primary fw-semibold fs-11"><i class="fa-solid fa-circle-info me-1"></i> Detalhes</span>
+                                </div>
+                                <div class="flex-grow-1 p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+                                            <div>
+                                                <h3 class="fw-bold text-dark mb-1 fs-5" style="letter-spacing: -0.3px;">STAND UP COMEDY - DIOGO ALMEIDA</h3>
+                                                <div class="text-muted fs-12 d-flex align-items-center gap-1 mt-1">
+                                                    <i class="fa-solid fa-location-dot text-danger"></i>
+                                                    <span>Teatro Guaíra - Grande Auditório - Curitiba/PR</span>
+                                                </div>
                                             </div>
+                                            <button class="btn btn-sm btn-outline-primary py-1 px-3 fs-11 fw-bold d-flex align-items-center gap-1" onclick="openEventFacebookPixelModal('3132')" title="Configurar Meta Pixel">
+                                                <i class="fa-brands fa-facebook text-primary"></i> Pixel Meta
+                                            </button>
+                                        </div>
+
+                                        <hr class="my-4" style="border-color: #e2e8f0; opacity: 1;">
+
+                                        <!-- 5 METRICS WITH COLORED ACCENT BARS -->
+                                        <div class="row g-3 text-start">
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Total (R$)</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">48.900,00</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #10b981; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Vendas</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">650</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #3b82f6; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Disponível</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">150</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #06b6d4; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Cortesia</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">15</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #94a3b8; margin-top: 6px;"></div>
+                                            </div>
+                                            <div class="col">
+                                                <span class="text-muted fs-10 text-uppercase fw-bold d-block">Ocupação</span>
+                                                <strong class="text-dark fs-5 fw-bold d-block mt-1">81.2%</strong>
+                                                <div style="width: 44px; border-bottom: 3px solid #f59e0b; margin-top: 6px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTER -->
+                                    <div class="d-flex justify-content-between align-items-center pt-3 mt-4 border-top" style="border-color: #f1f5f9 !important;">
+                                        <div class="text-muted fs-12 d-flex align-items-center gap-2">
+                                            <i class="fa-regular fa-calendar-check text-primary"></i>
+                                            <span>Sex, 28/08/2026 às 20:00</span>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <button class="btn btn-sm btn-light border py-1 px-2 text-dark fs-12" onclick="openEventDetails('3132')" title="Editar Evento">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary py-1 px-3 fw-semibold fs-11" style="background:#0284c7;" onclick="openEventDetails('3132')">
+                                                <i class="fa-solid fa-sliders me-1"></i> Detalhes & Lotes
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </div>
