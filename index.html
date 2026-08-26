@@ -1450,11 +1450,6 @@
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
                     </a>
-
-                    <!-- CONSOLE BANCO DE DADOS -->
-                    <a class="menu-item" id="menuDbConsole" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-database" style="color:#6366f1;"></i> Console DB</div>
-                    </a>
                 </div>
             </div>
             
@@ -4325,11 +4320,6 @@
                 <iframe src="limitless/html/layout_6/full/sac_novo_chamado.html" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#ffffff;"></iframe>
             </div>
 
-            <!-- PANEL F: INTEGRATED DATABASE CONSOLE -->
-            <div id="panelDbContent" class="d-none">
-                <iframe src="/db-admin" style="width: 100%; height: calc(100vh - 120px); border: none; border-radius: 8px; background-color:#0b0f19;"></iframe>
-            </div>
-
             <!-- PANEL G: CONSULTA DE INGRESSOS & PEDIDOS -->
             <div id="panelIngressosContent" class="d-none">
                 <div class="dashboard-header">
@@ -6622,7 +6612,6 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const menuClubeRuaMusica = document.getElementById("menuClubeRuaMusica");
             const menuEstorno = document.getElementById("menuEstorno");
             const menuSacHub = document.getElementById("menuSacHub");
-            const menuDbConsole = document.getElementById("menuDbConsole");
             
             const btnSidebarCreateEvent = document.getElementById("btnSidebarCreateEvent");
             const btnSidebarRequestPayout = document.getElementById("btnSidebarRequestPayout");
@@ -6671,7 +6660,6 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 coupons: document.getElementById("panelCouponsContent"),
                 estorno: document.getElementById("panelEstornoContent"),
                 sac: document.getElementById("panelSacContent"),
-                db: document.getElementById("panelDbContent"),
                 ingressos: document.getElementById("panelIngressosContent"),
                 financeiro: document.getElementById("panelFinanceiroContent"),
                 contabilidade: document.getElementById("panelContabilidadeContent"),
@@ -7199,7 +7187,6 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             if (menuClubeRuaMusica) menuClubeRuaMusica.addEventListener("click", (e) => { e.preventDefault(); switchPanel('clubeRuaMusica', menuClubeRuaMusica); });
             if (menuEstorno) menuEstorno.addEventListener("click", (e) => { e.preventDefault(); switchPanel('estorno', menuEstorno); });
             if (menuSacHub) menuSacHub.addEventListener("click", (e) => { e.preventDefault(); switchPanel('sac', menuSacHub); });
-            if (menuDbConsole) menuDbConsole.addEventListener("click", (e) => { e.preventDefault(); switchPanel('db', menuDbConsole); });
 
             if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", (e) => { e.preventDefault(); switchPanel('novoEvento', menuNovoEvento); });
             if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", (e) => { 
