@@ -723,7 +723,82 @@
         .submenu-item.active i {
             color: #38bdf8;
         }
-    </style>
+    
+        /* EXPANDABLE SUBMENUS WITH ROTATING CHEVRONS */
+        .menu-chevron {
+            margin-left: auto;
+            font-size: 0.62rem;
+            color: #64748b;
+            transition: transform 0.25s ease, color 0.15s;
+        }
+
+        .menu-item:hover .menu-chevron {
+            color: #ffffff;
+        }
+
+        .menu-item.expanded .menu-chevron {
+            transform: rotate(180deg);
+            color: #38bdf8;
+        }
+
+        .submenu-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding-left: 12px;
+            margin-left: 14px;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 1px;
+        }
+
+        .submenu-container.show {
+            max-height: 800px !important;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+
+        .submenu-item {
+            padding: 5px 8px;
+            font-size: 0.74rem;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.15s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .submenu-item:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .submenu-item.active {
+            color: #38bdf8;
+            font-weight: 600;
+            background-color: rgba(56, 189, 248, 0.12);
+        }
+
+        .submenu-item i {
+            width: 14px;
+            font-size: 0.76rem;
+            text-align: center;
+            color: #94a3b8;
+            transition: color 0.15s;
+        }
+
+        .submenu-item:hover i {
+            color: #ffffff;
+        }
+
+        .submenu-item.active i {
+            color: #38bdf8;
+        }
+</style>
 </head>
 <body>
 
@@ -777,27 +852,34 @@
                         <span>Dados da Produtora</span>
                     </a>
 
-                    <!-- TODOS OS EVENTOS -->
-                    <a class="menu-item active" id="menuTodosEventos" style="cursor: pointer;" onclick="switchPanel('todosEventos', this)">
+                    <!-- EVENTOS (EXPANSÍVEL) -->
+                    <a class="menu-item active expanded" id="menuEventosMain" style="cursor: pointer;" onclick="toggleMenuAccordion('menuEventosMain', 'submenuEventos')">
                         <i class="fa-solid fa-calendar-days"></i>
-                        <span>Todos os Eventos</span>
+                        <span>Eventos</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
+                    <div class="submenu-container show" id="submenuEventos">
+                        <a class="submenu-item active" id="menuTodosEventos" onclick="switchPanel('todosEventos', this)"><i class="fa-solid fa-list-check"></i> Todos os Eventos</a>
+                        <a class="submenu-item" id="menuSubNovoEvento" onclick="openModalById('modalCreateEvent')"><i class="fa-solid fa-calendar-plus"></i> Novo Evento</a>
+                        <a class="submenu-item" id="menuSubLotes" onclick="openModalById('modalLotes')"><i class="fa-solid fa-layer-group"></i> Configurar Lotes</a>
+                    </div>
 
-                    <!-- FINANCEIRO -->
-                    <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
+                    <!-- FINANCEIRO (EXPANSÍVEL) -->
+                    <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;" onclick="toggleMenuAccordion('menuFinanceiro', 'submenuFinanceiro')">
                         <i class="fa-solid fa-vault"></i>
                         <span>Financeiro</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
                     <div class="submenu-container" id="submenuFinanceiro">
-                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-chart-line"></i> Hub Financeiro</a>
-                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-wallet"></i> Saldo Consolidado</a>
-                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
-                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
-                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-receipt"></i> Extrato Detalhado</a>
-                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-calculator"></i> Despesas</a>
-                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
-                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature"></i> Borderô</a>
-                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced"></i> Negociações & DRE</a>
+                        <a class="submenu-item" id="subFinHub" onclick="switchPanel('finHub', this)"><i class="fa-solid fa-chart-line"></i> Hub Financeiro</a>
+                        <a class="submenu-item" id="subFinSaldo" onclick="switchPanel('finSaldo', this)"><i class="fa-solid fa-wallet"></i> Saldo Consolidado</a>
+                        <a class="submenu-item" id="subFinRepasse" onclick="switchPanel('finRepasse', this)"><i class="fa-solid fa-money-bill-transfer"></i> Solicitações de Repasse</a>
+                        <a class="submenu-item" id="subFinAntecipacoes" onclick="switchPanel('finAntecipacoes', this)"><i class="fa-solid fa-hand-holding-dollar"></i> Antecipações</a>
+                        <a class="submenu-item" id="subFinExtrato" onclick="switchPanel('finExtrato', this)"><i class="fa-solid fa-receipt"></i> Extrato Detalhado</a>
+                        <a class="submenu-item" id="subFinDespesas" onclick="switchPanel('finDespesas', this)"><i class="fa-solid fa-calculator"></i> Despesas</a>
+                        <a class="submenu-item" id="subFinContas" onclick="switchPanel('finContas', this)"><i class="fa-solid fa-building-columns"></i> Contas Bancárias</a>
+                        <a class="submenu-item" id="subFinBordero" onclick="switchPanel('finBordero', this)"><i class="fa-solid fa-file-signature"></i> Borderô</a>
+                        <a class="submenu-item" id="subFinNegociacoes" onclick="switchPanel('finNegociacoes', this)"><i class="fa-solid fa-scale-balanced"></i> Negociações & DRE</a>
                     </div>
 
                     <!-- TERMINAIS POS -->
@@ -806,59 +888,58 @@
                         <span>Terminais POS</span>
                     </a>
 
-                    <!-- MENSAGENS -->
-                    <a class="menu-item" id="menuMensagens" style="cursor: pointer;" onclick="alert('Central de Mensagens e Notificações')">
-                        <i class="fa-solid fa-comments"></i>
-                        <span>Mensagens</span>
-                    </a>
-
-                    <!-- ADMINISTRAÇÃO -->
-                    <a class="menu-item" id="menuAdministracao" style="cursor: pointer;" onclick="switchPanel('gerenciarAcessos', this)">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <span>Administração</span>
-                    </a>
-
-                    <!-- ESTORNOS -->
-                    <a class="menu-item" id="menuEstorno" style="cursor: pointer;" onclick="switchPanel('panelEstornoContent', this)">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        <span>Estornos</span>
-                        <span class="badge ms-auto" style="background: rgba(255,255,255,0.1); color: #cbd5e1; font-size:0.62rem;">ERP</span>
-                    </a>
-
-                    <!-- ATENDIMENTO / SAC -->
-                    <a class="menu-item" id="menuSacHub" style="cursor: pointer;" onclick="switchPanel('sacContent', this)">
+                    <!-- ATENDIMENTO & SAC (EXPANSÍVEL) -->
+                    <a class="menu-item" id="menuSacAccordion" style="cursor: pointer;" onclick="toggleMenuAccordion('menuSacAccordion', 'submenuSac')">
                         <i class="fa-solid fa-headset"></i>
                         <span>Atendimento / SAC</span>
-                        <span class="badge ms-auto" style="background: rgba(255,255,255,0.1); color: #cbd5e1; font-size:0.62rem;">SAC</span>
+                        <span class="badge me-1" style="background: rgba(255,255,255,0.1); color: #cbd5e1; font-size:0.60rem;">SAC</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
-
-                    <!-- ACCORDION: MARKETING -->
-                    <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
-                        <i class="fa-solid fa-bullhorn"></i>
-                        <span>Marketing</span>
-                    </a>
-                    <div class="submenu-container" id="submenuMarketing">
-                        <a class="submenu-item" id="subMktVisaoGeral"><i class="fa-solid fa-chart-pie"></i> Visão Geral Consolidada</a>
-                        <a class="submenu-item" id="subMktCampanhas"><i class="fa-solid fa-bullseye"></i> Campanhas Marketing</a>
-                        <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-area"></i> Analytics (GA4)</a>
-                        <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs"></i> Pixel & Conversão</a>
-                        <a class="submenu-item" id="subMktUtm"><i class="fa-solid fa-qrcode"></i> UTMs & QR Codes</a>
-                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-tags"></i> Cupons de Desconto</a>
-                        <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-share-nodes"></i> Links & Promoters</a>
-                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-boxes-stacked"></i> Combos & Ofertas</a>
-                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders"></i> Pixels & Tracking</a>
+                    <div class="submenu-container" id="submenuSac">
+                        <a class="submenu-item" id="menuSacHub" onclick="switchPanel('sacContent', this)"><i class="fa-solid fa-comments"></i> Fila de Chamados</a>
+                        <a class="submenu-item" id="menuEstorno" onclick="switchPanel('panelEstornoContent', this)"><i class="fa-solid fa-rotate-left"></i> Gestão de Estornos</a>
                     </div>
 
-                    <!-- ACCORDION: REMARKETING -->
-                    <a class="menu-item" id="menuRemarketing" style="cursor: pointer; margin-top: 4px;">
+                    <!-- MARKETING (EXPANSÍVEL) -->
+                    <a class="menu-item" id="menuMarketing" style="cursor: pointer;" onclick="toggleMenuAccordion('menuMarketing', 'submenuMarketing')">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Marketing</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
+                    </a>
+                    <div class="submenu-container" id="submenuMarketing">
+                        <a class="submenu-item" id="subMktVisaoGeral" onclick="switchPanel('mktVisaoGeral', this)"><i class="fa-solid fa-chart-pie"></i> Visão Geral Consolidada</a>
+                        <a class="submenu-item" id="subMktCampanhas" onclick="switchPanel('mktCampanhas', this)"><i class="fa-solid fa-bullseye"></i> Campanhas Marketing</a>
+                        <a class="submenu-item" id="subMktAnalytics" onclick="switchPanel('mktAnalytics', this)"><i class="fa-solid fa-chart-area"></i> Analytics (GA4)</a>
+                        <a class="submenu-item" id="subMktPixelGraficos" onclick="switchPanel('mktPixelGraficos', this)"><i class="fa-solid fa-crosshairs"></i> Pixel & Conversão</a>
+                        <a class="submenu-item" id="subMktUtm" onclick="switchPanel('mktUtm', this)"><i class="fa-solid fa-qrcode"></i> UTMs & QR Codes</a>
+                        <a class="submenu-item" id="subMktCupons" onclick="switchPanel('mktCupons', this)"><i class="fa-solid fa-tags"></i> Cupons de Desconto</a>
+                        <a class="submenu-item" id="subMktPromoters" onclick="switchPanel('mktPromoters', this)"><i class="fa-solid fa-share-nodes"></i> Links & Promoters</a>
+                        <a class="submenu-item" id="subMktCombos" onclick="switchPanel('mktCombos', this)"><i class="fa-solid fa-boxes-stacked"></i> Combos & Ofertas</a>
+                        <a class="submenu-item" id="subMktPixels" onclick="switchPanel('mktPixels', this)"><i class="fa-solid fa-sliders"></i> Pixels & Tracking</a>
+                    </div>
+
+                    <!-- REMARKETING (EXPANSÍVEL) -->
+                    <a class="menu-item" id="menuRemarketing" style="cursor: pointer;" onclick="toggleMenuAccordion('menuRemarketing', 'submenuRemarketing')">
                         <i class="fa-solid fa-arrows-rotate"></i>
                         <span>Remarketing</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
                     </a>
                     <div class="submenu-container" id="submenuRemarketing">
-                        <a class="submenu-item" id="subRmkCarrinhos"><i class="fa-solid fa-cart-arrow-down"></i> Carrinhos Abandonados</a>
-                        <a class="submenu-item" id="subRmkDisparos"><i class="fa-solid fa-paper-plane"></i> Disparos WhatsApp/E-mail</a>
-                        <a class="submenu-item" id="subRmkCRM"><i class="fa-solid fa-users-gear"></i> Segmentação & CRM</a>
-                        <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-arrow-trend-up"></i> Métricas & ROI</a>
+                        <a class="submenu-item" id="subRmkCarrinhos" onclick="switchPanel('rmkCarrinhos', this)"><i class="fa-solid fa-cart-arrow-down"></i> Carrinhos Abandonados</a>
+                        <a class="submenu-item" id="subRmkDisparos" onclick="switchPanel('rmkDisparos', this)"><i class="fa-solid fa-paper-plane"></i> Disparos WhatsApp</a>
+                        <a class="submenu-item" id="subRmkCRM" onclick="switchPanel('rmkCRM', this)"><i class="fa-solid fa-users-gear"></i> Segmentação CRM</a>
+                        <a class="submenu-item" id="subRmkMetricas" onclick="switchPanel('rmkMetricas', this)"><i class="fa-solid fa-arrow-trend-up"></i> Métricas & ROI</a>
+                    </div>
+
+                    <!-- ADMINISTRAÇÃO (EXPANSÍVEL) -->
+                    <a class="menu-item" id="menuAdminAccordion" style="cursor: pointer;" onclick="toggleMenuAccordion('menuAdminAccordion', 'submenuAdmin')">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Administração</span>
+                        <i class="fa-solid fa-chevron-down menu-chevron"></i>
+                    </a>
+                    <div class="submenu-container" id="submenuAdmin">
+                        <a class="submenu-item" id="subAdminAcessos" onclick="switchPanel('gerenciarAcessos', this)"><i class="fa-solid fa-users"></i> Usuários & Permissões</a>
+                        <a class="submenu-item" id="subAdminLogs" onclick="alert('Histórico de Auditoria & Logs de Acesso')"><i class="fa-solid fa-clipboard-list"></i> Logs de Auditoria</a>
                     </div>
                 </div>
             </div>
@@ -6963,6 +7044,25 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
     <!-- Navigation interaction script -->
     <script>
 
+// Toggle Expandable Menu Accordion
+function toggleMenuAccordion(menuElId, submenuContainerId) {
+    const menuEl = document.getElementById(menuElId);
+    const subContainer = document.getElementById(submenuContainerId);
+    if (!subContainer) return;
+
+    const isShowing = subContainer.classList.contains("show");
+    if (isShowing) {
+        subContainer.classList.remove("show");
+        if (menuEl) menuEl.classList.remove("expanded");
+    } else {
+        subContainer.classList.add("show");
+        if (menuEl) menuEl.classList.add("expanded");
+    }
+}
+window.toggleMenuAccordion = toggleMenuAccordion;
+
+
+
 
 // ==========================================
 // PRODUCER PIXELS DATABASE & RESOLUTION
@@ -10142,6 +10242,7 @@ if (typeof renderAcessosTable === 'function') window.renderAcessosTable = render
 if (typeof selectSacTicket === 'function') window.selectSacTicket = selectSacTicket;
 if (typeof filterSacCategory === 'function') window.filterSacCategory = filterSacCategory;
 if (typeof filterSacTickets === 'function') window.filterSacTickets = filterSacTickets;
+
 
 </script>
 
