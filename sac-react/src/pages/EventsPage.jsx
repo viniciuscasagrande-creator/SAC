@@ -5,11 +5,9 @@ import { EventGrid } from '../components/events/EventGrid';
 export function EventsPage({ 
   events = [], 
   searchQuery = '', 
-  onOpenMarketing, 
   onOpenDetails 
 }) {
-  const [activeFilter, setActiveFilter] = useState('active'); // 'active' | 'inactive' | 'all'
-  const [layout, setLayout] = useState('horizontal'); // 'horizontal' | 'grid'
+  const [activeFilter, setActiveFilter] = useState('all'); // 'all' | 'active' | 'inactive'
 
   const filteredEvents = events.filter((evt) => {
     const matchesSearch = 
@@ -33,18 +31,14 @@ export function EventsPage({
       <EventFilters
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
-        eventsCount={filteredEvents.length}
-        layout={layout}
-        onLayoutChange={setLayout}
         onCompare={handleCompare}
       />
 
       <EventGrid
         events={filteredEvents}
-        layout={layout}
-        onOpenMarketing={onOpenMarketing}
         onOpenDetails={onOpenDetails}
       />
     </div>
   );
 }
+

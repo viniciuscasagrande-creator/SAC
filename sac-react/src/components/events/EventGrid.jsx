@@ -1,7 +1,7 @@
 import React from 'react';
 import { EventCard } from './EventCard';
 
-export function EventGrid({ events = [], onOpenMarketing, onOpenDetails, layout = 'horizontal' }) {
+export function EventGrid({ events = [], onOpenDetails }) {
   if (events.length === 0) {
     return (
       <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
@@ -15,15 +15,15 @@ export function EventGrid({ events = [], onOpenMarketing, onOpenDetails, layout 
   }
 
   return (
-    <div className={layout === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'flex flex-col gap-5'}>
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
       {events.map((event) => (
         <EventCard
           key={event.id}
           event={event}
-          onOpenMarketing={onOpenMarketing}
           onOpenDetails={onOpenDetails}
         />
       ))}
     </div>
   );
 }
+

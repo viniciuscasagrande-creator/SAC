@@ -1,86 +1,74 @@
 import React from 'react';
-import { SlidersHorizontal, LayoutGrid, ListFilter } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ArrowRightLeft, Columns, ChevronDown, Calendar, Star, CalendarX2 } from 'lucide-react';
 
 export function EventFilters({
-  activeFilter = 'active',
+  activeFilter = 'all',
   onFilterChange,
-  eventsCount = 4,
-  layout = 'horizontal',
-  onLayoutChange,
   onCompare
 }) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-slate-200">
-      <div>
-        <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-          <span>Eventos</span>
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
-            {eventsCount}
-          </span>
-        </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Gerencie lotes, vendas, métricas de conversão e configurações de tracking.
-        </p>
-      </div>
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5">
+      <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        Eventos
+      </h1>
 
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Compare Button */}
-        <Button
-          variant="outline"
-          size="sm"
+        <button
           onClick={onCompare}
-          icon={SlidersHorizontal}
-          className="font-semibold text-slate-700"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-white shadow-xs text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
         >
-          Comparar
-        </Button>
+          <ArrowRightLeft className="w-3.5 h-3.5 text-slate-500" />
+          <span>Comparar</span>
+        </button>
+
+        {/* Horizontal Selector */}
+        <button
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-white shadow-xs text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+        >
+          <Columns className="w-3.5 h-3.5 text-slate-500" />
+          <span>Horizontal</span>
+          <ChevronDown className="w-3 h-3 text-slate-400" />
+        </button>
 
         {/* Filter Status Tabs */}
-        <div className="flex p-1 bg-slate-200/80 rounded-lg text-xs font-semibold">
+        <div className="flex p-1 bg-white border border-slate-200 rounded-lg text-xs font-medium gap-1 shadow-xs">
           <button
             onClick={() => onFilterChange?.('active')}
-            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all cursor-pointer ${
               activeFilter === 'active'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-sky-50 text-sky-600 border border-sky-400 font-bold'
+                : 'text-slate-700 hover:text-slate-900'
             }`}
           >
-            Ativos
+            <Star className="w-3.5 h-3.5 text-slate-700" />
+            <span>Ativos</span>
           </button>
           <button
             onClick={() => onFilterChange?.('inactive')}
-            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all cursor-pointer ${
               activeFilter === 'inactive'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-sky-50 text-sky-600 border border-sky-400 font-bold'
+                : 'text-slate-700 hover:text-slate-900'
             }`}
           >
-            Inativos
+            <CalendarX2 className="w-3.5 h-3.5 text-slate-700" />
+            <span>Inativos</span>
           </button>
           <button
             onClick={() => onFilterChange?.('all')}
-            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all cursor-pointer ${
               activeFilter === 'all'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-sky-50 text-sky-600 border border-sky-400 font-bold'
+                : 'text-slate-700 hover:text-slate-900'
             }`}
           >
-            Todos
+            <Calendar className="w-3.5 h-3.5 text-sky-600" />
+            <span>Todos</span>
           </button>
         </div>
-
-        {/* Layout Toggle */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onLayoutChange?.(layout === 'horizontal' ? 'grid' : 'horizontal')}
-          icon={LayoutGrid}
-          className="text-slate-700"
-        >
-          {layout === 'horizontal' ? 'Horizontal' : 'Grade'}
-        </Button>
       </div>
     </div>
   );
 }
+

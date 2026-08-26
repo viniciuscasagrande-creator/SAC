@@ -1,121 +1,106 @@
 import React from 'react';
-import { EventMetrics } from './EventMetrics';
-import { MapPin, Calendar, Edit3, Settings, Share2 } from 'lucide-react';
-import { FacebookIcon } from '../ui/Icons';
+import { Compass, Calendar, Edit3, Layers } from 'lucide-react';
 
-export function EventCard({ event, onOpenMarketing, onOpenDetails }) {
+export function EventCard({ event, onOpenDetails }) {
   return (
-    <article className="flex flex-col md:flex-row min-h-[260px] overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-xs hover:shadow-md transition-shadow">
-      {/* 35% Left Image */}
-      <div className="w-full md:w-[35%] min-w-[220px] relative bg-slate-900 overflow-hidden">
+    <article 
+      onClick={() => onOpenDetails?.(event)}
+      className="flex flex-row min-h-[230px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs hover:shadow-md transition-shadow cursor-pointer"
+    >
+      {/* Left Image Box */}
+      <div className="w-[38%] min-w-[160px] relative bg-slate-900 overflow-hidden">
         <img
           src={event.image}
           alt={event.name}
-          className="h-48 md:h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="h-full w-full object-cover"
         />
-        <div className="absolute top-3 left-3 flex gap-1.5">
-          <span className="px-2 py-0.5 rounded-md bg-slate-950/80 text-white font-bold text-[10px] backdrop-blur-xs">
-            #{event.id}
+        {/* Event ID Tag */}
+        <div className="absolute bottom-2 left-2 flex items-center gap-1">
+          <span className="px-1.5 py-0.5 rounded bg-black/80 text-white font-bold text-[11px] tracking-wide">
+            {event.imageTag || event.id}
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-emerald-600/90 text-white font-bold text-[10px]">
-            {event.status}
-          </span>
+          {event.secondaryTag && (
+            <span className="px-1.5 py-0.5 rounded bg-blue-600/85 text-white font-bold text-[11px] tracking-wide">
+              {event.secondaryTag}
+            </span>
+          )}
         </div>
       </div>
 
       {/* Right Content */}
-      <div className="flex flex-1 flex-col justify-between">
-        <div className="flex-1 p-5 md:p-6">
-          <div className="flex justify-between items-start gap-2">
-            <div>
-              <h2 className="text-lg md:text-[19px] font-bold text-slate-900 tracking-tight leading-tight">
-                {event.name}
-              </h2>
+      <div className="flex flex-1 flex-col justify-between p-4 pl-5">
+        <div>
+          <h2 className="text-[14px] font-bold text-slate-900 leading-tight">
+            {event.name}
+          </h2>
 
-              <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span>{event.location}</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => onOpenMarketing?.(event)}
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold cursor-pointer transition-colors shrink-0"
-              title="Configurar Meta Pixel do Evento"
-            >
-              <FacebookIcon className="w-3.5 h-3.5 text-blue-600" />
-              <span>Pixel Meta</span>
-            </button>
+          <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-4">
+            <Compass className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span>{event.location}</span>
           </div>
 
-          <div className="my-5 border-t border-slate-200" />
+          {/* 5 Metrics Row */}
+          <div className="flex justify-between items-start">
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-medium">Total (R$)</span>
+              <span className="text-sm font-bold text-slate-900 leading-tight">{event.total}</span>
+              <div className="w-6 h-[2px] rounded-full bg-blue-600 mt-1" />
+            </div>
 
-          {/* 5 Metrics Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 lg:gap-6">
-            <EventMetrics
-              label="Total (R$)"
-              value={event.total}
-              accent="emerald"
-            />
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-medium">Vendas</span>
+              <span className="text-sm font-bold text-slate-900 leading-tight">{event.sales}</span>
+              <div className="w-6 h-[2px] rounded-full bg-blue-600 mt-1" />
+            </div>
 
-            <EventMetrics
-              label="Vendas"
-              value={event.sales}
-              accent="blue"
-            />
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-medium">Disponível</span>
+              <span className="text-sm font-bold text-slate-900 leading-tight">{event.available}</span>
+              <div className="w-6 h-[2px] rounded-full bg-cyan-500 mt-1" />
+            </div>
 
-            <EventMetrics
-              label="Disponível"
-              value={event.available}
-              accent="cyan"
-            />
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-medium">Cortesia</span>
+              <span className="text-sm font-bold text-slate-900 leading-tight">{event.courtesy}</span>
+              <div className="w-6 h-[2px] rounded-full bg-slate-400 mt-1" />
+            </div>
 
-            <EventMetrics
-              label="Cortesia"
-              value={event.courtesy}
-              accent="slate"
-            />
-
-            <EventMetrics
-              label="Ocupação"
-              value={`${event.occupancy}%`}
-              accent="amber"
-            />
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-medium">Ocupação</span>
+              <span className={`text-sm font-bold leading-tight ${event.occupancyColor || 'text-slate-900'}`}>
+                {event.occupancy}%
+              </span>
+              <div className={`w-6 h-[2px] rounded-full mt-1 ${event.occupancyBar || 'bg-blue-600'}`} />
+            </div>
           </div>
         </div>
 
         {/* Card Footer */}
-        <div className="flex h-13 items-center justify-between border-t border-slate-100 bg-slate-50/60 px-5 md:px-6">
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <Calendar className="w-3.5 h-3.5 text-blue-600" />
+        <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 mt-2">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+            <Calendar className="w-3.5 h-3.5 text-slate-400" />
             <span>{event.date}</span>
           </div>
 
-          <div className="flex items-center gap-3 text-slate-600">
-            <button
-              onClick={() => onOpenMarketing?.(event)}
-              className="sm:hidden flex items-center gap-1 text-xs text-blue-600 font-semibold cursor-pointer"
-            >
-              <FacebookIcon className="w-3.5 h-3.5" />
-              Pixel
-            </button>
-            <button 
-              onClick={() => onOpenDetails?.(event)}
-              className="p-1.5 hover:bg-slate-200/60 rounded-md text-slate-600 hover:text-slate-900 transition-colors cursor-pointer" 
-              title="Editar Evento"
-            >
-              <Edit3 className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => onOpenMarketing?.(event)}
-              className="p-1.5 hover:bg-slate-200/60 rounded-md text-slate-600 hover:text-slate-900 transition-colors cursor-pointer" 
-              title="Configurações & Tracking"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
+          <div className="flex items-center gap-2.5 text-slate-500">
+            <Edit3 
+              className="w-3.5 h-3.5 hover:text-slate-900 transition-colors cursor-pointer" 
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenDetails?.(event);
+              }}
+            />
+            <Layers 
+              className="w-3.5 h-3.5 hover:text-slate-900 transition-colors cursor-pointer" 
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenDetails?.(event);
+              }}
+            />
           </div>
         </div>
       </div>
     </article>
   );
 }
+
