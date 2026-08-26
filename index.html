@@ -1332,16 +1332,28 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
-                <div class="menu-section-header">MÓDULO FINANCEIRO</div>
+                <div class="menu-section-header">GESTÃO DA PRODUTORA</div>
                 <div class="sidebar-menu">
+                    <!-- DASHBOARD GERAL CONSOLIDADO -->
+                    <a class="menu-item active" id="menuDashboard" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-primary"></i> Dashboard Geral</div>
+                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">CNPJ</span>
+                    </a>
+
+                    <!-- DADOS DA PRODUTORA -->
+                    <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-regular fa-building text-warning"></i> Dados da Produtora</div>
+                        <span class="badge-sidebar" style="background:rgba(245,158,11,0.15); color:#d97706; font-weight:700;">#955</span>
+                    </a>
+
                     <!-- EVENTOS -->
                     <a class="menu-item" id="menuTodosEventos" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-regular fa-calendar-days text-info"></i> Todos os Eventos</div>
                         <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
                     </a>
 
-                    <!-- ACCORDION: FINANCEIRO (ACTIVE & EXPANDED BY DEFAULT) -->
-                    <a class="menu-item active" id="menuFinanceiro" style="cursor: pointer;">
+                    <!-- ACCORDION: FINANCEIRO (EXPANDED BY DEFAULT) -->
+                    <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet text-primary"></i> Financeiro</div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">9</span>
@@ -1380,93 +1392,159 @@
 
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
-            <!-- 1. PANEL DASHBOARD (EXACT VIDEO LAYOUT) -->
-            <div id="panelDashboardContent" class="d-none">
-                <div class="dashboard-header">
-                    <div class="dashboard-title-box">
-                        <h2>Dashboard</h2>
-                        <p>Visão geral de métricas, vendas e desempenho operacional da produtora.</p>
-                    </div>
-                    <div class="header-buttons">
-                        <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 fw-semibold" style="background-color: #0284c7; border-color: #0284c7; border-radius: 6px; font-size: 0.85rem;" onclick="exportData('dados')">
-                            <i class="fa-solid fa-database"></i> Dados
-                        </button>
-                        <button class="btn btn-light d-flex align-items-center gap-2 px-3 py-2 fw-semibold border" style="background-color: #ffffff; border-radius: 6px; font-size: 0.85rem; color: #1e293b;" onclick="exportData('pdf')">
-                            <i class="fa-regular fa-file-pdf"></i> PDF
-                        </button>
+            <!-- 1. PANEL DASHBOARD GERAL CONSOLIDADO DA PRODUTORA -->
+            <div id="panelDashboardContent">
+                <!-- PRODUCER CORPORATE HEADER -->
+                <div class="card p-3 border shadow-sm bg-white mb-3" style="border-left: 4px solid #0284c7 !important;">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width: 52px; height: 52px; border-radius: 10px; background: rgba(2,132,199,0.12); color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.6rem;">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <h4 class="fw-bold m-0 text-dark">PRIME EVENTOS E PRODUÇÕES ARTÍSTICAS LTDA</h4>
+                                    <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> CNPJ Verificado</span>
+                                    <span class="badge bg-dark text-white">ID #955</span>
+                                </div>
+                                <div class="text-muted fs-12 mt-1 d-flex flex-wrap gap-3">
+                                    <span><i class="fa-solid fa-id-card text-secondary me-1"></i> <strong>CNPJ:</strong> 12.345.678/0001-90</span>
+                                    <span><i class="fa-solid fa-file-invoice text-secondary me-1"></i> <strong>I.E.:</strong> 908.123.456-78</span>
+                                    <span><i class="fa-brands fa-pix text-success me-1"></i> <strong>Chave PIX:</strong> financeiro@primeeventos.com.br</span>
+                                    <span><i class="fa-solid fa-building text-info me-1"></i> <strong>Banco:</strong> Inter (077) Ag: 0001 C/C: 12485-9</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 fw-semibold" onclick="exportData('pdf')">
+                                <i class="fa-regular fa-file-pdf text-danger"></i> Relatório Geral (PDF)
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 fw-semibold" onclick="exportData('csv')">
+                                <i class="fa-solid fa-file-excel text-success"></i> DRE Unificado (CSV)
+                            </button>
+                            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 fw-semibold" style="background-color: #0284c7;" onclick="switchPanel('finRepasse', document.getElementById('subFinRepasse'))">
+                                <i class="fa-solid fa-money-bill-transfer"></i> Solicitar Repasse
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 6 VIDEO KPI CARDS -->
-                <div class="kpi-row-video">
+                <!-- 8 CONSOLIDATED EXECUTIVE KPI CARDS -->
+                <div class="row g-2 mb-3">
                     <!-- KPI 1 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
-                            <i class="fa-solid fa-dollar-sign"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Receita Bruta (R$)</span>
-                            <span class="kpi-v-val">582.400,00</span>
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted fs-10 text-uppercase fw-bold">Receita Bruta Total</span>
+                                    <h3 class="fw-bold text-dark mt-1 mb-0">R$ 399.892,00</h3>
+                                    <span class="fs-11 text-success"><i class="fa-solid fa-arrow-trend-up me-1"></i> +18.4% vs mês anterior</span>
+                                </div>
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(16,185,129,0.12); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <!-- KPI 2 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">
-                            <i class="fa-solid fa-wallet"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Receita Líquida (R$)</span>
-                            <span class="kpi-v-val">494.040,00</span>
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted fs-10 text-uppercase fw-bold">Receita Líquida (Produtora)</span>
+                                    <h3 class="fw-bold text-success mt-1 mb-0">R$ 339.908,20</h3>
+                                    <span class="fs-11 text-muted">Após taxa Disk (15%)</span>
+                                </div>
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(2,132,199,0.12); color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                    <i class="fa-solid fa-wallet"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <!-- KPI 3 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(249, 115, 22, 0.12); color: #f97316;">
-                            <i class="fa-solid fa-ticket"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Ingressos Vendidos</span>
-                            <span class="kpi-v-val">3.820</span>
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted fs-10 text-uppercase fw-bold">Ingressos Vendidos</span>
+                                    <h3 class="fw-bold text-primary mt-1 mb-0">3.208</h3>
+                                    <span class="fs-11 text-muted">Ocupação média: <strong class="text-success">65.4%</strong></span>
+                                </div>
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(249,115,22,0.12); color: #f97316; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                    <i class="fa-solid fa-ticket"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <!-- KPI 4 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(239, 68, 68, 0.12); color: #ef4444;">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Ticket Médio (R$)</span>
-                            <span class="kpi-v-val">152,46</span>
-                        </div>
-                    </div>
-                    <!-- KPI 5 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
-                            <i class="fa-solid fa-gift"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Cortesias</span>
-                            <span class="kpi-v-val">184</span>
-                        </div>
-                    </div>
-                    <!-- KPI 6 -->
-                    <div class="kpi-card-v">
-                        <div class="kpi-icon-circle" style="background: rgba(236, 72, 153, 0.12); color: #ec4899;">
-                            <i class="fa-solid fa-chart-pie"></i>
-                        </div>
-                        <div class="kpi-v-info">
-                            <span class="kpi-v-title">Ocupação Média</span>
-                            <span class="kpi-v-val">68,4%</span>
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="card p-3 border shadow-sm bg-white h-100 cursor-pointer" onclick="switchPanel('finSaldo', document.getElementById('subFinSaldo'))">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted fs-10 text-uppercase fw-bold">Saldo Disponível (D+0)</span>
+                                    <h3 class="fw-bold text-success mt-1 mb-0">R$ 49.908,20</h3>
+                                    <span class="fs-11 text-success"><i class="fa-solid fa-bolt me-1"></i> Liberado p/ saque imediato</span>
+                                </div>
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(16,185,129,0.12); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                    <i class="fa-solid fa-vault"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- CHARTS ROW 1 -->
+                <!-- 4 SECONDARY METRIC CARDS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">A Receber Previsto (D+30)</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <span class="fw-bold text-dark fs-14">R$ 142.380,00</span>
+                                <span class="badge bg-primary text-white fs-10">Cartões</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Repasses Já Efetuados</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <span class="fw-bold text-dark fs-14">R$ 290.000,00</span>
+                                <span class="badge bg-success text-white fs-10">PIX Pago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Ticket Médio Geral</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <span class="fw-bold text-dark fs-14">R$ 124,65</span>
+                                <span class="text-muted fs-10">por ingresso</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Cortesias Emitidas</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <span class="fw-bold text-dark fs-14">46 cortesias</span>
+                                <span class="badge bg-secondary text-white fs-10">4 eventos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW 1: SALES TIMELINE & PAYMENT DISTRIBUTION -->
                 <div class="row g-3 mb-3">
                     <div class="col-lg-8">
                         <div class="card p-3 border shadow-sm bg-white h-100">
                             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                                <h6 class="fw-bold m-0 text-dark">Vendas ao Longo do Tempo</h6>
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-chart-line text-primary me-2"></i> Evolução de Vendas da Produtora (Consolidado)</h6>
+                                    <span class="text-muted fs-11">Consolidação diária de faturamento em todos os eventos</span>
+                                </div>
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="btn-group btn-group-sm">
                                         <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Diário</button>
@@ -1474,97 +1552,170 @@
                                     </div>
                                     <div class="btn-group btn-group-sm">
                                         <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Qtd</button>
-                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Valor</button>
-                                    </div>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Mensal</button>
-                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Semanal</button>
-                                        <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">Diário</button>
+                                        <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">Valor (R$)</button>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Mock chart bars visual -->
-                            <div style="height: 220px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding-top: 20px; border-bottom: 1px solid #e2e8f0;">
-                                <div style="width:10%; background:#0284c7; height:45%; border-radius:4px 4px 0 0;" title="Seg: R$ 38.000"></div>
-                                <div style="width:10%; background:#0284c7; height:60%; border-radius:4px 4px 0 0;" title="Ter: R$ 52.000"></div>
-                                <div style="width:10%; background:#0284c7; height:75%; border-radius:4px 4px 0 0;" title="Qua: R$ 68.000"></div>
-                                <div style="width:10%; background:#0284c7; height:50%; border-radius:4px 4px 0 0;" title="Qui: R$ 44.000"></div>
-                                <div style="width:10%; background:#0284c7; height:90%; border-radius:4px 4px 0 0;" title="Sex: R$ 92.000"></div>
-                                <div style="width:10%; background:#38bdf8; height:100%; border-radius:4px 4px 0 0;" title="Sáb: R$ 115.000"></div>
-                                <div style="width:10%; background:#0284c7; height:80%; border-radius:4px 4px 0 0;" title="Dom: R$ 82.000"></div>
+                            <!-- Mock chart visual -->
+                            <div style="height: 200px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding-top: 15px; border-bottom: 1px solid #e2e8f0;">
+                                <div style="width:12%; background:#0284c7; height:40%; border-radius:4px 4px 0 0;" title="18/08: R$ 38.000"></div>
+                                <div style="width:12%; background:#0284c7; height:55%; border-radius:4px 4px 0 0;" title="19/08: R$ 52.000"></div>
+                                <div style="width:12%; background:#0284c7; height:70%; border-radius:4px 4px 0 0;" title="20/08: R$ 68.000"></div>
+                                <div style="width:12%; background:#0284c7; height:45%; border-radius:4px 4px 0 0;" title="21/08: R$ 44.000"></div>
+                                <div style="width:12%; background:#0284c7; height:85%; border-radius:4px 4px 0 0;" title="22/08: R$ 92.000"></div>
+                                <div style="width:12%; background:#38bdf8; height:100%; border-radius:4px 4px 0 0;" title="23/08: R$ 115.000"></div>
+                                <div style="width:12%; background:#0284c7; height:75%; border-radius:4px 4px 0 0;" title="24/08: R$ 82.000"></div>
                             </div>
                             <div class="d-flex justify-content-between text-muted fs-11 mt-2">
-                                <span>18/08</span><span>19/08</span><span>20/08</span><span>21/08</span><span>22/08</span><span>23/08</span><span>24/08</span>
+                                <span>18/Ago (R$ 38k)</span><span>19/Ago (R$ 52k)</span><span>20/Ago (R$ 68k)</span><span>21/Ago (R$ 44k)</span><span>22/Ago (R$ 92k)</span><span>23/Ago (R$ 115k)</span><span>24/Ago (R$ 82k)</span>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-4">
                         <div class="card p-3 border shadow-sm bg-white h-100">
-                            <h6 class="fw-bold mb-3 text-dark">Formas de Pagamento</h6>
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-chart-pie text-success me-2"></i> Formas de Pagamento (Global)</h6>
                             <div class="d-flex flex-column gap-3 justify-content-center h-100 pb-2">
                                 <div>
-                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-qrcode text-success me-1"></i> PIX (Instantâneo)</span><span class="fs-12 fw-bold text-success">58% (R$ 337.792)</span></div>
-                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width: 58%;"></div></div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-pix text-success me-1"></i> PIX Instantâneo</span>
+                                        <span class="fs-12 fw-bold text-success">58.4% (R$ 233.536)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width: 58.4%;"></div></div>
                                 </div>
                                 <div>
-                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-credit-card text-primary me-1"></i> Cartão de Crédito</span><span class="fs-12 fw-bold text-primary">36% (R$ 209.664)</span></div>
-                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width: 36%;"></div></div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-credit-card text-primary me-1"></i> Cartão de Crédito</span>
+                                        <span class="fs-12 fw-bold text-primary">33.2% (R$ 132.764)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width: 33.2%;"></div></div>
                                 </div>
                                 <div>
-                                    <div class="d-flex justify-content-between mb-1"><span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-barcode text-warning me-1"></i> Boleto Bancário</span><span class="fs-12 fw-bold text-warning">6% (R$ 34.944)</span></div>
-                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width: 6%;"></div></div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-credit-card text-info me-1"></i> Cartão de Débito</span>
+                                        <span class="fs-12 fw-bold text-info">5.1% (R$ 20.394)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-info" style="width: 5.1%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-cash-register text-warning me-1"></i> Bilheteria PDV</span>
+                                        <span class="fs-12 fw-bold text-warning">3.3% (R$ 13.198)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width: 3.3%;"></div></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- CHARTS ROW 2: RANKING DE EVENTOS & PERFORMANCE POR PDV -->
-                <div class="row g-3 mb-3">
-                    <div class="col-lg-6">
-                        <div class="card p-3 border shadow-sm bg-white h-100">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="fw-bold m-0 text-dark">Ranking de Eventos</h6>
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" style="font-size:0.75rem;" onclick="openModalById('modalCompararEventos')"><i class="fa-solid fa-right-left"></i> Comparar</button>
-                            </div>
-                            <div class="d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
-                                    <span class="fs-12 fw-bold text-dark">1. Experiência Música e Natureza</span>
-                                    <span class="fs-12 fw-bold text-primary">R$ 16.248,00 (836 vend.)</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
-                                    <span class="fs-12 fw-bold text-dark">2. 9º Knife Show Curitiba</span>
-                                    <span class="fs-12 fw-bold text-primary">R$ 7.720,00 (328 vend.)</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
-                                    <span class="fs-12 fw-bold text-dark">3. TWELVE BEERS VITÓRIA</span>
-                                    <span class="fs-12 fw-bold text-primary">R$ 119.894,00 (302 vend.)</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-light">
-                                    <span class="fs-12 fw-bold text-dark">4. Rebobinando - Peça Teatral</span>
-                                    <span class="fs-12 fw-bold text-primary">R$ 960,00 (16 vend.)</span>
-                                </div>
-                            </div>
+                <!-- CONSOLIDATED EVENTS CATALOG OF THE PRODUCER -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <div>
+                            <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-calendar-check text-primary me-2"></i> Eventos Cadastrados sob este CNPJ</h5>
+                            <span class="text-muted fs-12">Clique em qualquer evento para abrir a central individual com todos os detalhes e relatórios</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="switchPanel('todosEventos', document.getElementById('menuTodosEventos'))">
+                                <i class="fa-solid fa-bars me-1"></i> Ver Catálogo Completo
+                            </button>
+                            <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="openModalById('modalCreateEvent')">
+                                <i class="fa-solid fa-plus me-1"></i> Novo Evento
+                            </button>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="card p-3 border shadow-sm bg-white h-100">
-                            <h6 class="fw-bold mb-3 text-dark">Performance por PDV & Modalidades</h6>
-                            <div class="d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
-                                    <span class="fs-12 text-muted"><i class="fa-solid fa-globe text-primary me-2"></i>Site Online (App & Web)</span>
-                                    <strong class="fs-12 text-dark">82% (R$ 477.568,00)</strong>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
-                                    <span class="fs-12 text-muted"><i class="fa-solid fa-cash-register text-success me-2"></i>Bilheterias Físicas (POS)</span>
-                                    <strong class="fs-12 text-dark">14% (R$ 81.536,00)</strong>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
-                                    <span class="fs-12 text-muted"><i class="fa-solid fa-handshake text-warning me-2"></i>Comissários & Promoters</span>
-                                    <strong class="fs-12 text-dark">4% (R$ 23.296,00)</strong>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Evento</th>
+                                    <th>Data & Local</th>
+                                    <th>Ingressos Vendidos</th>
+                                    <th>Ocupação</th>
+                                    <th>Receita Bruta</th>
+                                    <th>Saldo Disponível</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3131')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3131</span></td>
+                                    <td class="fw-bold text-primary">ROUPA NOVA 40 ANOS - TEATRO POSITIVO</td>
+                                    <td class="text-muted fs-12">14/09/2026 21:00 • Curitiba/PR</td>
+                                    <td><strong>1.420</strong> / 1.800</td>
+                                    <td>
+                                        <div class="progress" style="height:6px; width:80px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                            <div class="progress-bar bg-success" style="width:78.8%;"></div>
+                                        </div>
+                                        <span class="fs-11 fw-bold text-success">78.8%</span>
+                                    </td>
+                                    <td class="fw-bold">R$ 214.850,00</td>
+                                    <td class="fw-bold text-success">R$ 32.622,50</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary py-0 px-2 fs-11" style="background:#0284c7;"><i class="fa-solid fa-arrow-right me-1"></i> Ver Evento</button>
+                                    </td>
+                                </tr>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3130')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3130</span></td>
+                                    <td class="fw-bold text-primary">TWELVE BEERS VITÓRIA | 1ª EDIÇÃO</td>
+                                    <td class="text-muted fs-12">22/08/2026 11:00 • Vitória/ES</td>
+                                    <td><strong>302</strong> / 636</td>
+                                    <td>
+                                        <div class="progress" style="height:6px; width:80px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                            <div class="progress-bar bg-success" style="width:48.4%;"></div>
+                                        </div>
+                                        <span class="fs-11 fw-bold text-success">48.4%</span>
+                                    </td>
+                                    <td class="fw-bold">R$ 119.894,00</td>
+                                    <td class="fw-bold text-success">R$ 11.909,90</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary py-0 px-2 fs-11" style="background:#0284c7;"><i class="fa-solid fa-arrow-right me-1"></i> Ver Evento</button>
+                                    </td>
+                                </tr>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3132')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3132</span></td>
+                                    <td class="fw-bold text-primary">STAND UP COMEDY - DIOGO ALMEIDA</td>
+                                    <td class="text-muted fs-12">28/08/2026 20:00 • Curitiba/PR</td>
+                                    <td><strong>650</strong> / 700</td>
+                                    <td>
+                                        <div class="progress" style="height:6px; width:80px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                            <div class="progress-bar bg-success" style="width:92.8%;"></div>
+                                        </div>
+                                        <span class="fs-11 fw-bold text-success">92.8%</span>
+                                    </td>
+                                    <td class="fw-bold">R$ 48.900,00</td>
+                                    <td class="fw-bold text-success">R$ 1.565,00</td>
+                                    <td><span class="badge bg-secondary text-white">Encerrado</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary py-0 px-2 fs-11" style="background:#0284c7;"><i class="fa-solid fa-arrow-right me-1"></i> Ver Evento</button>
+                                    </td>
+                                </tr>
+                                <tr class="cursor-pointer" onclick="openEventDetails('3634')" title="Clique para abrir detalhes do evento">
+                                    <td><span class="badge bg-dark">#3634</span></td>
+                                    <td class="fw-bold text-primary">EXPERIÊNCIA MÚSICA E NATUREZA</td>
+                                    <td class="text-muted fs-12">22/08/2026 10:00 • Curitiba/PR</td>
+                                    <td><strong>836</strong> / 2.000</td>
+                                    <td>
+                                        <div class="progress" style="height:6px; width:80px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                            <div class="progress-bar bg-success" style="width:41.8%;"></div>
+                                        </div>
+                                        <span class="fs-11 fw-bold text-success">41.8%</span>
+                                    </td>
+                                    <td class="fw-bold">R$ 16.248,00</td>
+                                    <td class="fw-bold text-success">R$ 3.810,80</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary py-0 px-2 fs-11" style="background:#0284c7;"><i class="fa-solid fa-arrow-right me-1"></i> Ver Evento</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -1578,14 +1729,12 @@
                         <button class="bottom-filter-btn" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active')); this.classList.add('active');">POR PERÍODO</button>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <select class="form-select form-select-sm" style="font-size:0.78rem; width:220px; font-weight:600;">
-                            <option selected>Produtora: Todas</option>
-                            <option>DAA</option>
-                            <option>.0</option>
-                            <option>2A FEIRAS E EVENTOS LTDA</option>
-                            <option>2GR COMUNICAÇÃO E EVENTOS LTDA</option>
-                            <option>AADC - AMIGOS E APOIADORES</option>
-                            <option>A BANDA MAIS BONITA DA CIDADE</option>
+                        <select class="form-select form-select-sm" style="font-size:0.78rem; width:260px; font-weight:600;" onchange="if(this.value !== 'all') openEventDetails(this.value)">
+                            <option value="all" selected>Visualizar: Todos os Eventos (4)</option>
+                            <option value="3131">#3131 - Roupa Nova 40 Anos</option>
+                            <option value="3130">#3130 - Twelve Beers Vitória</option>
+                            <option value="3132">#3132 - Stand Up Diogo Almeida</option>
+                            <option value="3634">#3634 - Música e Natureza</option>
                         </select>
                     </div>
                 </div>
@@ -1600,65 +1749,79 @@
                         <p>Gestão cadastral, endereço fiscal, canais de comunicação e identidade visual.</p>
                     </div>
                     <div class="header-buttons">
-                        <span class="badge bg-dark px-3 py-2 fs-12 fw-bold text-white">#2481 - .0</span>
+                        <span class="badge bg-dark px-3 py-2 fs-12 fw-bold text-white">#955 - PRIME EVENTOS LTDA</span>
                     </div>
                 </div>
 
                 <div class="card p-4 border shadow-sm bg-white mb-4">
-                    <h5 class="fw-bold mb-3 text-dark"><i class="fa-regular fa-building text-primary me-2"></i> Informações Cadastrais</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-building text-primary me-2"></i> Informações Cadastrais & CNPJ</h5>
+                        <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Cadastro Validado na Receita Federal</span>
+                    </div>
                     <form onsubmit="event.preventDefault(); alert('Dados da produtora atualizados com sucesso!');">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label fs-12 fw-bold text-muted">Nome Fantasia</label>
-                                <input type="text" class="form-control fs-12" placeholder="Nome comercial da produtora">
+                                <input type="text" class="form-control fs-12" value="Prime Eventos & Produções">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fs-12 fw-bold text-muted">Razão Social *</label>
-                                <input type="text" class="form-control fs-12" value=".0" required>
+                                <input type="text" class="form-control fs-12" value="PRIME EVENTOS E PRODUÇÕES ARTÍSTICAS LTDA" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fs-12 fw-bold text-muted">CNPJ</label>
-                                <input type="text" class="form-control fs-12" value="00.000.000/0001-00">
+                                <input type="text" class="form-control fs-12" value="12.345.678/0001-90" readonly style="background:#f8fafc;">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fs-12 fw-bold text-muted">Responsável</label>
-                                <input type="text" class="form-control fs-12" placeholder="Nome do titular">
+                                <label class="form-label fs-12 fw-bold text-muted">Responsável Legal</label>
+                                <input type="text" class="form-control fs-12" value="Carlos Eduardo da Silva">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fs-12 fw-bold text-muted">CPF do Responsável</label>
-                                <input type="text" class="form-control fs-12" value="000.000.000-00">
+                                <input type="text" class="form-control fs-12" value="123.456.789-00">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fs-12 fw-bold text-muted">E-mail *</label>
-                                <input type="email" class="form-control fs-12" value="contato@produtora.com.br" required>
+                                <label class="form-label fs-12 fw-bold text-muted">E-mail Financeiro *</label>
+                                <input type="email" class="form-control fs-12" value="financeiro@primeeventos.com.br" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">WhatsApp / Telefone *</label>
+                                <input type="text" class="form-control fs-12" value="(41) 99876-5432" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fs-12 fw-bold text-muted">Inscrição Estadual</label>
+                                <input type="text" class="form-control fs-12" value="908.123.456-78">
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label fs-12 fw-bold text-muted">CEP</label>
-                                <input type="text" class="form-control fs-12" value="00000-000">
+                                <input type="text" class="form-control fs-12" value="80240-000">
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label fs-12 fw-bold text-muted">Endereço (Rua)</label>
-                                <input type="text" class="form-control fs-12" placeholder="Rua / Avenida">
+                            <div class="col-md-5">
+                                <label class="form-label fs-12 fw-bold text-muted">Endereço (Rua / Avenida)</label>
+                                <input type="text" class="form-control fs-12" value="Av. Sete de Setembro">
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label fs-12 fw-bold text-muted">Número</label>
-                                <input type="text" class="form-control fs-12" placeholder="Ex: 100">
+                                <input type="text" class="form-control fs-12" value="4500">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="form-label fs-12 fw-bold text-muted">Complemento</label>
-                                <input type="text" class="form-control fs-12" placeholder="Sala / Bloco">
+                                <input type="text" class="form-control fs-12" value="Sala 1201 - Ed. Executive Tower">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fs-12 fw-bold text-muted">Bairro</label>
-                                <input type="text" class="form-control fs-12" placeholder="Bairro">
+                                <input type="text" class="form-control fs-12" value="Batel">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label class="form-label fs-12 fw-bold text-muted">Cidade</label>
                                 <input type="text" class="form-control fs-12" value="Curitiba">
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-4">
                                 <label class="form-label fs-12 fw-bold text-muted">Estado (UF)</label>
-                                <input type="text" class="form-control fs-12" value="PR">
+                                <input type="text" class="form-control fs-12" value="Paraná (PR)">
+                            </div>
+                            <div class="col-12 mt-3 text-end">
+                                <button type="submit" class="btn btn-primary px-4 fw-semibold" style="background:#0284c7;"><i class="fa-solid fa-save me-1"></i> Salvar Alterações Cadastrais</button>
                             </div>
                         </div>
                     </form>
@@ -2254,7 +2417,7 @@
             </div>
 
             <!-- 5. PANEL FIN HUB (HUB FINANCEIRO) -->
-            <div id="panelFinHub">
+            <div id="panelFinHub" class="d-none">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
                         <h2>Hub Financeiro</h2>
