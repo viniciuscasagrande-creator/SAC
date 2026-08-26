@@ -6949,7 +6949,105 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
     <!-- Navigation interaction script -->
     <script>
 
-        document.addEventListener("DOMContentLoaded", () => {
+
+// ==========================================
+// PRODUCER PIXELS DATABASE & RESOLUTION
+// ==========================================
+window.producerPixelsDB = [
+    {
+        id: "892341209384721",
+        name: "Pixel Principal Produtora (Global)",
+        isDefault: true,
+        datasetId: "ds_meta_exemplo_prod",
+        tokenCapi: "EAAGNOk92ZAApX89...",
+        status: "Ativo",
+        eventsCount: 4
+    },
+    {
+        id: "772183904128471",
+        name: "Pixel Festivais & Shows",
+        isDefault: false,
+        datasetId: "ds_festivais_prod",
+        tokenCapi: "EAAGNOk92ZAApX77...",
+        status: "Ativo",
+        eventsCount: 2
+    },
+    {
+        id: "661298410293847",
+        name: "Pixel Teatro & Standup",
+        isDefault: false,
+        datasetId: "ds_teatro_prod",
+        tokenCapi: "EAAGNOk92ZAApX66...",
+        status: "Ativo",
+        eventsCount: 1
+    }
+];
+
+function resolveEventPixel(eventId) {
+    const evt = window.eventosDB && window.eventosDB[eventId];
+    if (!evt) {
+        return {
+            pixelId: "892341209384721",
+            pixelName: "Pixel Principal Produtora (Global)",
+            datasetId: "ds_meta_exemplo_prod",
+            tokenCapi: "EAAGNOk92ZAApX89...",
+            mode: "inherit",
+            sourceLabel: "Herdado do Produtor (Padrão)"
+        };
+    }
+
+    if (evt.pixelMode === 'custom' && evt.pixel && evt.pixel.id) {
+        return {
+            pixelId: evt.pixel.id,
+            pixelName: evt.pixel.nome || ("Pixel Evento #" + eventId),
+            datasetId: evt.pixel.datasetId || "",
+            tokenCapi: evt.pixel.tokenCapi || "",
+            mode: "custom",
+            sourceLabel: "Específico deste Evento"
+        };
+    }
+
+    if (evt.pixelMode === 'library' && evt.pixelLibraryId) {
+        const libPixel = window.producerPixelsDB.find(p => p.id === evt.pixelLibraryId);
+        if (libPixel) {
+            return {
+                pixelId: libPixel.id,
+                pixelName: libPixel.name,
+                datasetId: libPixel.datasetId,
+                tokenCapi: libPixel.tokenCapi,
+                mode: "library",
+                sourceLabel: "Biblioteca do Produtor: " + libPixel.name
+            };
+        }
+    }
+
+    if (evt.pixel && evt.pixel.id) {
+        return {
+            pixelId: evt.pixel.id,
+            pixelName: evt.pixel.nome || ("Pixel Evento #" + eventId),
+            datasetId: evt.pixel.datasetId || "",
+            tokenCapi: evt.pixel.tokenCapi || "",
+            mode: "custom",
+            sourceLabel: "Específico deste Evento"
+        };
+    }
+
+    const defaultPixel = window.producerPixelsDB.find(p => p.isDefault) || window.producerPixelsDB[0];
+    return {
+        pixelId: defaultPixel.id,
+        pixelName: defaultPixel.name,
+        datasetId: defaultPixel.datasetId,
+        tokenCapi: defaultPixel.tokenCapi,
+        mode: "inherit",
+        sourceLabel: "Herdado do Produtor (Padrão)"
+    };
+}
+window.resolveEventPixel = resolveEventPixel;
+
+
+
+
+        // [INIT GLOBAL SCOPE]
             // Sidebar menu items
             const menuDashboard = document.getElementById("menuDashboard");
             const menuDadosProdutora = document.getElementById("menuDadosProdutora");
@@ -7051,7 +7149,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const menuItems = document.querySelectorAll(".menu-item");
             const submenuItems = document.querySelectorAll(".submenu-item");
 
-            window.switchPanel = function(panelKey, activeMenuEl) {
+            function switchPanel(panelKey, activeMenuEl) {
+window.switchPanel = switchPanel;
                 const panels = {
                     dashboard: document.getElementById("panelDashboardContent"),
                     panelDashboardContent: document.getElementById("panelDashboardContent"),
@@ -7167,7 +7266,407 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 }
             };
 
-            window.openEventDetails = function(eventId) {
+            
+            // ========================================================
+            // BASE DE DADOS COMPLETA DE TODOS OS EVENTOS DO SISTEMA
+            // ========================================================
+            window.eventosDB = {
+                "3634": {
+                    id: "3634",
+                    name: "SEM PARAR - EXPERIENCIA MUSICA E NATUREZA",
+                    local: "Parque Jaime Lerner - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Parque Jaime Lerner",
+                    data: "30/06/2027 às 10:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 0,00",
+                    receitaLiquida: "R$ 0,00",
+                    taxasPlataforma: "- R$ 0,00",
+                    taxasGateways: "- R$ 0,00",
+                    repassesEfetuados: "- R$ 0,00",
+                    saldoRepasse: "R$ 0,00",
+                    repassesJaPagos: "R$ 0,00",
+                    ingressosVendidos: "0",
+                    ingressosDisponiveis: "832",
+                    cortesias: "584",
+                    ticketMedio: "R$ 0,00",
+                    ocupacao: "70.2%",
+                    pixel: {
+                        id: "392182049182390",
+                        nome: "Pixel Música & Natureza",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.0/10 (Excelente)",
+                        datasetId: "ds_semparar_2027",
+                        tokenCapi: "EAAGNOk92ZAApX893634xProdutor",
+                        pageViews: "1.240",
+                        viewContent: "890",
+                        initiateCheckout: "210",
+                        addPaymentInfo: "150",
+                        purchase: "0",
+                        receitaPixel: "R$ 0,00",
+                        roas: "0.0x",
+                        cpa: "R$ 0,00",
+                        ultimoDisparo: "Hoje, há 5 min"
+                    },
+                    lotes: [
+                        { nome: "INGRESSO SOCIAL GRATUITO", preco: "R$ 0,00", total: 1000, vendidos: 0, disp: 832, prog: 70, status: "Aberto", badge: "bg-success" },
+                        { nome: "CORTESIA PARCEIRO", preco: "R$ 0,00", total: 600, vendidos: 0, disp: 584, prog: 97, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "80%", credito: "15%", debito: "5%", pdv: "0%" },
+                    compradores: [
+                        { nome: "Marcos Vinicius", cpf: "124.***.***-89", email: "marcos.v@gmail.com", lote: "INGRESSO SOCIAL", valor: "R$ 0,00", pgto: "Gratuito", status: "Confirmado", voucher: "SP-99101" }
+                    ],
+                    portaria: { presentes: 0, faltam: 0, percentual: "0.0% (Aguardando abertura)", pico: "10:00h" }
+                },
+                "1760": {
+                    id: "1760",
+                    name: "SEM PARAR - EXPERIENCIA MUSICA E NATUREZA",
+                    local: "Parque Jaime Lerner - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Parque Jaime Lerner",
+                    data: "30/06/2027 às 10:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 0,00",
+                    receitaLiquida: "R$ 0,00",
+                    taxasPlataforma: "- R$ 0,00",
+                    taxasGateways: "- R$ 0,00",
+                    repassesEfetuados: "- R$ 0,00",
+                    saldoRepasse: "R$ 0,00",
+                    repassesJaPagos: "R$ 0,00",
+                    ingressosVendidos: "0",
+                    ingressosDisponiveis: "832",
+                    cortesias: "584",
+                    ticketMedio: "R$ 0,00",
+                    ocupacao: "70.2%",
+                    pixel: {
+                        id: "392182049182390",
+                        nome: "Pixel Música & Natureza",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.0/10 (Excelente)",
+                        datasetId: "ds_semparar_2027",
+                        tokenCapi: "EAAGNOk92ZAApX893634xProdutor",
+                        pageViews: "1.240",
+                        viewContent: "890",
+                        initiateCheckout: "210",
+                        addPaymentInfo: "150",
+                        purchase: "0",
+                        receitaPixel: "R$ 0,00",
+                        roas: "0.0x",
+                        cpa: "R$ 0,00",
+                        ultimoDisparo: "Hoje, há 5 min"
+                    },
+                    lotes: [
+                        { nome: "INGRESSO SOCIAL GRATUITO", preco: "R$ 0,00", total: 1000, vendidos: 0, disp: 832, prog: 70, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "80%", credito: "15%", debito: "5%", pdv: "0%" },
+                    compradores: [],
+                    portaria: { presentes: 0, faltam: 0, percentual: "0.0%", pico: "10:00h" }
+                },
+                "3571": {
+                    id: "3571",
+                    name: "IRON MAIDEN SYMPHONIC",
+                    local: "Ópera de Arame - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Ópera de Arame",
+                    data: "14/03/2027 às 19:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 2.180,00",
+                    receitaLiquida: "R$ 1.853,00",
+                    taxasPlataforma: "- R$ 327,00",
+                    taxasGateways: "- R$ 42,00",
+                    repassesEfetuados: "- R$ 0,00",
+                    saldoRepasse: "R$ 1.853,00",
+                    repassesJaPagos: "R$ 0,00",
+                    ingressosVendidos: "10",
+                    ingressosDisponiveis: "1596",
+                    cortesias: "0",
+                    ticketMedio: "R$ 218,00",
+                    ocupacao: "0.6%",
+                    pixel: {
+                        id: "918273645019283",
+                        nome: "Pixel Iron Maiden Symphonic",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.6/10 (Excelente)",
+                        datasetId: "ds_ironmaiden_2027",
+                        tokenCapi: "EAAGNOk92ZAApX893571xProdutor",
+                        pageViews: "4.890",
+                        viewContent: "2.140",
+                        initiateCheckout: "410",
+                        addPaymentInfo: "280",
+                        purchase: "10",
+                        receitaPixel: "R$ 2.180,00",
+                        roas: "6.4x",
+                        cpa: "R$ 14,20",
+                        ultimoDisparo: "Hoje, há 2 min"
+                    },
+                    lotes: [
+                        { nome: "PLATEIA PREMIUM (INTEIRA)", preco: "R$ 280,00", total: 500, vendidos: 6, disp: 494, prog: 1, status: "Aberto", badge: "bg-success" },
+                        { nome: "PLATEIA PREMIUM (MEIA / PROMO)", preco: "R$ 140,00", total: 500, vendidos: 4, disp: 496, prog: 1, status: "Aberto", badge: "bg-success" },
+                        { nome: "CAMAROTE VIP", preco: "R$ 350,00", total: 200, vendidos: 0, disp: 200, prog: 0, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "60%", credito: "40%", debito: "0%", pdv: "0%" },
+                    compradores: [
+                        { nome: "Mariana Duarte", cpf: "391.***.***-77", email: "mariana@gmail.com", lote: "PLATEIA PREMIUM", valor: "R$ 280,00", pgto: "Cartão (3x)", status: "Pago", voucher: "IM-35701" },
+                        { nome: "Eduardo Martins", cpf: "882.***.***-12", email: "edu.martins@hotmail.com", lote: "PLATEIA MEIA", valor: "R$ 140,00", pgto: "PIX", status: "Pago", voucher: "IM-35702" }
+                    ],
+                    portaria: { presentes: 0, faltam: 10, percentual: "0.0% (Aguardando abertura)", pico: "19:00h" }
+                },
+                "3714": {
+                    id: "3714",
+                    name: "29ª Conferência Estadual Espírita (14/03)",
+                    local: "Teatro Positivo - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Teatro Positivo - Grande Auditório",
+                    data: "14/03/2027 às 08:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 540,00",
+                    receitaLiquida: "R$ 459,00",
+                    taxasPlataforma: "- R$ 81,00",
+                    taxasGateways: "- R$ 10,80",
+                    repassesEfetuados: "- R$ 0,00",
+                    saldoRepasse: "R$ 459,00",
+                    repassesJaPagos: "R$ 0,00",
+                    ingressosVendidos: "12",
+                    ingressosDisponiveis: "2188",
+                    cortesias: "0",
+                    ticketMedio: "R$ 45,00",
+                    ocupacao: "0.5%",
+                    pixel: {
+                        id: "772183904128471",
+                        nome: "Pixel 29ª Conferência Espírita",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.3/10 (Excelente)",
+                        datasetId: "ds_conferencia_2027",
+                        tokenCapi: "EAAGNOk92ZAApX893714xProdutor",
+                        pageViews: "3.120",
+                        viewContent: "1.540",
+                        initiateCheckout: "320",
+                        addPaymentInfo: "210",
+                        purchase: "12",
+                        receitaPixel: "R$ 540,00",
+                        roas: "7.1x",
+                        cpa: "R$ 9,80",
+                        ultimoDisparo: "Hoje, há 14 min"
+                    },
+                    lotes: [
+                        { nome: "INGRESSO DOMINGO 14/03 (INTEIRA)", preco: "R$ 50,00", total: 1200, vendidos: 8, disp: 1192, prog: 1, status: "Aberto", badge: "bg-success" },
+                        { nome: "INGRESSO DOMINGO 14/03 (MEIA)", preco: "R$ 25,00", total: 1000, vendidos: 4, disp: 996, prog: 1, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "75%", credito: "25%", debito: "0%", pdv: "0%" },
+                    compradores: [
+                        { nome: "Camila Nogueira", cpf: "445.***.***-20", email: "camila.nog@hotmail.com", lote: "INGRESSO DOMINGO", valor: "R$ 50,00", pgto: "PIX", status: "Pago", voucher: "CF-37141" }
+                    ],
+                    portaria: { presentes: 0, faltam: 12, percentual: "0.0% (Aguardando abertura)", pico: "08:00h" }
+                },
+                "3713": {
+                    id: "3713",
+                    name: "29ª Conferência Estadual Espírita (13/03)",
+                    local: "Teatro Positivo - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Teatro Positivo - Grande Auditório",
+                    data: "13/03/2027 às 08:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 605,00",
+                    receitaLiquida: "R$ 514,25",
+                    taxasPlataforma: "- R$ 90,75",
+                    taxasGateways: "- R$ 12,10",
+                    repassesEfetuados: "- R$ 0,00",
+                    saldoRepasse: "R$ 514,25",
+                    repassesJaPagos: "R$ 0,00",
+                    ingressosVendidos: "13",
+                    ingressosDisponiveis: "2587",
+                    cortesias: "0",
+                    ticketMedio: "R$ 46,54",
+                    ocupacao: "0.5%",
+                    pixel: {
+                        id: "892341209384721",
+                        nome: "Pixel Principal Produtora (Global)",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.5/10 (Excelente)",
+                        datasetId: "ds_meta_exemplo_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893713xProdutor",
+                        pageViews: "3.410",
+                        viewContent: "1.720",
+                        initiateCheckout: "390",
+                        addPaymentInfo: "240",
+                        purchase: "13",
+                        receitaPixel: "R$ 605,00",
+                        roas: "8.2x",
+                        cpa: "R$ 8,50",
+                        ultimoDisparo: "Hoje, há 8 min"
+                    },
+                    lotes: [
+                        { nome: "INGRESSO SÁBADO 13/03 (INTEIRA)", preco: "R$ 50,00", total: 1300, vendidos: 9, disp: 1291, prog: 1, status: "Aberto", badge: "bg-success" },
+                        { nome: "INGRESSO SÁBADO 13/03 (MEIA)", preco: "R$ 25,00", total: 1300, vendidos: 4, disp: 1296, prog: 1, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "70%", credito: "30%", debito: "0%", pdv: "0%" },
+                    compradores: [
+                        { nome: "Beatriz Alencar", cpf: "661.***.***-33", email: "beatriz.alencar@ufpr.br", lote: "INGRESSO SÁBADO MEIA", valor: "R$ 25,00", pgto: "PIX", status: "Pago", voucher: "CF-37131" }
+                    ],
+                    portaria: { presentes: 0, faltam: 13, percentual: "0.0% (Aguardando abertura)", pico: "08:00h" }
+                },
+                "3130": {
+                    id: "3130",
+                    name: "TWELVE BEERS VITÓRIA | 1ª EDIÇÃO",
+                    local: "Jardim da Penha / Praia do Canto - Vitória/ES",
+                    cidade: "Vitória/ES",
+                    localidade: "Área de Eventos Jardim da Penha",
+                    data: "22/08/2026 às 11:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 119.894,00",
+                    receitaLiquida: "R$ 101.909,90",
+                    taxasPlataforma: "- R$ 17.984,10",
+                    taxasGateways: "- R$ 1.542,00",
+                    repassesEfetuados: "- R$ 90.000,00",
+                    saldoRepasse: "R$ 11.909,90",
+                    repassesJaPagos: "R$ 90.000,00",
+                    ingressosVendidos: "302",
+                    ingressosDisponiveis: "334",
+                    cortesias: "6",
+                    ticketMedio: "R$ 396,99",
+                    ocupacao: "48.4%",
+                    pixel: {
+                        id: "918273645019283",
+                        nome: "Pixel Twelve Beers Vitória",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.8/10 (Excelente)",
+                        datasetId: "ds_twelve_beers_vix",
+                        tokenCapi: "EAAGNOk92ZAApX893130xProdutor",
+                        pageViews: "18.400",
+                        viewContent: "11.200",
+                        initiateCheckout: "2.890",
+                        addPaymentInfo: "1.450",
+                        purchase: "302",
+                        receitaPixel: "R$ 119.894,00",
+                        roas: "9.2x",
+                        cpa: "R$ 18,40",
+                        ultimoDisparo: "Hoje, há 12 min"
+                    },
+                    lotes: [
+                        { nome: "1º LOTE - PISTA PREMIUM", preco: "R$ 180,00", total: 200, vendidos: 200, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" },
+                        { nome: "2º LOTE - PISTA PREMIUM", preco: "R$ 220,00", total: 300, vendidos: 102, disp: 198, prog: 34, status: "Aberto", badge: "bg-success" },
+                        { nome: "CAMAROTE OPEN BAR (LOTE ÚNICO)", preco: "R$ 450,00", total: 100, vendidos: 0, disp: 100, prog: 0, status: "Aberto", badge: "bg-success" },
+                        { nome: "MESA VIP (4 PESSOAS)", preco: "R$ 1.600,00", total: 40, vendidos: 0, disp: 40, prog: 0, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "72%", credito: "24%", debito: "3%", pdv: "1%" },
+                    compradores: [
+                        { nome: "Carlos Eduardo Silva", cpf: "089.***.***-21", email: "carlos.edu@gmail.com", lote: "2º Lote - Premium", valor: "R$ 220,00", pgto: "PIX", status: "Pago", voucher: "TB-98214" },
+                        { nome: "Fernanda Costa Lima", cpf: "112.***.***-90", email: "fernanda.costa@hotmail.com", lote: "2º Lote - Premium", valor: "R$ 220,00", pgto: "Cartão (2x)", status: "Pago", voucher: "TB-98215" },
+                        { nome: "Roberto Machado", cpf: "331.***.***-45", email: "roberto.machado@empresa.com", lote: "1º Lote - Premium", valor: "R$ 180,00", pgto: "PIX", status: "Pago", voucher: "TB-98101" }
+                    ],
+                    portaria: { presentes: 184, faltam: 118, percentual: "60.9%", pico: "14:30h" }
+                },
+                "3131": {
+                    id: "3131",
+                    name: "Roupa Nova 40 Anos - Teatro Positivo",
+                    local: "Teatro Positivo - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Teatro Positivo",
+                    data: "18/09/2026 às 21:00h",
+                    status: "Ativo",
+                    banner: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 240.000,00",
+                    receitaLiquida: "R$ 204.000,00",
+                    taxasPlataforma: "- R$ 36.000,00",
+                    taxasGateways: "- R$ 3.200,00",
+                    repassesEfetuados: "- R$ 150.000,00",
+                    saldoRepasse: "R$ 50.800,00",
+                    repassesJaPagos: "R$ 150.000,00",
+                    ingressosVendidos: "800",
+                    ingressosDisponiveis: "200",
+                    cortesias: "20",
+                    ticketMedio: "R$ 300,00",
+                    ocupacao: "80.0%",
+                    pixel: {
+                        id: "892341209384721",
+                        nome: "Pixel Principal Produtora (Global)",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.5/10 (Excelente)",
+                        datasetId: "ds_meta_exemplo_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893131xProdutor",
+                        pageViews: "45.000",
+                        viewContent: "30.000",
+                        initiateCheckout: "4.500",
+                        addPaymentInfo: "2.100",
+                        purchase: "800",
+                        receitaPixel: "R$ 240.000,00",
+                        roas: "11.4x",
+                        cpa: "R$ 12,50",
+                        ultimoDisparo: "Hoje, há 1 min"
+                    },
+                    lotes: [
+                        { nome: "PLATEIA A (INTEIRA)", preco: "R$ 320,00", total: 400, vendidos: 380, disp: 20, prog: 95, status: "Aberto", badge: "bg-success" },
+                        { nome: "PLATEIA B (INTEIRA)", preco: "R$ 260,00", total: 600, vendidos: 420, disp: 180, prog: 70, status: "Aberto", badge: "bg-success" }
+                    ],
+                    pagamentos: { pix: "65%", credito: "35%", debito: "0%", pdv: "0%" },
+                    compradores: [
+                        { nome: "Juliana Mendes", cpf: "223.***.***-67", email: "ju.mendes@gmail.com", lote: "PLATEIA A", valor: "R$ 320,00", pgto: "PIX", status: "Pago", voucher: "RN-1102" }
+                    ],
+                    portaria: { presentes: 0, faltam: 800, percentual: "0.0%", pico: "21:00h" }
+                },
+                "3132": {
+                    id: "3132",
+                    name: "Stand Up Comedy - Diogo Almeida",
+                    local: "Teatro Guaíra - Curitiba/PR",
+                    cidade: "Curitiba/PR",
+                    localidade: "Teatro Guaíra",
+                    data: "05/10/2026 às 20:00h",
+                    status: "Encerrado",
+                    banner: "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=600&q=80",
+                    receitaBruta: "R$ 180.000,00",
+                    receitaLiquida: "R$ 153.000,00",
+                    taxasPlataforma: "- R$ 27.000,00",
+                    taxasGateways: "- R$ 2.400,00",
+                    repassesEfetuados: "- R$ 153.000,00",
+                    saldoRepasse: "R$ 0,00",
+                    repassesJaPagos: "R$ 153.000,00",
+                    ingressosVendidos: "1200",
+                    ingressosDisponiveis: "0",
+                    cortesias: "50",
+                    ticketMedio: "R$ 150,00",
+                    ocupacao: "100.0%",
+                    pixel: {
+                        id: "892341209384721",
+                        nome: "Pixel Principal Produtora (Global)",
+                        status: "Ativo",
+                        capiStatus: "Conectado (Servidor CAPI)",
+                        matchQuality: "9.5/10 (Excelente)",
+                        datasetId: "ds_meta_exemplo_prod",
+                        tokenCapi: "EAAGNOk92ZAApX893132xProdutor",
+                        pageViews: "22.000",
+                        viewContent: "15.000",
+                        initiateCheckout: "3.200",
+                        addPaymentInfo: "1.900",
+                        purchase: "1200",
+                        receitaPixel: "R$ 180.000,00",
+                        roas: "14.2x",
+                        cpa: "R$ 8,10",
+                        ultimoDisparo: "Evento encerrado"
+                    },
+                    lotes: [
+                        { nome: "PLATEIA GERAL", preco: "R$ 150,00", total: 1200, vendidos: 1200, disp: 0, prog: 100, status: "Esgotado", badge: "bg-secondary" }
+                    ],
+                    pagamentos: { pix: "70%", credito: "30%", debito: "0%", pdv: "0%" },
+                    compradores: [],
+                    portaria: { presentes: 1200, faltam: 0, percentual: "100.0%", pico: "20:00h" }
+                }
+            };
+
+            function openEventDetails(eventId) {
+window.openEventDetails = openEventDetails;
                 window.currentEventId = eventId;
                 const evt = window.eventosDB[eventId] || window.eventosDB["3130"];
                 
@@ -7304,7 +7803,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 switchEvtSubTab('lotes', document.getElementById('tabLinkEvtLotes'));
             };
 
-            window.switchEvtSubTab = function(subTabKey, linkEl) {
+            function switchEvtSubTab(subTabKey, linkEl) {
+window.switchEvtSubTab = switchEvtSubTab;
                 document.querySelectorAll("#eventDetailTabs .nav-link").forEach(l => {
                     l.classList.remove("active", "text-dark");
                     l.classList.add("text-muted");
@@ -7571,9 +8071,9 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
             // Modal openers
             if (btnSidebarCreateEvent) btnSidebarCreateEvent.addEventListener("click", () => openModalById('modalCreateEvent'));
-            if (subNovoEvento) subNovoEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalCreateEvent'); });
-            if (subLotes) subLotes.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalLotes'); });
-            if (subPaginaEvento) subPaginaEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById('modalPaginaEvento'); });
+            const subNovoEvento = document.getElementById("subNovoEvento"); if (subNovoEvento) subNovoEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalCreateEvent"); });
+            const subLotes = document.getElementById("subLotes"); if (subLotes) subLotes.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalLotes"); });
+            const subPaginaEvento = document.getElementById("subPaginaEvento"); if (subPaginaEvento) subPaginaEvento.addEventListener("click", (e) => { e.preventDefault(); openModalById("modalPaginaEvento"); });
             if (btnSidebarRequestPayout) btnSidebarRequestPayout.addEventListener("click", () => openModalById('modalRequestPayout'));
             if (btnAssistantFloat) btnAssistantFloat.addEventListener("click", () => openModalById('modalAiAssistant'));
 
@@ -8532,8 +9032,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
 
             // Deep Link & URL Hash Route Handler on Load
             try {
-                const currentPath = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
-                const currentHash = window.location.hash.replace(/^#+/, '').toLowerCase();
+                const currentPath = (window.location.pathname || "").replace(/^\/+|\/+$/g, '').toLowerCase();
+                const currentHash = (window.location.hash || "").replace(/^#+/, '').toLowerCase();
                 const params = new URLSearchParams(window.location.search);
                 const panelParam = (params.get("panel") || "").toLowerCase();
                 const route = panelParam || currentHash || currentPath;
@@ -8609,7 +9109,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
             }
 
-            window.renderAcessosTable = function() {
+            function renderAcessosTable() {
+window.renderAcessosTable = renderAcessosTable;
                 const tbody = document.getElementById("acessosTableBody");
                 if (!tbody) return;
 
@@ -8923,7 +9424,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             ];
 
             // Renderizar Tabela da Biblioteca de Pixels do Produtor (Nível 1)
-            window.renderProducerPixelsTable = function() {
+            function renderProducerPixelsTable() {
+window.renderProducerPixelsTable = renderProducerPixelsTable;
                 const tbody = document.getElementById("tbodyProducerPixels");
                 if (!tbody) return;
 
@@ -8967,7 +9469,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             };
 
             // Motor de Resolução de Rastreamento (Priority Engine)
-            window.resolveEventPixel = function(eventId) {
+            function resolveEventPixel(eventId) {
+window.resolveEventPixel = resolveEventPixel;
                 const evt = window.eventosDB[eventId] || window.eventosDB["3130"];
                 const defaultProducerPixel = window.producerPixelsDB.find(p => p.isDefault) || window.producerPixelsDB[0];
 
@@ -8996,7 +9499,8 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             };
 
             // Renderizar Matriz de Vinculação & Auditoria de Pixels por Evento (Nível 3)
-            window.renderEventsPixelMatrix = function() {
+            function renderEventsPixelMatrix() {
+window.renderEventsPixelMatrix = renderEventsPixelMatrix;
                 const tbody = document.getElementById("tbodyEventsPixelMatrix");
                 if (!tbody) return;
 
@@ -9513,11 +10017,118 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             };
 
             // Renderizar tabelas na inicialização
-            renderAcessosTable();
-            renderProducerPixelsTable();
-            renderEventsPixelMatrix();
-        });
+            try { if (typeof renderAcessosTable === 'function') renderAcessosTable(); } catch(e) { console.warn('renderAcessosTable err:', e); }
+            try { if (typeof renderProducerPixelsTable === 'function') renderProducerPixelsTable(); } catch(e) { console.warn('renderProducerPixelsTable err:', e); }
+            try { if (typeof renderEventsPixelMatrix === 'function') renderEventsPixelMatrix(); } catch(e) { console.warn('renderEventsPixelMatrix err:', e); }
+        
+// [END GLOBAL SCOPE]
+
     
+
+// ==========================================
+// DOM READY INITIALIZATION
+// ==========================================
+document.addEventListener("DOMContentLoaded", function() {
+    // Menu listeners
+    const menuMap = [
+        ['menuDashboard', 'dashboard'],
+        ['menuDadosProdutora', 'dadosProdutora'],
+        ['menuTodosEventos', 'todosEventos'],
+        ['menuTerminaisPos', 'terminaisPos'],
+        ['menuEstorno', 'panelEstornoContent'],
+        ['menuSacHub', 'sacContent'],
+        ['subFinHub', 'finHub'],
+        ['subFinSaldo', 'finSaldo'],
+        ['subFinRepasse', 'finRepasse'],
+        ['subFinAntecipacoes', 'finAntecipacoes'],
+        ['subFinExtrato', 'finExtrato'],
+        ['subFinDespesas', 'finDespesas'],
+        ['subFinContas', 'finContas'],
+        ['subFinBordero', 'finBordero'],
+        ['subFinNegociacoes', 'finNegociacoes'],
+        ['subMktVisaoGeral', 'mktVisaoGeral'],
+        ['subMktCampanhas', 'mktCampanhas'],
+        ['subMktAnalytics', 'mktAnalytics'],
+        ['subMktPixelGraficos', 'mktPixelGraficos'],
+        ['subMktUtm', 'mktUtm'],
+        ['subMktCupons', 'mktCupons'],
+        ['subMktPromoters', 'mktPromoters'],
+        ['subMktPixels', 'mktPixels'],
+        ['subMktCombos', 'mktCombos'],
+        ['subRmkCarrinhos', 'rmkCarrinhos'],
+        ['subRmkDisparos', 'rmkDisparos'],
+        ['subRmkCRM', 'rmkCRM'],
+        ['subRmkMetricas', 'rmkMetricas']
+    ];
+
+    menuMap.forEach(([elId, panelKey]) => {
+        const el = document.getElementById(elId);
+        if (el) {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.switchPanel(panelKey, el);
+            });
+        }
+    });
+
+    // Accordions
+    const menuFinanceiro = document.getElementById("menuFinanceiro");
+    const submenuFinanceiro = document.getElementById("submenuFinanceiro");
+    const arrowFinanceiro = document.getElementById("arrowFinanceiro");
+    if (menuFinanceiro && submenuFinanceiro) {
+        menuFinanceiro.addEventListener("click", function(e) {
+            e.preventDefault();
+            submenuFinanceiro.classList.toggle("show");
+            if (arrowFinanceiro) arrowFinanceiro.classList.toggle("fa-chevron-up");
+        });
+    }
+
+    const menuMarketing = document.getElementById("menuMarketing");
+    const submenuMarketing = document.getElementById("submenuMarketing");
+    const arrowMarketing = document.getElementById("arrowMarketing");
+    if (menuMarketing && submenuMarketing) {
+        menuMarketing.addEventListener("click", function(e) {
+            e.preventDefault();
+            submenuMarketing.classList.toggle("show");
+            if (arrowMarketing) arrowMarketing.classList.toggle("fa-chevron-up");
+        });
+    }
+
+    const menuRemarketing = document.getElementById("menuRemarketing");
+    const submenuRemarketing = document.getElementById("submenuRemarketing");
+    const arrowRemarketing = document.getElementById("arrowRemarketing");
+    if (menuRemarketing && submenuRemarketing) {
+        menuRemarketing.addEventListener("click", function(e) {
+            e.preventDefault();
+            submenuRemarketing.classList.toggle("show");
+            if (arrowRemarketing) arrowRemarketing.classList.toggle("fa-chevron-up");
+        });
+    }
+
+    // Safe table initializations
+    try { if (typeof window.renderAcessosTable === 'function') window.renderAcessosTable(); } catch(e) { console.warn(e); }
+    try { if (typeof window.renderProducerPixelsTable === 'function') window.renderProducerPixelsTable(); } catch(e) { console.warn(e); }
+    try { if (typeof window.renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix(); } catch(e) { console.warn(e); }
+});
+
+
+
+
+// ==========================================
+// EXPOSE ALL FUNCTIONS GLOBALLY TO WINDOW
+// ==========================================
+window.switchPanel = switchPanel;
+window.openEventDetails = openEventDetails;
+window.switchEvtSubTab = switchEvtSubTab;
+window.resolveEventPixel = resolveEventPixel;
+if (typeof openEventFacebookPixelModal === 'function') window.openEventFacebookPixelModal = openEventFacebookPixelModal;
+if (typeof renderEventsPixelMatrix === 'function') window.renderEventsPixelMatrix = renderEventsPixelMatrix;
+if (typeof renderProducerPixelsTable === 'function') window.renderProducerPixelsTable = renderProducerPixelsTable;
+if (typeof renderAcessosTable === 'function') window.renderAcessosTable = renderAcessosTable;
+if (typeof selectSacTicket === 'function') window.selectSacTicket = selectSacTicket;
+if (typeof filterSacCategory === 'function') window.filterSacCategory = filterSacCategory;
+if (typeof filterSacTickets === 'function') window.filterSacTickets = filterSacTickets;
+
 </script>
 
     <!-- MODAL DETALHES DO ESTORNO -->
