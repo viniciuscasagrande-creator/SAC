@@ -18,6 +18,10 @@
     {
       "source": "/limitless/:path*",
       "destination": "/limitless/:path*"
+    },
+    {
+      "source": "/((?!sac-react|financeiro|limitless|.*\\..*).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [

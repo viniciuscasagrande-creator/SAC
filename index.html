@@ -3480,42 +3480,117 @@
                 </div>
             </div>
 
-            <!-- 9. PANEL GERENCIAR ACESSOS (VIDEO /access) -->
+            <!-- 9. PANEL GERENCIAR ACESSOS (MODELO PDT NOVO) -->
             <div id="panelGerenciarAcessosContent" class="d-none">
-                <div class="dashboard-header">
+                <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
-                        <h2>Gestão de Acessos e Permissões</h2>
-                        <p>Controle de operadores, validadores de portaria e níveis de permissão.</p>
+                        <h2><i class="fa-solid fa-user-shield text-warning me-2"></i> Gestão de Acessos & Permissões</h2>
+                        <p>Controle de operadores de bilheteria, validadores de portaria, supervisores de evento e níveis de permissão.</p>
                     </div>
-                    <div class="header-buttons">
-                        <button class="btn btn-primary" style="background:#0284c7;" onclick="alert('Cadastrar novo operador...')"><i class="fa-solid fa-user-plus"></i> Adicionar Usuário</button>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportAcessosCSV();"><i class="fa-solid fa-file-csv me-1 text-success"></i> Exportar CSV</button>
+                        <button class="btn btn-primary btn-sm px-3" style="background:#0284c7; border-color:#0284c7;" onclick="openModalNovoAcesso()">
+                            <i class="fa-solid fa-user-plus me-1"></i> <span class="fw-bold">Novo Acesso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QUICK STATS BAR -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Total de Acessos</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-dark mb-0" id="statTotalAcessos">1.151</h4>
+                                <span class="badge bg-primary text-white">Cadastrados</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Validadores de Portaria</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-info mb-0" id="statValidadores">842</h4>
+                                <span class="badge bg-info text-white">App Check-in</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Operadores PDV / Bilheteria</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-success mb-0" id="statOperadoresPdv">215</h4>
+                                <span class="badge bg-success text-white">POS / Totem</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-2 px-3 border shadow-sm bg-white">
+                            <span class="fs-11 text-muted text-uppercase fw-bold">Supervisores & Admins</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h4 class="fw-bold text-warning mb-0" id="statSupervisores">94</h4>
+                                <span class="badge bg-warning text-dark">Gestão Geral</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card p-3 border shadow-sm bg-white mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <input type="text" class="form-control form-control-sm" style="max-width:350px;" placeholder="Buscar por e-mail ou telefone...">
+                    <div class="row g-2 mb-3 align-items-center">
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                                <input type="text" id="acessosSearchInput" class="form-control form-control-sm" placeholder="Buscar por nome, e-mail ou telefone..." oninput="filterAcessos()">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select id="acessosRoleFilter" class="form-select form-select-sm" onchange="filterAcessos()">
+                                <option value="all">Todos os Perfis</option>
+                                <option value="Validador Portaria">Validador Portaria</option>
+                                <option value="Operador PDV">Operador PDV</option>
+                                <option value="Supervisor">Supervisor de Evento</option>
+                                <option value="Gerente Financeiro">Gerente Financeiro</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Promoter">Promoter</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select id="acessosStatusFilter" class="form-select form-select-sm" onchange="filterAcessos()">
+                                <option value="all">Todos os Status</option>
+                                <option value="ativo">Ativo</option>
+                                <option value="inativo">Inativo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 text-md-end">
+                            <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetAcessosFilters()"><i class="fa-solid fa-rotate-left me-1"></i> Limpar</button>
+                        </div>
                     </div>
+
                     <div class="table-responsive">
-                        <table class="coupon-table">
+                        <table class="coupon-table align-middle">
                             <thead>
-                                <tr><th>E-mail</th><th>Telefone</th><th>Status</th><th>Ações</th></tr>
+                                <tr>
+                                    <th>Usuário / Identificação</th>
+                                    <th>WhatsApp / Telefone</th>
+                                    <th>Perfil de Acesso</th>
+                                    <th>Eventos Liberados</th>
+                                    <th>Validação Facial</th>
+                                    <th>Status</th>
+                                    <th class="text-center" style="width: 140px;">Ações</th>
+                                </tr>
                             </thead>
-                            <tbody>
-                                <tr><td class="fw-bold">anferacontato@bol.com.br</td><td>(54) 99606-3028</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td class="fw-bold">daniladecarvalho@gmail.com</td><td>(11) 98999-8174</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td class="fw-bold">validador15@disk.com.br</td><td>-</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
-                                <tr><td class="fw-bold">validador14@disk.com.br</td><td>-</td><td><span class="badge bg-success text-white">Ativo</span></td><td><button class="btn btn-sm btn-outline-primary py-0 px-2"><i class="fa-solid fa-edit"></i></button></td></tr>
+                            <tbody id="acessosTableBody">
+                                <!-- Preenchido dinamicamente via Javascript -->
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-2">
-                        <span>Exibindo 1 a 10 de 1151 registros</span>
+
+                    <div class="d-flex justify-content-between align-items-center fs-11 text-muted mt-3 pt-2 border-top">
+                        <span id="acessosPaginationInfo">Exibindo registros</span>
                         <div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Anterior</button>
-                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7;">1</button>
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">2</button>
-                            <button class="btn btn-outline-secondary btn-sm py-0 px-2">Próximo</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnAcessosPrev" onclick="changeAcessosPage(-1)">Anterior</button>
+                            <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7;" id="btnAcessosCurPage">1</button>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2" id="btnAcessosNext" onclick="changeAcessosPage(1)">Próximo</button>
                         </div>
                     </div>
                 </div>
@@ -8134,6 +8209,299 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             } catch (err) {
                 console.warn("Route handler error:", err);
             }
+
+            // ====================================================
+            // GESTÃO DE ACESSOS & OPERADORES (CONTROLLER REATIVO)
+            // ====================================================
+            window.acessosData = [
+                { id: "acc-1", nome: "Anfera Contato", email: "anferacontato@bol.com.br", telefone: "(54) 99606-3028", role: "Validador Portaria", eventos: "Todos os Eventos", facial: true, status: "ativo", ultimoAcesso: "Hoje, 11:42" },
+                { id: "acc-2", nome: "Danila de Carvalho", email: "daniladecarvalho@gmail.com", telefone: "(11) 98999-8174", role: "Supervisor", eventos: "Roupa Nova 40 Anos", facial: true, status: "ativo", ultimoAcesso: "Hoje, 10:15" },
+                { id: "acc-3", nome: "Operador Portaria 15", email: "validador15@disk.com.br", telefone: "(41) 98711-2233", role: "Validador Portaria", eventos: "Twelve Beers Vitória", facial: true, status: "ativo", ultimoAcesso: "Hoje, 09:30" },
+                { id: "acc-4", nome: "Operador Portaria 14", email: "validador14@disk.com.br", telefone: "(41) 98711-4455", role: "Validador Portaria", eventos: "Stand Up Diogo Almeida", facial: true, status: "ativo", ultimoAcesso: "Ontem, 22:10" },
+                { id: "acc-5", nome: "Carlos Eduardo Mendes", email: "carlos.mendes@diskingressos.com.br", telefone: "(41) 99182-3344", role: "Gerente Financeiro", eventos: "Todos os Eventos", facial: true, status: "ativo", ultimoAcesso: "Hoje, 12:05" },
+                { id: "acc-6", nome: "Juliana Silveira", email: "juliana.pdv@diskingressos.com.br", telefone: "(41) 99244-5566", role: "Operador PDV", eventos: "Roupa Nova 40 Anos", facial: false, status: "ativo", ultimoAcesso: "Hoje, 08:50" },
+                { id: "acc-7", nome: "Marcos Vinicius Portaria", email: "validador08@disk.com.br", telefone: "(41) 98877-1122", role: "Validador Portaria", eventos: "Música e Natureza", facial: true, status: "ativo", ultimoAcesso: "Ontem, 19:40" },
+                { id: "acc-8", nome: "Patrícia Barbosa", email: "patricia.promoter@gmail.com", telefone: "(41) 99655-4433", role: "Promoter", eventos: "Twelve Beers Vitória", facial: false, status: "inativo", ultimoAcesso: "18/08/2026" },
+                { id: "acc-9", nome: "Fernando Rocha", email: "fernando.admin@diskingressos.com.br", telefone: "(41) 99800-7711", role: "Administrador", eventos: "Todos os Eventos", facial: true, status: "ativo", ultimoAcesso: "Hoje, 13:10" },
+                { id: "acc-10", nome: "Lucas Albuquerque", email: "lucas.bilheteria@disk.com.br", telefone: "(41) 99123-8899", role: "Operador PDV", eventos: "Stand Up Diogo Almeida", facial: false, status: "ativo", ultimoAcesso: "Hoje, 11:00" }
+            ];
+
+            let curAcessosPage = 1;
+            const acessosPerPage = 5;
+
+            function getRoleBadge(role) {
+                switch (role) {
+                    case 'Validador Portaria': return '<span class="badge bg-info text-white"><i class="fa-solid fa-qrcode me-1"></i> Validador Portaria</span>';
+                    case 'Operador PDV': return '<span class="badge bg-primary text-white"><i class="fa-solid fa-cash-register me-1"></i> Operador PDV</span>';
+                    case 'Supervisor': return '<span class="badge bg-warning text-dark"><i class="fa-solid fa-user-tie me-1"></i> Supervisor</span>';
+                    case 'Gerente Financeiro': return '<span class="badge bg-danger text-white"><i class="fa-solid fa-landmark me-1"></i> Gerente Financeiro</span>';
+                    case 'Administrador': return '<span class="badge bg-dark text-white"><i class="fa-solid fa-shield-halved me-1"></i> Administrador</span>';
+                    case 'Promoter': return '<span class="badge bg-secondary text-white"><i class="fa-solid fa-bullhorn me-1"></i> Promoter</span>';
+                    default: return `<span class="badge bg-light text-dark border">${role}</span>`;
+                }
+            }
+
+            function getInitials(name) {
+                if (!name) return 'US';
+                const parts = name.trim().split(' ');
+                if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+            }
+
+            window.renderAcessosTable = function() {
+                const tbody = document.getElementById("acessosTableBody");
+                if (!tbody) return;
+
+                const searchVal = (document.getElementById("acessosSearchInput")?.value || "").toLowerCase().trim();
+                const roleVal = document.getElementById("acessosRoleFilter")?.value || "all";
+                const statusVal = document.getElementById("acessosStatusFilter")?.value || "all";
+
+                const filtered = window.acessosData.filter(item => {
+                    const matchSearch = !searchVal || 
+                        item.nome.toLowerCase().includes(searchVal) || 
+                        item.email.toLowerCase().includes(searchVal) || 
+                        item.telefone.toLowerCase().includes(searchVal) ||
+                        item.role.toLowerCase().includes(searchVal);
+                    const matchRole = roleVal === "all" || item.role === roleVal;
+                    const matchStatus = statusVal === "all" || item.status === statusVal;
+                    return matchSearch && matchRole && matchStatus;
+                });
+
+                // Update Counters
+                const totalCountEl = document.getElementById("statTotalAcessos");
+                const validadoresCountEl = document.getElementById("statValidadores");
+                const pdvCountEl = document.getElementById("statOperadoresPdv");
+                const supervisoresCountEl = document.getElementById("statSupervisores");
+
+                if (totalCountEl) totalCountEl.textContent = window.acessosData.length;
+                if (validadoresCountEl) validadoresCountEl.textContent = window.acessosData.filter(a => a.role === 'Validador Portaria').length;
+                if (pdvCountEl) pdvCountEl.textContent = window.acessosData.filter(a => a.role === 'Operador PDV').length;
+                if (supervisoresCountEl) supervisoresCountEl.textContent = window.acessosData.filter(a => a.role === 'Supervisor' || a.role === 'Administrador' || a.role === 'Gerente Financeiro').length;
+
+                // Pagination
+                const totalPages = Math.ceil(filtered.length / acessosPerPage) || 1;
+                if (curAcessosPage > totalPages) curAcessosPage = totalPages;
+                if (curAcessosPage < 1) curAcessosPage = 1;
+
+                const startIndex = (curAcessosPage - 1) * acessosPerPage;
+                const pageItems = filtered.slice(startIndex, startIndex + acessosPerPage);
+
+                const infoEl = document.getElementById("acessosPaginationInfo");
+                if (infoEl) {
+                    infoEl.textContent = `Exibindo ${filtered.length > 0 ? startIndex + 1 : 0} a ${Math.min(startIndex + acessosPerPage, filtered.length)} de ${filtered.length} registros`;
+                }
+                const pageBtn = document.getElementById("btnAcessosCurPage");
+                if (pageBtn) pageBtn.textContent = curAcessosPage;
+
+                const prevBtn = document.getElementById("btnAcessosPrev");
+                const nextBtn = document.getElementById("btnAcessosNext");
+                if (prevBtn) prevBtn.disabled = curAcessosPage <= 1;
+                if (nextBtn) nextBtn.disabled = curAcessosPage >= totalPages;
+
+                if (pageItems.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fa-solid fa-user-slash fs-4 d-block mb-2 text-muted"></i>Nenhum acesso encontrado com os filtros aplicados.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = pageItems.map(item => {
+                    const initials = getInitials(item.nome);
+                    const isAtivo = item.status === 'ativo';
+                    return `
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-light border fw-bold text-primary d-flex align-items-center justify-content-center" style="width:34px; height:34px; font-size:0.75rem;">
+                                        ${initials}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark fs-12">${item.nome}</div>
+                                        <div class="text-muted fs-11">${item.email}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-dark fs-12"><i class="fa-brands fa-whatsapp text-success me-1"></i> ${item.telefone}</span>
+                            </td>
+                            <td>
+                                ${getRoleBadge(item.role)}
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border fs-11">${item.eventos}</span>
+                            </td>
+                            <td>
+                                ${item.facial ? '<span class="badge bg-success text-white"><i class="fa-solid fa-camera me-1"></i> Habilitada</span>' : '<span class="badge bg-light text-muted border">Não</span>'}
+                            </td>
+                            <td>
+                                <span class="badge ${isAtivo ? 'bg-success text-white' : 'bg-secondary text-white'}" style="cursor:pointer;" onclick="toggleAcessoStatus('${item.id}')" title="Clique para alternar status">
+                                    ${isAtivo ? '<i class="fa-solid fa-check me-1"></i> Ativo' : '<i class="fa-solid fa-ban me-1"></i> Inativo'}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary py-0 px-2" title="Editar Acesso" onclick="openEditAcesso('${item.id}')">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="btn btn-outline-info py-0 px-2" title="Matriz de Permissões" onclick="openPermissoesAcesso('${item.id}')">
+                                        <i class="fa-solid fa-key"></i>
+                                    </button>
+                                    <button class="btn btn-outline-warning py-0 px-2" title="Resetar Senha" onclick="resetAcessoPassword('${item.id}')">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger py-0 px-2" title="Remover Acesso" onclick="deleteAcesso('${item.id}')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            };
+
+            window.filterAcessos = function() {
+                curAcessosPage = 1;
+                renderAcessosTable();
+            };
+
+            window.resetAcessosFilters = function() {
+                const search = document.getElementById("acessosSearchInput");
+                const role = document.getElementById("acessosRoleFilter");
+                const status = document.getElementById("acessosStatusFilter");
+                if (search) search.value = "";
+                if (role) role.value = "all";
+                if (status) status.value = "all";
+                curAcessosPage = 1;
+                renderAcessosTable();
+            };
+
+            window.changeAcessosPage = function(delta) {
+                curAcessosPage += delta;
+                renderAcessosTable();
+            };
+
+            window.openModalNovoAcesso = function() {
+                const form = document.getElementById("formNovoAcesso");
+                if (form) form.reset();
+                const rndPass = "Disk@" + Math.floor(1000 + Math.random() * 9000);
+                const passInput = document.getElementById("novoAcessoSenha");
+                if (passInput) passInput.value = rndPass;
+                openModalById('modalNovoAcesso');
+            };
+
+            window.saveNovoAcesso = function(e) {
+                e.preventDefault();
+                const nome = document.getElementById("novoAcessoNome")?.value.trim();
+                const email = document.getElementById("novoAcessoEmail")?.value.trim();
+                const telefone = document.getElementById("novoAcessoTelefone")?.value.trim();
+                const role = document.getElementById("novoAcessoRole")?.value || "Validador Portaria";
+                const eventos = document.getElementById("novoAcessoEventos")?.value || "Todos os Eventos";
+                const facial = document.getElementById("novoAcessoFacial")?.checked || false;
+
+                if (!nome || !email) {
+                    alert("Por favor, preencha o Nome e o E-mail de login.");
+                    return;
+                }
+
+                const newAcc = {
+                    id: "acc-" + (window.acessosData.length + 1),
+                    nome: nome,
+                    email: email,
+                    telefone: telefone || "(41) 99999-0000",
+                    role: role,
+                    eventos: eventos,
+                    facial: facial,
+                    status: "ativo",
+                    ultimoAcesso: "Nunca acessou"
+                };
+
+                window.acessosData.unshift(newAcc);
+                renderAcessosTable();
+                bootstrap.Modal.getInstance(document.getElementById('modalNovoAcesso'))?.hide();
+                alert(`✅ Novo acesso para "${nome}" cadastrado com sucesso! Credenciais enviadas via WhatsApp.`);
+            };
+
+            window.openEditAcesso = function(id) {
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+                document.getElementById("editAcessoId").value = acc.id;
+                document.getElementById("editAcessoNome").value = acc.nome;
+                document.getElementById("editAcessoEmail").value = acc.email;
+                document.getElementById("editAcessoTelefone").value = acc.telefone;
+                document.getElementById("editAcessoRole").value = acc.role;
+                document.getElementById("editAcessoEventos").value = acc.eventos;
+                document.getElementById("editAcessoStatus").value = acc.status;
+                document.getElementById("editAcessoFacial").checked = acc.facial;
+                openModalById('modalEditAcesso');
+            };
+
+            window.saveEditAcesso = function(e) {
+                e.preventDefault();
+                const id = document.getElementById("editAcessoId")?.value;
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+
+                acc.nome = document.getElementById("editAcessoNome")?.value.trim() || acc.nome;
+                acc.email = document.getElementById("editAcessoEmail")?.value.trim() || acc.email;
+                acc.telefone = document.getElementById("editAcessoTelefone")?.value.trim() || acc.telefone;
+                acc.role = document.getElementById("editAcessoRole")?.value || acc.role;
+                acc.eventos = document.getElementById("editAcessoEventos")?.value || acc.eventos;
+                acc.status = document.getElementById("editAcessoStatus")?.value || acc.status;
+                acc.facial = document.getElementById("editAcessoFacial")?.checked || false;
+
+                renderAcessosTable();
+                bootstrap.Modal.getInstance(document.getElementById('modalEditAcesso'))?.hide();
+                alert(`✅ Alterações no usuário "${acc.nome}" salvas com sucesso!`);
+            };
+
+            window.toggleAcessoStatus = function(id) {
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+                acc.status = acc.status === 'ativo' ? 'inativo' : 'ativo';
+                renderAcessosTable();
+            };
+
+            window.resetAcessoPassword = function(id) {
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+                const newPass = "Disk@" + Math.floor(1000 + Math.random() * 9000);
+                if (confirm(`Deseja resetar a senha de ${acc.nome} (${acc.email})?\nUma nova senha provisória (${newPass}) será enviada por WhatsApp/E-mail.`)) {
+                    alert(`✅ Senha redefinida para ${newPass} e disparada para o telefone ${acc.telefone}!`);
+                }
+            };
+
+            window.openPermissoesAcesso = function(id) {
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+                const title = document.getElementById("permissoesModalUserName");
+                if (title) title.textContent = `${acc.nome} (${acc.role})`;
+                openModalById('modalPermissoesAcesso');
+            };
+
+            window.deleteAcesso = function(id) {
+                const acc = window.acessosData.find(a => a.id === id);
+                if (!acc) return;
+                if (confirm(`Deseja realmente remover o acesso de "${acc.nome}"?\nO operador perderá o acesso imediato aos terminais e portarias.`)) {
+                    window.acessosData = window.acessosData.filter(a => a.id !== id);
+                    renderAcessosTable();
+                    alert(`Acesso removido com sucesso.`);
+                }
+            };
+
+            window.exportAcessosCSV = function() {
+                let csvContent = "data:text/csv;charset=utf-8,ID,Nome,Email,Telefone,Perfil,Eventos,Facial,Status\n";
+                window.acessosData.forEach(a => {
+                    csvContent += `"${a.id}","${a.nome}","${a.email}","${a.telefone}","${a.role}","${a.eventos}","${a.facial ? 'Sim' : 'Não'}","${a.status}"\n`;
+                });
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "gestao_acessos_diskingressos.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            // Renderizar tabela de acessos na inicialização
+            renderAcessosTable();
         });
     </script>
 
@@ -8975,6 +9343,273 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                             <i class="fa-solid fa-check me-1"></i> Confirmar Clonagem
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ==================================================== -->
+    <!-- MODALS DO MÓDULO GESTÃO DE ACESSOS (MODELO PDT NOVO) -->
+    <!-- ==================================================== -->
+
+    <!-- MODAL 1: CADASTRAR NOVO ACESSO -->
+    <div class="modal fade" id="modalNovoAcesso" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-user-plus text-warning me-2"></i> Cadastrar Novo Acesso / Operador</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formNovoAcesso" onsubmit="saveNovoAcesso(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome Completo do Usuário *</label>
+                                <input type="text" class="form-control fs-12" id="novoAcessoNome" placeholder="Ex: Lucas Bilheteria Curitiba" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">E-mail de Login *</label>
+                                <input type="email" class="form-control fs-12 font-monospace" id="novoAcessoEmail" placeholder="operador@diskingressos.com.br" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">WhatsApp / Telefone *</label>
+                                <input type="text" class="form-control fs-12" id="novoAcessoTelefone" placeholder="(41) 99999-8877" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Perfil / Nível de Acesso *</label>
+                                <select class="form-select fs-12" id="novoAcessoRole" required>
+                                    <option value="Validador Portaria">Validador Portaria (App Check-in)</option>
+                                    <option value="Operador PDV">Operador PDV / Bilheteria Física</option>
+                                    <option value="Supervisor">Supervisor de Evento</option>
+                                    <option value="Gerente Financeiro">Gerente Financeiro</option>
+                                    <option value="Administrador">Administrador Geral</option>
+                                    <option value="Promoter">Promoter / Divulgador</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Eventos com Acesso Liberado</label>
+                                <select class="form-select fs-12" id="novoAcessoEventos">
+                                    <option value="Todos os Eventos">Todos os Eventos da Produtora</option>
+                                    <option value="Roupa Nova 40 Anos">#3131 - Roupa Nova 40 Anos</option>
+                                    <option value="Twelve Beers Vitória">#3130 - Twelve Beers Vitória</option>
+                                    <option value="Stand Up Diogo Almeida">#3132 - Stand Up Diogo Almeida</option>
+                                    <option value="Música e Natureza">#3634 - Música e Natureza</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Permissões Especiais</label>
+                                <div class="card p-3 bg-light border-0">
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="novoAcessoFacial" checked>
+                                                <label class="form-check-label fs-12" for="novoAcessoFacial">Exigir Validação Facial no App</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="novoAcessoSangria" checked>
+                                                <label class="form-check-label fs-12" for="novoAcessoSangria">Permitir Sangria de Caixa no POS</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="novoAcessoEstorno">
+                                                <label class="form-check-label fs-12" for="novoAcessoEstorno">Aprovar Cancelamentos/Estornos</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="novoAcessoRelatorios">
+                                                <label class="form-check-label fs-12" for="novoAcessoRelatorios">Visualizar Extratos e Relatórios</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Senha Provisória</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control font-monospace fw-bold" id="novoAcessoSenha" readonly>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('novoAcessoSenha').value = 'Disk@' + Math.floor(1000 + Math.random() * 9000);"><i class="fa-solid fa-rotate"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <div class="form-check mb-1">
+                                    <input class="form-check-input" type="checkbox" id="novoAcessoNotificar" checked>
+                                    <label class="form-check-label fs-12 fw-semibold" for="novoAcessoNotificar">
+                                        Enviar dados de acesso via WhatsApp
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-end mt-4 pt-2 border-top">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7; border-color:#0284c7;">
+                                    <i class="fa-solid fa-check me-1"></i> Cadastrar Acesso
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: EDITAR ACESSO -->
+    <div class="modal fade" id="modalEditAcesso" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-pen-to-square text-primary me-2"></i> Editar Acesso / Operador</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formEditAcesso" onsubmit="saveEditAcesso(event)">
+                        <input type="hidden" id="editAcessoId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome Completo *</label>
+                                <input type="text" class="form-control fs-12" id="editAcessoNome" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">E-mail de Login *</label>
+                                <input type="email" class="form-control fs-12 font-monospace" id="editAcessoEmail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">WhatsApp / Telefone *</label>
+                                <input type="text" class="form-control fs-12" id="editAcessoTelefone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Perfil de Acesso *</label>
+                                <select class="form-select fs-12" id="editAcessoRole" required>
+                                    <option value="Validador Portaria">Validador Portaria</option>
+                                    <option value="Operador PDV">Operador PDV</option>
+                                    <option value="Supervisor">Supervisor</option>
+                                    <option value="Gerente Financeiro">Gerente Financeiro</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Promoter">Promoter</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Eventos Liberados</label>
+                                <select class="form-select fs-12" id="editAcessoEventos">
+                                    <option value="Todos os Eventos">Todos os Eventos</option>
+                                    <option value="Roupa Nova 40 Anos">Roupa Nova 40 Anos</option>
+                                    <option value="Twelve Beers Vitória">Twelve Beers Vitória</option>
+                                    <option value="Stand Up Diogo Almeida">Stand Up Diogo Almeida</option>
+                                    <option value="Música e Natureza">Música e Natureza</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Status da Conta</label>
+                                <select class="form-select fs-12" id="editAcessoStatus">
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-switch pt-2">
+                                    <input class="form-check-input" type="checkbox" id="editAcessoFacial">
+                                    <label class="form-check-label fs-12 fw-semibold" for="editAcessoFacial">Validação Facial no App Check-in</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-end mt-4 pt-2 border-top">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7; border-color:#0284c7;">
+                                    <i class="fa-solid fa-floppy-disk me-1"></i> Salvar Alterações
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: MATRIZ DE PERMISSÕES GRANULARES -->
+    <div class="modal fade" id="modalPermissoesAcesso" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-key text-info me-2"></i> Matriz de Permissões: <span id="permissoesModalUserName" class="text-primary font-monospace">Usuário</span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold fs-12 text-dark border-bottom pb-2 mb-2"><i class="fa-solid fa-qrcode text-primary me-1"></i> Portaria & Check-in</h6>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Leitura de QR Code / Ingressos</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Validação Biométrica Facial</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Entrada Manual por CPF/Nome</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold fs-12 text-dark border-bottom pb-2 mb-2"><i class="fa-solid fa-cash-register text-success me-1"></i> PDV / Bilheteria Física</h6>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Venda de Ingressos e Produtos</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Abertura e Fechamento de Turno</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Reimpressão de Comprovante</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold fs-12 text-dark border-bottom pb-2 mb-2"><i class="fa-solid fa-wallet text-warning me-1"></i> Financeiro & Estornos</h6>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Aprovação de Estornos e Devoluções</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Solicitação de Repasses / Antecipações</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Visualizar Extrato Consolidado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 border h-100 shadow-sm">
+                                <h6 class="fw-bold fs-12 text-dark border-bottom pb-2 mb-2"><i class="fa-solid fa-bullhorn text-danger me-1"></i> Marketing & Cupons</h6>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Criação de Cupons Promocionais</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label fs-11">Gestão de Promoters & Links</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label fs-11">Configuração de Pixels e UTMs</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7; border-color:#0284c7;" onclick="alert('Permissões atualizadas com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalPermissoesAcesso')).hide();">
+                        <i class="fa-solid fa-check me-1"></i> Salvar Permissões
+                    </button>
                 </div>
             </div>
         </div>
