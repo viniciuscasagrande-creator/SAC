@@ -1332,72 +1332,36 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
-                <div class="menu-section-header">MENU PRINCIPAL</div>
+                <div class="menu-section-header">MÓDULO FINANCEIRO</div>
                 <div class="sidebar-menu">
-                    <a class="menu-item active" id="menuDashboard">
-                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
-                    </a>
-                    <a class="menu-item" id="menuDadosProdutora">
-                        <div class="menu-item-left"><i class="fa-regular fa-building"></i> Dados da Produtora</div>
-                    </a>
-                    <a class="menu-item" id="menuStatusFaciais">
-                        <div class="menu-item-left"><i class="fa-solid fa-id-badge"></i> Status Faciais</div>
-                    </a>
-                    <a class="menu-item" id="menuTodosEventos">
-                        <div class="menu-item-left"><i class="fa-regular fa-calendar-days"></i> Todos os Eventos</div>
-                    </a>
-                    
-                    <!-- ACCORDION: FINANCEIRO -->
-                    <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-wallet"></i> Financeiro</div>
+                    <!-- ACCORDION: FINANCEIRO (ACTIVE & EXPANDED BY DEFAULT) -->
+                    <a class="menu-item active" id="menuFinanceiro" style="cursor: pointer;">
+                        <div class="menu-item-left"><i class="fa-solid fa-wallet text-primary"></i> Financeiro</div>
                         <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">19</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transition: transform 0.2s;"></i>
+                            <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">9</span>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transform: rotate(90deg); transition: transform 0.2s;"></i>
                         </div>
                     </a>
-                    <div class="submenu-container" id="submenuFinanceiro">
-                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-cubes me-1"></i> Hub Financeiro</a>
-                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-vault me-1"></i> Saldo Consolidado</a>
-                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer me-1"></i> Solicitações de Repasse</a>
-                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar me-1"></i> Antecipações</a>
-                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-file-invoice me-1"></i> Extrato Detalhado</a>
-                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-receipt me-1"></i> Despesas</a>
-                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns me-1"></i> Contas Bancárias</a>
-                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature me-1"></i> Borderô</a>
-                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-1"></i> Negociações</a>
+                    <div class="submenu-container show" id="submenuFinanceiro" style="max-height: 500px;">
+                        <a class="submenu-item active" id="subFinHub"><i class="fa-solid fa-cubes me-2 text-primary"></i> Hub Financeiro</a>
+                        <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-vault me-2 text-success"></i> Saldo Consolidado</a>
+                        <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer me-2 text-info"></i> Solicitações de Repasse</a>
+                        <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar me-2 text-warning"></i> Antecipações</a>
+                        <a class="submenu-item" id="subFinExtrato"><i class="fa-solid fa-file-invoice me-2 text-primary"></i> Extrato Detalhado</a>
+                        <a class="submenu-item" id="subFinDespesas"><i class="fa-solid fa-receipt me-2 text-danger"></i> Despesas</a>
+                        <a class="submenu-item" id="subFinContas"><i class="fa-solid fa-building-columns me-2 text-info"></i> Contas Bancárias</a>
+                        <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature me-2 text-secondary"></i> Borderô</a>
+                        <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-2 text-warning"></i> Negociações & DRE</a>
                     </div>
                     
-                    <a class="menu-item" id="menuNovoEvento">
-                        <div class="menu-item-left"><i class="fa-solid fa-plus-circle"></i> Novo Evento</div>
-                    </a>
-                    <a class="menu-item" id="menuTerminaisPos">
-                        <div class="menu-item-left"><i class="fa-solid fa-calculator"></i> Terminais POS</div>
-                    </a>
-                    <a class="menu-item" id="menuMensagens">
-                        <div class="menu-item-left"><i class="fa-regular fa-paper-plane"></i> Mensagens</div>
-                    </a>
-                    <a class="menu-item" id="menuGerenciarAcessos">
-                        <div class="menu-item-left"><i class="fa-solid fa-user-shield"></i> Gerenciar Acessos</div>
-                    </a>
-                    <a class="menu-item" id="menuAdministracao">
-                        <div class="menu-item-left"><i class="fa-solid fa-gear"></i> Administração</div>
-                    </a>
-                    <a class="menu-item" id="menuClubeRuaMusica">
-                        <div class="menu-item-left"><i class="fa-solid fa-music"></i> Clube Rua da Música</div>
-                    </a>
-                    
                     <!-- SPECIAL SYSTEM MODULES -->
-                    <a class="menu-item" id="menuEstorno" style="margin-top: 6px;">
+                    <a class="menu-item" id="menuEstorno" style="margin-top: 10px;">
                         <div class="menu-item-left"><i class="fa-solid fa-arrow-rotate-left" style="color: var(--primary-orange);"></i> Estornos</div>
                         <span class="badge-sidebar badge-orange">ERP</span>
                     </a>
                     <a class="menu-item" id="menuSacHub">
                         <div class="menu-item-left"><i class="fa-solid fa-headset" style="color: var(--primary-blue);"></i> Atendimento / SAC</div>
                         <span class="badge-sidebar badge-blue">Novo</span>
-                    </a>
-                    <a class="menu-item" id="menuDbConsole">
-                        <div class="menu-item-left"><i class="fa-solid fa-database" style="color: #38bdf8;"></i> Banco de Dados</div>
-                        <span class="badge-sidebar" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">Console</span>
                     </a>
                 </div>
             </div>
@@ -1411,7 +1375,7 @@
         <!-- MAIN DYNAMIC CONTENT -->
         <main class="content-area">
             <!-- 1. PANEL DASHBOARD (EXACT VIDEO LAYOUT) -->
-            <div id="panelDashboardContent">
+            <div id="panelDashboardContent" class="d-none">
                 <div class="dashboard-header">
                     <div class="dashboard-title-box">
                         <h2>Dashboard</h2>
@@ -1937,7 +1901,7 @@
             </div>
 
             <!-- 5. PANEL FIN HUB (HUB FINANCEIRO) -->
-            <div id="panelFinHub" class="d-none">
+            <div id="panelFinHub">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
                         <h2>Hub Financeiro</h2>
