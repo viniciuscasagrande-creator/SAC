@@ -1374,15 +1374,18 @@
                     <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-bullhorn" style="color: #ec4899;"></i> Marketing</div>
                         <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">4</span>
+                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">7</span>
                             <i class="fa-solid fa-angle-right menu-chevron" id="arrowMarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
                         </div>
                     </a>
                     <div class="submenu-container" id="submenuMarketing">
-                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-ticket-simple me-2 text-primary"></i> Cupons de Desconto</a>
+                        <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-line me-2 text-primary"></i> Gráficos Analytics (GA4)</a>
+                        <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Gráficos Pixel & Conversão</a>
+                        <a class="submenu-item" id="subMktUtm"><i class="fa-solid fa-qrcode me-2 text-success"></i> Configurar UTMs & QR Codes</a>
+                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-ticket-simple me-2 text-warning"></i> Cupons de Desconto</a>
                         <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-link me-2 text-info"></i> Links & Promoters</a>
-                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Pixels & Tags</a>
-                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-tags me-2 text-warning"></i> Combos & Ofertas</a>
+                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-tags me-2 text-primary"></i> Combos & Ofertas</a>
+                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-sliders me-2 text-secondary"></i> Configurar Pixels & Tags</a>
                     </div>
 
                     <!-- ACCORDION: REMARKETING -->
@@ -4680,10 +4683,532 @@
             </div>
 
             <!-- ==================================================== -->
-            <!-- 6. MÓDULO MARKETING (4 SUB-PAINÉIS) -->
+            <!-- 6. MÓDULO MARKETING (7 SUB-PAINÉIS) -->
             <!-- ==================================================== -->
 
-            <!-- 6.1 PAINEL: CUPONS DE DESCONTO -->
+            <!-- 6.1 PAINEL: GRÁFICOS ANALYTICS (GA4 / TRÁFEGO & FUNIL) -->
+            <div id="panelMktAnalytics" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Gráficos Analytics & Inteligência de Tráfego (GA4)</h2>
+                        <p>Acompanhe visitantes únicos, canais de aquisição, funil de conversão de compras e comportamento de público.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('pdf')"><i class="fa-regular fa-file-pdf me-1 text-danger"></i> Relatório GA4 (PDF)</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1 text-success"></i> Exportar Dados</button>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: ANALYTICS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Visitantes Únicos</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">48.920</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(2,132,199,0.12); color:#0284c7; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-users-line"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1"><i class="fa-solid fa-arrow-up me-1"></i> +24.2% este mês</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Sessões Totais</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-primary mb-0">62.450</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(99,102,241,0.12); color:#6366f1; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-muted mt-1">1.28 sessões/usuário</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Taxa de Conversão</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">5.14%</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-bullseye"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1">Acima do benchmark (3.2%)</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Tempo Médio no Site</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">2m 42s</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(245,158,11,0.12); color:#d97706; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-muted mt-1">Tempo no checkout: 1m 15s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS ROW 1: EVOLUÇÃO DE TRÁFEGO & CANAIS DE ORIGEM -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-8">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-chart-area text-primary me-2"></i> Tráfego Diário vs Compras Concluídas</h6>
+                                    <span class="text-muted fs-11">Volume de acessos únicos comparado com vendas realizadas</span>
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-primary btn-sm py-0 px-2" style="background:#0284c7; font-size:0.75rem;">7 Dias</button>
+                                    <button class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:0.75rem;">30 Dias</button>
+                                </div>
+                            </div>
+                            <!-- Mock chart bars visual -->
+                            <div style="height: 200px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding-top: 15px; border-bottom: 1px solid #e2e8f0;">
+                                <div style="width:12%; background:#0284c7; height:45%; border-radius:4px 4px 0 0;" title="18/Ago: 5.420 acessos (280 vendas)"></div>
+                                <div style="width:12%; background:#0284c7; height:60%; border-radius:4px 4px 0 0;" title="19/Ago: 6.890 acessos (390 vendas)"></div>
+                                <div style="width:12%; background:#0284c7; height:75%; border-radius:4px 4px 0 0;" title="20/Ago: 8.240 acessos (512 vendas)"></div>
+                                <div style="width:12%; background:#0284c7; height:50%; border-radius:4px 4px 0 0;" title="21/Ago: 5.980 acessos (340 vendas)"></div>
+                                <div style="width:12%; background:#0284c7; height:90%; border-radius:4px 4px 0 0;" title="22/Ago: 11.450 acessos (720 vendas)"></div>
+                                <div style="width:12%; background:#38bdf8; height:100%; border-radius:4px 4px 0 0;" title="23/Ago: 13.800 acessos (912 vendas)"></div>
+                                <div style="width:12%; background:#0284c7; height:80%; border-radius:4px 4px 0 0;" title="24/Ago: 9.600 acessos (610 vendas)"></div>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fs-11 mt-2">
+                                <span>18/Ago (5.4k)</span><span>19/Ago (6.8k)</span><span>20/Ago (8.2k)</span><span>21/Ago (5.9k)</span><span>22/Ago (11.4k)</span><span>23/Ago (13.8k)</span><span>24/Ago (9.6k)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-compass text-info me-2"></i> Canais de Aquisição (Origem)</h6>
+                            <div class="d-flex flex-column gap-3 justify-content-center h-100 pb-2">
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-instagram text-danger me-1"></i> Instagram (Bio & Stories)</span>
+                                        <span class="fs-12 fw-bold text-danger">42% (26.229)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-danger" style="width: 42%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-google text-primary me-1"></i> Google Busca & Ads</span>
+                                        <span class="fs-12 fw-bold text-primary">28% (17.486)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width: 28%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-arrow-pointer text-secondary me-1"></i> Tráfego Direto</span>
+                                        <span class="fs-12 fw-bold text-secondary">16% (9.992)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-secondary" style="width: 16%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-whatsapp text-success me-1"></i> WhatsApp Compartilhado</span>
+                                        <span class="fs-12 fw-bold text-success">10% (6.245)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width: 10%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-tiktok text-dark me-1"></i> TikTok & Outros</span>
+                                        <span class="fs-12 fw-bold text-dark">4% (2.498)</span>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-dark" style="width: 4%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS ROW 2: FUNIL GA4 & GEOLOCALIZAÇÃO -->
+                <div class="row g-3">
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-filter text-warning me-2"></i> Funil de Conversão do Usuário (GA4)</h6>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="p-2 bg-light rounded d-flex justify-content-between align-items-center">
+                                    <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-eye text-primary me-2"></i> 1. Acesso à Página do Evento</span>
+                                    <strong class="fs-12 text-primary">48.920 (100%)</strong>
+                                </div>
+                                <div class="p-2 bg-light rounded d-flex justify-content-between align-items-center" style="margin-left:12px;">
+                                    <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-ticket text-info me-2"></i> 2. Seleção de Lote & Ingressos</span>
+                                    <strong class="fs-12 text-info">14.820 (30.3%)</strong>
+                                </div>
+                                <div class="p-2 bg-light rounded d-flex justify-content-between align-items-center" style="margin-left:24px;">
+                                    <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-credit-card text-warning me-2"></i> 3. Início do Checkout (Dados/Pagamento)</span>
+                                    <strong class="fs-12 text-warning">5.420 (11.1%)</strong>
+                                </div>
+                                <div class="p-2 bg-light rounded d-flex justify-content-between align-items-center" style="margin-left:36px; border-left:4px solid #10b981;">
+                                    <span class="fs-12 fw-bold text-success"><i class="fa-solid fa-circle-check text-success me-2"></i> 4. Pedido Pago & Confirmado</span>
+                                    <strong class="fs-12 text-success">3.208 (6.5% do total)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-map-location-dot text-danger me-2"></i> Distribuição Geográfica dos Compradores</h6>
+                            <div class="table-responsive">
+                                <table class="coupon-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cidade / Estado</th>
+                                            <th>Sessões</th>
+                                            <th>Ingressos Vendidos</th>
+                                            <th>Participação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Curitiba / PR</strong></td>
+                                            <td>28.370</td>
+                                            <td class="fw-bold text-primary">1.860 un.</td>
+                                            <td><span class="badge bg-primary text-white">58%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Vitória / ES</strong></td>
+                                            <td>10.760</td>
+                                            <td class="fw-bold text-primary">705 un.</td>
+                                            <td><span class="badge bg-info text-white">22%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Londrina / PR</strong></td>
+                                            <td>4.400</td>
+                                            <td class="fw-bold text-primary">288 un.</td>
+                                            <td><span class="badge bg-secondary text-white">9%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Florianópolis / SC</strong></td>
+                                            <td>2.930</td>
+                                            <td class="fw-bold text-primary">192 un.</td>
+                                            <td><span class="badge bg-secondary text-white">6%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.2 PAINEL: GRÁFICOS PIXEL & CONVERSÃO (META CAPI / GOOGLE ADS) -->
+            <div id="panelMktPixelGraficos" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Gráficos de Eventos Pixel & Meta CAPI</h2>
+                        <p>Monitore eventos de conversão disparados, qualidade da correspondência avançada e ROAS de campanhas.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="alert('Diagnóstico do Pixel Meta e Google: Todos os endpoints respondendo em 12ms!');"><i class="fa-solid fa-stethoscope me-1"></i> Diagnóstico de Conexão</button>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: PIXEL -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Eventos Processados</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">184.290</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(236,72,153,0.12); color:#ec4899; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1"><i class="fa-solid fa-circle-check me-1"></i> 100% deduplicados</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Qualidade Match Meta (EMQ)</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">8.9 / 10</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1">Excelente (CAPI Server-Side)</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita Atribuída Pixel</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-primary mb-0">R$ 214.850</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(2,132,199,0.12); color:#0284c7; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-muted mt-1">Atribuição 7 dias clique / 1 dia visualização</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">ROAS Médio de Anúncios</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">6.8x</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1">Retorno de R$ 6,80 por R$ 1,00 gasto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVENTOS DO PIXEL -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-layer-group text-primary me-2"></i> Disparos por Tipo de Evento (Últimos 30 Dias)</h6>
+                            <div class="d-flex flex-column gap-3">
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark">PageView (Páginas Visualizadas)</span>
+                                        <strong class="fs-12 text-dark">98.420 disparos</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width:100%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark">ViewContent (Seleção de Lote)</span>
+                                        <strong class="fs-12 text-info">42.150 disparos</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-info" style="width:42.8%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark">InitiateCheckout (Checkout Iniciado)</span>
+                                        <strong class="fs-12 text-warning">12.840 disparos</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width:13.0%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark">Purchase (Compras Concluídas)</span>
+                                        <strong class="fs-12 text-success">3.208 disparos (R$ 399.892,00)</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width:3.2%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-server text-success me-2"></i> Deduplicação Browser vs CAPI Server</h6>
+                            <div class="p-3 bg-light rounded mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-chrome text-primary me-2"></i> Browser (JavaScript Pixel)</span>
+                                    <strong class="fs-12 text-primary">54% dos eventos</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-cloud text-success me-2"></i> Server (Meta Conversions API)</span>
+                                    <strong class="fs-12 text-success">46% dos eventos (Recuperados)</strong>
+                                </div>
+                            </div>
+                            <div class="alert alert-success p-2 fs-12 mb-0 d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-circle-check fs-18"></i>
+                                <span>A API de Conversões do Servidor está recuperando <strong>+3.420 compras</strong> que seriam bloqueadas por extensões de AdBlock ou iOS 14.5+.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA DE CAMPANHAS META ADS -->
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-brands fa-facebook text-primary me-2"></i> Performance Atribuída por Conjunto de Anúncios Meta Ads</h6>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome da Campanha</th>
+                                    <th>Investimento</th>
+                                    <th>Compras (Pixel)</th>
+                                    <th>Custo por Compra (CPA)</th>
+                                    <th>Receita Gerada</th>
+                                    <th>ROAS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>[ROUPA NOVA] Conversão Lote 1 - Públicos Semelhantes 1%</strong></td>
+                                    <td>R$ 3.200,00</td>
+                                    <td class="fw-bold text-dark">280 compras</td>
+                                    <td class="fw-bold text-success">R$ 11,42</td>
+                                    <td class="fw-bold text-primary">R$ 42.000,00</td>
+                                    <td><span class="badge bg-success text-white fs-11">13.1x</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>[TWELVE BEERS] Retargeting Carrinho Abandonado</strong></td>
+                                    <td>R$ 1.150,00</td>
+                                    <td class="fw-bold text-dark">94 compras</td>
+                                    <td class="fw-bold text-success">R$ 12,23</td>
+                                    <td class="fw-bold text-primary">R$ 12.220,00</td>
+                                    <td><span class="badge bg-success text-white fs-11">10.6x</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>[DIOGO ALMEIDA] Tráfego Local Curitiba - Humor</strong></td>
+                                    <td>R$ 850,00</td>
+                                    <td class="fw-bold text-dark">68 compras</td>
+                                    <td class="fw-bold text-success">R$ 12,50</td>
+                                    <td class="fw-bold text-primary">R$ 5.100,00</td>
+                                    <td><span class="badge bg-success text-white fs-11">6.0x</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>[MÚSICA E NATUREZA] Envolvimento + Lookalike Compradores</strong></td>
+                                    <td>R$ 1.400,00</td>
+                                    <td class="fw-bold text-dark">112 compras</td>
+                                    <td class="fw-bold text-success">R$ 12,50</td>
+                                    <td class="fw-bold text-primary">R$ 8.960,00</td>
+                                    <td><span class="badge bg-success text-white fs-11">6.4x</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.3 PAINEL: CONFIGURAR UTMS & GERADOR DE QR CODE -->
+            <div id="panelMktUtm" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Configurador de UTMs & Gerador de Links com QR Code</h2>
+                        <p>Construa parâmetros UTM padronizados para rastrear vendas de Stories, Influenciadores, Outdoors e Banners impressos.</p>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <!-- FORMULÁRIO DE CONSTRUÇÃO DE UTM -->
+                    <div class="col-lg-7">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-sliders text-primary me-2"></i> Construtor de Parâmetros UTM</h6>
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Evento de Destino *</label>
+                                    <select class="form-select form-select-sm" id="utmEvento" onchange="buildUtmLink()">
+                                        <option value="https://diskingressos.com.br/evento/3131" selected>#3131 - Roupa Nova 40 Anos</option>
+                                        <option value="https://diskingressos.com.br/evento/3130">#3130 - Twelve Beers Vitória</option>
+                                        <option value="https://diskingressos.com.br/evento/3132">#3132 - Stand Up Diogo Almeida</option>
+                                        <option value="https://diskingressos.com.br/evento/3634">#3634 - Música e Natureza</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Origem do Tráfego (utm_source) *</label>
+                                    <input type="text" class="form-control form-control-sm" id="utmSource" value="instagram" placeholder="Ex: instagram, facebook, outdoor_batel" oninput="buildUtmLink()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Mídia / Canal (utm_medium) *</label>
+                                    <input type="text" class="form-control form-control-sm" id="utmMedium" value="stories" placeholder="Ex: stories, reels, cpc, qrcode_impresso" oninput="buildUtmLink()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Nome da Campanha (utm_campaign) *</label>
+                                    <input type="text" class="form-control form-control-sm" id="utmCampaign" value="virada_lote_1" placeholder="Ex: virada_lote_1, dia_dos_pais" oninput="buildUtmLink()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Conteúdo do Anúncio (utm_content)</label>
+                                    <input type="text" class="form-control form-control-sm" id="utmContent" value="video_artista" placeholder="Ex: video_artista, banner_azul" oninput="buildUtmLink()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Cupom de Desconto Embutido (Opcional)</label>
+                                    <input type="text" class="form-control form-control-sm" id="utmCupom" value="PRIME10" placeholder="Ex: PRIME10" oninput="buildUtmLink()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RESULTADO COM LINK & QR CODE -->
+                    <div class="col-lg-5">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-2 text-dark"><i class="fa-solid fa-qrcode text-success me-2"></i> Link Gerado & QR Code Dinâmico</h6>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">URL Completa Rastreada</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control fs-11 font-monospace" id="utmResultUrl" readonly value="https://diskingressos.com.br/evento/3131?utm_source=instagram&utm_medium=stories&utm_campaign=virada_lote_1&utm_content=video_artista&cupom=PRIME10">
+                                    <button class="btn btn-primary" style="background:#0284c7;" onclick="navigator.clipboard.writeText(document.getElementById('utmResultUrl').value); alert('Link rastreado copiado para a área de transferência!');"><i class="fa-solid fa-copy"></i> Copiar</button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
+                                <div style="width:72px; height:72px; background:#fff; padding:4px; border-radius:6px; border:1px solid #cbd5e1; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-qrcode text-dark" style="font-size:3rem;"></i>
+                                </div>
+                                <div>
+                                    <strong class="fs-12 text-dark d-block">QR Code de Alta Resolução</strong>
+                                    <span class="fs-11 text-muted d-block mb-2">Pronto para panfletos, cartazes e telões.</span>
+                                    <button class="btn btn-sm btn-outline-success py-0 px-2 fs-11" onclick="alert('Download do QR Code PNG em alta resolução iniciado!');"><i class="fa-solid fa-download me-1"></i> Baixar PNG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HISTÓRICO DE UTMS CRIADAS -->
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i> Histórico de Links e Campanhas Rastreadas</h6>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Campanha / Identificador</th>
+                                    <th>Link UTM Rastreado</th>
+                                    <th>Cliques</th>
+                                    <th>Ingressos Vendidos</th>
+                                    <th>Receita Atribuída</th>
+                                    <th>Conversão</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong class="text-primary">Stories Instagram - Virada Lote 1</strong></td>
+                                    <td><code class="fs-11">?utm_source=instagram&utm_medium=stories</code></td>
+                                    <td><strong>4.820</strong></td>
+                                    <td class="fw-bold text-dark">412 un.</td>
+                                    <td class="fw-bold text-success">R$ 61.800,00</td>
+                                    <td><span class="badge bg-success text-white">8.5%</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3131?utm_source=instagram&utm_medium=stories'); alert('Link copiado!');"><i class="fa-solid fa-copy"></i></button>
+                                        <button class="btn btn-sm btn-outline-success py-0 px-2 fs-11" onclick="alert('QR Code baixado!');"><i class="fa-solid fa-qrcode"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-primary">Outdoor Av. Batel - QR Code Impresso</strong></td>
+                                    <td><code class="fs-11">?utm_source=outdoor&utm_medium=qrcode_impresso</code></td>
+                                    <td><strong>1.940</strong></td>
+                                    <td class="fw-bold text-dark">164 un.</td>
+                                    <td class="fw-bold text-success">R$ 24.600,00</td>
+                                    <td><span class="badge bg-success text-white">8.4%</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="alert('Link copiado!');"><i class="fa-solid fa-copy"></i></button>
+                                        <button class="btn btn-sm btn-outline-success py-0 px-2 fs-11"><i class="fa-solid fa-qrcode"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-primary">Bio Instagram Oficial Produtora</strong></td>
+                                    <td><code class="fs-11">?utm_source=instagram&utm_medium=bio</code></td>
+                                    <td><strong>3.120</strong></td>
+                                    <td class="fw-bold text-dark">198 un.</td>
+                                    <td class="fw-bold text-success">R$ 29.700,00</td>
+                                    <td><span class="badge bg-success text-white">6.3%</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11"><i class="fa-solid fa-copy"></i></button>
+                                        <button class="btn btn-sm btn-outline-success py-0 px-2 fs-11"><i class="fa-solid fa-qrcode"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.4 PAINEL: CUPONS DE DESCONTO -->
             <div id="panelMktCupons" class="d-none">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
@@ -5548,6 +6073,9 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const menuMarketing = document.getElementById("menuMarketing");
             const submenuMarketing = document.getElementById("submenuMarketing");
             const arrowMarketing = document.getElementById("arrowMarketing");
+            const subMktAnalytics = document.getElementById("subMktAnalytics");
+            const subMktPixelGraficos = document.getElementById("subMktPixelGraficos");
+            const subMktUtm = document.getElementById("subMktUtm");
             const subMktCupons = document.getElementById("subMktCupons");
             const subMktPromoters = document.getElementById("subMktPromoters");
             const subMktPixels = document.getElementById("subMktPixels");
@@ -5601,6 +6129,9 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 finNegociacoes: document.getElementById("panelFinNegociacoes"),
 
                 // Marketing Sub-Panels
+                mktAnalytics: document.getElementById("panelMktAnalytics"),
+                mktPixelGraficos: document.getElementById("panelMktPixelGraficos"),
+                mktUtm: document.getElementById("panelMktUtm"),
                 mktCupons: document.getElementById("panelMktCupons"),
                 mktPromoters: document.getElementById("panelMktPromoters"),
                 mktPixels: document.getElementById("panelMktPixels"),
@@ -6008,17 +6539,41 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                         submenuMarketing.classList.remove("show");
                         if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
                     } else {
-                        switchPanel('mktCupons', subMktCupons);
+                        switchPanel('mktAnalytics', subMktAnalytics);
                         if (menuMarketing) menuMarketing.classList.add('active');
                     }
                 });
             }
 
             // Submenu Bindings: Marketing
+            if (subMktAnalytics) subMktAnalytics.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktAnalytics', subMktAnalytics); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktPixelGraficos) subMktPixelGraficos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixelGraficos', subMktPixelGraficos); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktUtm) subMktUtm.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktUtm', subMktUtm); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktCupons) subMktCupons.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCupons', subMktCupons); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktPromoters) subMktPromoters.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPromoters', subMktPromoters); if (menuMarketing) menuMarketing.classList.add('active'); });
-            if (subMktPixels) subMktPixels.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixels', subMktPixels); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktCombos) subMktCombos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCombos', subMktCombos); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktPixels) subMktPixels.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixels', subMktPixels); if (menuMarketing) menuMarketing.classList.add('active'); });
+
+            // UTM Builder Function
+            window.buildUtmLink = function() {
+                const base = document.getElementById("utmEvento")?.value || "https://diskingressos.com.br/evento/3131";
+                const src = document.getElementById("utmSource")?.value.trim() || "";
+                const med = document.getElementById("utmMedium")?.value.trim() || "";
+                const cmp = document.getElementById("utmCampaign")?.value.trim() || "";
+                const cnt = document.getElementById("utmContent")?.value.trim() || "";
+                const cpm = document.getElementById("utmCupom")?.value.trim() || "";
+
+                const params = [];
+                if (src) params.push(`utm_source=${encodeURIComponent(src)}`);
+                if (med) params.push(`utm_medium=${encodeURIComponent(med)}`);
+                if (cmp) params.push(`utm_campaign=${encodeURIComponent(cmp)}`);
+                if (cnt) params.push(`utm_content=${encodeURIComponent(cnt)}`);
+                if (cpm) params.push(`cupom=${encodeURIComponent(cpm)}`);
+
+                const finalUrl = params.length > 0 ? `${base}?${params.join("&")}` : base;
+                const resultInput = document.getElementById("utmResultUrl");
+                if (resultInput) resultInput.value = finalUrl;
+            };
 
             // Accordion Toggle for Remarketing
             if (menuRemarketing) {
