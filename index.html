@@ -1374,11 +1374,12 @@
                     <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
                         <div class="menu-item-left"><i class="fa-solid fa-bullhorn" style="color: #ec4899;"></i> Marketing</div>
                         <div class="d-flex align-items-center gap-2">
-                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">7</span>
+                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">8</span>
                             <i class="fa-solid fa-angle-right menu-chevron" id="arrowMarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
                         </div>
                     </a>
                     <div class="submenu-container" id="submenuMarketing">
+                        <a class="submenu-item" id="subMktCampanhas"><i class="fa-solid fa-bullseye me-2 text-warning"></i> Campanhas Marketing Básica</a>
                         <a class="submenu-item" id="subMktAnalytics"><i class="fa-solid fa-chart-line me-2 text-primary"></i> Gráficos Analytics (GA4)</a>
                         <a class="submenu-item" id="subMktPixelGraficos"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Gráficos Pixel & Conversão</a>
                         <a class="submenu-item" id="subMktUtm"><i class="fa-solid fa-qrcode me-2 text-success"></i> Configurar UTMs & QR Codes</a>
@@ -4683,10 +4684,252 @@
             </div>
 
             <!-- ==================================================== -->
-            <!-- 6. MÓDULO MARKETING (7 SUB-PAINÉIS) -->
+            <!-- 6. MÓDULO MARKETING (8 SUB-PAINÉIS) -->
             <!-- ==================================================== -->
 
-            <!-- 6.1 PAINEL: GRÁFICOS ANALYTICS (GA4 / TRÁFEGO & FUNIL) -->
+            <!-- 6.1 PAINEL: CAMPANHAS MARKETING BÁSICA (4 MODELOS DE CAMPANHAS) -->
+            <div id="panelMktCampanhas" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Campanhas de Marketing Básicas (Modelos Prontos)</h2>
+                        <p>Escolha entre 4 estratégias consagradas do mercado de eventos para acelerar vendas, abrir lotes ou liquidar ingressos.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="alert('Guia de Execução de Campanhas de Eventos baixado com sucesso!');"><i class="fa-solid fa-book me-1 text-primary"></i> Manual de Boas Práticas</button>
+                    </div>
+                </div>
+
+                <!-- 4 KPI SUMMARY CARDS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Modelos Disponíveis</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">4 Modelos</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(236,72,153,0.12); color:#ec4899; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-bullseye"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-muted mt-1">Prontos para ativação imediata</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Campanhas Ativas</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">3 Ativas</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1"><i class="fa-solid fa-circle-check me-1"></i> Tráfego em andamento</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita Gerada por Modelos</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-primary mb-0">R$ 142.800</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(2,132,199,0.12); color:#0284c7; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-muted mt-1">1.140 ingressos atribuídos</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">ROAS Médio</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">11.8x</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <span class="fs-10 text-success mt-1">Alta eficiência de conversão</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 CAMPAIGN MODELS GRID -->
+                <div class="row g-3">
+                    
+                    <!-- MODELO 1: LANÇAMENTO & ABERTURA DE VENDAS -->
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100 d-flex flex-column justify-content-between" style="border-top: 4px solid #0284c7 !important;">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <span class="badge bg-primary text-white me-1">Modelo 1</span>
+                                        <span class="badge bg-info text-dark">Abertura de Vendas</span>
+                                        <h5 class="fw-bold text-dark mt-2 mb-1"><i class="fa-solid fa-rocket text-primary me-2"></i> Lançamento & Lote Zero (Early Bird)</h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-light text-primary border border-primary fw-bold">ROAS Estimado: 14.2x</span>
+                                    </div>
+                                </div>
+                                <p class="fs-12 text-muted mb-3">
+                                    Estratégia de pré-venda e abertura oficial para criar lista de espera, sensação de exclusividade (FOMO) e garantir até <strong>40% da meta de vendas</strong> nas primeiras 48 horas.
+                                </p>
+
+                                <div class="p-2 bg-light rounded mb-3 fs-11">
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>🎯 Objetivo Principal:</span><strong class="text-dark">Esgotar o Lote Promocional em 24h</strong></div>
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>📱 Canais Recomendados:</span><strong class="text-dark">WhatsApp VIP + Stories Instagram + E-mail</strong></div>
+                                    <div class="d-flex justify-content-between py-1"><span>⚡ Gatilho Mental:</span><strong class="text-primary">Escassez de Lote + Recompensa aos Primeiros</strong></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1"><i class="fa-brands fa-whatsapp text-success me-1"></i> Modelo de Copy Pronto (WhatsApp):</label>
+                                    <div class="p-2 bg-light border rounded text-dark fs-11 font-monospace position-relative" style="background:#f8fafc;">
+                                        🚨 <strong>LIBERADO!</strong> As vendas para <strong>{evento}</strong> acabam de abrir com Lote Promocional Exclusivo! São apenas 300 ingressos por esse valor. Garanta o seu agora antes que esgote: {link}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 pt-2 border-top">
+                                <button class="btn btn-sm btn-outline-secondary w-50 fs-11" onclick="navigator.clipboard.writeText('🚨 LIBERADO! As vendas para {evento} acabam de abrir com Lote Promocional Exclusivo! São apenas 300 ingressos por esse valor. Garanta o seu agora antes que esgote: {link}'); alert('Copy de Lançamento copiada para a área de transferência!');">
+                                    <i class="fa-solid fa-copy me-1"></i> Copiar Copy
+                                </button>
+                                <button class="btn btn-sm btn-primary w-50 fs-11 fw-bold" style="background:#0284c7; border-color:#0284c7;" onclick="openCampaignModal('lancamento', 'Lançamento & Lote Zero (Early Bird)')">
+                                    <i class="fa-solid fa-play me-1"></i> Usar Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MODELO 2: VIRADA DE LOTE (ÚLTIMAS HORAS) -->
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100 d-flex flex-column justify-content-between" style="border-top: 4px solid #f59e0b !important;">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <span class="badge bg-warning text-dark me-1">Modelo 2</span>
+                                        <span class="badge bg-danger text-white">Urgência Máxima</span>
+                                        <h5 class="fw-bold text-dark mt-2 mb-1"><i class="fa-solid fa-hourglass-half text-warning me-2"></i> Virada de Lote (Últimas Horas)</h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-light text-warning border border-warning fw-bold">Aumento Vendas: +320%</span>
+                                    </div>
+                                </div>
+                                <p class="fs-12 text-muted mb-3">
+                                    Disparo estratégico para todos os contatos e visitantes recentes alertando sobre o aumento iminente de preço do lote atual. Acelera a decisão de compra dos indecisos.
+                                </p>
+
+                                <div class="p-2 bg-light rounded mb-3 fs-11">
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>🎯 Objetivo Principal:</span><strong class="text-dark">Acelerar vendas antes do reajuste de valor</strong></div>
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>📱 Canais Recomendados:</span><strong class="text-dark">Meta Ads (Tráfego) + WhatsApp + Banner Topo</strong></div>
+                                    <div class="d-flex justify-content-between py-1"><span>⚡ Gatilho Mental:</span><strong class="text-warning">Urgência com Prazo Limite (23h59)</strong></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1"><i class="fa-brands fa-whatsapp text-success me-1"></i> Modelo de Copy Pronto (WhatsApp):</label>
+                                    <div class="p-2 bg-light border rounded text-dark fs-11 font-monospace" style="background:#f8fafc;">
+                                        ⏳ <strong>ÚLTIMO AVISO:</strong> O Lote 1 para <strong>{evento}</strong> vira hoje às 23h59! Não pague mais caro amanhã. Compre agora no valor atual: {link}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 pt-2 border-top">
+                                <button class="btn btn-sm btn-outline-secondary w-50 fs-11" onclick="navigator.clipboard.writeText('⏳ ÚLTIMO AVISO: O Lote 1 para {evento} vira hoje às 23h59! Não pague mais caro amanhã. Compre agora no valor atual: {link}'); alert('Copy de Virada de Lote copiada!');">
+                                    <i class="fa-solid fa-copy me-1"></i> Copiar Copy
+                                </button>
+                                <button class="btn btn-sm btn-warning w-50 fs-11 fw-bold text-dark" onclick="openCampaignModal('virada_lote', 'Virada de Lote (Últimas Horas)')">
+                                    <i class="fa-solid fa-play me-1"></i> Usar Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MODELO 3: COMBO GALERA / GRUPO (LEVE 4 PAGUE 3) -->
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100 d-flex flex-column justify-content-between" style="border-top: 4px solid #10b981 !important;">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <span class="badge bg-success text-white me-1">Modelo 3</span>
+                                        <span class="badge bg-light text-success border border-success">Ticket Médio</span>
+                                        <h5 class="fw-bold text-dark mt-2 mb-1"><i class="fa-solid fa-users text-success me-2"></i> Combo Galera (Leve 4 Pague 3)</h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-light text-success border border-success fw-bold">Ticket Médio: +58%</span>
+                                    </div>
+                                </div>
+                                <p class="fs-12 text-muted mb-3">
+                                    Estratégia focada em elevar o ticket médio do carrinho ao incentivar compras coletivas para grupos de amigos, famílias e casais VIP com desconto progressivo.
+                                </p>
+
+                                <div class="p-2 bg-light rounded mb-3 fs-11">
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>🎯 Objetivo Principal:</span><strong class="text-dark">Aumentar volume de ingressos por transação</strong></div>
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>📱 Canais Recomendados:</span><strong class="text-dark">Grupos WhatsApp + Promoters + Feed Ads</strong></div>
+                                    <div class="d-flex justify-content-between py-1"><span>⚡ Gatilho Mental:</span><strong class="text-success">Vantagem Financeira Compartilhada</strong></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1"><i class="fa-brands fa-whatsapp text-success me-1"></i> Modelo de Copy Pronto (WhatsApp):</label>
+                                    <div class="p-2 bg-light border rounded text-dark fs-11 font-monospace" style="background:#f8fafc;">
+                                        👥 <strong>JUNTE A GALERA!</strong> Na compra de 3 ingressos para <strong>{evento}</strong>, o 4º é POR NOSSA CONTA! Promoção válida até durar o lote do combo: {link}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 pt-2 border-top">
+                                <button class="btn btn-sm btn-outline-secondary w-50 fs-11" onclick="navigator.clipboard.writeText('👥 JUNTE A GALERA! Na compra de 3 ingressos para {evento}, o 4º é POR NOSSA CONTA! Promoção válida até durar o lote do combo: {link}'); alert('Copy de Combo copiada!');">
+                                    <i class="fa-solid fa-copy me-1"></i> Copiar Copy
+                                </button>
+                                <button class="btn btn-sm btn-success w-50 fs-11 fw-bold" onclick="openCampaignModal('combo_galera', 'Combo Galera (Leve 4 Pague 3)')">
+                                    <i class="fa-solid fa-play me-1"></i> Usar Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MODELO 4: FLASH PROMO 24H (DESCONTO RELÂMPAGO) -->
+                    <div class="col-lg-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100 d-flex flex-column justify-content-between" style="border-top: 4px solid #ec4899 !important;">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <span class="badge bg-danger text-white me-1">Modelo 4</span>
+                                        <span class="badge bg-light text-danger border border-danger">Injeção de Caixa</span>
+                                        <h5 class="fw-bold text-dark mt-2 mb-1"><i class="fa-solid fa-bolt text-danger me-2"></i> Flash Promo 24h (Desconto Relâmpago)</h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-light text-danger border border-danger fw-bold">Pico de +220 Vendas</span>
+                                    </div>
+                                </div>
+                                <p class="fs-12 text-muted mb-3">
+                                    Campanha de choque para quebrar a desaceleração de vendas em terças/quartas-feiras ou datas especiais com voucher relâmpago de 24h e trava de expiração.
+                                </p>
+
+                                <div class="p-2 bg-light rounded mb-3 fs-11">
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>🎯 Objetivo Principal:</span><strong class="text-dark">Injeção rápida de liquidez e ativação de base</strong></div>
+                                    <div class="d-flex justify-content-between py-1 border-bottom"><span>📱 Canais Recomendados:</span><strong class="text-dark">E-mail Marketing + WhatsApp + Stories Instagram</strong></div>
+                                    <div class="d-flex justify-content-between py-1"><span>⚡ Gatilho Mental:</span><strong class="text-danger">Oportunidade Única de 24 Horas</strong></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1"><i class="fa-brands fa-whatsapp text-success me-1"></i> Modelo de Copy Pronto (WhatsApp):</label>
+                                    <div class="p-2 bg-light border rounded text-dark fs-11 font-monospace" style="background:#f8fafc;">
+                                        ⚡ <strong>OFERTA RELÂMPAGO (Válida só hoje)!</strong> Use o cupom <strong>FLASH15</strong> e ganhe 15% OFF nos ingressos para <strong>{evento}</strong>. Expira à meia-noite: {link}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 pt-2 border-top">
+                                <button class="btn btn-sm btn-outline-secondary w-50 fs-11" onclick="navigator.clipboard.writeText('⚡ OFERTA RELÂMPAGO (Válida só hoje)! Use o cupom FLASH15 e ganhe 15% OFF nos ingressos para {evento}. Expira à meia-noite: {link}'); alert('Copy de Flash Promo copiada!');">
+                                    <i class="fa-solid fa-copy me-1"></i> Copiar Copy
+                                </button>
+                                <button class="btn btn-sm btn-danger w-50 fs-11 fw-bold" style="background:#ec4899; border-color:#ec4899;" onclick="openCampaignModal('flash_promo', 'Flash Promo 24h (Desconto Relâmpago)')">
+                                    <i class="fa-solid fa-play me-1"></i> Usar Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 6.2 PAINEL: GRÁFICOS ANALYTICS (GA4 / TRÁFEGO & FUNIL) -->
             <div id="panelMktAnalytics" class="d-none">
                 <div class="dashboard-header mb-3">
                     <div class="dashboard-title-box">
@@ -6073,6 +6316,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             const menuMarketing = document.getElementById("menuMarketing");
             const submenuMarketing = document.getElementById("submenuMarketing");
             const arrowMarketing = document.getElementById("arrowMarketing");
+            const subMktCampanhas = document.getElementById("subMktCampanhas");
             const subMktAnalytics = document.getElementById("subMktAnalytics");
             const subMktPixelGraficos = document.getElementById("subMktPixelGraficos");
             const subMktUtm = document.getElementById("subMktUtm");
@@ -6129,6 +6373,7 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                 finNegociacoes: document.getElementById("panelFinNegociacoes"),
 
                 // Marketing Sub-Panels
+                mktCampanhas: document.getElementById("panelMktCampanhas"),
                 mktAnalytics: document.getElementById("panelMktAnalytics"),
                 mktPixelGraficos: document.getElementById("panelMktPixelGraficos"),
                 mktUtm: document.getElementById("panelMktUtm"),
@@ -6539,13 +6784,14 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                         submenuMarketing.classList.remove("show");
                         if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
                     } else {
-                        switchPanel('mktAnalytics', subMktAnalytics);
+                        switchPanel('mktCampanhas', subMktCampanhas);
                         if (menuMarketing) menuMarketing.classList.add('active');
                     }
                 });
             }
 
             // Submenu Bindings: Marketing
+            if (subMktCampanhas) subMktCampanhas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCampanhas', subMktCampanhas); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktAnalytics) subMktAnalytics.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktAnalytics', subMktAnalytics); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktPixelGraficos) subMktPixelGraficos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixelGraficos', subMktPixelGraficos); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktUtm) subMktUtm.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktUtm', subMktUtm); if (menuMarketing) menuMarketing.classList.add('active'); });
@@ -6553,6 +6799,26 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
             if (subMktPromoters) subMktPromoters.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPromoters', subMktPromoters); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktCombos) subMktCombos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCombos', subMktCombos); if (menuMarketing) menuMarketing.classList.add('active'); });
             if (subMktPixels) subMktPixels.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixels', subMktPixels); if (menuMarketing) menuMarketing.classList.add('active'); });
+
+            // Campaign Model Activation Helper
+            window.openCampaignModal = function(modelType, modelTitle) {
+                const titleInput = document.getElementById("campaignModelTitle");
+                const copyArea = document.getElementById("campaignModelCopy");
+                if (titleInput) titleInput.value = modelTitle;
+                
+                if (copyArea) {
+                    if (modelType === 'lancamento') {
+                        copyArea.value = "🚨 LIBERADO! As vendas para Roupa Nova 40 Anos acabam de abrir com Lote Promocional Exclusivo! São apenas 300 ingressos por esse valor. Garanta o seu agora antes que esgote: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=disparo_vip";
+                    } else if (modelType === 'virada_lote') {
+                        copyArea.value = "⏳ ÚLTIMO AVISO: O Lote 1 para Roupa Nova 40 Anos vira hoje às 23h59! Não pague mais caro amanhã. Compre agora no valor atual: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=virada_lote";
+                    } else if (modelType === 'combo_galera') {
+                        copyArea.value = "👥 JUNTE A GALERA! Na compra de 3 ingressos para Roupa Nova 40 Anos, o 4º é POR NOSSA CONTA! Promoção válida até durar o lote do combo: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=combo_4x3";
+                    } else if (modelType === 'flash_promo') {
+                        copyArea.value = "⚡ OFERTA RELÂMPAGO (Válida só hoje)! Use o cupom FLASH15 e ganhe 15% OFF nos ingressos para Roupa Nova 40 Anos. Expira à meia-noite: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=flash_promo&cupom=FLASH15";
+                    }
+                }
+                openModalById('modalActivateCampaignModel');
+            };
 
             // UTM Builder Function
             window.buildUtmLink = function() {
@@ -8024,6 +8290,61 @@ Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF ex
                             <i class="fa-brands fa-whatsapp me-1"></i> Disparar Agora
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    <!-- MODAL: ATIVAR MODELO DE CAMPANHA DE MARKETING -->
+    <div class="modal fade" id="modalActivateCampaignModel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-bullseye text-warning me-2"></i> Configurar & Ativar Modelo de Campanha</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="event.preventDefault(); alert('Campanha ativada e disparos agendados com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalActivateCampaignModel')).hide();">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Modelo Selecionado</label>
+                                <input type="text" class="form-control fw-bold bg-light" id="campaignModelTitle" readonly value="Lançamento & Lote Zero (Early Bird)">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Evento Vinculado *</label>
+                                <select class="form-select fs-12" id="campaignModelEvent">
+                                    <option value="3131">#3131 - Roupa Nova 40 Anos</option>
+                                    <option value="3130">#3130 - Twelve Beers Vitória</option>
+                                    <option value="3132">#3132 - Stand Up Diogo Almeida</option>
+                                    <option value="3634">#3634 - Música e Natureza</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Canais de Disparo / Ativação *</label>
+                                <div class="d-flex gap-3 pt-1">
+                                    <label class="fs-12"><input type="checkbox" checked> WhatsApp</label>
+                                    <label class="fs-12"><input type="checkbox" checked> Instagram Stories</label>
+                                    <label class="fs-12"><input type="checkbox" checked> E-mail</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Data/Hora de Início *</label>
+                                <input type="datetime-local" class="form-control fs-12" required value="2026-08-27T10:00">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Data/Hora de Encerramento *</label>
+                                <input type="datetime-local" class="form-control fs-12" required value="2026-08-29T23:59">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Mensagem / Copy da Campanha (WhatsApp)</label>
+                                <textarea class="form-control fs-12" rows="3" id="campaignModelCopy">🚨 LIBERADO! As vendas para Roupa Nova 40 Anos acabam de abrir com Lote Promocional Exclusivo! São apenas 300 ingressos por esse valor. Garanta o seu agora antes que esgote: https://diskingressos.com.br/evento/3131?utm_source=whatsapp&utm_medium=disparo_vip</textarea>
+                            </div>
+                            <div class="col-12 text-end mt-3">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold" style="background:#0284c7; border-color:#0284c7;">
+                                    <i class="fa-solid fa-play me-1"></i> Ativar Campanha Agora
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
