@@ -1,14 +1,12 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f1f3f7;
-  font-family: 'Inter', sans-serif;
-  overflow: hidden;
-}
+@import "tailwindcss";
 
-#root {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f3f7;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
 }
