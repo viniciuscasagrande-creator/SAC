@@ -355,7 +355,7 @@
         }
 
         .submenu-container.show {
-            max-height: 350px;
+            max-height: 500px !important;
         }
 
         .submenu-item {
@@ -1332,36 +1332,34 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
-                <div class="menu-section-header">GESTÃO DA PRODUTORA</div>
+                <div class="menu-section-header">MENU PRINCIPAL</div>
                 <div class="sidebar-menu">
-                    <!-- DASHBOARD GERAL CONSOLIDADO -->
+                    <!-- DASHBOARD -->
                     <a class="menu-item active" id="menuDashboard" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-primary"></i> Dashboard Geral</div>
-                        <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">CNPJ</span>
+                        <div class="menu-item-left"><i class="fa-solid fa-gauge-high text-primary"></i> Dashboard</div>
                     </a>
 
                     <!-- DADOS DA PRODUTORA -->
                     <a class="menu-item" id="menuDadosProdutora" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-regular fa-building text-warning"></i> Dados da Produtora</div>
-                        <span class="badge-sidebar" style="background:rgba(245,158,11,0.15); color:#d97706; font-weight:700;">#955</span>
                     </a>
 
                     <!-- EVENTOS -->
                     <a class="menu-item" id="menuTodosEventos" style="cursor: pointer;">
-                        <div class="menu-item-left"><i class="fa-regular fa-calendar-days text-info"></i> Todos os Eventos</div>
+                        <div class="menu-item-left"><i class="fa-regular fa-calendar-days text-info"></i> Eventos</div>
                         <span class="badge-sidebar" style="background:#0284c7; color:#fff; font-weight:700;">4</span>
                     </a>
 
-                    <!-- ACCORDION: FINANCEIRO (EXPANDED BY DEFAULT) -->
+                    <!-- ACCORDION: FINANCEIRO -->
                     <a class="menu-item" id="menuFinanceiro" style="cursor: pointer;">
                         <div class="menu-item-left"><i class="fa-solid fa-wallet text-primary"></i> Financeiro</div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge-sidebar" style="background:#10b981; color:#fff; font-weight:700;">9</span>
-                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transform: rotate(90deg); transition: transform 0.2s;"></i>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowFinanceiro" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
                         </div>
                     </a>
-                    <div class="submenu-container show" id="submenuFinanceiro" style="max-height: 500px;">
-                        <a class="submenu-item active" id="subFinHub"><i class="fa-solid fa-cubes me-2 text-primary"></i> Hub Financeiro</a>
+                    <div class="submenu-container" id="submenuFinanceiro">
+                        <a class="submenu-item" id="subFinHub"><i class="fa-solid fa-cubes me-2 text-primary"></i> Hub Financeiro</a>
                         <a class="submenu-item" id="subFinSaldo"><i class="fa-solid fa-vault me-2 text-success"></i> Saldo Consolidado</a>
                         <a class="submenu-item" id="subFinRepasse"><i class="fa-solid fa-money-bill-transfer me-2 text-info"></i> Solicitações de Repasse</a>
                         <a class="submenu-item" id="subFinAntecipacoes"><i class="fa-solid fa-hand-holding-dollar me-2 text-warning"></i> Antecipações</a>
@@ -1404,7 +1402,7 @@
                             <div>
                                 <div class="d-flex align-items-center gap-2">
                                     <h4 class="fw-bold m-0 text-dark">PRIME EVENTOS E PRODUÇÕES ARTÍSTICAS LTDA</h4>
-                                    <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> CNPJ Verificado</span>
+                                    <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Conta Verificada</span>
                                     <span class="badge bg-dark text-white">ID #955</span>
                                 </div>
                                 <div class="text-muted fs-12 mt-1 d-flex flex-wrap gap-3">
@@ -1613,7 +1611,7 @@
                 <div class="card p-3 border shadow-sm bg-white mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                         <div>
-                            <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-calendar-check text-primary me-2"></i> Eventos Cadastrados sob este CNPJ</h5>
+                            <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-calendar-check text-primary me-2"></i> Eventos da Produtora</h5>
                             <span class="text-muted fs-12">Clique em qualquer evento para abrir a central individual com todos os detalhes e relatórios</span>
                         </div>
                         <div class="d-flex align-items-center gap-2">
@@ -1755,7 +1753,7 @@
 
                 <div class="card p-4 border shadow-sm bg-white mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-building text-primary me-2"></i> Informações Cadastrais & CNPJ</h5>
+                        <h5 class="fw-bold m-0 text-dark"><i class="fa-regular fa-building text-primary me-2"></i> Informações Cadastrais</h5>
                         <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Cadastro Validado na Receita Federal</span>
                     </div>
                     <form onsubmit="event.preventDefault(); alert('Dados da produtora atualizados com sucesso!');">
@@ -4753,6 +4751,16 @@
                 menuItems.forEach(item => item.classList.remove("active"));
                 submenuItems.forEach(item => item.classList.remove("active"));
 
+                // Auto-retract/collapse or expand accordion submenus
+                if (panelKey && panelKey.startsWith("fin")) {
+                    if (submenuFinanceiro) submenuFinanceiro.classList.add("show");
+                    if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(90deg)";
+                    if (menuFinanceiro) menuFinanceiro.classList.add("active");
+                } else {
+                    if (submenuFinanceiro) submenuFinanceiro.classList.remove("show");
+                    if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
+                }
+
                 // Show target panel
                 if (panels[panelKey]) {
                     panels[panelKey].classList.remove("d-none");
@@ -5055,13 +5063,13 @@
             if (menuFinanceiro) {
                 menuFinanceiro.addEventListener("click", (e) => {
                     e.preventDefault();
-                    const isExpanded = submenuFinanceiro.classList.toggle("show");
-                    if (arrowFinanceiro) {
-                        arrowFinanceiro.style.transform = isExpanded ? "rotate(90deg)" : "rotate(0deg)";
-                    }
-                    if (isExpanded) {
-                        switchPanel('finHub', menuFinanceiro);
-                        if (subFinHub) subFinHub.classList.add('active');
+                    const isOpen = submenuFinanceiro && submenuFinanceiro.classList.contains("show");
+                    if (isOpen) {
+                        submenuFinanceiro.classList.remove("show");
+                        if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
+                    } else {
+                        switchPanel('finHub', subFinHub);
+                        if (menuFinanceiro) menuFinanceiro.classList.add('active');
                     }
                 });
             }
