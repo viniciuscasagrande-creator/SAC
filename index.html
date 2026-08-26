@@ -1369,6 +1369,36 @@
                         <a class="submenu-item" id="subFinBordero"><i class="fa-solid fa-file-signature me-2 text-secondary"></i> Borderô</a>
                         <a class="submenu-item" id="subFinNegociacoes"><i class="fa-solid fa-scale-balanced me-2 text-warning"></i> Negociações & DRE</a>
                     </div>
+
+                    <!-- ACCORDION: MARKETING -->
+                    <a class="menu-item" id="menuMarketing" style="cursor: pointer; margin-top: 4px;">
+                        <div class="menu-item-left"><i class="fa-solid fa-bullhorn" style="color: #ec4899;"></i> Marketing</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar" style="background:#ec4899; color:#fff; font-weight:700;">4</span>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowMarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
+                        </div>
+                    </a>
+                    <div class="submenu-container" id="submenuMarketing">
+                        <a class="submenu-item" id="subMktCupons"><i class="fa-solid fa-ticket-simple me-2 text-primary"></i> Cupons de Desconto</a>
+                        <a class="submenu-item" id="subMktPromoters"><i class="fa-solid fa-link me-2 text-info"></i> Links & Promoters</a>
+                        <a class="submenu-item" id="subMktPixels"><i class="fa-solid fa-crosshairs me-2 text-danger"></i> Pixels & Tags</a>
+                        <a class="submenu-item" id="subMktCombos"><i class="fa-solid fa-tags me-2 text-warning"></i> Combos & Ofertas</a>
+                    </div>
+
+                    <!-- ACCORDION: REMARKETING -->
+                    <a class="menu-item" id="menuRemarketing" style="cursor: pointer; margin-top: 4px;">
+                        <div class="menu-item-left"><i class="fa-solid fa-arrows-rotate" style="color: #8b5cf6;"></i> Remarketing</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-sidebar" style="background:#8b5cf6; color:#fff; font-weight:700;">4</span>
+                            <i class="fa-solid fa-angle-right menu-chevron" id="arrowRemarketing" style="font-size: 0.75rem; transition: transform 0.25s;"></i>
+                        </div>
+                    </a>
+                    <div class="submenu-container" id="submenuRemarketing">
+                        <a class="submenu-item" id="subRmkCarrinhos"><i class="fa-solid fa-cart-arrow-down me-2 text-danger"></i> Carrinhos Abandonados</a>
+                        <a class="submenu-item" id="subRmkDisparos"><i class="fa-brands fa-whatsapp me-2 text-success"></i> Disparos WhatsApp/E-mail</a>
+                        <a class="submenu-item" id="subRmkCRM"><i class="fa-solid fa-users-gear me-2 text-primary"></i> Segmentação & CRM</a>
+                        <a class="submenu-item" id="subRmkMetricas"><i class="fa-solid fa-chart-pie me-2 text-warning"></i> Métricas & ROI</a>
+                    </div>
                     
                     <!-- SPECIAL SYSTEM MODULES -->
                     <a class="menu-item" id="menuEstorno" style="margin-top: 10px;">
@@ -4647,6 +4677,835 @@
                         </tbody>
                     </table>
                 </div>
+            <!-- ==================================================== -->
+            <!-- 6. MÓDULO MARKETING (4 SUB-PAINÉIS) -->
+            <!-- ==================================================== -->
+
+            <!-- 6.1 PAINEL: CUPONS DE DESCONTO -->
+            <div id="panelMktCupons" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Cupons de Desconto & Vouchers Promocionais</h2>
+                        <p>Crie códigos promocionais percentuais (%) ou em valor fixo (R$) com limites de uso e validade.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> Exportar CSV</button>
+                        <button class="btn btn-primary btn-sm" style="background:#ec4899; border-color:#ec4899;" onclick="openModalById('modalCreateCoupon')">
+                            <i class="fa-solid fa-plus me-1"></i> Criar Novo Cupom
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: CUPONS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Cupons Ativos</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">6</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(236,72,153,0.12); color:#ec4899; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-ticket-simple"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Usos Totais</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-primary mb-0">1.428</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(2,132,199,0.12); color:#0284c7; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Desconto Concedido</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-danger mb-0">R$ 28.560</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(239,68,68,0.12); color:#ef4444; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-tags"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita com Cupom</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">R$ 184.200</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA DE CUPONS -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-list-check text-primary me-2"></i> Cupons Cadastrados</h6>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="text" class="form-control form-control-sm" placeholder="Buscar cupom..." style="width:180px;">
+                            <select class="form-select form-select-sm" style="width:160px;">
+                                <option selected>Todos os Eventos</option>
+                                <option>Roupa Nova 40 Anos</option>
+                                <option>Twelve Beers Vitória</option>
+                                <option>Stand Up Diogo Almeida</option>
+                                <option>Música e Natureza</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Evento Vinculado</th>
+                                    <th>Desconto</th>
+                                    <th>Usos / Limite</th>
+                                    <th>Validade</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong class="text-primary fs-13" style="letter-spacing:1px;">PRIME10</strong></td>
+                                    <td>Todos os Eventos (Geral)</td>
+                                    <td><span class="badge bg-primary text-white">10% OFF</span></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height:6px; min-width:60px;">
+                                                <div class="progress-bar bg-success" style="width:72%;"></div>
+                                            </div>
+                                            <span class="fs-11 fw-bold">360/500</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted fs-12">31/12/2026</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br?cupom=PRIME10'); alert('Link com cupom PRIME10 copiado!');" title="Copiar Link"><i class="fa-solid fa-copy"></i></button>
+                                            <button class="btn btn-outline-primary py-0 px-2 fs-11" onclick="alert('Editar Cupom PRIME10')"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn btn-outline-danger py-0 px-2 fs-11" onclick="alert('Cupom pausado!')"><i class="fa-solid fa-pause"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-primary fs-13" style="letter-spacing:1px;">ROUPANOVA15</strong></td>
+                                    <td>#3131 - Roupa Nova 40 Anos</td>
+                                    <td><span class="badge bg-primary text-white">15% OFF</span></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height:6px; min-width:60px;">
+                                                <div class="progress-bar bg-success" style="width:85%;"></div>
+                                            </div>
+                                            <span class="fs-11 fw-bold">425/500</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted fs-12">14/09/2026</td>
+                                    <td><span class="badge bg-success text-white">Ativo</span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3131?cupom=ROUPANOVA15'); alert('Link copiado!');"><i class="fa-solid fa-copy"></i></button>
+                                            <button class="btn btn-outline-primary py-0 px-2 fs-11"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn btn-outline-danger py-0 px-2 fs-11"><i class="fa-solid fa-pause"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-primary fs-13" style="letter-spacing:1px;">BEERFEST</strong></td>
+                                    <td>#3130 - Twelve Beers Vitória</td>
+                                    <td><span class="badge bg-success text-white">R$ 20,00 OFF</span></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height:6px; min-width:60px;">
+                                                <div class="progress-bar bg-warning" style="width:96%;"></div>
+                                            </div>
+                                            <span class="fs-11 fw-bold text-warning">288/300</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted fs-12">22/08/2026</td>
+                                    <td><span class="badge bg-warning text-dark">Quase Esgotado</span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3130?cupom=BEERFEST'); alert('Link copiado!');"><i class="fa-solid fa-copy"></i></button>
+                                            <button class="btn btn-outline-primary py-0 px-2 fs-11"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn btn-outline-danger py-0 px-2 fs-11"><i class="fa-solid fa-pause"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-primary fs-13" style="letter-spacing:1px;">VIP2026</strong></td>
+                                    <td>Todos os Eventos</td>
+                                    <td><span class="badge bg-primary text-white">20% OFF</span></td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height:6px; min-width:60px;">
+                                                <div class="progress-bar bg-danger" style="width:100%;"></div>
+                                            </div>
+                                            <span class="fs-11 fw-bold text-danger">200/200</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted fs-12">15/08/2026</td>
+                                    <td><span class="badge bg-secondary text-white">Esgotado</span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-secondary py-0 px-2 fs-11"><i class="fa-solid fa-copy"></i></button>
+                                            <button class="btn btn-outline-primary py-0 px-2 fs-11"><i class="fa-solid fa-rotate"></i> Reativar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.2 PAINEL: LINKS & PROMOTERS (AFILIADOS) -->
+            <div id="panelMktPromoters" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Links Rastreados & Promoters (Afiliados)</h2>
+                        <p>Gerencie canais de divulgação, comissionamento automático de promoters e ranking de vendas.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-csv me-1"></i> Exportar Relatório</button>
+                        <button class="btn btn-primary btn-sm" style="background:#0284c7;" onclick="openModalById('modalCreatePromoterLink')">
+                            <i class="fa-solid fa-plus me-1"></i> Novo Promoter / Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: PROMOTERS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Promoters Ativos</span>
+                            <h3 class="fw-bold text-dark mt-1 mb-0">18 parceiros</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Ingressos Vendidos</span>
+                            <h3 class="fw-bold text-primary mt-1 mb-0">842 un.</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita Gerada</span>
+                            <h3 class="fw-bold text-success mt-1 mb-0">R$ 104.980,00</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Comissões a Pagar</span>
+                            <h3 class="fw-bold text-danger mt-1 mb-0">R$ 8.420,00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA DE PROMOTERS -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-ranking-star text-warning me-2"></i> Ranking de Desempenho dos Promoters</h6>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Promoter / Canal</th>
+                                    <th>Evento</th>
+                                    <th>Link UTM Rastreado</th>
+                                    <th>Vendas</th>
+                                    <th>Faturamento</th>
+                                    <th>Comissão (%)</th>
+                                    <th>Saldo a Pagar</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width:30px; height:30px; border-radius:50%; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:12px;">LP</div>
+                                            <div><strong>Lucas Promoter VIP</strong><div class="text-muted fs-10">lucas@promoter.com.br</div></div>
+                                        </div>
+                                    </td>
+                                    <td>Roupa Nova 40 Anos</td>
+                                    <td><code class="fs-11">?ref=lucas_vip</code></td>
+                                    <td><strong class="text-primary">312 un.</strong></td>
+                                    <td>R$ 47.112,00</td>
+                                    <td><span class="badge bg-info text-white">8%</span></td>
+                                    <td class="fw-bold text-danger">R$ 3.768,96</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3131?ref=lucas_vip'); alert('Link copiado!');"><i class="fa-solid fa-copy me-1"></i> Link</button>
+                                        <button class="btn btn-sm btn-success py-0 px-2 fs-11" onclick="alert('Repasse de comissão via PIX agendado para Lucas!');"><i class="fa-brands fa-pix me-1"></i> Pagar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width:30px; height:30px; border-radius:50%; background:#fef3c7; color:#d97706; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:12px;">CB</div>
+                                            <div><strong>Camila Baladas PR</strong><div class="text-muted fs-10">camila@baladas.com</div></div>
+                                        </div>
+                                    </td>
+                                    <td>Twelve Beers Vitória</td>
+                                    <td><code class="fs-11">?ref=camila_cwb</code></td>
+                                    <td><strong class="text-primary">240 un.</strong></td>
+                                    <td>R$ 28.560,00</td>
+                                    <td><span class="badge bg-info text-white">10%</span></td>
+                                    <td class="fw-bold text-danger">R$ 2.856,00</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3130?ref=camila_cwb'); alert('Link copiado!');"><i class="fa-solid fa-copy me-1"></i> Link</button>
+                                        <button class="btn btn-sm btn-success py-0 px-2 fs-11" onclick="alert('Repasse de comissão via PIX agendado!');"><i class="fa-brands fa-pix me-1"></i> Pagar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width:30px; height:30px; border-radius:50%; background:#dcfce7; color:#16a34a; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:12px;">DJ</div>
+                                            <div><strong>DJ Gabriel Official</strong><div class="text-muted fs-10">djgabriel@music.com</div></div>
+                                        </div>
+                                    </td>
+                                    <td>Música e Natureza</td>
+                                    <td><code class="fs-11">?ref=dj_gabriel</code></td>
+                                    <td><strong class="text-primary">186 un.</strong></td>
+                                    <td>R$ 18.228,00</td>
+                                    <td><span class="badge bg-info text-white">8%</span></td>
+                                    <td class="fw-bold text-danger">R$ 1.458,24</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="navigator.clipboard.writeText('https://diskingressos.com.br/evento/3634?ref=dj_gabriel'); alert('Link copiado!');"><i class="fa-solid fa-copy me-1"></i> Link</button>
+                                        <button class="btn btn-sm btn-success py-0 px-2 fs-11" onclick="alert('Repasse agendado!');"><i class="fa-brands fa-pix me-1"></i> Pagar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.3 PAINEL: PIXELS & TAGS DE RASTREAMENTO -->
+            <div id="panelMktPixels" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Pixels & Tags de Conversão</h2>
+                        <p>Integre tags de rastreamento do Meta (Facebook), Google Ads, GA4 e TikTok para mensurar suas conversões.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="alert('Evento de teste disparado com sucesso no Meta Pixel e GA4!');"><i class="fa-solid fa-vial me-1"></i> Disparar Teste</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <!-- META PIXEL & CAPI -->
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa-brands fa-facebook text-primary fs-20"></i>
+                                    <h6 class="fw-bold m-0 text-dark">Meta Pixel & Conversions API (CAPI)</h6>
+                                </div>
+                                <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Conectado</span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Pixel ID do Facebook</label>
+                                <input type="text" class="form-control form-control-sm" value="892341209384721">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Token de Acesso Conversions API (CAPI)</label>
+                                <input type="password" class="form-control form-control-sm" value="EAAQZB1...98214jhsa7">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Test Event Code (Opcional)</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="TEST78912">
+                            </div>
+                            <button class="btn btn-primary btn-sm w-100" style="background:#0284c7;" onclick="alert('Configurações do Meta Pixel salvas com sucesso!');"><i class="fa-solid fa-save me-1"></i> Salvar Meta Pixel</button>
+                        </div>
+                    </div>
+
+                    <!-- GOOGLE ANALYTICS 4 & TAG MANAGER -->
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa-brands fa-google text-danger fs-20"></i>
+                                    <h6 class="fw-bold m-0 text-dark">Google Analytics 4 & Google Ads</h6>
+                                </div>
+                                <span class="badge bg-success text-white"><i class="fa-solid fa-circle-check me-1"></i> Conectado</span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">ID de Medição GA4 (Measurement ID)</label>
+                                <input type="text" class="form-control form-control-sm" value="G-774921934">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">ID do Google Tag Manager (GTM)</label>
+                                <input type="text" class="form-control form-control-sm" value="GTM-PRIME01">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">ID de Conversão do Google Ads</label>
+                                <input type="text" class="form-control form-control-sm" value="AW-983210492/xyzPurchase">
+                            </div>
+                            <button class="btn btn-primary btn-sm w-100" style="background:#0284c7;" onclick="alert('Configurações do Google salvas com sucesso!');"><i class="fa-solid fa-save me-1"></i> Salvar Google Tags</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVENTOS RASTREADOS -->
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-bolt text-warning me-2"></i> Eventos Padrão Transmitidos Automaticamente</h6>
+                    <div class="row g-2 text-muted fs-12">
+                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ PageView:</strong> Ao acessar qualquer página do evento</div>
+                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ ViewContent:</strong> Ao selecionar o lote/setor</div>
+                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ InitiateCheckout:</strong> Ao iniciar preenchimento de compra</div>
+                        <div class="col-md-3 p-2 bg-light rounded"><strong class="text-success">✓ Purchase:</strong> Ao confirmar pagamento (com valor R$)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6.4 PAINEL: COMBOS & DESCONTOS PROGRESSIVOS -->
+            <div id="panelMktCombos" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Combos & Descontos Progressivos</h2>
+                        <p>Crie promoções casadas do tipo "Compre 4 pague 3", combos de ingressos + bebidas e descontos por volume.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-primary btn-sm" style="background:#f59e0b; border-color:#f59e0b;" onclick="alert('Criador de novos combos aberto!');">
+                            <i class="fa-solid fa-plus me-1"></i> Novo Combo / Oferta
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-warning text-dark">Compre 4 Pague 3</span>
+                                <span class="badge bg-success text-white">Ativo</span>
+                            </div>
+                            <h5 class="fw-bold text-dark mt-2">Passaporte da Galera (4 Ingressos)</h5>
+                            <p class="text-muted fs-12 mb-3">Válido para o evento <strong>Roupa Nova 40 Anos</strong> no setor Pista Premium.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                <span class="fs-12 text-muted">Vendas realizadas: <strong>68 combos</strong></span>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11">Gerenciar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-info text-white">Combo Casal VIP</span>
+                                <span class="badge bg-success text-white">Ativo</span>
+                            </div>
+                            <h5 class="fw-bold text-dark mt-2">2 Ingressos VIP + 2 Copos Oficiais</h5>
+                            <p class="text-muted fs-12 mb-3">Válido para o evento <strong>Twelve Beers Vitória</strong>.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                <span class="fs-12 text-muted">Vendas realizadas: <strong>114 combos</strong></span>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11">Gerenciar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary text-white">Desconto por Volume</span>
+                                <span class="badge bg-success text-white">Ativo</span>
+                            </div>
+                            <h5 class="fw-bold text-dark mt-2">10% OFF na compra de 3+ ingressos</h5>
+                            <p class="text-muted fs-12 mb-3">Aplicado automaticamente no carrinho em todos os eventos.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                <span class="fs-12 text-muted">Vendas realizadas: <strong>210 pedidos</strong></span>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2 fs-11">Gerenciar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- 7. MÓDULO REMARKETING (4 SUB-PAINÉIS) -->
+            <!-- ==================================================== -->
+
+            <!-- 7.1 PAINEL: CARRINHOS ABANDONADOS -->
+            <div id="panelRmkCarrinhos" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Recuperação de Carrinho Abandonado</h2>
+                        <p>Recupere vendas não concluídas em tempo real através de disparos automáticos via WhatsApp e E-mail.</p>
+                    </div>
+                    <div class="header-buttons d-flex align-items-center gap-2">
+                        <div class="form-check form-switch d-flex align-items-center gap-2 m-0">
+                            <input class="form-check-input" type="checkbox" id="switchAutoRecovery" checked style="cursor:pointer;">
+                            <label class="form-check-label fs-12 fw-bold text-dark" for="switchAutoRecovery">Automação WhatsApp Ativa</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: CARRINHOS -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Abandonos (7 dias)</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-dark mb-0">142</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(239,68,68,0.12); color:#ef4444; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Carrinhos Recuperados</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">48</h3>
+                                <span class="badge bg-success text-white fs-11">33.8% conv.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita Recuperada</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-success mb-0">R$ 14.890</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(16,185,129,0.12); color:#10b981; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Tempo Médio de Retorno</span>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <h3 class="fw-bold text-primary mb-0">18 min</h3>
+                                <div style="width:36px; height:36px; border-radius:8px; background:rgba(2,132,199,0.12); color:#0284c7; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA DE ABANDONOS RECENTES -->
+                <div class="card p-3 border shadow-sm bg-white mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h6 class="fw-bold m-0 text-dark"><i class="fa-solid fa-stopwatch text-danger me-2"></i> Checkouts Não Concluídos (Tempo Real)</h6>
+                        <button class="btn btn-outline-success btn-sm" onclick="alert('Disparo de recuperação em lote enviado para os 6 clientes pendentes!');"><i class="fa-brands fa-whatsapp me-1"></i> Disparar em Lote para Pendentes</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>WhatsApp / E-mail</th>
+                                    <th>Evento & Ingressos</th>
+                                    <th>Valor</th>
+                                    <th>Abandono</th>
+                                    <th>Status</th>
+                                    <th>Ações de Recuperação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong class="text-dark">Rodrigo Mendonça</strong></td>
+                                    <td>
+                                        <div class="text-success fw-bold fs-11"><i class="fa-brands fa-whatsapp me-1"></i> (41) 98822-1199</div>
+                                        <div class="text-muted fs-10">rodrigo.m@gmail.com</div>
+                                    </td>
+                                    <td>Roupa Nova 40 Anos (2x VIP)</td>
+                                    <td class="fw-bold text-dark">R$ 480,00</td>
+                                    <td class="text-danger fs-11 fw-bold"><i class="fa-regular fa-clock me-1"></i> há 12 min</td>
+                                    <td><span class="badge bg-warning text-dark">Pendente</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success py-0 px-2 fs-11" onclick="openModalWhatsappRecovery('Rodrigo', '(41) 98822-1199', 'Roupa Nova 40 Anos', 'R$ 480,00')"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11" onclick="alert('E-mail de recuperação enviado para rodrigo.m@gmail.com!');"><i class="fa-regular fa-envelope"></i> E-mail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-dark">Fernanda Silveira</strong></td>
+                                    <td>
+                                        <div class="text-success fw-bold fs-11"><i class="fa-brands fa-whatsapp me-1"></i> (27) 99711-4433</div>
+                                        <div class="text-muted fs-10">fernanda.silveira@outlook.com</div>
+                                    </td>
+                                    <td>Twelve Beers Vitória (1x Pista)</td>
+                                    <td class="fw-bold text-dark">R$ 130,00</td>
+                                    <td class="text-danger fs-11 fw-bold"><i class="fa-regular fa-clock me-1"></i> há 35 min</td>
+                                    <td><span class="badge bg-info text-white">Whats Enviado</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-success py-0 px-2 fs-11" onclick="openModalWhatsappRecovery('Fernanda', '(27) 99711-4433', 'Twelve Beers', 'R$ 130,00')"><i class="fa-brands fa-whatsapp me-1"></i> Reenviar</button>
+                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2 fs-11"><i class="fa-regular fa-envelope"></i> E-mail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-dark">Gabriel Fontes</strong></td>
+                                    <td>
+                                        <div class="text-success fw-bold fs-11"><i class="fa-brands fa-whatsapp me-1"></i> (41) 99182-7744</div>
+                                        <div class="text-muted fs-10">gabriel.fontes@gmail.com</div>
+                                    </td>
+                                    <td>Diogo Almeida Stand Up (2x Plateia)</td>
+                                    <td class="fw-bold text-dark">R$ 220,00</td>
+                                    <td class="text-muted fs-11"><i class="fa-regular fa-clock me-1"></i> há 2 horas</td>
+                                    <td><span class="badge bg-success text-white"><i class="fa-solid fa-check me-1"></i> Recuperado</span></td>
+                                    <td>
+                                        <span class="fs-11 text-success fw-bold">Pago via PIX</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7.2 PAINEL: DISPAROS EM MASSA (WHATSAPP & E-MAIL) -->
+            <div id="panelRmkDisparos" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Disparos em Massa (WhatsApp & E-mail Marketing)</h2>
+                        <p>Crie campanhas de engajamento, avisos de virada de lote e promoções para a sua base de compradores.</p>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <!-- EDITOR DE CAMPANHA -->
+                    <div class="col-lg-7">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-paper-plane text-primary me-2"></i> Criar Nova Campanha de Disparo</h6>
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Canal de Envio</label>
+                                    <select class="form-select form-select-sm" id="mktSelectCanal" onchange="updateMktPreview()">
+                                        <option value="whatsapp" selected>WhatsApp Oficial (API Meta)</option>
+                                        <option value="email">E-mail Marketing Transacional</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fs-11 fw-bold text-muted mb-1">Público-Alvo Segmentado</label>
+                                    <select class="form-select form-select-sm" id="mktSelectPublico">
+                                        <option selected>Compradores de Música e Natureza (836)</option>
+                                        <option>Compradores de Roupa Nova (1.420)</option>
+                                        <option>Compradores de Todos os Eventos (3.208)</option>
+                                        <option>Clientes VIP / Alto Ticket (412)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fs-11 fw-bold text-muted mb-1">Mensagem do Disparo (Tags: {nome}, {evento}, {link}, {desconto})</label>
+                                <textarea class="form-control fs-12" id="mktMsgText" rows="5" oninput="updateMktPreview()">Olá {nome}! 👋 Passando para avisar que o lote do show *{evento}* vai virar hoje às 23:59! ⏳
+
+Garanta seu ingresso agora com o cupom especial *PRIME10* para ganhar 10% OFF exclusivo:
+👉 {link}</textarea>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="alert('Disparo de teste enviado para seu WhatsApp!');"><i class="fa-solid fa-vial me-1"></i> Teste no Meu WhatsApp</button>
+                                <button class="btn btn-success btn-sm px-4 fw-semibold" onclick="alert('Campanha agendada com sucesso para 836 contatos!');"><i class="fa-solid fa-paper-plane me-1"></i> Agendar / Disparar Agora</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PREVIEW EM TEMPO REAL NO SMARTPHONE -->
+                    <div class="col-lg-5">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-mobile-screen-button text-success me-2"></i> Prévia da Mensagem no Celular</h6>
+                            <div style="background:#efeae2; border-radius:12px; padding:15px; border:1px solid #d1d7db; min-height:220px; display:flex; flex-direction:column; justify-content:center;">
+                                <div style="background:#ffffff; border-radius:8px; padding:12px; box-shadow:0 1px 2px rgba(0,0,0,0.15); font-size:12px; line-height:1.4; color:#111b21;" id="mktMsgPreviewBox">
+                                    Olá <strong>Carlos</strong>! 👋 Passando para avisar que o lote do show <strong>Roupa Nova 40 Anos</strong> vai virar hoje às 23:59! ⏳<br><br>
+                                    Garanta seu ingresso agora com o cupom especial <strong>PRIME10</strong> para ganhar 10% OFF exclusivo:<br>
+                                    👉 <a href="#" style="color:#0284c7; text-decoration:underline;">diskingressos.com.br/evento/3131</a>
+                                </div>
+                                <span class="text-end text-muted fs-10 mt-1">10:45 • Entregue ✓✓</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7.3 PAINEL: SEGMENTAÇÃO & CRM DE PÚBLICOS -->
+            <div id="panelRmkCRM" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Segmentação & CRM de Públicos</h2>
+                        <p>Gerencie sua base de dados de compradores, crie segmentos inteligentes e exporte para Meta Lookalike e Google Ads.</p>
+                    </div>
+                    <div class="header-buttons d-flex gap-2">
+                        <button class="btn btn-outline-success btn-sm" onclick="exportData('csv')"><i class="fa-solid fa-file-excel me-1"></i> Exportar Lookalike CSV</button>
+                    </div>
+                </div>
+
+                <!-- 4 SEGMENTOS SMART -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary text-white">💎 Clientes VIP</span>
+                                <span class="fs-11 fw-bold text-muted">412 contatos</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mt-2 mb-1">Ticket > R$ 250</h4>
+                            <span class="fs-10 text-muted">Compradores de Camarotes e Mesas</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success text-white">🔁 Recorrentes</span>
+                                <span class="fs-11 fw-bold text-muted">680 contatos</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mt-2 mb-1">2+ Ingressos</h4>
+                            <span class="fs-10 text-muted">Compradores de mais de um evento</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger text-white">⏳ Quase Comprando</span>
+                                <span class="fs-11 fw-bold text-muted">142 contatos</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mt-2 mb-1">Abandonos</h4>
+                            <span class="fs-10 text-muted">Checkouts iniciados nos últimos 7 dias</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info text-white">🎓 Estudantes / Meia</span>
+                                <span class="fs-11 fw-bold text-muted">950 contatos</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mt-2 mb-1">Meia Entrada</h4>
+                            <span class="fs-10 text-muted">Público jovem e universitário</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-3 border shadow-sm bg-white">
+                    <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-users text-primary me-2"></i> Base Geral de Clientes da Produtora (3.208 Registros)</h6>
+                    <div class="table-responsive">
+                        <table class="coupon-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome Completo</th>
+                                    <th>CPF</th>
+                                    <th>E-mail</th>
+                                    <th>WhatsApp</th>
+                                    <th>Eventos Comprados</th>
+                                    <th>Total Investido</th>
+                                    <th>Segmento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Mariana Costa Peixoto</strong></td>
+                                    <td>102.394.881-02</td>
+                                    <td>mariana.peixoto@gmail.com</td>
+                                    <td class="text-success fw-bold">(41) 99871-2233</td>
+                                    <td>Roupa Nova, Twelve Beers</td>
+                                    <td class="fw-bold text-success">R$ 610,00</td>
+                                    <td><span class="badge bg-primary text-white">VIP</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thiago Alves Silva</strong></td>
+                                    <td>402.912.441-99</td>
+                                    <td>thiago.alves@outlook.com</td>
+                                    <td class="text-success fw-bold">(41) 98122-3344</td>
+                                    <td>Música e Natureza</td>
+                                    <td class="fw-bold text-dark">R$ 130,00</td>
+                                    <td><span class="badge bg-info text-white">Estudante</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7.4 PAINEL: MÉTRICAS & ROI DE REMARKETING -->
+            <div id="panelRmkMetricas" class="d-none">
+                <div class="dashboard-header mb-3">
+                    <div class="dashboard-title-box">
+                        <h2>Métricas de Conversão & ROI de Remarketing</h2>
+                        <p>Acompanhe o retorno financeiro (ROI) de cada real investido em campanhas de automação e remarketing.</p>
+                    </div>
+                </div>
+
+                <!-- 4 KPI CARDS: ROI -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Receita por Remarketing</span>
+                            <h3 class="fw-bold text-success mt-1 mb-0">R$ 46.720,00</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">ROI Médio</span>
+                            <h3 class="fw-bold text-primary mt-1 mb-0">12.4x</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Custo por Conversão</span>
+                            <h3 class="fw-bold text-dark mt-1 mb-0">R$ 2,40</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <span class="text-muted fs-10 text-uppercase fw-bold">Taxa de Cliques (CTR)</span>
+                            <h3 class="fw-bold text-info mt-1 mb-0">28.6%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRÁFICOS DE RETORNO -->
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-chart-pie text-success me-2"></i> Conversão por Canal de Remarketing</h6>
+                            <div class="d-flex flex-column gap-3">
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-whatsapp text-success me-1"></i> WhatsApp Direto</span>
+                                        <strong class="text-success fs-12">62% (R$ 28.966)</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width:62%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-regular fa-envelope text-primary me-1"></i> E-mail Marketing Transacional</span>
+                                        <strong class="text-primary fs-12">26% (R$ 12.147)</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-primary" style="width:26%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fs-12 fw-bold text-dark"><i class="fa-brands fa-facebook text-info me-1"></i> Anúncios Meta Ads (Lookalike)</span>
+                                        <strong class="text-info fs-12">12% (R$ 5.606)</strong>
+                                    </div>
+                                    <div class="progress" style="height:8px;"><div class="progress-bar bg-info" style="width:12%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card p-3 border shadow-sm bg-white h-100">
+                            <h6 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-calculator text-primary me-2"></i> Resumo de Eficiência Financeira</h6>
+                            <div class="d-flex flex-column gap-2 text-muted fs-12">
+                                <div class="d-flex justify-content-between p-2 border-bottom"><span>Total investido em disparos / infraestrutura:</span><strong class="text-dark">R$ 3.760,00</strong></div>
+                                <div class="d-flex justify-content-between p-2 border-bottom"><span>Faturamento atribuído recuperado:</span><strong class="text-success">R$ 46.720,00</strong></div>
+                                <div class="d-flex justify-content-between p-2 border-bottom"><span>Lucro Líquido gerado pela automação:</span><strong class="text-success">R$ 42.960,00</strong></div>
+                                <div class="d-flex justify-content-between p-2"><span>Multiplicador de Retorno (ROAS):</span><strong class="text-primary fs-14">12.4x</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -4683,6 +5542,24 @@
             const subFinBordero = document.getElementById("subFinBordero");
             const subFinNegociacoes = document.getElementById("subFinNegociacoes");
 
+            // Accordion Marketing
+            const menuMarketing = document.getElementById("menuMarketing");
+            const submenuMarketing = document.getElementById("submenuMarketing");
+            const arrowMarketing = document.getElementById("arrowMarketing");
+            const subMktCupons = document.getElementById("subMktCupons");
+            const subMktPromoters = document.getElementById("subMktPromoters");
+            const subMktPixels = document.getElementById("subMktPixels");
+            const subMktCombos = document.getElementById("subMktCombos");
+
+            // Accordion Remarketing
+            const menuRemarketing = document.getElementById("menuRemarketing");
+            const submenuRemarketing = document.getElementById("submenuRemarketing");
+            const arrowRemarketing = document.getElementById("arrowRemarketing");
+            const subRmkCarrinhos = document.getElementById("subRmkCarrinhos");
+            const subRmkDisparos = document.getElementById("subRmkDisparos");
+            const subRmkCRM = document.getElementById("subRmkCRM");
+            const subRmkMetricas = document.getElementById("subRmkMetricas");
+
             const menuNovoEvento = document.getElementById("menuNovoEvento");
             const menuTerminaisPos = document.getElementById("menuTerminaisPos");
             const menuMensagens = document.getElementById("menuMensagens");
@@ -4697,20 +5574,20 @@
             const btnSidebarRequestPayout = document.getElementById("btnSidebarRequestPayout");
             const btnAssistantFloat = document.getElementById("btnAssistantFloat");
 
-            // Panels
+            // Panels Map
             const panels = {
                 dashboard: document.getElementById("panelDashboardContent"),
                 dadosProdutora: document.getElementById("panelDadosProdutoraContent"),
                 statusFaciais: document.getElementById("panelStatusFaciaisContent"),
                 todosEventos: document.getElementById("panelTodosEventosContent"),
+                detalhesEvento: document.getElementById("panelDetalhesEventoContent"),
                 novoEvento: document.getElementById("panelNovoEventoContent"),
                 terminaisPos: document.getElementById("panelTerminaisPosContent"),
                 mensagens: document.getElementById("panelMensagensContent"),
                 gerenciarAcessos: document.getElementById("panelGerenciarAcessosContent"),
                 administracao: document.getElementById("panelAdministracaoContent"),
-                // Native Lightweight Financial & Event Panels
-                todosEventos: document.getElementById("panelTodosEventosContent"),
-                detalhesEvento: document.getElementById("panelDetalhesEventoContent"),
+                
+                // Financial Sub-Panels
                 finHub: document.getElementById("panelFinHub"),
                 finSaldo: document.getElementById("panelFinSaldo"),
                 finRepasse: document.getElementById("panelFinRepasse"),
@@ -4721,12 +5598,23 @@
                 finBordero: document.getElementById("panelFinBordero"),
                 finNegociacoes: document.getElementById("panelFinNegociacoes"),
 
+                // Marketing Sub-Panels
+                mktCupons: document.getElementById("panelMktCupons"),
+                mktPromoters: document.getElementById("panelMktPromoters"),
+                mktPixels: document.getElementById("panelMktPixels"),
+                mktCombos: document.getElementById("panelMktCombos"),
+
+                // Remarketing Sub-Panels
+                rmkCarrinhos: document.getElementById("panelRmkCarrinhos"),
+                rmkDisparos: document.getElementById("panelRmkDisparos"),
+                rmkCRM: document.getElementById("panelRmkCRM"),
+                rmkMetricas: document.getElementById("panelRmkMetricas"),
+
                 coupons: document.getElementById("panelCouponsContent"),
                 estorno: document.getElementById("panelEstornoContent"),
                 sac: document.getElementById("panelSacContent"),
                 db: document.getElementById("panelDbContent"),
                 ingressos: document.getElementById("panelIngressosContent"),
-                marketing: document.getElementById("panelMarketingContent"),
                 financeiro: document.getElementById("panelFinanceiroContent"),
                 contabilidade: document.getElementById("panelContabilidadeContent"),
                 fluxoCaixa: document.getElementById("panelFluxoCaixaContent"),
@@ -4756,9 +5644,33 @@
                     if (submenuFinanceiro) submenuFinanceiro.classList.add("show");
                     if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(90deg)";
                     if (menuFinanceiro) menuFinanceiro.classList.add("active");
+                    if (submenuMarketing) submenuMarketing.classList.remove("show");
+                    if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
+                    if (submenuRemarketing) submenuRemarketing.classList.remove("show");
+                    if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(0deg)";
+                } else if (panelKey && panelKey.startsWith("mkt")) {
+                    if (submenuMarketing) submenuMarketing.classList.add("show");
+                    if (arrowMarketing) arrowMarketing.style.transform = "rotate(90deg)";
+                    if (menuMarketing) menuMarketing.classList.add("active");
+                    if (submenuFinanceiro) submenuFinanceiro.classList.remove("show");
+                    if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
+                    if (submenuRemarketing) submenuRemarketing.classList.remove("show");
+                    if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(0deg)";
+                } else if (panelKey && panelKey.startsWith("rmk")) {
+                    if (submenuRemarketing) submenuRemarketing.classList.add("show");
+                    if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(90deg)";
+                    if (menuRemarketing) menuRemarketing.classList.add("active");
+                    if (submenuFinanceiro) submenuFinanceiro.classList.remove("show");
+                    if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
+                    if (submenuMarketing) submenuMarketing.classList.remove("show");
+                    if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
                 } else {
                     if (submenuFinanceiro) submenuFinanceiro.classList.remove("show");
                     if (arrowFinanceiro) arrowFinanceiro.style.transform = "rotate(0deg)";
+                    if (submenuMarketing) submenuMarketing.classList.remove("show");
+                    if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
+                    if (submenuRemarketing) submenuRemarketing.classList.remove("show");
+                    if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(0deg)";
                 }
 
                 // Show target panel
@@ -5084,6 +5996,74 @@
             if (subFinContas) subFinContas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finContas', subFinContas); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
             if (subFinBordero) subFinBordero.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finBordero', subFinBordero); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
             if (subFinNegociacoes) subFinNegociacoes.addEventListener("click", (e) => { e.preventDefault(); switchPanel('finNegociacoes', subFinNegociacoes); if (menuFinanceiro) menuFinanceiro.classList.add('active'); });
+
+            // Accordion Toggle for Marketing
+            if (menuMarketing) {
+                menuMarketing.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const isOpen = submenuMarketing && submenuMarketing.classList.contains("show");
+                    if (isOpen) {
+                        submenuMarketing.classList.remove("show");
+                        if (arrowMarketing) arrowMarketing.style.transform = "rotate(0deg)";
+                    } else {
+                        switchPanel('mktCupons', subMktCupons);
+                        if (menuMarketing) menuMarketing.classList.add('active');
+                    }
+                });
+            }
+
+            // Submenu Bindings: Marketing
+            if (subMktCupons) subMktCupons.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCupons', subMktCupons); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktPromoters) subMktPromoters.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPromoters', subMktPromoters); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktPixels) subMktPixels.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktPixels', subMktPixels); if (menuMarketing) menuMarketing.classList.add('active'); });
+            if (subMktCombos) subMktCombos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('mktCombos', subMktCombos); if (menuMarketing) menuMarketing.classList.add('active'); });
+
+            // Accordion Toggle for Remarketing
+            if (menuRemarketing) {
+                menuRemarketing.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const isOpen = submenuRemarketing && submenuRemarketing.classList.contains("show");
+                    if (isOpen) {
+                        submenuRemarketing.classList.remove("show");
+                        if (arrowRemarketing) arrowRemarketing.style.transform = "rotate(0deg)";
+                    } else {
+                        switchPanel('rmkCarrinhos', subRmkCarrinhos);
+                        if (menuRemarketing) menuRemarketing.classList.add('active');
+                    }
+                });
+            }
+
+            // Submenu Bindings: Remarketing
+            if (subRmkCarrinhos) subRmkCarrinhos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkCarrinhos', subRmkCarrinhos); if (menuRemarketing) menuRemarketing.classList.add('active'); });
+            if (subRmkDisparos) subRmkDisparos.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkDisparos', subRmkDisparos); if (menuRemarketing) menuRemarketing.classList.add('active'); });
+            if (subRmkCRM) subRmkCRM.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkCRM', subRmkCRM); if (menuRemarketing) menuRemarketing.classList.add('active'); });
+            if (subRmkMetricas) subRmkMetricas.addEventListener("click", (e) => { e.preventDefault(); switchPanel('rmkMetricas', subRmkMetricas); if (menuRemarketing) menuRemarketing.classList.add('active'); });
+
+            // Marketing & Remarketing Helpers
+            window.updateMktPreview = function() {
+                const text = document.getElementById("mktMsgText")?.value || "";
+                const preview = document.getElementById("mktMsgPreviewBox");
+                if (preview) {
+                    let formatted = text
+                        .replace(/{nome}/g, '<strong>Carlos</strong>')
+                        .replace(/{evento}/g, '<strong>Roupa Nova 40 Anos</strong>')
+                        .replace(/{link}/g, '<a href="#" style="color:#0284c7; text-decoration:underline;">diskingressos.com.br/evento/3131</a>')
+                        .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br>');
+                    preview.innerHTML = formatted;
+                }
+            };
+
+            window.openModalWhatsappRecovery = function(name, phone, event, val) {
+                if (document.getElementById("modalRmkClientName")) document.getElementById("modalRmkClientName").textContent = name;
+                if (document.getElementById("modalRmkClientPhone")) document.getElementById("modalRmkClientPhone").textContent = phone;
+                if (document.getElementById("modalRmkEventName")) document.getElementById("modalRmkEventName").textContent = event;
+                if (document.getElementById("modalRmkEventValue")) document.getElementById("modalRmkEventValue").textContent = val;
+                if (document.getElementById("modalRmkMessageText")) {
+                    document.getElementById("modalRmkMessageText").value = `Olá ${name}! Notamos que você não finalizou seu pedido para ${event} (${val}). Seus ingressos estão reservados por mais 15 minutos! Finalize agora: https://diskingressos.com.br/checkout/recuperar?token=8923489`;
+                }
+                openModalById('modalWhatsappRecovery');
+            };
 
             // Admin Sub-tab Switcher
             window.switchAdminTab = function(tab, el) {
@@ -6353,6 +7333,142 @@
                 </div>
             </div>
         </div>
+    <!-- MODAL: CRIAR CUPOM DE DESCONTO -->
+    <div class="modal fade" id="modalCreateCoupon" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-ticket-simple text-primary me-2"></i> Criar Novo Cupom de Desconto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="event.preventDefault(); alert('Cupom de desconto criado e ativado com sucesso!'); bootstrap.Modal.getInstance(document.getElementById('modalCreateCoupon')).hide();">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Código do Cupom *</label>
+                                <input type="text" class="form-control text-uppercase fw-bold" placeholder="EX: PROMO10" required style="letter-spacing:1px;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Tipo de Desconto *</label>
+                                <select class="form-select fs-12">
+                                    <option value="percent">Porcentagem (%)</option>
+                                    <option value="fixed">Valor Fixo (R$)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Valor do Desconto *</label>
+                                <input type="number" class="form-control fs-12" placeholder="Ex: 10" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Limite de Usos</label>
+                                <input type="number" class="form-control fs-12" placeholder="Ex: 200 (Vazio = Ilimitado)">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Data de Expiração</label>
+                                <input type="date" class="form-control fs-12">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Evento Vinculado</label>
+                                <select class="form-select fs-12">
+                                    <option value="all">Todos os Eventos da Produtora</option>
+                                    <option value="3131">#3131 - Roupa Nova 40 Anos</option>
+                                    <option value="3130">#3130 - Twelve Beers Vitória</option>
+                                    <option value="3132">#3132 - Stand Up Diogo Almeida</option>
+                                    <option value="3634">#3634 - Música e Natureza</option>
+                                </select>
+                            </div>
+                            <div class="col-12 text-end mt-3">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-semibold" style="background:#ec4899; border-color:#ec4899;"><i class="fa-solid fa-check me-1"></i> Ativar Cupom</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
+
+    <!-- MODAL: NOVO PROMOTER / LINK RASTREADO -->
+    <div class="modal fade" id="modalCreatePromoterLink" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-solid fa-link text-info me-2"></i> Cadastrar Promoter & Gerar Link Rastreado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="event.preventDefault(); alert('Promoter cadastrado e link exclusivo gerado!'); bootstrap.Modal.getInstance(document.getElementById('modalCreatePromoterLink')).hide();">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Nome do Promoter / Influencer *</label>
+                                <input type="text" class="form-control fs-12" placeholder="Ex: Felipe Baladas" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">WhatsApp do Promoter *</label>
+                                <input type="text" class="form-control fs-12" placeholder="(41) 99999-9999" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-12 fw-bold text-muted">Comissão (%) *</label>
+                                <input type="number" class="form-control fs-12" value="10" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Identificador UTM Personalizado *</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-light">?ref=</span>
+                                    <input type="text" class="form-control" placeholder="felipe_vip" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fs-12 fw-bold text-muted">Evento Vinculado</label>
+                                <select class="form-select fs-12">
+                                    <option value="3131">#3131 - Roupa Nova 40 Anos</option>
+                                    <option value="3130">#3130 - Twelve Beers Vitória</option>
+                                    <option value="3132">#3132 - Stand Up Diogo Almeida</option>
+                                    <option value="3634">#3634 - Música e Natureza</option>
+                                </select>
+                            </div>
+                            <div class="col-12 text-end mt-3">
+                                <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 fw-semibold" style="background:#0284c7;"><i class="fa-solid fa-link me-1"></i> Gerar Link</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: RECUPERAÇÃO WHATSAPP EM 1 CLIQUE -->
+    <div class="modal fade" id="modalWhatsappRecovery" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fa-brands fa-whatsapp me-2"></i> Recuperar Carrinho via WhatsApp</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-muted fs-12 mb-1">
+                            <span>Destinatário: <strong class="text-dark" id="modalRmkClientName">Rodrigo</strong></span>
+                            <span>WhatsApp: <strong class="text-success" id="modalRmkClientPhone">(41) 98822-1199</strong></span>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted fs-12 mb-2">
+                            <span>Evento: <strong class="text-dark" id="modalRmkEventName">Roupa Nova 40 Anos</strong></span>
+                            <span>Valor: <strong class="text-primary" id="modalRmkEventValue">R$ 480,00</strong></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fs-11 fw-bold text-muted mb-1">Mensagem Formatada</label>
+                        <textarea class="form-control fs-12" rows="5" id="modalRmkMessageText">Olá Rodrigo! Notamos que você não finalizou seu pedido para Roupa Nova 40 Anos. Seus ingressos estão reservados por mais 15 minutos! Finalize agora: https://diskingressos.com.br/checkout/recuperar?token=8923489</textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success btn-sm px-4 fw-bold" onclick="alert('Disparo enviado para o WhatsApp do cliente!'); bootstrap.Modal.getInstance(document.getElementById('modalWhatsappRecovery')).hide();">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Disparar Agora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </html>
